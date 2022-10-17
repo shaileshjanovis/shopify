@@ -1,0 +1,297 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<section class="product_home_carousel">
+  <div class="prd_home_carousel_wrap">
+  <div class="title-container">
+    <h1 class="primary-title">{{ section.settings.slider-title }}</h1>
+  
+  </div>
+
+  <div class="home_product_carousel">
+    <div class="row home_carousel ">
+      {% for product in collections[section.settings.feature_collection].products limit:20 %}
+      <div class="col-6 col-md-3 col-lg-3">
+        <div class="carousel-cell">
+          <a
+             {%if customer%}         
+             href="{{ product.url | within: collection }}" {%else%} href="/account/register" {%endif%}
+             class="product-item"
+             data-productid="{{ product.id }}"
+             data-id="{{ first_variant.id }}"
+             data-handle="{{ product_handle }}"
+             >
+            {% for tag in product.tags %}
+            {% if tag contains 'best--seller' %}
+            <!--<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/bs-heart.png?v=1612278154" class="best-seller">-->
+            <span class="product-tag">BEST SELLER</span>
+            {% endif %}
+
+            {% if tag contains 'New' %}
+            <span class="product-tag">NEW</span>
+            {% endif %}
+
+            {% endfor %}
+            <div class="thumbnail">
+              <img class="lozad"
+                   data-src="{{  product.featured_image | img_url: '360x' | format: 'jpg' }}"
+                   alt="{{ block.settings.slide_heading }}"
+                   >
+              <div class="info">
+              </div>
+
+            </div>
+            {% include 'wishlist-product' %}
+
+            <div class="product-item--review empty"></div>
+            <div class="yotpo bottomLine"
+                 data-appkey="54Cl6vxdUXl0gZrAqkzjhA72n0G1wHecRBo69g0B"
+                 data-domain="{{shop.permanent_domain | escape }}"
+                 data-product-id="{{ product.id }}"
+                 data-product-models="{{ product.id }}"
+                 data-name="{{ product.title | escape }}"
+                 data-url="{{ shop.url }}{{ product.url }}"
+                 data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+                 data-description="{{ product.description | escape }}"
+                 data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+            </div>
+            <script>
+              (function() {
+                setTimeout(function(){
+                  var productLang = {{prod_title_h}};
+                  var product = productLang['el (Greek)'];
+                  if(product != undefined){
+                    var title = product.gr_item_full_title;
+                    document.getElementsByClassName('prod_title_{{forloop_index}}')[0].innerHTML = title;
+                  }
+                 },2000);
+               })();
+            </script>
+            
+            <h4 class="prod_title prod_title_{{forloop_index}}">{{ product.title }}</h4>
+
+            <p class="price">
+              {{ product.price | money }}
+
+            </p>
+            <div class="btn-mobile mobile">
+              {%- unless customer -%}
+              {%- else -%}
+              <span
+                    type="submit"
+                    id="order-submit"
+                    data-id="{{product.variants[0].id}}"
+                    name="add"
+                    data-price="{{ product.price | money }}"
+                    class="add-to-cart btn-theme andri order_submit_data" data-id="{{product.variants[0].id}}"
+                    {% if kettle_metafield.hero_qvc_link %}data-href="{{ kettle_metafield.hero_qvc_link }}"{% endif %}
+                    >
+                {%- if kettle_metafield.hero_qvc_link -%}
+                Buy On QVC
+                {%- else -%}
+                Add To Bag
+                {% if has_ss %}
+                <span class="ss-price">{{ ss_price }}</span>
+                {% endif %}
+                {%- endif -%}
+                {%- endunless -%}
+              </span>
+
+            </div>
+          </a></div>
+</div>
+      {% endfor %}
+    </div> 
+    <div class="row mobile_carousel">
+      {% for product in collections[section.settings.feature_collection].products limit:8 %}
+      <div class="col-6 col-md-3 col-lg-3">
+        <div class="carousel-cell">
+          <a
+             {%if customer%}         
+             href="{{ product.url | within: collection }}" {%else%} href="/account/register" {%endif%}
+             class="product-item"
+             data-productid="{{ product.id }}"
+             data-id="{{ first_variant.id }}"
+             data-handle="{{ product_handle }}"
+             >
+            {% for tag in product.tags %}
+            {% if tag contains 'best--seller' %}
+            <span class="product-tag">BEST SELLER</span>
+            {% endif %}
+
+            {% if tag contains 'New' %}
+            <span class="product-tag">NEW</span>
+            {% endif %}
+
+            {% endfor %}
+            <div class="thumbnail">
+              <img
+                   src="{{  product.featured_image | img_url: 'master' | format: 'jpg' }}"
+                   alt="{{ block.settings.slide_heading }}"
+                   >
+              <div class="info">
+                <div
+                     class="review yotpo bottomLine"
+                     data-product-id="{{ product.id }}"
+                     >
+                  {%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
+          {%- assign time_now = 'now' | date: '%s' %}
+          {%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
+          {%- assign diff_seconds_from_live = time_now | minus: yotpo_live_time %}
+          {%- assign yotpo_bottomline_last_updated = product.metafields.yotpo.catalog_bottomline_update_time | date: '%s' %}
+          {%- assign diff_seconds_from_last_bottomline_update = time_now | minus: yotpo_bottomline_last_updated %}
+          {%- if yotpo_live_time and diff_seconds_from_live < 86400 or yotpo_bottomline_last_updated and diff_seconds_from_last_bottomline_update < 86400 -%}
+                  {%- assign yotpo_bottomline_obsolete = false %}
+          {%- else %}
+            {%- assign yotpo_bottomline_obsolete = true %}
+          {%- endif %}
+          {%- if yotpo_offload_content == 'yes' and yotpo_bottomline_obsolete != true -%}
+                  {{ product.metafields.yotpo.catalog_bottomline }}
+                  {%- endif %}
+        </div>
+              </div>
+
+            </div>
+            {% include 'wishlist-product' %}
+
+            <div class="product-item--review empty"></div>
+            <div class="yotpo bottomLine"
+                 data-appkey="54Cl6vxdUXl0gZrAqkzjhA72n0G1wHecRBo69g0B"
+                 data-domain="{{shop.permanent_domain | escape }}"
+                 data-product-id="{{ product.id }}"
+                 data-product-models="{{ product.id }}"
+                 data-name="{{ product.title | escape }}"
+                 data-url="{{ shop.url }}{{ product.url }}"
+                 data-image-url="{{ product.featured_image | product_img_url: 'large' |replace: '?', '%3F' | replace: '&','%26'}}"
+                 data-description="{{ product.description | escape }}"
+                 data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}">
+            </div>
+            <h4>{{ product.title }}</h4>
+
+            <p class="price">
+              {{ product.price | money }}
+
+            </p>
+            <div class="btn-mobile mobile">
+              {%- unless customer -%}
+              <button class="btn-slider" type="button">Sign Up to Shop</button>
+              {%- else -%}
+              <span
+                    type="submit"
+                    id="order-submit"
+                    data-id="{{product.variants[0].id}}"
+                    name="add"
+                    data-price="{{ product.price | money }}"
+                    class="add-to-cart btn-theme andri order_submit_data" data-id="{{product.variants[0].id}}"
+                    {% if kettle_metafield.hero_qvc_link %}data-href="{{ kettle_metafield.hero_qvc_link }}"{% endif %}
+                    >
+                {%- if kettle_metafield.hero_qvc_link -%}
+                Buy On QVC
+                {%- else -%}
+                Add To Bag
+                {% if has_ss %}
+                <span class="ss-price">{{ ss_price }}</span>
+                {% endif %}
+                {%- endif -%}
+                {%- endunless -%}
+              </span>
+
+            </div>
+          </a></div>
+      </div>
+      {% endfor %}
+    </div> 
+    <a href="/collections/all-products" class="btn-new border show-more-text web">
+      {{ 'homepage.title.Discover_all' | t: Discover_all }} <span>{{ section.settings.sho-m-arrow }}</span>
+    </a>
+    <a href="/collections/all-products" class="show-more-text mobile">
+      {{ 'homepage.title.Discover_all' | t: Discover_all }} <span>{{ section.settings.sho-m-arrow }}</span>
+    </a>
+</div>
+  
+  
+  </div>
+</section>
+
+<style>
+  .home_carousel .slick-prev {
+    left: 0;
+    background-image:url('https://cdn.shopify.com/s/files/1/0515/5785/9489/files/left.svg?v=1636606673') !important;
+  }
+  .home_carousel .slick-next {
+    right: 0;
+    background-image:url('https://cdn.shopify.com/s/files/1/0515/5785/9489/files/right.svg?v=1636606682') !important;
+  }
+  .home_carousel .slick-next, .home_carousel .slick-prev {
+    font-size: 0;
+    line-height: 0;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: -10px;
+    -webkit-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: 0;
+    background: 0 0;
+    position:absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .mobile_carousel{
+   display:none !important; 
+  }
+  .home_product_carousel .wishlist-btn .show a svg path {
+    fill: #fff!important;
+    stroke: #050F96;
+  }
+  a.added-wishlist.add_to_wishlist svg path {
+    fill: #050f96 !important;
+    stroke: #050f96;
+}
+  
+.btn{
+  user-select:all;
+}
+.wishlist-btn.is-active .show a svg path {
+    fill: #180e96!important;
+    stroke: #444!important;
+    stroke-linecap: round!important;
+    stroke-linejoin: round!important;
+}
+.wishlist-btn .show a svg path {
+    fill: #fff!important;
+    stroke: #444444;
+    stroke-linecap: round!important;
+    stroke-linejoin: round!important;
+}
+ .home_product_carousel .added-wishlist svg {
+    max-width: 25px;
+}
+    @media all and (min-width:769px){
+    .home_carousel .slick-list {
+        position: relative;
+        display: block;
+        overflow: hidden;
+    }
+  }
+  @media(max-width:768px){
+    .mobile_carousel{
+      display:none !important; 
+    }
+  }
+</style>
+
+<script>
+  
+  $('.wishlist-btn').click(function(){
+if($(this).hasClass('is-active')){
+   $(this).removeClass('is-active');
+}else{
+  $(this).addClass('is-active');
+};
+
+});
+</script>

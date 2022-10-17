@@ -1,0 +1,45 @@
+{% unless template contains 'search' %}
+<div class="add-to-wishlist wishlist-btn" data-product-handle="{{ product.id }}">     
+  <div class="show">
+    <div class="default_behave default-wishbutton-{{ product.handle }} loading">
+        <a class="not_in_wish add-in-wishlist-js btn " href="{{ product.handle | handleize }}">
+          {% render 'icon-wishlist' %}
+          <span class="tooltip-label" style="opacity:0">Add to wishlist</span>
+        </a>
+    </div>
+    <div class="loading_behave loadding-wishbutton-{{ product.handle }} loading btn" style="display: none; pointer-events: none">
+        <a class="add_to_wishlist" href="{{ product.handle | handleize }}">
+          <i class="fas fa-spinner"></i>
+        </a>
+    </div>
+    <div class="added_behave added-wishbutton-{{ product.handle }} loading" style="display: none;">
+        <a class="added-wishlist add_to_wishlist btn" href="/pages/wishlist">
+          {% render 'icon-wishlist-active' %}
+        </a>
+    </div>
+  </div>
+</div>
+{% endunless %}
+
+{% if template contains 'search' %}
+  <div class="add-to-wishlist wishlist-btn" data-product-handle="{{ item.id }}">     
+  <div class="show">
+    <div class="default_behave default-wishbutton-{{ item.handle }} loading">
+        <a class="not_in_wish add-in-wishlist-js btn " href="{{ item.handle | handleize }}">
+          {% render 'icon-wishlist' %}
+          <span class="tooltip-label" style="opacity:0">Add to wishlist</span>
+        </a>
+    </div>
+    <div class="loading_behave loadding-wishbutton-{{ item.handle }} loading btn" style="display: none; pointer-events: none">
+        <a class="add_to_wishlist" href="{{ item.handle | handleize }}">
+          <i class="fas fa-spinner"></i>
+        </a>
+    </div>
+    <div class="added_behave added-wishbutton-{{ item.handle }} loading" style="display: none;">
+        <a class="added-wishlist add_to_wishlist btn" href="/pages/wishlist">
+          {% render 'icon-wishlist-active' %}
+        </a>
+    </div>
+  </div>
+</div>
+{% endif %}

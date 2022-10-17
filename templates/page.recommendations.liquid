@@ -1,0 +1,804 @@
+<div class="profile">
+  <h1>Your skin profile</h1>
+  <div class="type">Breakouts can happen in people with oily skin. But treating them is easy – especially in your 20s. And your skin deserves special treatment.</div>
+  <div class="answers">
+    <div id="description">
+      <h4>Skin Description</h4>
+      <p>Oily</p>
+    </div>
+    <div id="enviroment">
+      <h4>Environment</h4>
+      <p>Dry</p>
+    </div>
+    <div id="age">
+      <h4>Age</h4>
+      <p>20s</p>
+    </div>
+    <div id="lifestyle">
+      <h4>Lifestyle</h4>
+      <p>Sun-lover</p>
+    </div>
+    <div id="concern">
+      <h4>Skin Concern</h4>
+      <p>Breakouts</p>
+    </div>
+    <div id="second-concern">
+      <h4>Skin Concern</h4>
+      <p>Dark Spots + Hyperpigmentation</p>
+    </div>
+    <div id="ingredient">
+      <h4>Key Ingredient</h4>
+      <p>Greek Yoghurt</p>
+    </div>
+    <div id="second-ingredient">
+      <h4>Key Ingredient</h4>
+      <p>Wild Rose</p>
+    </div>
+  </div>
+  <div class="scroll">
+    <p>We've curated a collection of KORRES products for you.</p>
+    <img src="https://cdn.shopify.com/s/files/1/0287/4019/0267/t/34/assets/down-arrow.svg?v=1604339057"class="scroll-arrow" />
+  </div>
+</div>
+
+<div class="products">
+  <div class="product-list">
+    <header class="products_list">
+      <h2>Your best matches</h2>
+      <h3>We’ve selected a few serums and masks to help you reach your skin goals. The ingredients in these formulas will nourish your skin, brighten your complexion, and fade discoloration.</h3>  
+    </header>
+    <div class="page-content">
+      {{ page.content }}
+
+      <div id="products" class="ProductList ProductList--grid Grid" data-mobile-count="1" data-desktop-count="4">
+        <div id="step-1" class="product Grid__Cell 1/1--phone 1/2--tablet-and-up 1/4--lap-and-up"><header></header></div>
+      </div>
+    </div>
+    <header class="products_list">
+      <h2>Enhance your skin further</h2>
+      <h3>We’ve put together a few more products that work well for people with your unique skin profile.</h3>  
+    </header>
+    <div class="page-content">
+      {{ page.content }}
+
+      <div id="products" class="ProductList ProductList--grid Grid" data-mobile-count="1" data-desktop-count="4">
+        <div id="step-2" class="product Grid__Cell 1/1--phone 1/2--tablet-and-up 1/4--lap-and-up"><header></header></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="cart-list" >
+      <h2>Treatment overview</h2>
+      <div>
+        Your personalized matches are ready for you.<br>
+        Select or unselect before checkout.
+      </div>
+      <div>
+        <div>
+          <span><strong>FOR:</strong> <span id="user-name">Ana</span></span>
+          <span><strong>DATE:</strong> <span id="date">9/25/2020</span></span>
+        </div>
+        
+        <div class="ProductList ProductList--grid Grid" data-mobile-count="1" data-desktop-count="4">
+        <div id="cart-1" class="product Grid__Cell 1/1--phone 1/2--tablet-and-up 1/4--lap-and-up"></div>
+        <div>
+          <div class="cart-signature">
+            <img src="https://cdn.shopify.com/s/files/1/0287/4019/0267/t/34/assets/signature.png?v=1604349071"class="signature" />
+          </div>
+          <form method="post" action="/cart/add" accept-charset="UTF-8" id="add-all" class="ProductForm"
+              enctype="multipart/form-data" data-productid="${product.id}">
+              <div class="cart-discount">
+                <strong>10% discount applied to your cart.</strong><br>
+                Add one more product to get an additional 5% discount.
+              </div>
+              <button type="submit"
+              class="cart-cta"
+              data-action="add-to-cart"><span>Add To Cart - <p id="add-all-price"></p> <p id="add-all-price-discount"></p></span></button>
+              <a href="https://www.korres.com/pages/skin-quiz" class="cart-retake">Retake this quiz &#8635;</a>
+              <input type="hidden" name="form_type" value="product" />
+              <input type="hidden" name="id" data-productid="${product.id}" data-sku="SBDSYSF" value="${product.variants[0].id}">
+          </form>
+        </div>
+      </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="more">
+  <div>
+    <p>KORRES products are made with the purest ingredients that have been hand-picked and harvested from local farms with the highest standards for purity, efficacy and sustainability.</p>
+    <a href="https://www.korres.com/pages/our-process">See Our Full Circle Process ></a>
+  </div>
+</div>
+
+<style>
+  body {
+    display: block;
+  }
+  .profile {
+    background-color: #FCF7F1;
+    padding: 10rem 8rem;
+    padding-bottom: 4rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 56px;
+    text-align: center;
+
+  }
+  .type {
+    font-size: 1.4rem;
+    line-height: 30px;
+    letter-spacing: 0.01em;
+    text-align: center;
+    max-width: 50rem;
+    margin: .75rem auto;
+  }
+  .answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+    border-top: 2px solid #000;
+    margin-top: 2.5rem;
+    border-bottom: 1px solid #DCDCDC;
+  }
+  .answers div {
+    padding: 3rem;
+    border: 1px solid #DCDCDC;
+  }
+  .answers div:first-child,
+  .answers div:nth-child(5) {
+    border-left: none;
+  }
+  .answers div:nth-child(4),
+  .answers div:last-child {
+    border-right: none;
+  }
+  .answers div p {
+    text-transform: capitalize;
+  }
+  .answers h4 {
+    font-family: Italian Typewriter;
+    font-size: 1.2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+  .answers p {
+    font-size: 1.5rem;
+    line-height: 31px;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+  
+  .scroll {
+    margin-top: 4rem;
+  }
+  .scroll p {
+    font-size: 1.2rem;
+    line-height: 22px;
+    text-align: center;
+  }
+  .scroll img {
+    margin-top: 1rem;
+  }
+  
+  .products_list {
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #444;
+  }
+  
+  .products_list:nth-of-type(2) {
+    margin-top: 4rem;
+  }
+  .products_list h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 56px;
+  }
+  .products_list h3 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0.02em;
+  }
+  
+  .cart-list {
+    border: 1px solid #000;
+    padding: 2rem 1rem;
+  }
+  .cart-list h2 {
+    font-family: Italian Typewriter;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+
+  }
+  
+  .cart-list > div:first-of-type {
+    font-size: 1.1rem;
+    line-height: 21px;
+    letter-spacing: 0.01em;
+    text-align: center;
+
+  }
+  
+  .cart-list > div:not(:first-of-type) {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    border-top: 2px solid #444;
+  }
+  
+  .cart-list > div:not(:first-of-type) > div:first-child {
+    display: flex;
+    justify-content: space-between;
+  }
+  #user-name,
+  #date {
+    font-family: Italian Typewriter;
+    font-size: 1.3rem;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+
+  }
+  .cart-signature {
+    display: flex;
+    margin-top: 2rem;
+  }
+  .signature {
+    width: 100%;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    max-width: 30rem;
+    
+  }
+  .cart-discount {
+    margin: 0 1rem;
+  }
+  .cart-cta {
+    background-color: #444;
+    padding: 1rem;
+    color: #FFF;
+    border: none;
+    font-family: Italian Typewriter;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    width: calc(100% - 2rem);
+    margin: 1rem;
+  }
+  .cart-cta p {
+    display: inline;
+  }
+  .cart-retake {
+    display: block;
+    text-decoration: underline;
+    font-family: Italian Typewriter;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 30px;
+	margin: 0 1rem;
+    color: #444;
+  }
+  .more {
+    background-image: url("https://cdn.shopify.com/s/files/1/0287/4019/0267/t/34/assets/450_KORRES_OLIVE_DRIEDLEAVES.png?v=1604349236");
+    background-size: cover;
+    background-position: center;
+    height: 50rem;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .more > div {
+    background-color: #FFF;
+    padding: 3rem;
+    font-family: Italian Typewriter;
+    font-size: 1.4rem;
+    line-height: 26px;
+	position: absolute;
+    width: 32rem;
+    margin-left: 4rem;
+  }
+  .more a {
+    font-family: Italian Typewriter;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 24px;
+    text-decoration: underline;
+    color: #444;
+    margin-top: 2rem;
+    display: block;
+  }
+  
+  .page-content:first-of-type .product_wrapper::before {
+    content: "";
+    width: 8rem;
+    height: 8rem;
+    top: -4rem;
+    left: -.25rem;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 10;
+	background-size: 100% 100%;
+    width: 4rem;
+    height: 4rem;
+    top: 1rem;
+    background-image: url("https://cdn.shopify.com/s/files/1/0287/4019/0267/t/34/assets/must_have.png?v=1604530066") !important;
+  }
+  .page-content:first-of-type .ProductForm:nth-child(n+4){
+    display:none;
+  }
+  .page-content:nth-of-type(2) .ProductForm:nth-child(-n+3){
+    display:none;
+  }
+  .ProductForm:last-of-type .product_wrapper {
+    border-bottom: 0;
+  }
+  
+  .product-list .product_wrapper {
+    position: relative;
+    border-bottom: 1px solid #DCDCDC;
+    box-sizing: content-box;
+	display: grid;
+    grid-template-columns: 21rem 1fr;
+    background: #fff;
+    height: 20rem;
+  }
+  .product-list .product_info {
+    padding: 2rem 0;
+  }
+  .product-list .product_type {
+    font-family: Graphik;
+    font-size: .9rem;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+  }
+  .product-list .product_heading a {
+    margin-top: .5rem;
+    font-family: Graphik;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 31px;
+	text-decoration: none;
+    color: #444;
+  }
+  .product-list .product_description {
+    font-family: Graphik;
+    font-size: 1.2rem;
+    line-height: 1.4;
+	margin-top: .5rem;
+  }
+  
+  .product-list .product_image_wrapper  {
+  	width: 21rem; 
+    flex-grow: 0;
+    overflow: hidden;
+  }
+  
+  .product-list .AspectRatio {
+    width: 21rem;
+    position: relative;
+    overflow: hidden;
+    height: 24rem;
+  }
+  .product-list .product_image {
+   	width: auto; 
+    width: 24rem;
+    position: absolute;
+    max-width: auto;
+    height: 20rem;
+    margin: 0 auto;
+    transform: translateX(-12%);
+  }
+
+  
+  .cart-list .product {
+    border-top: 1px solid #DCDCDC;
+    border-bottom: 1px solid #DCDCDC;
+    margin-top: 1rem;
+  }
+  .cart-list .product_wrapper {
+    display: grid;
+    grid-template-columns: 4rem 4rem 1fr 4rem;
+  }
+  .cart-list .product_wrapper > * {
+    border: 1px solid #DCDCDC;
+  }
+  .cart-list .product_wrapper > *:first-child {
+    border-left: none;
+  }
+  .cart-list .product_wrapper > *:last-child {
+    border-right: none;
+  }
+  .cart-list .product_check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cart-list .product_check input {
+    border: 2px solid #444444;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .cart-list .product_check input[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='25' viewBox='0 0 24 25' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.9581 6.03512C18.6033 10.0824 14.249 14.5058 11.6776 20.1065C11.295 20.9398 10.4303 21.4615 9.52072 21.346L7.91113 21.1417C7.16893 21.0475 6.48419 20.7829 6.10843 20.136C5.15594 18.4961 3.52041 14.9823 2.12578 13.6961C3.29774 13.8401 3.91246 12.6018 4.81212 13.0353C6.23078 13.719 7.70848 16.2893 8.24735 17.6896C8.32527 17.8974 8.65068 17.9398 8.78226 17.7595C11.2102 14.3631 14.5416 11.3254 17.6349 9.17891C19.4361 7.87426 22.3597 6.20571 23.9581 6.03512Z' fill='%23111E90'/%3E%3C/svg%3E%0A");
+    background-position: -25% 110%;
+  }
+  .cart-list .AspectRatio {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 1rem auto;
+    overflow: hidden;
+  }
+  .cart-list .product_image {
+    height: 4rem;
+  }
+  .cart-list .product_heading {
+    text-align: left !important;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 1rem;
+  }
+  .cart-list .product_heading a {
+    font-family: Graphik;
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 500;
+    color: #444;
+    text-decoration: none;
+    max-width: 90%;
+  }
+  .cart-list .product_price {
+    font-family: Italian Typewriter;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 27px;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #add-all-price {
+    text-decoration: line-through;
+  }
+  
+  
+  
+  
+  
+  .ProductList__CategoryHeader > * {
+    margin-bottom: 2rem
+  }
+  .bodyWrap {
+   background-color: #fef6f0; 
+  }
+  .products {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 4rem;
+    gap: 4rem;
+    padding: 4rem 8rem;
+  }
+    #cart .ProductItem__CTA button span {
+     font-size: 20px !important;
+     font-weight: 500;
+      
+    }
+  
+   #cart .ProductItem__CTA button  {
+    width: 100px; 
+   }
+  @media only screen and (min-width: 80rem) {
+    .products {
+      grid-template-columns: calc(65% - 2rem) calc(35% - 2rem);
+    }
+  }
+  .scroll-text {
+    text-align: center;
+      display: block;
+    margin-bottom: 1rem;
+  }
+  .scroll-arrow {
+	display: block;
+margin: 0 auto;
+  }
+    
+  @media only screen and (max-width: 1080px) {
+    
+    .profile {
+      padding: 5rem 4rem;
+      padding-bottom: 2rem;
+    }
+    
+    .answers {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .answers {
+      border-bottom: 1px solid #DCDCDC;
+    }
+    .answers div {
+      border: 1px solid #DCDCDC !important;
+    }
+    .answers div:nth-child(odd) {
+      border-left: none !important;
+    }
+    .answers div:nth-child(even) {
+      border-right: none !important;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 4rem;
+      gap: 4rem;
+      padding: 2rem 4rem;
+    }
+  }
+  
+  @media only screen and (max-width: 720px) {
+    .product-list .product_wrapper {
+      grid-template-columns: 1fr;
+      height: auto;
+    }
+    .product-list .product_image_wrapper,
+    .product-list .AspectRatio {
+      width: auto;
+      height: auto;
+    }
+    .product-list .product_image {
+		position: relative;
+    }
+    .product-list .product_image {
+      display: block;
+      transform: none;
+    }
+    
+    .profile {
+      padding: 5rem 1rem;
+    }
+    .products {
+      padding: 2rem 1rem;
+    }
+    .answers div {
+      padding: 1rem;
+    }
+    .answers p {
+      font-size: 1.2rem;
+    }
+    .more {
+      justify-content: center;
+    }
+    .more > div {
+      width: 75%;
+      margin: 0 auto;
+    }
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script>
+  var params = window.location.search.substr(1).split('&').reduce(function (q, query) {
+    var chunks = query.split('=')
+    var key = chunks[0]
+    var value = chunks[1]
+    return (q[key] = value, q)
+  }, {})
+
+  var products = (params['products'] || "").split(',')
+  
+  /* Start filled in parameters */
+  if (params['user_name'] && params['user_name'].indexOf('+') > -1) {
+    $('#user-name').text(params['user_name'].replace(/\+/g, " "))
+  } else if (params['user_name']) {
+    $('#user-name').text(params['user_name'])
+  }
+  var today = new Date();
+  var date = (Number(today.getMonth())+1) + "/" + today.getDate() + "/" + today.getFullYear();
+  $('#date').text(date)
+  
+  if (params['condition']) {
+    $('#description p').text(params['condition'])
+  }
+  if (params['enviroment']) {
+    $('#enviroment p').text(params['enviroment'].replace(/_/g, " "))
+  }
+  if (params['age']) {
+    $('#age p').text(params['age'])
+  }
+  if (params['lifestyle']) {
+    $('#lifestyle p').text(params['lifestyle'].split(',')[0].replace(/_/g, " "))
+  }
+  if (params['concern']) {
+    $('#concern p').text(params['concern'].split(',')[0].replace(/___/g, " + ").replace(/_/g, " "))
+  }
+  if (params['concern'] && params['concern'].indexOf(',') > -1) {
+    $('#concern p').text(params['concern'].split(',')[0].replace(/___/g, " + ").replace(/_/g, " "))
+    $('#second-concern p').text(params['concern'].split(',')[1].replace(/___/g, " + ").replace(/_/g, " "))
+  } else if(params['concern']) {
+    $('#concern p').text(params['concern'].replace(/___/g, " + ").replace(/_/g, " "))
+  }
+  function populatePrices(addAllPrice, addAllLink) {
+    var price = 0;
+    var link = [];
+    if(document.getElementById("checkbox-0").checked == true) {
+      price += addAllPrice[0]
+      link.push(addAllLink[0])
+    };
+    if(document.getElementById("checkbox-1").checked == true) {
+      price += addAllPrice[1]
+      link.push(addAllLink[1])
+    };
+    if(document.getElementById("checkbox-2").checked == true) {
+      price += addAllPrice[2]
+      link.push(addAllLink[2])
+    };
+    if(document.getElementById("checkbox-3").checked == true) {
+      price += addAllPrice[3]
+      link.push(addAllLink[3])
+    };
+    if(document.getElementById("checkbox-4").checked == true) {
+      price += addAllPrice[4]
+      link.push(addAllLink[4])
+    };
+    function discountCode() {
+      if (link.length < 4) {
+      	return "?discount=HELLO10"
+      } else {
+        return "?discount=HELLO15"
+      }
+    };
+    
+    $('#add-all').attr('action', `/cart/${link.join(',')}${discountCode()}`);
+    $('#add-all-price').text(`$${price.toFixed(2)}`)
+    function priceDiscount() {
+      if (link.length < 4) {
+        return price * .9;
+      } else {
+        return price * .85
+      }
+    };
+    $('#add-all-price-discount').text(`$${priceDiscount().toFixed(2)}`)
+  }
+  var addAllToCartLink = [];
+  var addAllToCartPrice = [];
+  
+  Promise.all(products.map(function (product) {
+    return new Promise(function (resolve, reject) {
+      fetch('/products/' + product + '.json')
+      .then(function(result) { return result.json() })
+      .then(function(data) { 
+        resolve(data.product)
+      })
+      .catch(reject)
+    })
+    
+  }))
+  .then(function (products) {
+    var steps = [[], [], [], []]
+	
+    var product_template = function(product, index) {
+      var type = product.title.split(" ").splice(-1)[0];
+      var option = product.variants[0].option1.replace(/ *\([^)]*\) */g, "");
+      var option2 = product.variants[1] ? product.variants[1].option1.replace(/ *\([^)]*\) */g, "") : null;
+      return `
+		<div class="ProductForm"> 
+			<div class="product_wrapper">
+				<a href="/collections/shop/products/the-dr-sam-system" class="product_image_wrapper">
+					<div class="AspectRatio"
+						style="--aspect-ratio: 1.0"><img
+						class="product_image"
+						data-widths="[600,700,800,900,1000,1200]" data-sizes="auto" alt="Product picture"
+						data-image-id="${product.images[0].id}" data-srcset="${product.images[0].src} 1200w"
+						sizes="760px" srcset="${product.images[0].src} 1200w">
+						<span class="Image__Loader"></span>
+
+						<noscript>
+							<img class="product_image" src="${product.images[0].src}" alt="The Dr Sam System">
+                        </noscript>
+                    </div>
+                </a>
+
+				<div class="product_info">
+                    <h2 class="product_type">${type}</h2>
+					<h2 class="product_heading">
+						<a href="/products/${product.handle}">${product.title}</a>
+  					</h2>
+					<div class="product_description">${product.body_html}</div>
+  				</div>
+  			</div>
+  		</div>`
+    
+    }
+    
+    var cart_template = function(product, index) { 
+      addAllToCartLink.push(`${product.variants[0].id}:1`);
+      addAllToCartPrice.push(Number(product.variants[0].price));
+      var option = product.variants[0].option1.replace(/ *\([^)]*\) */g, "");
+
+      return `
+          <form method="post" action="/cart/add" id="product_form_${product.id}" accept-charset="UTF-8" class="ProductForm"
+              enctype="multipart/form-data" data-productid="${product.id}">
+              <div class="product_wrapper">
+                  <div class="product_check">
+					<input type="checkbox" id="checkbox-${index}" onclick="populatePrices(addAllToCartPrice, addAllToCartLink);" data-action="add-to-cart" ${index == 0 || index == 1 || index == 2 ? "checked" : ''}/>
+  				  </div>
+                  <a href="/collections/shop/products/the-dr-sam-system" class="product_image_wrapper">
+                      <div class="AspectRatio"
+                          style="--aspect-ratio: 1.0"><img
+                          class="product_image"
+                          data-widths="[600,700,800,900,1000,1200]" data-sizes="auto" alt="Product picture"
+                          data-image-id="${product.images[0].id}" data-srcset="${product.images[0].src} 1200w"
+                          sizes="760px" srcset="${product.images[0].src} 1200w">
+                          <span class="Image__Loader"></span>
+
+                          <noscript>
+                              <img class="product_image" src="${product.images[0].src}" alt="The Dr Sam System">
+                          </noscript>
+                      </div>
+                  </a>
+                    <h2 class="product_heading">
+                        <a href="/products/${product.handle}">${product.title}</a>
+                    </h2>
+                    <h4 class="product_price">$${product.variants[0].price.split(".")[0]}</h4>
+              </div>
+
+              <input type="hidden" name="form_type" value="product" />
+              <input type="hidden" name="id" data-productid="${product.id}" data-sku="SBDSYSF" value="${product.variants[0].id}">
+          </form>`
+    }
+
+    products.forEach(function(product) {
+      var tags = product.tags.split(', ')
+      if (tags.indexOf("deep conditioner") !== -1) {
+        steps[1].push(product)
+      } else if (tags.indexOf("leave in conditioner") !== -1) {
+        steps[2].push(product)
+      } else if (tags.indexOf("stylers") !== -1) {
+        steps[3].push(product)
+      } else {
+        steps[0].push(product)
+      }
+    })
+
+    function populateProducts(products, element) {
+      document.getElementById(element).innerHTML = products.map(product_template).join('')
+    }
+    
+    function populateCart(products, element) {
+      document.getElementById(element).innerHTML = products.map(cart_template).join('')
+      populatePrices(addAllToCartPrice, addAllToCartLink);
+    }
+    
+    steps.forEach((step, index) => {
+        if (!!step.length) {
+            populateProducts(step, "step-1");
+            populateProducts(step, "step-2");
+
+            populateCart(step, "cart-1");
+
+        } else {
+            $('.step')[index].remove()
+            $('.category')[index].remove()
+        }
+    })
+
+  })
+
+</script>

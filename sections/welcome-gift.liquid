@@ -1,0 +1,74 @@
+<h1 id="Atcustomeremail" style="display:none;">{{ customer.email }}</h1>
+{% assign newhandle = shop.metafields.Collection.level_Welcome_Gift | split : '|' %}
+{% assign level_status = customer.metafields.Level.Level_25 %}
+{% assign first_order = customer.metafields.customer.first_order %}
+{% assign levelData = shop.metafields.circle.level_My_Olive_Circle %}
+
+{% assign decodelevel = levelData | split: "|" %}
+{% assign title = decodelevel[0] %}
+{% assign points = decodelevel[1] %}
+{% assign imagecover = decodelevel[2] | split : ',' %}
+{% assign image = imagecover[1] %}
+
+{% if first_order == null %}
+	{% assign gift_status = 'locked-gift' %}
+{% elsif level_status > 0 %}
+	{% assign gift_status = 'earned-gift' %}      
+{% else %}
+	{% assign gift_status = 'earn-gift' %}
+{% endif %}
+
+
+
+<div class="gift-page-container {{ gift_status }}">
+	<div class="top-img">		
+		<picture>
+           <source 
+			  media="(min-width: 400px)" srcset="{{ image }}" alt="" class="img-fluid">
+		   <source 
+			  media="(min-width: 300px)" srcset="{{ image }}" alt="" class="img-fluid">
+		   <img src="{{ image }}" alt="" class="img-fluid">
+		</picture>
+	</div>
+	
+  	<div class="gift-content">
+      	<h1>{% if request.locale.iso_code == 'el' %}Δώρο Καλωσορίσματος{% else %}Welcome Gift {% endif %}</h1>
+		<p class="sub-title">KORRES Beauty Gift</p>
+        {% if newhandle[1]  %}
+          {% assign handle = newhandle[1] %}
+        {% else %}
+          {% assign handle = 'welcome-gift' %}
+        {% endif %}
+      	
+      	<div class="welcome-button-block">
+          {% if first_order %}
+              {% if level_status %}
+                  <button class="welcome-product-info-earned reedim_points">{% if request.locale.iso_code == 'el' %}Εξαργυρωμένο{% else %}Earned Gift{% endif %}</button>
+              {% else %}
+                  <button class="gift-cart-button btn-earn-gift reedim_points_click_me" data-giftname="{{ title }}" data-circlename=" Olive Circle" data-href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/products/{{ handle }}" data-gift="{{ points }}">{% if request.locale.iso_code == 'el' %}Εξαργύρωση{% else %}Earn this Gift{% endif %}<span></span></button>
+              {% endif %}
+          {% else %}
+              <button class="btn-gift btn-earn-gift reedim_points">{% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %}</button>
+          {% endif %}
+      	</div>
+	</div>
+</div>
+<script>
+  (function(){
+    $(document).on('click','.reedim_points_click_me',function(){
+      var href = $(this).data('href');
+      href = href+'?view=gift';
+      var circlename = $(this).data('circlename')
+      var gift_point = $(this).data('gift')
+      href = href+'&circle='+circlename+'&giftpoint='+gift_point;
+      window.location.replace(href);
+    });
+  })()
+</script>
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}

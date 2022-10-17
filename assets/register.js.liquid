@@ -1,0 +1,338 @@
+function closeUsrFunction() {
+  document.getElementById("checkuserModal").style.display = "none";
+}
+
+$(document).ready(function(){
+  
+  $(".next-btn1").click(function() {
+    $('.error_email').hide();
+    $('.error_phone').hide(); 
+  	var check = $('#agree').prop('checked');
+    var email = $('#register_email').val();
+    var mobile = $('#mobile_number').val();
+    console.log("WWWWWWW",email);
+    if (mobile.length > 10) {
+      var imobile = mobile.replace(/\s+/g, '');
+      $('.error_phone').text('');
+    } else if (mobile.length > 3 && mobile.length < 10) {  
+      $('.error_phone').text('This Number is not valid, please enter correct.').show();
+      $('html, body').animate({
+        scrollTop: ($(".l_name").first().offset().top)
+      },500);
+      return;
+    } else {
+      var imobile = "";
+    }
+	
+    $.ajax({
+        type: "POST",
+        url: "https://api.korresfamily.com/api/v1/profileapi/checkuserstatus",
+        async:false,
+        dataType: 'json',
+        data: {
+          	"email":email
+        },
+        success: function(data){
+          if(data.status == 0){
+          	$('.getDidata').html(data.message);
+            $('.checkuser-modal').show(); 
+          } else{ 
+			
+            $.ajax({
+          		type: "GET",
+          		url: "https://api.korresfamily.com/api/v1/mobileverificationbyshopify?mobile="+imobile+"&email="+email,
+          		async:false,
+          		dataType: 'json'
+    		}).done(function(data){
+      			if(data.email != ''){              
+        			$('.error_email').show();
+        			$('.error_email').text($('.error_email').attr('data-error'));
+                    $('html, body').animate({
+                        scrollTop: ($("body").first().offset().top)
+                    },500);
+                    return;
+                } else if(data.mobile != ''){            
+                    $('.error_phone').show();
+                    $('.error_phone').text($('.error_phone').attr('data-error'));
+                    $('html, body').animate({
+                        scrollTop: ($(".l_name").first().offset().top)
+                    },500);
+                    return;
+                } else if(check == false){
+                  	$('.error_term').show();
+                  	$('#agree').parents('.signup-checkbox').addClass('Error_here');
+                } else {
+                  	$('.error_term').hide();
+                  	$('#agree').parents('.signup-checkbox').removeClass('Error_here');  
+                    if (v.form()) {
+                      	$("#step1").hide();
+                      	$("#step3").fadeIn(1000);
+                      	window.scrollTo(0,0);
+                    }
+                }
+    		});
+            
+          }
+        },
+        error: function(res){
+          setTimeout(function(e){
+          	location.reload();
+          },500);
+        }
+      });
+  	
+  });  
+  
+  $('#agree2').click(function() {       
+    if($(this).is(":checked") ==true ) {   
+      $(this).val('on');                
+    }else{
+      $(this).val('off');               
+    }
+  });
+  
+  var radioState;
+  $('#agree').on('click', function() {
+    if (radioState === this) {
+      this.checked = false;
+      radioState = null;
+    } else {
+      radioState = this;
+    }
+  });
+  
+});
+
+$('.register-form').on("input",function (e)  {
+  var email = $('.register-form input[name="customer[email]"]').val();
+  var pass = $('.register-form input[name="customer[password]"]').val();
+  var cpass = $('.register-form input[name="customer[password_confirmation]"]').val();
+
+  if (email == '' || pass == '' || cpass == '') {
+    $('.register-form input[type="button"]').prop('disabled', true);
+  } else if (email == pass) {
+    $('.error_naming_match').show();
+    $('.register-form input[type="button"]').prop('disabled', true);
+  } else if (cpass != pass) {
+    $('.register-form input[type="button"]').prop('disabled', true);
+  } else {
+    $('.error_naming_match').hide();
+    $('.register-form input[type="button"]').prop('disabled', false);
+  }
+});
+
+$(".form-group input").onchange = function (e) {
+  debugger;
+  if (this.value != '') {
+    e.target.style.border= "1px solid #32322D";
+  }
+};
+
+$('#register_password').change(function() {
+  $('#register_key').val($(this).val());
+});
+
+$('.btn-close').on("click", function () {
+  $(this).parents('#divMapModal').fadeOut();
+});
+
+$('.addBtn').click(function(){
+  $('.addpharmbtn').show();
+})
+
+var phone_suggest = false;
+function myphonesuggest() {
+  if (phone_suggest == false || $("#mobile_number").val() == "") {
+    $("#mobile_number").val("+30");
+  }
+  phone_suggest = true;
+}
+
+function showRecoverPasswordForm() {
+  document.getElementById('RecoverPasswordForm').style.display = 'block';
+  document.getElementById('CustomerLoginForm').style.display='none';
+}
+
+if (window.location.hash == '#recover') {
+  showRecoverPasswordForm() 
+}
+
+$.extend(jQuery.validator.messages, {
+  required: "This field is required.",
+  remote: "Please fix this field.",
+  email: "Please enter a valid email address.",
+  equalTo: "Please enter the same value again.",
+});
+
+var v = $("#create_customer").validate({
+  rules: {
+    'customer[email]': {
+      required: true,
+      email: true
+    },
+    'customer[password]': {
+      required: true,
+      pwcheck: true,
+      minlength: 8,
+      maxlength: 25
+    },
+    'customer[password_confirmation]': {
+      required: true,
+      minlength: 8,
+      maxlength: 25,
+      equalTo: "#register_password"
+    },
+    'customer[first_name]': {
+      required: false,
+    },
+    'customer[note][default_pharmacy]': {
+      required: true,
+    },
+    'terms':{
+      required: true,
+    },
+    'agree':{
+      required: false,
+    },
+    'customer[last_name]': {
+      required: false
+    }
+  },
+
+  errorPlacement: function(error, element) {
+    error.insertAfter('.form-group');
+  },
+  highlight: function(element) {
+    $(element).addClass('error-field');
+    $(element).parent().parent().parent().addClass('formhaserror');
+  },
+  showErrors: function (error, errorList) {
+    if (typeof errorList[0] != "undefined") {
+      var position = $(errorList[0].element).position().top;
+      $('html, body').animate({
+        scrollTop: position
+      }, 300);
+    }
+    this.defaultShowErrors();
+  },
+  unhighlight: function(element) {
+    $(element).removeClass('error-field');
+    $(element).parent().parent().parent().removeClass('formhaserror');
+  }
+});
+
+$.validator.addMethod("pwcheck", function(value) {
+  return /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%&*])[a-zA-Z0-9!@#$%&*]+$/.test(value) 
+  && /[a-z]/.test(value)
+  && /[A-Z]/.test(value)
+  && /\d/.test(value)
+});
+
+$.validator.addMethod("iamtext", function(value) {
+  return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value)
+});
+
+$('#agree').on('change',function(e){
+  var check = $('#agree').prop('checked');
+  if(check == false){
+    $('.error_term').show();
+    $('#agree').parents('.signup-checkbox').addClass('Error_here');
+  }else{
+    $('.error_term').hide();
+    $('#agree').parents('.signup-checkbox').removeClass('Error_here');
+  }
+})
+
+$("#final-register").click(function() {
+  if (v.form()) {
+    $("#step3").fadeIn(1000);
+    $('.progressbar-dots').removeClass('active');
+    $('.progressbar-dots:nth-child(3)').addClass('active');
+  }
+});
+
+$("#final-register").click(function() {
+  if (v.form()) {
+    return true;
+  }
+});
+
+$(function(){
+  $('.show-pass i').on('mousedown',function(){
+    $('#register_password').attr('type','text');
+  }).on('mouseup',function(){
+    $('#register_password').attr('type','password');
+  });
+});
+
+$(function(){
+  $('.show-re-pass i').on('mousedown',function(){
+    $('#password_confirm').attr('type','text');
+  }).on('mouseup',function(){
+    $('#password_confirm').attr('type','password');
+  });
+});
+
+$('#register_password').change(function() {
+  $('#register_key').val($(this).val());
+});
+
+$('#default_pharmacy').change(function(){
+  var value = $('#default_pharmacy').val().split(', ');
+  var firstName = value.shift();
+  var restOfNames = value.join(' ');
+  $('#filter_pharamcy_name').val(firstName);
+});
+
+$('.google.bt').on('click',function(e){
+  $('.h_google_button.h_google_center').click();
+})
+
+$('.facebook_pop .continue').on('click',function(e){
+  $('.h_facebook_button.h_facebook_center').click();
+})
+
+$('#default_pharmacy').change(function() {
+  var value = $('#default_pharmacy').val().split(', ');
+
+  var firstName = value.shift();
+
+  var restOfNames = value.join(' ');
+
+  $('#customer_tags').val(firstName);
+});
+
+$(".toggle-password").click(function() {
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $(this).parent('.input_cover').find('input');
+  if (input.attr("type") == "password") {
+    input.attr("type", "text");
+  } else {
+    input.attr("type", "password");
+  }
+});
+
+$('.great_btn').click(function(e){
+
+  $('.store_selection_pop').css("display","none");
+  e.preventDefault();
+});
+
+if (screen.width <= 768) {
+  jQuery( document ).ready(function() {
+    jQuery(".desk_map_selection").remove();
+  });
+}
+
+$(".btn-close").on("click", function() {
+  $('.custom-combobox-input').val("")
+});
+
+$('.register-form input').change(function(){
+  if($(this).val() ) {
+    $(this).css("border","1px solid #32322D ");
+  }
+  else {
+    $(this).css("border","1px solid #E6E7E8 ");    
+  }
+});

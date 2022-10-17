@@ -1,0 +1,563 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxvzSaxB2OhMHLmQbUGAR-UE8t_P6pV4U&amp;v=3"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script rel="preload" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  $(function () {
+    $.widget("custom.combobox", {
+      _create: function () {
+        this.wrapper = $("<span>")
+        .addClass("custom-combobox")
+        .insertAfter(this.element);
+
+        this.element.hide();
+        this._createAutocomplete();
+        this._createShowAllButton();
+      },
+
+      _createAutocomplete: function () {
+        var selected = this.element.children(":selected"),
+            value = selected.val() ? selected.text() : "";
+
+        this.input = $("<input>")
+        .appendTo(this.wrapper)
+        .val(value)
+        .attr("title", "")
+        .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+        .attr('placeholder', '{{ "Register.Placeholder.Store_Area_PostCode" | t: Store_Area_PostCode }}')
+        .autocomplete({
+          delay: 0,
+          minLength: 3,
+          source: $.proxy(this, "_source")
+        })
+        .tooltip({
+          classes: {
+            "ui-tooltip": "ui-state-highlight"
+          }
+        });
+        this._on(this.input, {
+          autocompleteselect: function (event, ui) {
+            ui.item.option.selected = true;
+            this._trigger("select", event, {
+              item: ui.item.option                    
+            });
+          },
+          autocompletechange: "_removeIfInvalid"
+        });
+      },
+      _createShowAllButton: function () {
+        var input = this.input,
+            wasOpen = false;
+
+        $("<a>")
+        .attr("tabIndex", -1)
+        .attr("title", "")
+        .tooltip()
+        .appendTo(this.wrapper)
+        .button({
+          icons: {
+            primary: "ui-icon-triangle-1-s"
+          },
+          text: false
+        })
+        .removeClass("ui-corner-all")
+        .addClass("custom-combobox-toggle ui-corner-right")
+        .on("mousedown", function () {
+          wasOpen = input.autocomplete("widget").is(":visible");
+        })
+        .on("click", function () {
+          input.trigger("focus");
+            if (wasOpen) {
+            return;
+          }
+            input.autocomplete("search", "");
+        });
+      },
+
+      _source: function (request, response) {
+        var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+        response(this.element.children("option").map(function () {
+          var text = $(this).text();
+          if (this.value && (!request.term || matcher.test(text)))
+            return {
+              label: text,
+              value: text,
+              option: this
+            };
+        }));
+      },
+
+      _removeIfInvalid: function (event, ui) {
+          if (ui.item) {
+          return;
+        }
+          var value = this.input.val(),
+            valueLowerCase = value.toLowerCase(),
+            valid = false;
+        this.element.children("option").each(function () {
+          if ($(this).text().toLowerCase() === valueLowerCase) {
+            this.selected = valid = true;
+            return false;
+          }
+        });
+        if (valid) {
+          return;
+        }
+        this.input
+        .val("")
+        .tooltip("open");
+        this.element.val("");
+        this._delay(function () {
+          this.input.tooltip("close").attr("title", "");
+        }, 2500);
+        this.input.autocomplete("instance").term = "";
+      },
+      _destroy: function () {
+        this.wrapper.remove();
+        this.element.show();
+      }
+    });
+    $("#toggle").on("click", function () {
+      $("#combobox").toggle();
+    });
+  });
+  $('.page-my-settings .my_setting_main #create_customer').bind("keypress", function (e) {  
+    if (e.keyCode == 13) {  
+      console.log('enter press');
+      return false;  
+    }  
+  });    
+</script>
+<script>
+  var jsonSrting = {{shop.metafields.pharmacy.poidetails | json}};
+  var jsonObj = JSON.parse(jsonSrting);
+  var currentSelectOption = 0;
+  var selectedItems = [];
+  var availableItems = jsonObj.pharmacy.pharmacy_id;
+  var locations = [];
+  function setGoogleMarkers() {
+    markers.map(function (r) {
+      r.setIcon("https://cdn.shopify.com/s/files/1/0515/5785/9489/files/plus.svg")
+    })
+    $(".selectedAreas").empty();
+    $(".def-pharmacy").empty();
+    
+    if (selectedItems != undefined && selectedItems != null && selectedItems.length > 0) {
+      for (var index = 0; index < selectedItems.length; index++) {
+
+        var element = selectedItems[index];
+        console.log('element '+element)       
+        var location = availableItems.filter((r,index) => {
+          var call = index;
+          var st = r.name;
+          if(element == call || element == st ){
+            return r;
+          }
+        });
+        if (location.length > 0);
+        $('#filter_pharamcy_name').val(location[0]['name']+','+location[0]['location']);
+        $('#customer_tags').val(location[0]['id']);
+        console.log($('[name="agree"]').is(':checked'));
+        if($('[name="agree"]').is(':checked')){
+          var value = $('#customer_tags').val();
+          value = value+',prospect,newsletter';
+          $('#customer_tags').val(value);
+        }
+      }
+    }
+  }
+  function setItems() {
+    var htmlData = "";
+    for (let i = 0; i < availableItems.length; i++) {
+      var my_variable = availableItems[i].name.split(',');
+      htmlData += `<option data-pharm_nm="`+my_variable[0]+`" value="`+my_variable[0]+`">${availableItems[i].name}, ${availableItems[i].postcode}, ${availableItems[i].location}</option>`;
+    }
+    $("#browser").html(htmlData);
+  }
+  $(document).ready(function () {
+    setItems();
+    $("#browser").combobox({
+      select: function (event, ui) {
+        var selectcount = this.value;
+        addToLocation(ui.item.value);
+      }
+    });
+    $("#browserWrap .custom-combobox-input").val('');
+  })
+  var map;
+  var markers = [];
+
+  function init() {
+    var styles = [
+      {
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#b2b2b2"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#bdbdbd"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#ffffff"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#dadada"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#b2b2b2"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.line",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.station",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#c9c9c9"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      }
+    ];
+    var styledMap = new google.maps.StyledMapType(styles, {
+      name: "Styled Map"
+    });
+    map = new google.maps.Map(document.getElementById('map_canvas'), {
+      fullscreenControl: false,
+      zoom: 16,
+      center: new google.maps.LatLng(37.984052, 23.731278),
+      icon: 'https://cdn.shopify.com/s/files/1/0515/5785/9489/files/plus.svg?v=1630577375',
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    var selectedSymbol = {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 5
+    };
+    map.mapTypes.set('map_style', styledMap);
+    map.setMapTypeId('map_style')
+    var num_markers = availableItems.length;
+    for (var i = 0; i < num_markers; i++) {
+      markers[i] = new google.maps.Marker({
+        position: {
+          lat: parseFloat(availableItems[i]['latitude']),
+          lng: parseFloat(availableItems[i]['longitude'])
+        },
+        map: map,
+        icon: 'https://cdn.shopify.com/s/files/1/0515/5785/9489/files/plus.svg',
+        html: availableItems[i]['name']+'<br/>'+availableItems[i]['location'],
+        id: i
+      });
+      google.maps.event.addListener(markers[i], 'click', function () {
+        if (selectedItems == null) {
+          selectedItems = [];
+        }
+        addToLocation(this.id.toString());
+       
+        setGoogleMarkers();
+        var infowindow = new google.maps.InfoWindow({
+        });
+        var markerrr = new google.maps.Marker({
+          position: location,
+          map: map,
+          icon: 'https://cdn.shopify.com/s/files/1/0515/5785/9489/files/ticknk.png',
+        });
+        google.maps.event.addListenerOnce(infowindow, 'closeclick', function () {
+          markers[this.id].setVisible(true);
+        });
+        this.setVisible(true);
+        this.setIcon(markerrr);
+        infowindow.open(map);
+      });
+    }
+  }
+  init();
+  function saveLocation(){
+    if (currentSelectOption != "") {
+      if (selectedItems.length < 3)
+        selectedItems.push(currentSelectOption);
+        setGoogleMarkers();
+        setTimeout(() => {
+                 $("#browserWrap .custom-combobox-input").val('');
+        },100);
+        $('.addBtn').hide();
+        $('.removeBtn').show();
+        $('.modal-shopping').show();
+        hideModal('divMapModal');
+        var email_msg = '';
+        var return_to_url_lang = $('input[name="return_to_url_lang"]').val();
+        var iemail = $('input[name="customer[email]"]').val();
+        var ipassword = $('input[name="customer[password]"]').val();
+        var ifirst_name = $('input[name="customer[first_name]"]').val();
+        var ilast_name = $('input[name="customer[last_name]"]').val();
+        var imobile = $('input[name="customer[phone]"]').val();
+        
+        var iterms = $('input[name="terms"]').val();
+        var iaccepts_marketing = $('input[name="customer[accepts_marketing]"]').val();
+        var itags = $('input[name="customer[tags]"]').val();
+        var inote_key = $('input[name="customer[note][key]"]').val();
+        var inote_default_pharmacy = $('input[name="customer[note][default_pharmacy]"]').val();
+        var ibrowser = $('select[name="browser"]').val();
+        if(imobile.length > 3){
+          imobile = imobile.replace(/\s+/g, '');
+        } else {
+          imobile = "";
+        }
+        
+        var inote = 'key:'+ ipassword + ' default_pharmacy:' + inote_default_pharmacy;
+        
+        $.ajax({
+          type: "POST",
+          url: "https://api.korresfamily.com/api/v1/customers",
+          async:true,
+          dataType: 'json',
+          data: {
+            "email":iemail,
+            "password":ipassword,
+            "first_name":ifirst_name,
+            "last_name":ilast_name,
+            "phone":imobile,
+            "note":inote,
+            "tags":itags,
+            "terms":iterms,
+            "accepts_marketing":iaccepts_marketing,
+            "browser": ibrowser,
+            "return_to_url_lang": return_to_url_lang
+          },
+          beforeSend: function(){
+           $('#step3').hide();
+           $('#loading-section').show();
+         },
+          success: function(data){
+            $('.error_email').text("");
+            $('.error_phone').text("");
+            
+            if(data.errorType == 'email'){
+                $('.error_email').text('This email address is already being used. Please try again.').css("display", "block");
+                $('#step3').hide();
+                $('#step1').show();
+            } else if(data.errorType == 'phone') {
+                $('.error_phone').text(data.message).css("display", "block"); 
+                $('#step3').hide();
+                $('#step1').show();
+            } else {
+                window.location.replace('/account/login/multipass/'+data.token+'?return_url=/pages/hurray');
+            }
+          }, 
+          complete: function(data){    
+           if(data.responseJSON.errorType){
+            $('#loading-section').hide();
+           }
+           else {
+           $('#loading-section').show();
+           }
+         },   
+          error: function(data){
+             $('#loading-section').hide();
+            /* start 21 june chnges by madhav */
+            if(data.errorType == 'phone'){
+                $("#step1").hide();
+                $("#step3").fadeIn(1000);
+                $('.error_phone').text(data.message).css("display", "block");
+                //window.scrollTo(0,0);
+            }/* end 21 june chnges by madhav */
+            console.log(data);
+          }
+        });
+    }
+  }
+  function saveLocation_pick() {
+    if (currentSelectOption != "") {
+      if (selectedItems.length < 3)
+          selectedItems.push(currentSelectOption);
+        //setItems();
+        setGoogleMarkers();
+        setTimeout(() => {
+                   $("#browserWrap .custom-combobox-input").val('');
+        }, 100)
+      var loc = $("#locationName").text();
+      var locId = $("#pharmacy_id_as_tag").text();
+      console.log(locId+'loc-->>'+ loc);
+      $("#InputPickUpStore").val(loc);
+      $("#PickUpStoreAsId").text(locId);
+      hideModal('divMapModal'); 
+      $('.my_setting_main .inner-page.form-page').hide()
+      $('.my_setting_main .register').show();
+      back_to_settings();
+    }
+  }
+  function back_to_settings(){
+    $('.my_setting_main .inner-page.form-page').show()
+    $('.my_setting_main .register').hide();
+    $('.register_cover').hide();
+  }
+  function saveRemoveLocation() {
+    selectedItems = selectedItems.filter((r) => { if (r != currentSelectOption) return r; })
+    setGoogleMarkers();
+    $('.addBtn').show();
+    $('.removeBtn').hide();
+  }
+  function addToLocation(sLocation,loc_nm) {
+    console.log('save location pick '+sLocation);
+    console.log('sLocation '+loc_nm)
+    if (selectedItems.length > 2){
+      alert('Maximum 3 location allowed to select!');
+      return;
+    }
+    currentSelectOption = sLocation;
+    var selectedDetails = availableItems.filter((r,index) => {
+      var call = index;
+      if(sLocation == call || sLocation == r.name ){
+        return r;
+      }
+    })[0];
+    var selected_d = selectedDetails.name+','+selectedDetails.location+' '+selectedDetails.person_phone;
+    $("#locationName").text(selected_d);
+    $("#pharmacy_id_as_tag").text(selectedDetails.id);
+    $('.addBtn').show();
+    $('.removeBtn').hide();
+    showModal("divMapModal");
+  }
+  function hideModal($selectedEle) {
+    $("#" + $selectedEle).find("[data-bs-dismiss='modal']").click();
+  }
+  function showModal($selectedEle) {
+    var myModal = new bootstrap.Modal(document.getElementById($selectedEle), {});
+    myModal.show();
+  }
+  $(document).ready(function () {
+    $(".custom-combobox-input").attr('autocomplete', 'nope');
+  })
+</script>
+<style>
+  #hikoloading{
+    display:none !important;
+  }
+</style>

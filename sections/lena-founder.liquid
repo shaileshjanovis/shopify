@@ -1,0 +1,303 @@
+{% for block in section.blocks %}
+	{% if block.type == 'block-breadcrumb-section' %}
+		<nav aria-label="breadcrumb" class="breadcrumb-web">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item breadcrumb-item-back">
+                  <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.giorgos-lena-link }}"> <span class="btn-back"></span> {{ block.settings.breadcrumb-back}}</a>
+				</li>
+				<li class="breadcrumb-item first-child">
+					<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.giorgos-lena-link }}">{{ block.settings.breadcrumb-giorgos-lena}}</a>
+				</li>
+				<li data-id="soil-lab" class="breadcrumb-item">
+					<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.breadcrumb-giorgos-link }}">{{block.settings.breadcrumb-giorgos}}</a>
+				</li>
+				<li data-id="extraction-lab" class="breadcrumb-item active show">
+					<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.breadcrumb-lena-link }}">{{block.settings.breadcrumb-lena}}</a>
+				</li>
+				<li data-id="molecular-lab" class="breadcrumb-item">
+					<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.breadcrumb-our-conscience-link }}">{{block.settings.breadcrumb-following-our-conscience}}</a>
+				</li>
+			</ol>
+		</nav>
+	{% endif %}
+{% endfor %}
+
+{% for block in section.blocks %}
+	{% if block.type == 'block-founder' %}
+		<div class="row founder-content">
+			<div class="col-12 col-lg-6 left-content-col">
+				<div class="left-content"> 
+					<h1>{{ block.settings.founder-title }}</h1>
+					{% comment %}<h4>{{ block.settings.founder-sub-title }}</h4>{% endcomment %}
+					<h6>{{ block.settings.founder-name }}</h6>
+					<p>{{ block.settings.founder-dash }}</p>
+					<p>
+						{{ block.settings.founder-text }}
+					</p>
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 right-content-col"> 
+				<h1>{{ block.settings.founder-title }}</h1>
+				<div class="right-content" style="background-image: url({{block.settings.img-founder-bg | img_url: 'master'}})!important;">
+					{% if block.settings.img-founder != blank %}<img src="{{block.settings.img-founder | img_url: 'master'}}" class="img-fluid" />{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="row founder-content">
+			<div class="col-lg-12">
+				<div class="block-text">
+						<h6>{{ block.settings.founder-title-1 }}</h6>
+						<p>
+							{{ block.settings.founder-text-1 }}
+						</p>
+					</div>
+					<div class="block-text">
+						<h6>{{ block.settings.founder-title-2 }}</h6>
+						<p>
+							{{ block.settings.founder-text-2 }}
+						</p>
+					</div>
+					<div class="block-text">
+						<h6>{{ block.settings.founder-title-3 }}</h6>
+						<p>
+							{{ block.settings.founder-text-3 }}
+						</p>
+					</div>
+					<div class="block-text last">
+						<h6>{{ block.settings.founder-title-4 }}</h6>
+						<p>
+							{{ block.settings.founder-text-4 }}
+						</p>
+					</div>
+			</div>
+		</div>
+	{% endif %}
+    {% if block.type == 'block-carousel' %}
+		<div class="row no-gutters">
+			  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				  <div class="carousel-section">
+					   <h6>{{block.settings.what-i-love}}</h6>
+				  </div>
+			  </div>
+		  </div>
+          <div id="{{block.id}}" class="section-carousel" data-flickity='{ "cellAlign": "left", "prevNextButtons": true, "pageDots": false, "autoPlay": false, "groupCells": 1 }'>
+	{% if block.settings.main-img-slide-1 != blank %}
+	  <div class="slide">
+		{% if block.settings.main-img-link-1 != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-link-1}}">
+		  {% endif %}
+		  <div class="img-container">
+		  <img src="{{block.settings.main-img-slide-1 | img_url: 'master'}}" class="img-fluid lozad" />
+		  </div>
+		  {% if block.settings.main-img-link-1 != blank %}
+		</a>{% endif %}
+	  </div>
+	{% endif %}
+	{% if block.settings.main-img-slide-2 != blank %}
+	  <div class="slide">
+		{% if block.settings.main-img-link-2 != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-link-2}}">
+		  {% endif %}
+		  <div class="img-container">
+		  <img src="{{block.settings.main-img-slide-2 | img_url: 'master'}}" class="img-fluid lozad" />
+		  </div>
+		  {% if block.settings.main-img-link-2 != blank %}
+		</a>{% endif %}
+	  </div>
+	{% endif %}
+	{% if block.settings.main-img-slide-3 != blank %}
+	  <div class="slide">
+		{% if block.settings.main-img-link-2 != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-link-3}}">
+		  {% endif %}
+		  <div class="img-container">
+		  <img src="{{block.settings.main-img-slide-3 | img_url: 'master'}}" class="img-fluid lozad" />
+		  </div>
+		  {% if block.settings.main-img-link-2 != blank %}
+		</a>{% endif %}
+	  </div>
+	{% endif %}
+</div>
+    {% endif %}
+{% endfor %}
+
+{% schema %}
+{
+	"name": "Founder Page",
+	"class": "home-bottom-block",
+	"settings": [],
+
+	"blocks": [{
+			"type": "block-breadcrumb-section",
+			"name": "Breadcrumb Section",
+			"settings": [{
+					"id": "breadcrumb-back",
+					"type": "text",
+					"label": "Breadcrumb Back",
+					"default": "Back"
+				},
+				{
+					"type": "text",
+					"id": "breadcrumb-giorgos-lena",
+					"label": "Breadcrumb Giorgos Lena",
+					"default": "Giorgos & Lena"
+				},
+				{
+					"id": "giorgos-lena-link",
+					"type": "text",
+					"label": "Link of Giorgos & Lena Page",
+					"default": "/pages/giorgos-and-lena"
+				},
+				{
+					"id": "breadcrumb-giorgos",
+					"type": "text",
+					"label": "Breadcrumb Giorgos",
+					"default": "Giorgos"
+				},
+				{
+					"id": "breadcrumb-giorgos-link",
+					"type": "text",
+					"label": "Link of Breadcrumb Giorgos",
+					"default": "/pages/giorgos"
+				},
+				{
+					"id": "breadcrumb-lena",
+					"type": "text",
+					"label": "Breadcrumb Lena",
+					"default": "Lena"
+				},
+				{
+					"id": "breadcrumb-lena-link",
+					"type": "text",
+					"label": "Link of Breadcrumb Giorgos",
+					"default": "/pages/lena"
+				},
+				{
+					"id": "breadcrumb-following-our-conscience",
+					"type": "text",
+					"label": "Breadcrumb our conscience",
+					"default": "Following our conscience"
+				},
+				{
+					"id": "breadcrumb-our-conscience-link",
+					"type": "text",
+					"label": "Link of our conscience",
+					"default": "/pages/following-our-conscience"
+				}
+			]
+		},
+		{
+			"type": "block-founder",
+			"name": "Block Founder",
+			"settings": [{
+					"id": "img-founder-bg",
+					"type": "image_picker",
+					"label": "Bg Image Founder"
+				},
+				{
+					"id": "img-founder",
+					"type": "image_picker",
+					"label": "Image Founder"
+				},
+				{
+					"id": "founder-title",
+					"type": "text",
+					"label": "Title",
+					"default": "GET TO KNOW LENA"
+				},
+				{
+					"id": "founder-name",
+					"type": "richtext",
+					"label": "Founder Name"
+				},
+				{
+					"id": "founder-text",
+					"type": "richtext",
+					"label": "Founder Text"
+				},
+				{
+					"id": "founder-title-1",
+					"type": "text",
+					"label": "Founder Title 1",
+					"default": "BEFORE GREEN BEAUTY"
+				},
+				{
+					"id": "founder-text-1",
+					"type": "richtext",
+					"label": "Founder Text 1"
+				},
+				{
+					"id": "founder-title-2",
+					"type": "text",
+					"label": "Founder Title 2",
+					"default": "CONSCIOUS FORMULATING"
+				},
+				{
+					"id": "founder-text-2",
+					"type": "richtext",
+					"label": "Founder Text 2"
+				},
+				{
+					"id": "founder-title-3",
+					"type": "text",
+					"label": "Founder Title 3",
+					"default": "THE GREEK YOGHURT WONDER"
+				},
+				{
+					"id": "founder-text-3",
+					"type": "richtext",
+					"label": "Founder Text 3"
+				},
+				{
+					"id": "founder-title-4",
+					"type": "text",
+					"label": "Founder Title 4",
+					"default": "GROUND-BREAKING NATURALS"
+				},
+				{
+					"id": "founder-text-4",
+					"type": "richtext",
+					"label": "Founder Text 4"
+				}
+			]
+		},
+		{
+			"type": "block-carousel",
+			"name": "Block Carousel",
+			"settings": [{
+					"id": "what-i-love",
+					"type": "richtext",
+					"label": "What I love Text"
+				},
+				{
+					"id": "main-img-slide-1",
+					"type": "image_picker",
+					"label": "Upload Image 1"
+				},
+				{
+					"id": "main-img-link-1",
+					"type": "text",
+					"label": "Link Of Image 1"
+				},
+				{
+					"id": "main-img-slide-2",
+					"type": "image_picker",
+					"label": "Upload Image 2"
+				},
+				{
+					"id": "main-img-link-2",
+					"type": "text",
+					"label": "Link Of Image 2"
+				},
+				{
+					"id": "main-img-slide-3",
+					"type": "image_picker",
+					"label": "Upload Image 3"
+				},
+				{
+					"id": "main-img-link-3",
+					"type": "text",
+					"label": "Link Of Image 3"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

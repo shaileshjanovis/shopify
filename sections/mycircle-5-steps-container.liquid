@@ -1,0 +1,54 @@
+<div class="korres-circle-container">
+  <h3>
+    {{ section.settings.page-title }}
+  </h3>
+  <div class="inner">
+    {% for block in section.blocks %}
+    {% if block.type == 'block-circle-section' %}
+    <div class="circle-item">
+      <div class="img-container">
+        <img src="{{block.settings.circle-img | img_url: 'master'}}" class="img-fluid"/>
+        <div class="circle">{{ block.settings.circle-number }}</div>
+      </div>
+      <span>
+        {{block.settings.circle-text | newline_to_br}}
+      </span>
+    </div>
+    {% endif %}
+    {% endfor %} 
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "MyCircle 5 Steps",
+"settings": [
+{
+"id": "page-title",
+"type": "richtext",
+"label": "Page Title"
+}
+],
+"blocks": [{
+"type": "block-circle-section",
+"name": "Circle Section",
+"settings": [
+{
+"id": "circle-img",
+"type": "image_picker",
+"label": "Image"
+},
+{
+"id": "circle-number",
+"type": "text",
+"label": "Circle Number"
+},
+{
+"id": "circle-text",
+"type": "textarea",
+"label": "Circle Text"
+}
+]
+}]
+}
+{% endschema %}

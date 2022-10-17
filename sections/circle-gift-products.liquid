@@ -1,0 +1,80 @@
+{% unless customer %}
+  <script>window.location.replace('/account/login/?return_url=/')</script>
+{% endunless %}
+
+{% assign circles = shop.metafields.circle %}
+{% assign first_order = customer.metafields.customer.first_order %}
+{% assign giftFullUrl = canonical_url %}
+{% assign giftUri = giftFullUrl | split: "=" %}
+{% assign giftUriFinal = giftUri[1] | split: "&" %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/asvd/dragscroll/master/dragscroll.js"></script>
+
+<div class="circle-gift-container">
+  <div class="gift_main d-sm-block">
+	
+    {% for circle in circles %}
+    {% if circle[0] contains 'My_' %}
+        {% unless circle[0] contains 'level_' %}
+          {% assign levelName =  shop.metafields.circle[circle[0]] | split:'|' | first | prepend:'level_' %}
+          
+    	  {% assign circleAsID = shop.metafields.circle[circle[0]] | split:'|' | first %}
+    	  {% assign circleIdDonwcase = circleAsID | downcase %}
+          <div class="gift_inner_cover tab-content olive_theme {% if first_order == null %}gift-item-locked{%- endif -%}" id="{{circleAsID}}" style="{% if circleIdDonwcase == giftUriFinal[0] %}display: block;{% else %}display: none;{% endif %}">
+              {% assign circleMeta = shop.metafields.circle[levelName] | split:'|' %}
+			  {% render 'product_info', circleMeta:circleMeta, name:levelName  %}
+          </div>
+      	{% endunless %}
+    {% endif %}
+  {% endfor %}
+  </div>
+</div>
+
+<script>
+  setTimeout(function() { 
+	var currentCircle = localStorage.getItem('activeCircle');
+  	$(".gift_main").find("#"+currentCircle).show();
+   }, 2000);
+  
+  $('.circle_carousel').slick({
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    adaptiveHeight: true,
+    responsive: [
+
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: true,
+          autoplay:false
+        }
+      }
+    ]
+  });
+</script>
+
+<style>
+  .circle-gift-container {
+    width: 100%;
+    max-width: 1186px;
+    margin: 0 auto;
+    color: #32322d;
+    display: flex;
+    flex-direction: column;
+    padding: 120px 0 60px;
+  }
+</style>
+      
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}

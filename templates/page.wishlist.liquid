@@ -1,0 +1,49 @@
+<section class="page-wishlist">
+  <h1>{{ page.title }}</h1>
+  <div class="wishlist-content">
+    <div class="container-fluid">
+      <div class="wishlist-row jas-container">
+        <div class="wishlist-box row" style="display:none;">
+          {% paginate collections.all.products by 9999 %}
+          {% for product in collections.all.products %}
+          {% if request.locale.iso_code == 'el' %}
+            {% assign prod_title_h = product.metafields.language.value | json%}
+            {% if product.metafields.language.value %}
+  			{% assign forloop_index = forloop.index %}
+            <script>
+              (function() {
+                setTimeout(function(){
+                  var productLang = {{prod_title_h}};
+                  var product = productLang['el (Greek)'];
+                  if(product != undefined){
+                    var title = product.gr_item_full_title;
+                    document.getElementsByClassName('product_title_{{forloop_index}}')[0].innerHTML = title;
+                  }
+                 },2000);
+               })();
+            </script>
+            {% endif %}
+            {% endif %}
+          {% include 'product-tile', forloop_index:forloop.index %}
+          {% endfor %}
+          {% endpaginate %}
+          <div class="wishlist-grid--empty-list flex">
+            <div class="wishlist-empty-content" style="display:none;">
+              <img src="{{ "wishlist_empty.png" | asset_url }}" alt="" />
+              <div class="text_cover">
+                <p>{{ 'my_wishlist.title.your_wishlist_is_empty' | t: Shipping_Details }}</p>
+                <p>{{ 'my_wishlist.title.make_a_wish' | t: make_a_wish }}</p>
+              </div>
+              <a href="{{ 'my_wishlist.title.button_url' | t: button }}" class="btn-theme-blue">{{ 'my_wishlist.title.button' | t: button }}</a>
+            </div>
+          </div>
+        </div>
+        <!-- Loader -->
+        <div class="wishlist-loader">
+          <p class="wishlist-loader--text">Loading your customized wishlist...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

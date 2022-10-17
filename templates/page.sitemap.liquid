@@ -1,0 +1,82 @@
+{% render 'header-hero', title: page.title, bg_color: 'beige' %}
+
+<main role="main" class="main-wrap single-col">
+  {%- for link in linklists.main-menu.links -%}
+    <ul class="list-group">
+    {%- for child_link in link.links -%}
+      {%- if child_link.handle == 'our-ingredients' -%}
+      <li><h4>Our story</h4></li>
+      {%- endif -%}
+      <li>
+        <a href="{{ child_link.url }}">
+          {{- child_link.title -}}
+        </a>
+      </li>
+      {%- if child_link.links != blank -%}
+      <li>
+        <ul>
+          {%- assign isNeed = false -%}
+          {%- assign isCategory = false -%}
+          {%- assign isIngredient = false -%}
+            {%- for grandchild_link in child_link.links -%}
+            {%- assign nav_type = grandchild_link.object.metafields.kettle.navigation_type -%}
+            {%- if nav_type == "Need" -%}
+              {%- assign isNeed = true -%}
+            {% elsif nav_type == "Category" %}
+              {%- assign isCategory = true -%}
+            {% elsif nav_type == "Ingredient" %}
+              {%- assign isIngredient = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if isNeed -%}
+            <div class="need">
+              <p>By Need</p>
+              {%- for grandchild_link in child_link.links -%}
+                {%- assign nav_type = grandchild_link.object.metafields.kettle.navigation_type -%}
+                {%- if nav_type == "Need" -%}
+                  <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if isCategory -%}
+            <div class="category">
+              <p>By Category</p>
+              {%- for grandchild_link in child_link.links -%}
+                {%- assign nav_type = grandchild_link.object.metafields.kettle.navigation_type -%}
+                {%- if nav_type == "Category" -%}
+                  <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {%- if isIngredient -%}
+            <div class="ingredient">
+              <p>By Ingredient</p>
+              {%- for grandchild_link in child_link.links -%}
+                {%- assign nav_type = grandchild_link.object.metafields.kettle.navigation_type -%}
+                {%- if nav_type == "Ingredient" -%}
+                  <li><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </ul>
+      </li>
+      {%- endif -%}
+    {%- endfor -%}
+    </ul>
+    
+  {%- endfor -%}
+  <ul class="list-group">
+    <li><h4>Customer Service</h4></li>
+    <li><a href="{{ pages.contact.url }}">{{ pages.contact.title }}</a></li>
+    <li><a href="{{ pages.faq.url }}">{{ pages.faq.title }}</a></li>
+    <li><a href="{{ pages.privacy.url }}">{{ pages.privacy.title }}</a></li>
+    <li><a href="{{ pages.legal.url }}">{{ pages.legal.title }}</a></li>
+    </li>
+  </ul>
+</main>

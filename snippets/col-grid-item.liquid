@@ -1,0 +1,54 @@
+{% unless current_collection == blank %}
+    {% assign current_collection = collection %}
+{% endunless %}
+{% assign on_sale = false %}
+{% assign sale_text = 'products.product.sale' | t %}
+{% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% assign sold_out_text = 'products.product.sold_out' | t %}
+{% if product.available %}
+    {% assign sold_out = false %}
+{% endif %}
+<div class="carousel-cell">
+    <a
+            href="{{ product.url | within: collection }}"
+            class="product-item"
+            data-productid="{{ product.id }}"
+            data-id="{{ first_variant.id }}"
+            data-handle="{{ product_handle }}"
+    >
+        <div class="thumbnail">
+            <img
+                    src="{{ product.featured_image | img_url: 'master' | format: 'jpg' }}"
+                    alt="{{ block.settings.slide_heading }}"
+            >
+            {%- if product.available -%}
+                <button class="primary" type="button">View Product</button>
+            {%- else -%}
+                <button class="primary" type="button" disabled>Out of stock</button>
+            {%- endif -%}
+        </div>
+
+        <div class="product-item--review empty"></div>
+        <h4>{{ product.title }}</h4>
+        {%- if customer -%}
+            <p class="price">
+                  <span>
+                    {{ product.price | money }}
+                  </span>
+            </p>
+        {% endif %}
+        {% include 'wishlist-product' %}
+    </a>
+</div>
+
+ 
+
+
+
+
+
+           
+         

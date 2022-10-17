@@ -1,0 +1,118 @@
+<div class="container" id="soil">
+  <div class="row justify-content-center">
+    <div class=" col-lg-9  col-md-9 ">
+      <h3 class="lab-heading">{{section.settings.heading}} </h3>
+      {{section.settings.description}}
+      
+    </div>
+  </div>
+  <div class="row justify-content-center image-section">
+    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+ <img src="{{section.settings.left-image | img_url:'large'}}">
+
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+       <img src="{{section.settings.right-image | img_url:'large'}}">
+
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-lg-offset-4 col-lg-5 col-md-offset-4 col-md-4 col-sm-offset-4 col-sm-4 col-xs-12">
+      <h4 class="lab-heading">
+        {{section.settings.subheading}}
+      </h4>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+        <img src="{{section.settings.chart-image | img_url:'master'}}" class="chart-image">
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="full-banner">
+  <div class="row mt-5 p-0 product-banner">
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 p-0">
+      <img src="{{section.settings.banner-left-image | img_url:'large'}}" class="banner-left-image">
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
+      <h4> {{section.settings.banner-text}}</h4>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 p-0">
+      <img src="{{section.settings.product-right-image | img_url:'large'}}" class="banner-left-image">
+      <a href="{{section.settings.button-link}}" class="btn-combo">
+        {{section.settings.button-label}}
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Image and Text",
+	"class": "section-margin",
+    "settings": [
+	{
+	"type": "html",
+    "id"  : "heading",
+	"label": "Heading"
+	},
+	{
+	"type": "html",
+    "id"  : "description",
+	"label": "Description"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "left-image",
+	"label": "Left image"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "right-image",
+	"label": "Right image"
+	},
+	{
+	"type": "text",
+    "id"  : "subheading",
+	"label": "Sub Heading"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "chart-image",
+	"label": "Chart image"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "banner-left-image",
+	"label": "Banner Left Image"
+	},
+	{
+	"type": "text",
+    "id"  : "banner-text",
+	"label": "Banner Text"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "product-right-image",
+	"label": "Product right Image"
+	},
+	{
+	"type": "text",
+    "id"  : "button-label",
+	"label": "Button Label"
+	},
+	{
+	"type": "url",
+    "id"  : "button-link",
+	"label": "Button Link"
+	}
+	
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

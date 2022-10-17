@@ -1,0 +1,212 @@
+{{ 'style-my-settings.css' | asset_url | stylesheet_tag }}
+{{ order }}
+<input type="hidden" id="customer_id" value="{{customer.id}}">
+  <main role="main" class="main-wrap with-sidebar no-header">
+    <div class="page-main-content">
+      <div class="section-wrap">
+        <div class="order_details_container">
+          <div class="details_header">
+            {% if order.total_price > 0 %}
+            <a class="back_to" href="{{ routes.account_url }}">
+              <i class="far fa-angle-left"></i>{{ 'my_order.title.back_to_my_orders' | t: back_to_my_orders }}
+            </a>
+            {% else %}
+            <a class="back_to" href="/pages/my-gifts">
+              <i class="far fa-angle-left"></i>{{ 'my_order.title.back_to_my_orders' | t: back_to_my_orders }}
+            </a>
+            {% endif %}
+            <div class="order_no">
+              <h4>
+                <span>Order No</span> : {{ order.name | remove: "#" }}
+              </h4>
+              <span class="purchase_date">
+                <span>Purchased On</span>: {{order.created_at | date: "%d-%m-%Y" }}
+              </span>
+            </div>
+          </div>
+          <div class="order_details">
+            <div class="cv_order">
+              <p class="alignLeft title">{{ 'my_order.title.total' | t: total }}:</p>
+              <p class="alignRight">
+                <span class="blue">{{ order.line_items_subtotal_price |  money }}</span>
+              </p>
+            </div>
+            <div class="cv_order">
+              <p class="alignLeft">{{ 'my_order.title.points_earned' | t: points_earned }}:</p>
+              {% assign points = 0 | plus:0 %}
+              {% assign flag = 0 %}
+              
+              {% case order.fulfillment_status %}
+              {% when 'unfulfilled' %}
+              {% assign orderTags = order.tags | join: ', ' %}
+              {% if orderTags contains 'in_transit' %}
+              {% else %}
+              {% endif %}
+              {% else %}
+              {% assign flag = 1 %}
+              {% endcase %}
+              
+              {% if order.financial_status contains 'paid' %}                            
+              {% assign points = 0 | plus:0 %}
+              {%- for item in order.line_items -%}
+              {% assign productObj = item.product %}
+              {% assign productP = productObj.description | split:'<!-- split -->' %}
+              {% assign prodP = productP[4] | plus:0 %}
+              {% assign points = points | plus:prodP %}
+              {% endfor %}
+              {% endif %}
+              
+              {% assign orderTags = order.tags | join: ', ' %}
+              <p class="alignRight">
+                <span class="blue">{% if orderTags contains 'gift' %} 0 {% else %} {{points}} {% endif %}</span>
+              </p>
+            </div>
+            
+            <div class="cv_order">
+              <p class="alignLeft {{ 'my_order.title.status' | t: status }}">{{ 'my_order.title.status' | t: status }}:</p>
+              <p class="alignRight">
+                {% case order.fulfillment_status  %}
+                {% when 'unfulfilled' %}
+                {% assign orderTags = order.tags | join: ', ' %}
+                {% if orderTags contains 'in_transit' %}
+
+                <span class="underline">
+                  <ly-as-473357>Processing</ly-as-473357>
+                </span>
+                {% else %}
+                <span class="hello underline blue">
+                  {% if request.locale.iso_code == 'el' %}<ly-as-473358>{{ 'my_order.title.pending' | t: pending }}</ly-as-473358>{% else %}{{ 'my_order.title.pending' | t: pending }}{% endif %}
+                </span>
+                {% endif %}
+                {% else %}
+                <span class="underline blue status_pay {{ 'my_order.title.delivered' | t: delivered }}" data-status="{{ 'my_order.title.delivered' | t: delivered }}">{% if request.locale.iso_code == 'el' %}{{ 'my_order.title.delivered' | t: delivered }}{%else%}{{ 'my_order.title.delivered' | t: delivered }}{% endif %}</span>
+                {% endcase %}
+              </p>
+            </div>
+            <div class="cv_order">
+              <p class="alignLeft {{ 'my_order.title.expected' | t: expected }}">{{ 'my_order.title.expected' | t: expected }}:</p>
+              
+              {% assign expected_from = '' %}
+              {% assign expected_to = '' %}
+              {% if order.shipping_address %}
+                  {% assign days = 6 | times: 86400 %}
+                  {%assign expected_to =  order.created_at | date: "%s" | plus: days | date: "%d/%m" %}
+                  {% assign days = 3 | times: 86400 %}
+                  {%assign expected_from =  order.created_at | date: "%s" | plus: days | date: "%d/%m" %}
+              {% else %}
+              
+                  {% assign days = 3 | times: 86400 %}
+                  {%assign expected_to =  order.created_at | date: "%s" | plus: days | date: "%d/%m" %}
+                  {% assign days = 1 | times: 86400 %}
+                  {%assign expected_from =  order.created_at | date: "%s" | plus: days | date: "%d/%m" %}
+              
+              {% endif %}
+              <p class="alignRight {{ total }}">{{ expected_from }} - {{ expected_to }}</p>
+            </div>
+            <div class="cv_order">
+              <p class="alignLeft {{ 'my_order.title.store' | t: store }}">
+                <span>{{ 'my_order.title.store' | t: store }}</span>:
+              </p>
+              {%assign pharmname = customer.tags | split:','%}
+              {%assign pname = pharmname[0] | replace:"[",""  %}
+              <div id="pname">
+                <p class="alignRight pickuplocation hide"></p>
+              </div>
+              <p id="demo1"  class="alignRight">
+                {% assign customer_rec = customer.metafields.Level_pharmecy.Level_pharmecy | split : '|' %}
+                {{customer_rec[0]}}
+              </p>
+              <button class="phrambtn hide">Clickme</button>
+            </div>
+            
+            {% assign orderTags = order.tags | join: ', ' %}
+            {% if orderTags contains 'gift' %}
+            
+            {% else %}
+            <div class="cv_order">
+              <p class="alignLeft {{ 'my_order.title.payment_method' | t: payment_method }}">{{ 'my_order.title.payment_method' | t: payment_method }}:</p>
+              <p class="alignRight">
+                {% for transaction in order.transactions %}
+                {% assign method_pay = '' %}
+                
+                {%if transaction.gateway contains 'pay_with_credit_debit_card' %}                
+                	{% assign method_pay = 'Paid By Card' %}
+                {% elsif transaction.gateway contains 'Pay Online' %}
+                	{% assign method_pay = 'Paid By Card' %}
+                {% else %}
+                	{% assign method_pay = 'Pay At Store' %}
+                {%endif%}
+                
+                {% else %}
+                {% assign method_pay = 'Pay At Store' %}
+                {% assign flag = 1 %}
+                {% endfor %}
+                {% for discount_application in order.discount_applications %}
+                {%if discount_application.title contains 'full_discount'%}
+                {% assign method_pay = 'Pay At Store' %}
+                {%endif%}
+                {% endfor %}
+                {{ method_pay }}
+              </p>
+            </div>
+            {% endif %}
+            
+            {% assign orderTags = order.tags | join: ', ' %}
+            {% if orderTags contains 'gift' %}
+            
+            {% else %}
+            <div class="cv_order">
+              <p class="alignLeft {{ 'my_order.title.shipping' | t: shipping }}">{{ 'my_order.title.shipping' | t: shipping }}:</p>
+              <p class="alignRight">Standard</p>
+            </div>
+            {% endif %}
+            
+            
+            <div class="cv_order">
+              <p class="alignLeft {{ 'my_order.title.delivery_address' | t: delivery_address }}">{{ 'my_order.title.delivery_address' | t: delivery_address }}:</p>
+              <p class="alignRight">
+                {%if order.shipping_address %}
+                {{ order.shipping_address.address1 }}
+                {{ order.shipping_address.address2 }},
+                {{ order.shipping_address.city }}
+                {% else %}                
+                {% assign customer_rec = customer.metafields.Level_pharmecy.Level_pharmecy | split : '|' %}
+                {{customer_rec[1]}}
+                
+                {%endif%}
+              </p>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="order_products">
+            <div class="w-100">
+              <h4>{{ 'my_order.title.all_the_items' | t: all_the_items }} ({{order.line_items.size}})</h4>
+            </div>
+            <div class="row">
+              {% for line_item in order.line_items %}
+
+              <div class="col-6 col-sm-4 col-md-3 col-lg-3">
+                <div class="order_product">
+                  <div class="product-img-container">{{ line_item.image | img_url: 'medium' | img_tag | 'product_image' }}</div>
+                  {{ line_item.title | link_to: line_item.product.url }}
+                  <p class="price">{{ line_item.line_price | money }}</p>
+                </div>
+              </div>
+              {%endfor%}
+            </div>
+          </div>
+          {% if order.total_price > 0%}
+          <a class = "btn-theme-white btn-repeat-order" href="/cart/{% for line_item in order.line_items %}{{ line_item.variant_id }}:{{ line_item.quantity }}{% unless forloop.last %},{% endunless %}{% endfor %}">Repeat Order</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </main>
+  <style>
+    [lang="el"] .more_overlay span#back-to-orders .bck_ord{
+    text-align: center;
+    padding-top: 20px;
+    }
+  </style>
+  <script>
+  </script>

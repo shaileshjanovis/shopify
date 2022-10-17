@@ -1,0 +1,74 @@
+<div class="download-korres-container">
+  <div class="img-container">
+    <img class="image desktop img-fluid" src="{{ section.settings.desktop-img | img_url: 'master' }}" />
+    <img class="image mobile img-fluid" src="{{ section.settings.mobile-img | img_url: 'master' }}" />
+  </div>
+  <div class="text-container">
+    <h3 class="title">
+      {{ section.settings.page-title }}
+    </h3>
+    <div class="subtitle">
+      <p>
+        {{ section.settings.page-text }}
+      </p>
+    </div>
+    <div class="btn-container">
+      <a class="" href="{{ section.settings.app-store-link }}">
+        <img src="{{ section.settings.app-store-img | img_url: 'master' }}" />
+      </a>
+      <a class="" href="{{ section.settings.google-play-link }}">
+        <img src="{{ section.settings.google-play-img | img_url: 'master' }}" />
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "MyCircle Download App",
+"settings": [
+{
+"id": "desktop-img",
+"type":"image_picker",
+"label": "Desktop Image"
+},
+{
+"id": "mobile-img",
+"type":"image_picker",
+"label": "Mobile Image"
+},
+{
+"id": "page-title",
+"type": "richtext",
+"label": "Page Title"
+},
+{
+"id":"page-text",
+"type": "richtext",
+"label":"Page Text"
+},
+{
+"id": "app-store-img",
+"type":"image_picker",
+"label": "App Store Image"
+},
+{
+"id":"app-store-link",
+"type": "textarea",
+"label":"App Store link",
+"default": "/account/register"
+},
+{
+"id": "google-play-img",
+"type":"image_picker",
+"label": "Google Play Image"
+},
+{
+"id":"google-play-link",
+"type": "textarea",
+"label":"Google Play link",
+"default": "/account/register"
+}
+]
+}
+{% endschema %}

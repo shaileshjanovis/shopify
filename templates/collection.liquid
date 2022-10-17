@@ -1,0 +1,664 @@
+{%- assign type = collection.metafields.kettle.type -%}
+{%- assign col_handle = canonical_url | split: "/" | last -%}
+{%- assign decvalue = "" -%}
+{%- for link in linklists.by_category.links -%}
+{% if request.locale.iso_code == 'el' %}
+{% assign gethandle = link.url | remove: "/el/collections/" %}
+{% else %}
+{% assign gethandle = link.url | remove: "/collections/" %}
+{% endif %}
+
+{% if gethandle == col_handle %}
+{% assign decvalue = col_handle %}
+{% endif %}
+{% endfor %}
+
+
+{{ 'collection.css' | asset_url | stylesheet_tag | preload: true }}
+<main role="main" class="product-landing">
+  <div class="cutom_wrapper">
+    {% if collection.handle == 'all' %}{% unless current_tags %}
+    {% section 'custom-collection-page' %}{% endunless %}
+    {% else %}
+    {%- if col_handle != 'all-products' -%}
+    <div class="featured-col-image">
+      <picture style="display: block; min-height: 1rem"  data-alt="{{ collection.title | escape }}">
+        <source srcset="{{ collection | img_url : '725x' }}" media="(max-width: 767px)">
+        <source srcset="{{ collection | img_url : '980x' }}" media="(max-width: 1024px)">
+        <img  src="{{ collection | img_url: '1460x' }}" alt="{{ collection.title | escape }}">
+      </picture>
+    </div>
+    {% endif %}
+    {% paginate collection.products by 12 %}
+    <section id="inner-collect-section">
+      {%- if col_handle != 'all-products' -%}{% include 'breadcum' %}{% endif %}
+      <section>
+        <div class="content">
+          <div class="hjsd Hello whole_cover">
+            {%- if col_handle == 'all-products' -%}
+            <div class="wrapper_tabcontent">
+              <div id="all" class="tabcontent active">
+                <h1 class="shop-all">{{ 'shop_collection.shop_all' | t: shop_all }}</h1>
+                <div id="Custom-Loop" class="product-container collection-shop-all">
+                  {%- for link in linklists.by_category.links -%}
+                  {% if request.locale.iso_code == 'el' %}
+                  {% assign gethandle = link.url | remove: "/el/collections/" %}
+                  {% else %}
+                  {% assign gethandle = link.url | remove: "/collections/" %}
+                  {% endif %}
+                  {% assign collection = collections[gethandle] %}
+                  {%- if gethandle != 'all-products' -%}
+                  <a href="{{ link.url }}">
+                    <div class="collection product-item">                                            
+                      <div class="thumbnail">
+                        <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/bg-gradient.png?v=1654588946" class="bg-gradient img-fluid" />
+                        <div class="web">
+                          <img src="{{collection.metafields.my_fields.sub_banner | image_url: width: 300 }}" alt="" class="img-fluid" />
+                        </div>
+                        <div class="mobile">
+                          <img src="{{collection.metafields.my_fields.sub_banner_mob | image_url: width: 328 }}" alt="" class="img-fluid" />
+                        </div>
+                      </div>
+                      <h4 class="product_title">{{ link.title }}</h4>
+                    </div>
+                  </a>
+                  {% endif %}
+                  {% endfor %}
+                  <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/new">
+                    <div class="collection product-item">                                            
+                      <div class="thumbnail">
+                        <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/bg-gradient.png?v=1654588946" class="bg-gradient img-fluid" />
+                        <div class="web">
+                          <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/new.png?v=1658306108" alt="" class="img-fluid" />
+                        </div>
+                        <div class="mobile">
+                          <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/new-mob.png?v=1658306108" alt="" class="img-fluid" />
+                        </div>
+                      </div>
+                      <h4 class="product_title">New</h4>
+                    </div>
+                  </a>
+                  <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/best-seller-1">
+                    <div class="collection product-item">                                            
+                      <div class="thumbnail">
+                        <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/bg-gradient.png?v=1654588946" class="bg-gradient img-fluid" />
+                        <div class="web">
+                          <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/best-sellers.png?v=1658306108" alt="" class="img-fluid" />
+                        </div>
+                        <div class="mobile">
+                          <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/best-sellers-mob.png?v=1658306108" alt="" class="img-fluid" />
+                        </div>
+                      </div>
+                      <h4 class="product_title">Best Sellers</h4>
+                    </div>
+                  </a>
+                  <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/promos">
+                    <div class="collection product-item">                                            
+                      <div class="thumbnail">
+                        <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/bg-gradient.png?v=1654588946" class="bg-gradient img-fluid" />
+                        <div class="web">
+                          <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/promos.png?v=1658306108" alt="" class="img-fluid" />
+                        </div>
+                        <div class="mobile">
+                          <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/promos-mob.png?v=1658306108" alt="" class="img-fluid" />
+                        </div>
+                      </div>
+                      <h4 class="product_title">Promos</h4>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            {%- elsif decvalue != null and decvalue != "" -%}
+            <div class="filter_cover">
+              <div class="filter_title">
+                <h3>{{ 'shop_collection.filter.Filters' | t: Filters }}</h3>
+              </div>
+
+              <div class="show_mob">
+                <div class="filter-title hide-from-desktop">
+                  <h2 class="filter">
+                    {% if request.locale.iso_code == 'el' %}Φίλτρα & Ταξινόμηση{% else %}Filters & Sorting{% endif %}
+                  </h2>
+                  <a class="cloas_filter" href="javascript:;">{% include 'icon-close' %}</a>
+                </div>
+
+                {% include 'collection-filter' %}
+              </div>
+            </div>
+
+            <div class="wrapper_tabcontent" data-collection_url="{{ https://{{ shop.domain }}{{ collection.url }}">
+              <div class="filter_option">
+                <h2 id="customer_id" style="display:none;">{{ customer.id }}</h2>
+
+                <div class="filters-top">
+                  <h3>
+                    <img class="lozad" data-sizes="auto" data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/filters-icon.png?v=1645455351"/> {{ 'shop_collection.filter.Filters' | t: Filters }}
+                  </h3>
+                </div>
+                <div class="d-none d-sm-block" style="float:right;width:100%">
+                  {% include 'sort-by-filter' %}
+                </div>
+              </div>
+
+              <div id="all" class="tabcontent active">
+                <div id="Custom-Loop" class="product-container collection-shop-cat">
+                  {% assign coll_tag = collection.all_tags %}
+                  {% if decvalue == 'skincare' %}
+
+                  {% assign ingredientts = shop.metafields.TaxonomyIngredient %}
+                  {% if request.locale.iso_code == 'el' %}
+                  {% assign ingredientts = shop.metafields.Gr_Ingredient %}
+                  {% endif %} 
+
+                  {% assign filter = '' %}
+                  {% assign productCount = collection.all_products_count %}
+
+                  {% assign page = productCount | divided_by:50 | round: 2 %}
+                  {% for type in ingredientts %}
+
+                  {% assign typeLast = type | last | replace:'_',' ' %}
+                  {% assign inttitle = typeLast | split:"|" %}
+
+                  {% for t in coll_tag %}
+                  {% if inttitle[0] == t and inttitle[1] == 'True' %}
+                  {% if filter != '' %}
+                  {% unless filter contains t %}
+                  {% assign astitle = {{inttitle[2]}} | append:'|' | append:t | append:'|' | append:{{inttitle[3]}} | append:'|' | append:{{inttitle[4]}} %}
+                  {% assign filter = filter | append:',' | append:astitle %}
+                  {% endunless %}
+                  {% else %}
+                  {% assign astitle = {{inttitle[2]}} | append:'|' | append:t | append:'|' | append:{{inttitle[3]}} | append:'|' | append:{{inttitle[4]}} %}
+                  {% assign filter = astitle %}
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+
+                  {% assign filter = filter | split:',' | sort %}
+
+                  {% for fc in filter %}
+                  {% assign spdata = fc | split:"|" %}
+
+                  {% if spdata[2] %}
+                  {% assign thum_img = spdata[2] %}
+                  {% else %}
+                  {% assign thum_img = 'no-image.png' | asset_url %}
+                  {% endif %}
+
+                  {% if spdata[3] %}
+                  {% assign banner_img = spdata[3] %}
+                  {% else %}
+                  {% assign banner_img = 'no-image.png' | asset_url %}
+                  {% endif %}
+                  <div class="collection product-item">
+                    <a class="with-collection num_{{ spdata[0] }}" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/{{ col_handle }}/{{ spdata[1] | handle }}" data-banner="{{ banner_img }}">
+                      <div class="thumbnail">
+                        <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/bg-gradient.png?v=1654588946" class="bg-gradient img-fluid" />
+                        <img src="{{ thum_img }}" alt="{{ spdata[1] }}" class="img-fluid bg-img" />
+                      </div>
+                      <h4 class="product_title">{{ spdata[1] }}</h4>
+                    </a>
+                  </div>
+                  {% endfor %}
+
+
+                  {% else %}
+
+                  {% assign filter_type = shop.metafields.TaxonomyType %}
+                  {% if request.locale.iso_code == 'el' %}
+                  {% assign filter_type = shop.metafields.Gr_TaxonomyType %}
+                  {% endif %} 
+
+                  {% assign filter = '' %}                    
+                  {% for type in filter_type %}
+                  {% assign typeLast = type | last | replace:'_',' ' %}
+                  {% assign inttitle = typeLast | split:"|" %}
+
+                  {% for t in coll_tag %}
+                  {% if inttitle[0] == t and inttitle[1] == 'True' %}
+                  {% if filter != '' %}
+                  {% unless filter contains t %}
+                  {% assign astitle = {{inttitle[2]}} | append:'|' | append:t | append:'|' | append:{{inttitle[3]}} | append:'|' | append:{{inttitle[4]}} %}
+                  {% assign filter = filter | append:',' | append:astitle %}
+                  {% endunless %}
+                  {% else %}
+                  {% assign astitle = {{inttitle[2]}} | append:'|' | append:t | append:'|' | append:{{inttitle[3]}} | append:'|' | append:{{inttitle[4]}} %}
+                  {% assign filter = astitle %}
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                  {% assign filter = filter | split:',' | sort %}
+
+                  {% for f in filter  %}
+                  {% assign spdata = f | split:"|" %}
+
+                  {% if spdata[2] %}
+                  {% assign thum_img = spdata[2] %}
+                  {% else %}
+                  {% assign thum_img = 'no-image.png' | asset_url %}
+                  {% endif %}
+
+                  {% if spdata[3] %}
+                  {% assign banner_img = spdata[3] %}
+                  {% else %}
+                  {% assign banner_img = 'no-image.png' | asset_url %}
+                  {% endif %}
+                  <div class="collection product-item bg-grey">
+                    <a class="with-collection num_{{ spdata[0] }}" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/{{ col_handle }}/{{ spdata[1] | handle }}" data-banner="{{ banner_img }}">
+                      <div class="thumbnail">
+                        <img src="{{ thum_img }}" alt="{{ spdata[1] }}">
+                      </div>
+                      <div class="bottom">
+                        <h4 class="product_title">{{ spdata[1] }}</h4>
+                        <div class="product-count"></div>
+                      </div>
+                    </a>
+                  </div>
+                  {% endfor %}
+
+                  {% endif %}
+
+                </div>
+              </div>
+            </div>
+            {%- else -%}
+            <div class="filter_cover">
+              <div class="filter_title">
+                <h3>{{ 'shop_collection.filter.Filters' | t: Filters }}</h3>
+                {% if tag_url %}
+                <a href="{{ collection.url }}" id="reset_filter">Reset Filters</a>
+                {% endif %}
+              </div>
+              <h3 class="hide-from-desktop">Sort by</h3>
+              <div class="show_mob">
+                <div class="filter-title hide-from-desktop">
+                  <h2 class="filter">
+                    {% if request.locale.iso_code == 'el' %}Φίλτρα & Ταξινόμηση{% else %}Filters & Sorting{% endif %}
+                  </h2>
+                  <a class="cloas_filter" href="javascript:;">{% include 'icon-close' %}</a>
+                </div>
+                <h2 class="sort hide-from-desktop">
+                  {% if request.locale.iso_code == 'el' %}
+                  ταξινόμηση κατά
+                  {% else %}
+                  Sort by
+                  {% endif %}
+                </h2>
+                {% for option in collection.sort_options %}
+                {% if option.value contains 'price' or option.value == 'created-descending' or option.value contains 'best' %}
+                <p class="sort_item hide-from-desktop" data-value="{{ option.value }}">
+                  <input type="radio" id="type1" name="radio-group4"
+                         class="hh {{ option.value }} filter-blck by_need" value="{{ option.value }}">
+                  <label for="type2"> {% if option.value == 'created-descending' %}
+                    {{ 'shop_collection.filter.new_in' | t: new_in }}
+                    {% else %}
+                    {{ option.name | replace: 'selling', 'Sellers' }}
+                    {% endif %}
+                  </label>
+                </p>
+                {% endif %}
+                {% endfor %}
+
+
+
+                {% include 'collection-filter' %}
+              </div>
+            </div>
+            <div class="wrapper_tabcontent"
+                 data-collection_url="{{ https://{{ shop.domain }}{{ collection.url }}"
+                 data-products-count="{{ collection.products_count }}">
+              <div class="filter_option">
+                <h2 id="customer_id" style="display:none;">{{ customer.id }}</h2>
+
+                <div class="filters-top">
+                  <h3>
+                    <img class="lozad" data-sizes="auto" data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/filters-icon.png?v=1645455351"/> {{ 'shop_collection.filter.Filters' | t: Filters }}
+                  </h3>
+                  <div class="results mobile">
+                    <span>{{ collection.products_count }}</span>
+                    <span>Results</span>
+                  </div>
+                </div>
+                <div class="tags_list">
+                </div>
+                <div class="d-none d-sm-block" style="float:right;width:100%">
+                  {% include 'sort-by-filter' %}
+                </div>
+              </div>
+              <div id="all" class="tabcontent active">
+                {% if collection.products_count < 1 %}
+                <div class="no_product_result">
+                  <div class="no_prod_result_wrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="58.73" height="61.211"
+                         viewBox="0 0 58.73 61.211">
+                      <g id="Group_5552" data-name="Group 5552" transform="translate(1 1)">
+                        <circle id="Ellipse_6" data-name="Ellipse 6" cx="23.884" cy="23.884"
+                                r="23.884" transform="translate(0)" fill="none"
+                                stroke="#2c2c28" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2"/>
+                        <line id="Line_24" data-name="Line 24" x2="16.421" y2="16.421"
+                              transform="translate(39.894 42.375)" fill="none"
+                              stroke="#2c2c28" stroke-linecap="round"
+                              stroke-linejoin="round" stroke-width="2"/>
+                      </g>
+                    </svg>
+                    <p>Unfortunately, <strong>no results were found</strong> for your search.
+                    </p>
+                  </div>
+                  <ul class="pagination">
+                    <li class="page_change arrow_left">
+                      <a href="javascript:void(0)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="6.726"
+                             height="12.451" viewBox="0 0 6.726 12.451">
+                          <path id="Path_247" data-name="Path 247"
+                                d="M607.13,411.742l-5.518,5.518-5.518-5.518"
+                                transform="translate(417.76 -595.386) rotate(90)"
+                                fill="none" stroke="#180e96" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="1"></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="active">
+                      <a href="javascript:void(0)" title="">0</a>
+                    </li>
+                    <li class="arrow_right page_change right">
+                      <a href="javascript:void(0)" class="btn btn--tertiary btn--narrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="6.726"
+                             height="12.451" viewBox="0 0 6.726 12.451">
+                          <path id="Path_247" data-name="Path 247"
+                                d="M607.13,411.742l-5.518,5.518-5.518-5.518"
+                                transform="translate(-411.035 607.838) rotate(-90)"
+                                fill="none" stroke="#180e96" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="1"></path>
+                        </svg>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                {% else %}
+                <div id="Custom-Loop" class="product-container"
+                     data-collection_url="{{ https://{{ shop.domain }}{{ collection.url }}"
+                     data-products-count="{{ collection.products_count }}">
+
+                  {%- for product in collection.products -%}
+                  {% unless current_collection == blank %}
+                  {% assign current_collection = collection %}
+                  {% endunless %}
+                  {% assign on_sale = false %}
+                  {% assign sale_text = 'products.product.sale' | t %}
+                  {% if product.compare_at_price > product.price %}
+                  {% assign on_sale = true %}
+                  {% endif %}
+                  {% assign sold_out = true %}
+                  {% assign sold_out_text = 'products.product.sold_out' | t %}
+                  {% if product.available %}
+                  {% assign sold_out = false %}
+                  {% endif %}
+                  {% unless product.handle contains 'welcome-gift' %}
+                  
+                  {% if product.price > 0 %}
+                  <div class="product-item">
+                    <a
+                       href="{{ product.url | within: collection }}"
+                       data-productid="{{ product.id }}"
+                       data-id="{{ first_variant.id }}"
+                       data-handle="{{ product_handle }}"
+                       >
+                      <div class="top">
+                        {% include 'wishlist-product' %}
+                        {% if product.tags contains 'BEST SELLER' %}
+                        <span class="tag-box">BEST SELLER</span>
+                        {% elsif product.tags contains 'New' %}
+                        <span class="tag-box">NEW</span>
+                        {% else %}
+                        {% endif %}
+                      </div>
+                      <div class="thumbnail">
+                        <picture>
+                          <source srcset="{{ product.featured_image | img_url: '100x' | format: 'jpg' }}" media="(max-width: 767px)">
+                          <img  src="{{ product.featured_image | img_url: '198x' | format: 'jpg' }}" data-sizes="auto" alt="{{ block.settings.slide_heading }}" >
+                        </picture>
+
+                      </div>
+                      <div class="info">
+                      </div>
+                      {% if request.locale.iso_code == 'el' %}
+                      {% assign prod_title = product.metafields.language.value | json %}
+                      {% if product.metafields.language.value %}
+                      {% assign forloop_index = forloop.index %}
+                      <script>
+                        (function () {
+                          setTimeout(function () {
+                            var productLang = {{ prod_title }};
+                            var product = productLang['el (Greek)'];
+                            if (product != undefined) {
+                              var title = product.gr_item_full_title;
+                              document.getElementsByClassName('product_title_{{ forloop_index }}')[0].innerHTML = title;
+                                                              }
+                                                              }, 2000);
+                            })();
+                      </script>
+                      {% endif %}
+                      {% endif %}
+                      <a class="prd_tit"
+                         data-object='{ "name":"{{ product.title }}", "id":"{{ product.id }}", "price":"{{ product.price  | divided_by:100.00 }}", "brand":"{{ product.vendor }}", "category":"{{ product.collections[1].title }}", "variant":"{{ product.selected_or_first_available_variant.title }}", "list": "Search Results", "position":"{{ forloop.index }}", "url":"{{ product.url }}" }'
+                         href="{{ product.url }}"><h4
+                                                      class="product_title product_title_{{ forloop.index }}">{{ product.title }}</h4>
+                      </a>
+                      {% assign not_in_cart = false %}
+                      {% for item in cart.items %}
+                      {% if item.product.id == product.id %}
+                      {% assign not_in_cart = true %}
+                      {% break %}
+                      {% endif %}
+                      {% endfor %}
+                      {% form 'product', product, data-productid: product.id %}
+                      <div class="product-form--submit">
+                        {%- unless product.has_only_default_variant -%}
+                        {%- for option in product.options_with_values -%}
+                        <div
+                             class="mobile-variant-selector{% if option.name == 'Ingredient' or option.name == 'Color' %} color{% else %} size{% endif %}">
+                          <div>
+                            {%- if option.name == 'Ingredient' or option.name == 'Color' -%}
+                            {%- for variant in product.variants -%}
+                            {%- if option.selected_value == variant.option1 or option.selected_value == variant.option2 -%}
+                            {%- assign option_value = variant.metafields.kettle.variant_color -%}
+                            <div class="value"
+                                 style="--variantcolor: {{ option_value }}"></div>
+                            {% break %}
+                            {%- endif -%}
+                            {%- endfor -%}
+                            {%- else -%}
+                            <div class="value">
+                              {{- option.selected_value -}}
+                            </div>
+                            {%- endif -%}
+
+                            <p>
+                              {%- if option.name == 'Ingredient' or option.name == 'Color' -%}
+                              Color
+                              {%- else -%}
+                              {{ option.name }}
+                              {%- endif -%}
+                            </p>
+                          </div>
+                          <svg width="11" height="8" viewBox="0 0 11 8"
+                               fill="none"
+                               xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 1.5332L5.5 6.19987L1 1.5332"
+                                  stroke="#444444" stroke-width="2"/>
+                          </svg>
+                        </div>
+                        {%- endfor -%}
+                        {%- endunless -%}
+                      </div>
+                      <p class="price">
+                        <span>
+                          {{ product.price | money }}
+                        </span>
+                      </p>
+                      {% endform %}
+                    </a>
+                    {% if customer %}
+                    {% assign prodDescription = product.description  | split: "<!-- split -->"  %}
+                    {% assign popup = flase %}
+                    {% if prodDescription[26] != blank %}
+                    {% assign popup = true %}
+                    {% endif %}
+
+
+                    {%- unless product.available -%}
+                    <button id="order-submit"
+                            class="add-to-cart btn-theme andri order_submit_data">
+                      Notify me when available
+                    </button>
+                    {%- else -%}
+                    <span id="order-submit" class="{% if popup == true %}open-child-popup {% endif %} add-to-cart order_submit_data add_to_cart_custom btn-theme andri " {% if kettle_metafield.hero_qvc_link %}data-href="{{ kettle_metafield.hero_qvc_link }}"{% endif %} data-prdid="{{ product.id }}" data-id="{{ product.variants[0].id }}" data-price="{{ product.price | money }}" >
+                      {%- if kettle_metafield.hero_qvc_link -%}
+                      Buy On QVC
+                      {%- else -%}
+                      {% if request.locale.iso_code == 'en' %}
+                      Add To Bag
+                      {% else %}
+                      Αγορά
+                      {% endif %}
+
+                      {% if has_ss %}
+                      <span class="ss-price">{{ ss_price }}</span>
+                      {% endif %}
+                      {%- endif -%}
+                      {%- endunless -%}
+                    </span>
+                    {% else %}
+                    <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/account/register" id="order-submit">Sign Up to Shop</a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                  
+                  {% endunless %}
+                  {%- endfor -%}
+
+                </div>
+                <div id="Custom-Pagination">
+                  {% if paginate.next %}
+                  <a href="{{ paginate.next.url }}">Loading More</a>
+                  {% endif %}  
+                </div>
+                {% endif %}
+              </div>
+            </div>
+
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      {% endpaginate %}{% endif %}
+    </section>
+  </div>
+</main>
+
+<script>
+  {% if customer %}
+  $(document).ready(function(e){
+    console.log('ready from colleciton code');
+    // code by vishvaraj
+    var jsonSrting = {{shop.metafields.pharmacy.poidetails }};
+    var pharm_nm = $('.customer_tage').data('phamnm');
+    var cust_tags = {{ customer.tags | json }};
+    var pharmacy_id = '';
+    var availableItems = jsonSrting.pharmacy.pharmacy_id;
+    for(var i = 0;i<availableItems.length;i++){
+      //console.log(availableItems[i].name);
+      for(var j = 0;j<cust_tags.length;j++){
+        if(cust_tags[j] == availableItems[i].id){
+
+          var pharmacy_id = availableItems[i].id
+          //var pharmacy_id = isNaN(parseInt(availableItems[i].id)) ? 0 : parseInt(availableItems[i].id);
+          //console.log(pharmacy_id);
+          }
+      }
+    }
+
+    console.log(pharmacy_id+' pharmacy_id ')
+    $('.product-container .product-item').each(function(e){
+      var product_id = $(this).find('span#order-submit').data('id');
+      console.log('product id '+product_id)
+      var current = $(this);
+      $.ajax({
+        type: 'GET', 
+        url: 'https://api.korresfamily.com/api/v1/MarketplaceItem/GetproductPricelist?productid='+product_id+'&pharmecyid='+pharmacy_id,
+        dataType: 'json', 
+        success: function(data){
+
+          current.find('.outer-price').show();
+          var cprice = data.data.price;
+          cprice = cprice.toString().replace('.',',');
+          console.log(cprice);
+          current.find(".price").html('€'+cprice);
+          current.find(".price").attr('data-customprice',data.data.price);
+        },
+        error:function(error){
+          console.log(error);
+        }
+      });
+    })
+    // endcode by vishvaraj
+  })
+  {% endif %}
+  function openNav() {
+    document.getElementById("myNav").style.display = "block";
+  }
+
+  function closeNav() {
+    document.getElementById("myNav").style.display = "none";
+  }
+
+  $('.l1').on('click', function () {
+    var tag = $(this).attr('value');
+    var tag1 = $(this).text();
+    var back_link = "#layer" + tag;
+    $('.nav-link').attr('href', back_link);
+    $('.nav-link').attr('value', tag);
+    $("#layer" + tag).removeClass('hide-menu');
+    $("#layer" + tag).toggleClass('show-menu');
+  });
+  $('.nav-link').on('click', function () {
+    var tag = $(this).attr('href');
+    var val = $(this).attr('value');
+    $(tag).removeClass('show-menu');
+    var back_link = "#layer" + (val - 1);
+    $('.nav-link').attr('href', back_link);
+    $('.nav-link').attr('value', val - 1);
+
+  });
+  $(".add_to_cart_custom").click(function() {
+
+    var variant_id = $('#prod-selected-id').val();
+    var quantity = $('#quantityyy').val();
+    var custom_price = $(".price").data('customprice');
+    /*if(properties != false){
+          properties = properties;
+      }*/
+    //     $.ajax({
+    //       type: 'POST', 
+    //       url: '/cart/add.js',
+    //       dataType: 'json',
+    //       data:{
+    //         id:variant_id, 
+    //         quantity:quantity,
+    //         properties: {
+    //           "custom-price":parseFloat(custom_price) * 100
+    //         }
+    //       },
+    //       success: function(data){
+    //         //console.log(data);
+    //         window.location.href ='/cart/';
+    //       },
+    //       error:function(error){
+    //         console.log(error);
+    //       }
+    //     });
+  })
+</script>

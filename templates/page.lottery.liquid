@@ -1,0 +1,110 @@
+{% assign first_order = customer.metafields.customer.first_order %}
+{% assign giftFullUrl = canonical_url %}
+{% assign giftUri = giftFullUrl | split: "=" %}
+
+{% assign giftUriFinal = giftUri[1] | split: "&" %}
+{% assign productUri = giftFullUrl | split: "type=" %}
+
+{% assign royalty = customer.metafields.points.loyalty | split : '|' | last | plus:0 %} 
+{% assign circles = shop.metafields.circle %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div id="event-gift-page" class="gift-page-container">
+    {% assign circleValue = '' %}
+    {% for circle in circles %}
+        {% if circle[0] contains 'My_' %}
+          {% unless circle[0] contains 'level_' %}
+          {% assign circleValue = circle[0] | prepend:'level_' %}
+          {% assign valuedonwcase = circle[0] | downcase %}
+  			
+          	<div id="{{ circle[0] }}" class="events-gift-main {% if valuedonwcase == giftUriFinal[0] %}currect-gift-sec{% endif %}" style="{% if valuedonwcase == giftUriFinal[0] %}display: block;{% else %}display: none;{% endif %}">
+            {% for i in (1..5) %}
+            {% assign increase = 'Lottery_' | append: i %}
+            {% assign events = shop.metafields.[increase].[circleValue] %}
+
+            {% if events != null and events != "" %}
+
+            {% assign checktest = events | split: "|" %}
+            {% assign img = checktest[6] %}
+            {% assign points = checktest[7]  %}
+            {% assign pointsChk = 'label_' | append: checktest[7]  %}
+
+            {% assign lvl_nme = checktest[0] |  replace:' ','-' | strip %}
+
+            <div id="{{ lvl_nme }}" class="events-gift {% if pointsChk == productUri[1] %} current-evc {% endif %}" style="{% if pointsChk == productUri[1] %}display: block;{% else %}display: none;{% endif %}">
+              <h1 style="display:none;" id="CircleNameAt">{{ checktest[0] }}</h1>
+              <div id="imgtestid" class="top-img">
+                <img id="apid" src="{{ img }}" alt="{{checktest[0]}}" class="img-fluid"/>
+              </div>
+              <div class="gift-content">
+                <h1 class="ClLotter_name" id="lotter_name">{{checktest[0]}}</h1>
+                <p class="sub-title">{{checktest[1]}}</p>
+                {% assign royaltytest = royalty | plus: 0 %}
+                {% assign pointstest = points | plus: 0 %}
+				<input type="hidden" name="customer_id" value="{{ customer.id }}">
+                <input type="hidden" name="event_points" value="{{ pointstest }}">
+                {% if first_order %}
+                  {% if royaltytest < pointstest %}
+                  <button class="1 btn-gift btn-earn-gift product-info-locked"> {% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %} </button>
+                  {% else %}
+                  {% assign str = 'Level_' | append: pointstest  %}
+                  {% if customer.metafields.Level contains str  %}
+                  <button class="2 btn-gift product-info-earned">{% if request.locale.iso_code == 'el' %}Εξαργυρωμένο{% else %}Earned Gift{% endif %}</button>
+                  {% else %}
+                  <button class="3 vktest btn-gift btn-earn-gift">{% if request.locale.iso_code == 'el' %}Ξεκλείδωτο Δώρο{% else %}Earn this Gift{% endif %} <span></span></button>
+                  {% endif %}
+                  {% endif %}
+                {% else %}
+                <button class="4 btn-gift btn-earn-gift product-info-locked"> {% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %} </button>
+                {% endif %}
+
+                <div class="text">
+                  <p>{{checktest[2]}}</p>
+                  <p>{{checktest[4]}}</p>
+                </div>
+                
+                <div class="lottery-term-cond">
+                  <p class="lottery-term-title">{% if request.locale.iso_code == 'el' %}Όροι και Προϋποθέσεις κλήρωσης{% else %}Terms and Conditions{% endif %}<span>{% include 'down-arrow' %}</span></p>
+                  <p class="lottery-term-desc" style="display:none;">{{ checktest[5] }}</p>
+                </div>
+              </div>
+            </div>
+
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% endunless %}
+        {% endif %}
+    {% endfor %}   
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(".vktest").click(function() {
+
+      var ltpoints = $('.currect-gift-sec .current-evc input[name="event_points"]').val();
+      var ltuserid = $('.currect-gift-sec .current-evc input[name="customer_id"]').val();
+      var url = "https://api.korresfamily.com/api/v1/MarketplaceItem/lotterysbookingbyshopify";
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data:{points: ltpoints, user_id: ltuserid},
+        success:function(res){
+          setTimeout(function(){
+            $('.vktest').text('Earned');
+            window.location.reload();
+          },1000);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+      
+    });
+    
+    
+  })  
+</script>
+

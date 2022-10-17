@@ -1,0 +1,34 @@
+function closeUsrFunction() {
+  document.getElementById("checkuserModal").style.display = "none";
+}
+
+$(document).ready(function(){
+  $(".btn-login").click(function() {
+    var email = $('#login_email').val();
+    var url = "https://api.korresfamily.com/api/v1/profileapi/checkuserstatus?email="+email;
+	
+     $.ajax({
+        type: "POST",
+        url: "https://api.korresfamily.com/api/v1/profileapi/checkuserstatus",
+        async:false,
+        dataType: 'json',
+        data: {
+          	"email":email
+        },
+        success: function(data){
+          if(data.status == 0){
+          	$('.getDidata').html(data.message);
+            $('.checkuser-modal').show(); 
+          } else{ 
+            $('.login-prime-checker input[type="submit"]').trigger('click');	  
+          }
+        },
+        error: function(res){
+          setTimeout(function(e){
+          	location.reload();
+          },500);
+        }
+      });
+
+  });  
+});

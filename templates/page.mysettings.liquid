@@ -1,0 +1,407 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+  {{'new-register.css' | asset_url | stylesheet_tag}}
+  {{'signup-map.css' | asset_url | stylesheet_tag}}
+  {{'style-my-settings.css' | asset_url | stylesheet_tag}}
+
+  <input type="hidden" id="customer_id" value="{{customer.id}}"/>
+  <div class="page-my-settings">
+    {% render 'shogun-products', content: page %}
+
+    <div class="my_setting_main">
+     <h1 class="page-title">{{ 'my_setting.title.my_settings' | t: my_settings }}</h1>
+      <div class="inner-page form-page width-1784" data-cnote="{{ customer.notes }}" data-defaddid="{{ customer.default_address.id }}">
+        <div class="row">
+          <div class="form-group w-50">
+            <div class="col-sm-12 first-name col-lg-12">
+              <label for="InputName">{{ 'my_setting.title.name' | t: name }}</label>
+              <input type="text" class="form-control" id="InputName" value="{{ customer.first_name }}" placeholder="John"/>
+              <p class="error c-error"></p>
+            </div>
+          </div>
+
+          <div class="form-group w-50">
+            <div class="col-sm-12 last-name col-lg-12">
+              <label for="InputSurName">{{ 'my_setting.title.surname' | t: surname }}</label>
+              <input type="text" class="form-control" id="InputSurName" value="{{ customer.last_name }}" placeholder="Doe"/>
+              <p class="error c-error"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-group-date date-of-birth">
+          {% assign customer_dob = customer.metafields.date['dob'] %}
+          {% assign cdate = customer_dob %}
+
+          <div class="row">
+            <div class="col-12">
+              <label for="InputMonth">{{ 'my_setting.title.date_of_birth' | t: date_of_birth }}</label>
+            </div>
+            <div class="col-12">
+              {% if customer_dob %}
+              <input type="text" class="form-control form-control-month" id="InputMonth" value="{{ customer_dob }}"  readonly=""/>
+              {% else %}
+              <input type="text" class="form-control form-control-month input-datePicker" id="InputMonth" value=""  placeholder="DD/MM/YYYY" readonly="readonly"  style="background:white;"/>
+              {% endif %}
+            </div>
+          </div>
+          <small id="emailHelp" class="form-text italic">{{ 'my_setting.title.info' | t: info }}</small>
+        </div>
+
+        <div class="form-group email_addresss">
+          <label for="InputEmail">{{ 'my_setting.title.email' | t: email }}</label>
+          <input type="email" class="form-control" id="InputEmail" value="{{ customer.email }}" readonly="" placeholder="ex.johndoe@gmail.com"/>
+        </div>
+
+        <div class="form-group">
+          <label for="InputMobileNumber">{{ 'my_setting.title.mobile_number' | t: mobile_number }}</label>
+          <input maxlength="13" type="text" class="form-control checkMobileNumber" id="InputMobileNumber" value="{{ customer.phone }}" onfocus="this.placeholder = ''" onblur="this.placeholder = '+30 69123 45 678'"  placeholder="+30 69123 45 678"/>
+          <span class="error_phone c-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="InputPickUpStore">{{ 'my_setting.title.my_pickup_store' | t: my_pickup_store }}</label>
+          <div class="pick_cover">
+            <input type="text" class="form-control" id="InputPickUpStore" value="" placeholder="+ Add your PickUp Store"/>
+            <span style="display:none" id="PickUpStoreAsId"> </span>
+            <span class="pick_edit">{% include 'edit_ic' %}</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="InputAddress">{{ 'my_setting.title.address' | t: address }}</label>
+
+          <div class="add_address_cover" data-custoid="{{ customer.id }}">
+            {% assign cust_add = customer.addresses_count %}
+            {% if cust_add > 0 %}
+            <div class="wrap-drop" id="add_new">
+              <span class="active-address">{{ customer.default_address.address1 }} {{customer.default_address.city}},{{customer.default_address.zip}}</span>
+
+              <ul class="drop">
+                {% for address in customer.addresses %}
+                <li class="other_added" data-custaddress="{{ address.id }}">
+                  <a>{{ address.address1 }} {{address.city}},{{address.zip}}</a>
+                </li>
+                {% endfor %}
+
+                <li class="add_address">
+                  <a>+ Add Delivery Address</a>
+                </li>
+              </ul>
+            </div>
+            {%- else -%}
+            <div class="add_address form-control">+ Add Delivery Address</div>
+            {% endif %}
+
+
+            <div class="add_address_inner" data-custoid="{{ customer.id }}" style="display:none;">
+              <div class="row c_margin">
+                <label class="field">
+                  <input class="field__input" type="hidden" id="firstname" value="{{customer.first_name}}" />
+                </label>
+                <label class="field">
+                  <input class="field__input" type="hidden" id="lastname" value="{{customer.last_name}}" />
+                </label>
+                <div class="form-group w-50">
+                  <div class="col-sm-12 col-lg-12">
+                    <label for="InputName">Delivery Address *</label>
+                    <input type="text" class="form-control" id="address" value=""/>
+                  </div>
+                </div>
+                <div class="form-group w-50">
+                  <div class="col-sm-12 col-lg-12">
+                    <label for="InputSurName">Postcode *</label>
+                    <input type="text" class="form-control" id="zipcode" value=""/>
+                  </div>
+                </div>
+                <div class="form-group w-50">
+                  <div class="col-sm-12 col-lg-12">
+                    <label for="city">City *</label>
+                    <input type="text" class="form-control" id="city" value=""/>
+                  </div>
+                </div>
+                <div class="form-group w-50">
+                  <div class="col-sm-12 col-lg-12">
+                    <label for="country">Country *</label>
+                    <select class="field__input form-control" id="country">
+                      <option value="Greece">Greece</option>
+                      <option value="United States">United States</option>
+                      <option value="United Kingdom">United Kingdom</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="bottom">
+          <h6>{{ 'my_setting.title.notifications_settings' | t: notifications_settings }}</h6>
+          <div class="row-notification news-letter">
+            <span class="notification-text">{{ 'my_setting.title.join_our_mailing' | t:join_our_mailing }}</span>
+            <label class="switch">
+              <input class="checkbox" type="checkbox" value="Receive newsletters" {% if customer.accepts_marketing %}checked{% endif %}/>
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          {% assign pushnoti = customer.metafields.notification['push_noti'] %}
+          <div class="row-notification push-notification {{ customer.metafields.notification['push_noti'] }}">
+            <span class="notification-text">{{ 'my_setting.title.join_our_text_message' | t: join_our_text_message }}</span>
+            <label class="switch">
+              <input class="checkbox" type="checkbox" value="Push Notifications" {% if pushnoti == 'true' %}checked{% endif %}/>
+              <span class="slider round"></span>
+            </label>
+          </div>
+          
+        </div>
+
+        <button id="btn-save-info" class="btn-theme-blue submit-btn Update-customer-details" type="submit">{{ 'my_setting.title.save_information' | t: save_information }}</button>
+      </div>
+
+      <div class="width-1784 register" style="display:none;">
+        {% form 'create_customer' %}
+        {{ form_errors | default_errors }}
+        {% if form.errors %}
+        {% for field in form.errors %}
+        {% if form.errors.messages[field] contains "has already been taken" %}
+        {{ 'already exists' }}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        <div class="row tab-pane register_cover" id="step3">
+          <div class="col-md-6 col-lg-6">
+            <div class="left_detail">
+              <a class="back_my_setting" href="#" onclick="back_to_settings();"><span >&#60; &nbsp; {{ 'my_setting.title.back_to_my_settings' | t: back_to_my_settings}}</span></a>
+              <h3>{{ 'Register.Select_store.title' | t: title }}</h3>
+              <p>{{ 'Register.Select_store.subtext_html' | t: subtext_html }}</p>
+              <div class="pharm-selection">
+                <div class="overlay">
+                  <div class="ui-widget" id="browserWrap">
+                    <select name="browser" id="browser" placeholder="{{ 'Register.Placeholder.Store_Area_PostCode' | t: Store_Area_PostCode }}"></select>
+                  </div>
+                </div>
+              </div>
+
+              <input name="customer[note][default_pharmacy]" hidden="" value="" id="filter_pharamcy_name"/>
+              <input type="hidden" id="customer_tags" name="customer[tags]" value="" />
+              <div class="defau-selection">
+                <div class="floating-label deafult-pharma">
+                </div>
+              </div>
+              
+                <div class="small-map-text map-panel-1 map-panel-desk">
+                <h1>{{ 'Register.Select_store.Select_circle' | t: Select_circle }}</h1>
+                <h2>
+                  <span class="map-icons">
+                    <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/price_icon.svg?v=1628771299" class="unlock-img" />
+                  </span>{{ 'Register.Select_store.Unlock_prices' | t: Unlock_prices }}
+                </h2>
+                <h2>
+                  <span class="map-icons">
+                    <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/small-truck.png?v=1645092907" class="free-shipping-img" />
+                  </span>{{ 'Register.Select_store.Get_free_shipping' | t: Get_free_shipping }}
+                </h2>
+                <h2>
+                  <span class="map-icons">
+                    <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/map_svg.svg?v=1628771299" class="points-img" />
+                  </span>{{ 'Register.Select_store.Collect_points' | t: Collect_points }}
+                </h2>
+                <h2>
+                  <span class="hh map-icons">
+                    <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/present-box_png.png?v=1645103826" class="gifts-img" />
+                  </span>{{ 'Register.Select_store.Pickup_your_Gifts' | t: Pickup_your_Gifts }}
+                </h2>
+                
+<!--                 <button type="button"  class="btn btn-primary btn-select" onclick="openLocation_pick()">{{ 'Register.Select_Buton.Select' | t: Select }}</button> -->
+                
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6">
+            <div class="tab-pane" id="step3" style="display:block;">
+              <div class="modal" id="divMapModal" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                      <!--{% include 'cross-ic' %}-->
+                    </button>
+                    <h4>{{ 'Register.Select_store.Selected_Pickup_location' | t: Selected_Pickup_location }}</h4>
+                    <p class="modal-shopping">{{ 'Register.Select_store.sub_text1' | t: sub_text1 }}</p>
+                    <p class="modal-shopping">{{ 'Register.Select_store.sub_text2' | t: sub_text2 }}</p>
+                    <hr/>
+                    <span style="display:none" id="pharmacy_id_as_tag"></span>
+                    <p class="location-name">
+                      <span id="locationName"></span>
+                    </p>
+                    <button type="button"  class="btn btn-primary addBtn btn-select" onclick="saveLocation_pick()">{{ 'Register.Select_Buton.Select' | t: Select }}</button>
+                  </div>
+                </div>
+              </div>
+              <div id="map_canvas" class="map-can"></div>
+              <input type="submit" id="final-register" value="Complete Sign up" class="btn btnRegister" style="display:none;"/>
+            </div>
+          </div>
+        </div>
+        {%endform%}
+      </div>
+      
+      <div class="small-map-text map-panel-1 map-panel-mob">
+        <h1>{{ 'Register.Select_store.Select_circle' | t: Select_circle }}</h1>
+        <h2>
+          <span class="map-icons">
+            <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/price_icon.svg?v=1628771299" class="unlock-img" />
+          </span>{{ 'Register.Select_store.Unlock_prices' | t: Unlock_prices }}
+        </h2>
+        <h2>
+          <span class="map-icons">
+            <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/small-truck.png?v=1645092907" class="free-shipping-img" />
+          </span>{{ 'Register.Select_store.Get_free_shipping' | t: Get_free_shipping }}
+        </h2>
+        <h2>
+          <span class="map-icons">
+            <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/map_svg.svg?v=1628771299" class="points-img" />
+          </span>{{ 'Register.Select_store.Collect_points' | t: Collect_points }}
+        </h2>
+        <h2>
+          <span class="hh map-icons">
+            <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/present-box_png.png?v=1645103826" class="gifts-img" />
+          </span>{{ 'Register.Select_store.Pickup_your_Gifts' | t: Pickup_your_Gifts }}
+        </h2>
+
+        <button type="button"  class="btn btn-primary btn-select selectStore" onclick="openLocation_pick()">{{ 'Register.Select_Buton.Select' | t: Select }}</button>
+
+      </div>
+
+      <div class="width-1784 register1" style="display:none;">
+        <div class="col-md-12 col-lg-12">
+          <div class="tab-pane"  style="display:block;">
+            <div class="modal" id="divSaveModal" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">                   
+                  <div class="content psaved">
+                    <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/t/105/assets/check_1.png?v=1654175632" />
+                    <h3 >{{ 'my_setting.title.profile_saved' | t:pProfile_saved}}</h3>                    
+                    <p >{{ 'my_setting.title.settings_changes_saved' | t: settings_changes_saved}}  </p>
+                    <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/my-settings" >{{ 'my_setting.title.back_to_settings' | t: back_to_settings}}</a>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<input type="hidden" id="mobile_number_already_exist" value="{{ 'my_setting.title.mobile_validation_messge' | t: mobile_validation_messge }}" />
+
+<script>
+  function DropDown(el) {
+    this.dd = el;
+    this.placeholder = this.dd.children('span');
+    this.opts = this.dd.find('ul.drop li');
+    this.val = '';
+    this.index = -1;
+    this.initEvents();
+  }
+
+  DropDown.prototype = {
+    initEvents: function () {
+      var obj = this;
+      obj.dd.on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).toggleClass('active');
+        $('.active-address').toggle();
+      });
+      obj.opts.on('click', function () {
+        var opt = $(this);
+        obj.val = opt.text();
+        obj.index = opt.index();
+        obj.placeholder.text(obj.val);
+        opt.siblings().removeClass('selected');
+        opt.filter(':contains("' + obj.val + '")').addClass('selected');
+      }).change();
+    },
+    getValue: function () {
+      return this.val;
+    },
+    getIndex: function () {
+      return this.index;
+    }
+  };
+
+  $(function () {
+    var dd1 = new DropDown($('#add_new'));
+    $(document).click(function () {
+      $('.wrap-drop').removeClass('sdfsdfds');
+    });
+  });
+
+  $('.btn-close').click(function(){
+    $('#divMapModal').hide();
+  });
+
+  $(".other-added").on("click", function() {
+    $(".other-added").removeClass("selected");
+    $(this).addClass("selected");
+  });
+
+  $(".btn-close").on("click", function() {
+    $('.custom-combobox-input').val("");
+  });
+
+  $(function() {
+    var mobileNum = $('.checkMobileNumber').val();
+    if(!mobileNum){
+      $('.push-notification').addClass('hold');
+    }
+    $('.checkMobileNumber').on("input",function (e)  {
+      var mobileNumcheck = $('.checkMobileNumber').val();
+      if (mobileNumcheck.length > 9) {
+        $('.push-notification').removeClass('hold');
+      } else {
+        if (!$('.push-notification').hasClass("hold")) {
+          $('.push-notification').addClass('hold');
+        }
+        $('.push-notification input').prop('checked', false);
+      }
+    });
+
+    $( ".input-datePicker" ).datepicker({ changeYear: true, yearRange: "-121:+00", dateFormat: 'dd/mm/yy', minDate: new Date(1900, 01, 01), maxDate: 0 });
+    /* Start of 30 June 2022 changes by Madhav */
+    $( ".input-datePicker" ).on('change',function(){
+        setTimeout(function(){
+          	$('.confirm-dob-popup').show();			
+        },500)
+      })
+    $('.confirm-dob-popup .ok').click(function(){
+    	  	$('.confirm-dob-popup').hide();	
+    });
+    $('.confirm-dob-popup .cancel').click(function(){
+       	$('.confirm-dob-popup').hide();	
+    	  	$('#InputMonth').val('');	
+    });
+    /* End of 30 June 2022 changes by Madhav */
+  });
+
+  $(".row-notification .checkbox").change(function() {
+    if(this.checked) {
+      $(this).parent().parent().find(".notification-text").addClass("color-blue");
+    }
+    else {
+      $(this).parent().parent().find(".notification-text").removeClass("color-blue");
+    }
+  });
+</script>

@@ -1,0 +1,330 @@
+<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+<script type="text/javascript" src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+{% for block in section.blocks %}
+<div class="inner second-step-our-story click-tab tab-web" id="tab-web" style="background-image:url('https://cdn.shopify.com/s/files/1/0515/5785/9489/files/full-circle-bg.png?v=1648396887'); background-repeat:no-repeat;">
+  <div class="big-circle">
+    <div class="inner-big-circle">
+      <div class="help">
+        <div class="section section-1">
+          <div class="inner">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.soil-link }}" data-id="soil-lab">
+              <div class="circle-category-item ">
+                <span>
+                  {{block.settings.main-title-1 | newline_to_br}}
+                </span>
+                <span class="num">{{block.settings.main-number-1}}</span>
+              </div>
+              <img class="lozad img-fluid" data-src="{{block.settings.main-img-1 | img_url: 'master'}}" />
+            </a>
+          </div>
+        </div>
+        <div class="section section-2">
+          <div class="inner">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.extraction-link }}" data-id="extraction-lab" >
+              <div class="circle-category-item ">
+                <span>
+                  {{block.settings.main-title-2 | newline_to_br}}
+                </span>
+                <span class="num">{{block.settings.main-number-2}}</span>
+              </div>
+              <img class="lozad img-fluid" data-src="{{block.settings.main-img-2 | img_url: 'master'}}" />
+            </a>
+          </div>
+        </div>
+        <div class="section section-3">
+          <div class="inner">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.molecular-link }}" data-id="molecular-lab">
+              <div class="circle-category-item ">
+                <span>
+                  {{block.settings.main-title-3 | newline_to_br}}
+                </span>
+                <span class="num">{{block.settings.main-number-3}}</span>
+              </div>
+              <img class="lozad img-fluid" data-src="{{block.settings.main-img-3 | img_url: 'master'}}" />
+            </a>
+          </div>
+        </div>
+        <div class="section section-4">
+          <div class="inner">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.formulation-link }}" data-id="formulation-lab">
+              <img class="lozad img-fluid" data-src="{{block.settings.main-img-4 | img_url: 'master'}}" />
+              <div class="circle-category-item ">
+                <span>
+                  {{block.settings.main-title-4 | newline_to_br}}
+                </span>
+                <span class="num">{{block.settings.main-number-4}}</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="section section-5">
+          <div class="inner">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.design-link }}" data-id="design-lab">
+              <img class="lozad img-fluid" data-src="{{block.settings.main-img-5 | img_url: 'master'}}" />
+              <div class="circle-category-item ">
+                <span>
+                  {{block.settings.main-title-5 | newline_to_br}}
+                </span>
+                <span class="num">{{block.settings.main-number-5}}</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="section section-6">
+          <div class="inner">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.recycle-link }}" data-id="recycle-lab">
+              <img class="lozad img-fluid" data-src="{{block.settings.main-img-6 | img_url: 'master'}}" />
+              <div class="circle-category-item ">
+                <span>
+                  {{block.settings.main-title-6 | newline_to_br}}
+                </span>
+                <span class="num">{{block.settings.main-number-6}}</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="tab-mobile circle-carousel-container">
+  <p class="title">{{block.settings.main-mobile-title}}</p>
+  <div class="circle-carousel click-tab" data-flickity='{ "cellAlign": "left", "prevNextButtons": false, "pageDots": false, "autoPlay": false, "groupCells": 1 }'>
+    <div class="carousel-cell">
+      <a data-id="soil-lab" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.soil-link }}" class="carousel-cell-container">
+        <div class="circle-category-item ">
+          <span>
+            {{block.settings.main-title-1 | newline_to_br}}
+          </span>
+          <span class="num">{{block.settings.main-number-1}}</span>
+        </div>
+        <img class="lozad img-fluid" data-src="{{block.settings.main-img-1 | img_url: 'master'}}" />
+      </a>
+    </div>
+    <div class="carousel-cell">
+      <a data-id="extraction-lab" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.extraction-link }}" class="carousel-cell-container">
+        <div class="circle-category-item ">
+          <span>
+            {{block.settings.main-title-2 | newline_to_br}}
+          </span>
+          <span class="num">{{block.settings.main-number-2}}</span>
+        </div>
+        <img class="lozad img-fluid" data-src="{{block.settings.main-img-2 | img_url: 'master'}}" />
+      </a>
+    </div>
+    <div class="carousel-cell">
+      <a data-id="molecular-lab" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.molecular-link }}" class="carousel-cell-container">
+        <div class="circle-category-item ">
+          <span>
+            {{block.settings.main-title-3 | newline_to_br}}
+          </span>
+          <span class="num">{{block.settings.main-number-3}}</span>
+        </div>
+        <img class="lozad img-fluid" data-src="{{block.settings.main-img-3 | img_url: 'master'}}" />
+      </a>
+    </div>
+    <div class="carousel-cell">
+      <a data-id="formulation-lab" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.formulation-link }}" class="carousel-cell-container">
+        <div class="circle-category-item ">
+          <span>
+            {{block.settings.main-title-4 | newline_to_br}}
+          </span>
+          <span class="num">{{block.settings.main-number-4}}</span>
+        </div>
+        <img class="lozad img-fluid" data-src="{{block.settings.main-img-4 | img_url: 'master'}}" />
+        </div>
+      </a>
+    <div class="carousel-cell">
+      <a data-id="design-lab" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.design-link }}" class="carousel-cell-container">
+        <div class="circle-category-item ">
+          <span>
+            {{block.settings.main-title-5 | newline_to_br}}
+          </span>
+          <span class="num">{{block.settings.main-number-5}}</span>
+        </div>
+        <img class="lozad img-fluid" data-src="{{block.settings.main-img-5 | img_url: 'master'}}" />
+        </div>
+      </a>
+    <div class="carousel-cell">
+      <a data-id="recycle-lab" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.recycle-link }}" class="carousel-cell-container">
+        <div class="circle-category-item ">
+          <span>
+            {{block.settings.main-title-6 | newline_to_br}}
+          </span>
+          <span class="num">{{block.settings.main-number-6}}</span>
+        </div>
+        <img class="lozad img-fluid" data-src="{{block.settings.main-img-6 | img_url: 'master'}}" />
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+{% schema %}
+{
+"name":"Circle Block",
+"blocks":[
+{
+"name":"Circle Block",
+"type": "collection",
+"settings":[
+{
+"id":"main-img-1",
+"type":"image_picker",
+"label":"Block Image 1"
+},
+{
+"id":"main-title-1",
+"type":"textarea",
+"label":"Block Title 1",
+"default":"SOIL LAB"
+},
+{
+"id":"main-number-1",
+"type":"text",
+"label":"Block Number 1",
+"default":"1"
+},
+{
+"id":"soil-link",
+"type":"text",
+"label":"Link Soil Page",
+"default":"/pages/full-circle-soil-lab"
+},
+{
+"id":"main-img-2",
+"type":"image_picker",
+"label":"Block Image 2"
+},
+{
+"id":"main-title-2",
+"type":"textarea",
+"label":"Block Title 2",
+"default":"EXTRACTION LAB"
+},
+{
+"id":"main-number-2",
+"type":"text",
+"label":"Block Number 2",
+"default":"2"
+},
+{
+"id":"extraction-link",
+"type":"text",
+"label":"Link Extraction Page",
+"default":"/pages/full-circle-extraction-lab"
+},
+{
+"id":"main-img-3",
+"type":"image_picker",
+"label":"Block Image 3"
+},
+{
+"id":"main-title-3",
+"type":"textarea",
+"label":"Block Title 3",
+"default":"MOLECULAR LAB"  
+},
+{
+"id":"main-number-3",
+"type":"text",
+"label":"Block Number 3",
+"default":"3"
+},
+{
+"id":"molecular-link",
+"type":"text",
+"label":"Link Molecular Page",
+"default":"/pages/full-circle-molecular-lab"
+},
+{
+"id":"main-img-4",
+"type":"image_picker",
+"label":"Block Image 4"
+},
+{
+"id":"main-title-4",
+"type":"textarea",
+"label":"Block Title 4",
+"default":"FORMULATION LAB"
+},
+{
+"id":"main-number-4",
+"type":"text",
+"label":"Block Number 4",
+"default":"4"
+},
+{
+"id":"formulation-link",
+"type":"text",
+"label":"Link Formulation Page",
+"default":"/pages/full-circle-formulation-lab"
+},
+{
+"id":"main-img-5",
+"type":"image_picker",
+"label":"Block Image 5"
+},
+{
+"id":"main-title-5",
+"type":"textarea",
+"label":"Block Title 5",
+"default":"DESIGN LAB"
+},
+{
+"id":"main-number-5",
+"type":"text",
+"label":"Block Number 5",
+"default":"5"
+},
+{
+"id":"design-link",
+"type":"text",
+"label":"Link Design Page",
+"default":"/pages/full-circle-design-lab"
+},
+{
+"id":"main-img-6",
+"type":"image_picker",
+"label":"Block Image 6"
+},
+{
+"id":"main-title-6",
+"type":"textarea",
+"label":"Block Title 6",
+"default":"RECYCLE LAB"
+},
+{
+"id":"main-number-6",
+"type":"text",
+"label":"Block Number 6",
+"default":"6"
+},
+{
+"id":"recycle-link",
+"type":"text",
+"label":"Link Recycle Page",
+"default":"/pages/full-circle-recycle-lab"
+},
+{
+"id":"main-mobile-title",
+"type":"text",
+"label":"Mobile Title Carousel",
+"default":"Tap on a Lab & Learn More"
+}
+]
+}
+],
+"presets":[
+{
+"name":"New-custom",
+"category":"collection"
+}
+]
+}
+{% endschema %}
+
+{% javascript %}
+
+{% endjavascript %}

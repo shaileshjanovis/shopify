@@ -1,0 +1,44 @@
+<div class="left-text">
+  <h1>{{ section.settings.page-title | newline_to_br }}</h1>
+  <h6 class="title">{{ section.settings.page-title-1 }}</h6>
+  <p>{{ section.settings.page-text-1 }}</p>
+  <h6 class="title">{{ section.settings.page-title-2 }}</h6>
+  <p>{{ section.settings.page-text-2 }}</p>
+</div>
+
+{% schema %}
+{
+"name": "Page Left Content",
+"settings": [
+{
+"id": "page-title",
+"type": "textarea",
+"label": "Page Title",
+"default": "Greece, a Generous Land"
+},
+{
+"id":"page-title-1",
+"type": "text",
+"label":"Title 1",
+"default":"THE FLORA"
+},
+{
+"id":"page-text-1",
+"type": "richtext",
+"label":"Page Text 1"
+},
+{
+"id":"page-title-2",
+"type": "text",
+"label":"Title 2",
+"default":"THE FARMERS"
+},
+{
+"id":"page-text-2",
+"type": "richtext",
+"label":"Page Text 2"
+}
+]
+}
+{% endschema %}
+

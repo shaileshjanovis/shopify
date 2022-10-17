@@ -1,0 +1,156 @@
+<main role="main" class="our-ingredients our-process">
+  <section class="about hero">
+    <div class="absolute copy">
+      <h1>{{ page.metafields.kettle.hero_header }}</h1>
+    </div>
+
+    <div>
+      <picture>
+        <source
+          media="(min-width: 1200px)"
+          srcset="{{ page.metafields.kettle.hero_desktop_image }}"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcset="//images.accentuate.io?c_options=w_1200&image={{ page.metafields.kettle.hero_tablet_image }} 1x,
+                  //images.accentuate.io?c_options=w_2400&image={{ page.metafields.kettle.hero_tablet_image }} 2x"
+        />
+        <source
+          media="(max-width: 767.98px)"
+          srcset="//images.accentuate.io?c_options=w_768&image={{ page.metafields.kettle.hero_mobile_image }} 1x,
+                  //images.accentuate.io?c_options=w_1536&image={{ page.metafields.kettle.hero_mobile_image }} 2x"
+        />
+
+        <img src="{{ page.metafields.kettle.hero_desktop_image }}" alt="">
+      </picture>
+    </div>
+  </section>
+
+  {% for header in page.metafields.kettle_process.header %}
+      {%- assign index = forloop.index0 -%}
+      {%- assign header_highlighted_words = page.metafields.kettle_process.header_highlighted_words[index] -%}
+      {%- assign header_highlighted_words_html = header_highlighted_words | prepend: '<div>' | append: '</div>' -%}
+      {%- assign header_formatted = header | replace: header_highlighted_words, header_highlighted_words_html -%}
+      {%- assign body = page.metafields.kettle_process.body[index] -%}
+      {%- assign cta_link = page.metafields.kettle_process.cta_link[index] -%}
+      {%- assign cta_label = page.metafields.kettle_process.cta_label[index] -%}
+      {%- assign image = page.metafields.kettle_process.image[index] | first -%}
+      {%- assign map = page.metafields.kettle_process.map[index] | first -%}
+      {%- assign map_caption = page.metafields.kettle_process.map_caption[index] -%}
+      {%- assign quote = page.metafields.kettle_process.quote[index] -%}
+      {%- assign quote_name = page.metafields.kettle_process.quote_name[index] -%}
+      {%- assign quote_title = page.metafields.kettle_process.quote_title[index] -%}
+      {%- assign icon = page.metafields.kettle_process.icon[index] | first -%}
+      {%- assign icon_caption = page.metafields.kettle_process.icon_caption[index] -%}
+      {%- assign format = page.metafields.kettle_process.format[index] | downcase -%}
+
+      {% if forloop.last %}
+        <section class="about footer-hero">
+          <div class="absolute copy">
+            <h2>{{ header }}</h2>
+            <p>{{ body }}</p>
+            <a href="{{ cta_link }}" class="button-cta">{{ cta_label }}</a>
+          </div>
+
+          <div>
+            <picture>
+              <source
+                media="(min-width: 1200px)"
+                srcset="{{ image.cloudinary_src }}"
+              />
+              <source
+                media="(min-width: 768px)"
+                srcset="{{ image.cloudinary_src | append: 'w_374,h_374' }} 1x,
+                        {{ image.cloudinary_src | append: 'w_748,h_748' }} 2x"
+              />
+              <source
+                media="(max-width: 767.98px)"
+                srcset="{{ image.cloudinary_src | append: 'w_768,h_907' }} 1x,
+                        {{ image.cloudinary_src | append: 'w_1536,h_1814' }} 2x"
+              />
+
+              <img src="{{ image.cloudinary_src }}" alt="">
+            </picture>
+          </div>
+        </section>
+      {% elsif format == "left" or format == "right" %}
+        <section class="process process-{{ format }}">
+          <picture>
+          <source
+            media="(min-width: 1200px)"
+            srcset="{{ image.cloudinary_src }}"
+          />
+          <source
+            media="(min-width: 768px)"
+            srcset="{{ image.cloudinary_src | append: 'w_1200' }} 1x,
+                    {{ image.cloudinary_src | append: 'w_2400' }} 2x"
+          <source
+            media="(max-width: 767.98px)"
+            srcset="{{ image.cloudinary_src | append: 'w_768' }} 1x,
+                    {{ image.cloudinary_src | append: 'w_1536' }} 2x"
+          />
+          <img src="{{ image.cloudinary_src }}" alt="">
+        </picture>
+        <div class="description">
+          <!-- <h2>{{ header|replace: header_highlighted_words, '<span>header_highlighted_words</span>' }} {{ header_highlighted_words }}</h2> -->
+          <h2>
+            {%- if header_highlighted_words != empty -%}
+              {{ header_formatted }}
+            {%- else -%}
+              {{ header }}
+            {%- endif -%}
+          </h2>
+          <p>{{ body }}</p>
+          {% unless map_caption == blank %}
+            <div class="capability capability--map">
+              <img src="{{ map.cloudinary_src }}" height="{{ map.height }}" width="{{ map.width }}">
+              <p>{{ map_caption }}</p>
+            </div>
+          {% endunless %}
+          {% unless icon == blank %}
+            <div class="capability capability--icon">
+              <img src="{{ icon.cloudinary_src }}" height="{{ icon.height }}" width="{{ icon.width }}">
+              <p>{{ icon_caption }}</p>
+            </div>
+          {% endunless %}
+          {% unless quote == blank %}
+            <blockquote>
+              <p>{{ quote }}”</p>
+              <footer><cite>{{ quote_name }}</cite>, {{ quote_title }}</footer>
+            </blockquote>
+          {% endunless %}
+          {% unless cta_label == blank %}
+            <a href="{{ cta_link }}" class="button-cta">{{ cta_label }}</a>
+          {% endunless %}
+        </div>
+      </section>
+    {% elsif format == "full" %}
+      <section class="about hero hero-alt">
+        <div class="absolute copy">
+          <h2>{{ header }}</h2>
+          <p>{{ body }}</p>
+        </div>
+        <div>
+          <picture>
+            <source
+              media="(min-width: 1200px)"
+              srcset="{{ image.cloudinary_src }}"
+            />
+            <source
+              media="(min-width: 768px)"
+              srcset="{{ image.cloudinary_src | append: 'w_1200' }} 1x,
+                      {{ image.cloudinary_src | append: 'w_2400' }} 2x"
+            />
+            <source
+              media="(max-width: 767.98px)"
+              srcset="{{ image.cloudinary_src | append: 'w_768' }} 1x,
+                      {{ image.cloudinary_src | append: 'w_1536' }} 2x"
+            />
+
+            <img src="{{ image.cloudinary_src }}" alt="">
+          </picture>
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
+</main>

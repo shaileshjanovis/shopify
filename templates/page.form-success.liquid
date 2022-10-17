@@ -1,0 +1,281 @@
+{% render 'shogun-products', content: page %}
+<style> #slider{ width: 300px; margin-top:50px; } #slidervalue{ width: 60%; text-align: center; position: absolute; top: 125px; left: 20%; font-size: 50px; font-weight: 100; color: #aef; transition: color 1s linear; /*transform: rotate(90deg);*/ } #svgcontainer{ position: relative; display: inline-block; width: 300px; margin-top: 30px;    float: left; } #svg{ position:relative; } #progressbg{ z-index:0; position:absolute; top:0px; fill:#fff; } #progressbg1{ filter: drop-shadow(0px 2px 7px rgba(128, 128, 128, 0.5)); } #progress{ stroke-dashoffset: 125px; stroke: #999999; transition: stroke 1s linear; z-index:1; position:absolute; top:0px; } .cssprogresscontainer{ text-align:center; padding: 0px 0px 160px; } .diallines { position: absolute; z-index: 2; width: 1px; height: 9px; background: #9c969670; left: 66.8%; margin-left: -1px; transform-origin: 50% 150px; top: 0; } .number { position: absolute; width: 100%; height: 100%; text-align: center; color: #000; font-size: 2rem; transform-origin: center; transform: rotate(var(--rotate)); top: -9%;left:50px; } .number-1{ --rotate: 40deg; } .number-2 { --rotate: 80deg; } .number-3 { --rotate: 120deg; } .number-4 { --rotate: 160deg; } .number-5 { --rotate: 200deg; } .number-6 { --rotate: 240deg; } .number-7 { --rotate: 280deg; } .number-8 { --rotate: 320deg; } .number-9 { --rotate: 360deg; } .inner{ font-size: 14px; color: #5d81da; } img#number01 { background: #dadada !important; } img#number09{ background: #dadada !important; } img#number08{ background: #dadada !important; } .number-3 .inner { transform: rotate( 240deg); text-align: right; max-width: 200px; margin: 0 auto; padding-top: 10%; padding-left: 12%; } .number-1 .inner { transform: rotate(320deg); max-width: 200px; padding-left: 20%; text-align: right; } .number-4 .inner { position: relative; transform: rotate( 200deg); } .number-4 .inner p{ position: absolute; top: 0; left: 50%; width: 200px; } .number-6 .inner { transform: rotate(120deg); text-align: left; margin-right: auto; max-width: 200px; } .number-7 .inner{ transform: rotate(80deg); text-align: left; transform-origin: top; margin-top: -10px; } .number-8 .inner{ transform: rotate(40deg); text-align: left; padding-bottom: 25%; } i.fa.fa-circle { font-size: 12px; } img{ width: 12px; height: 12px; border-radius: 50%; border: none; } 
+
+.number-7 {
+    --rotate: 269deg;
+    left: 33px;
+}
+      
+.number-6 {
+    --rotate: 250deg;
+    left: 33px;
+}
+
+      .number-5 {
+    --rotate: 141deg;
+    top: -16px;
+}
+      
+      img#number08 {
+    background: transparent !important;
+}
+      
+      .number-8 {
+    --rotate: 331deg;
+    left: 26px;
+}
+      
+      img#number03 {
+    background: #dadada !important;
+}
+      
+      .number-4 {
+    --rotate: 130deg;
+    left: 68px;
+}
+      
+      .number-3 {
+    --rotate: 110deg;
+    left: 65px;
+}
+      
+      .number-9 {
+    --rotate: 360deg;
+    top: -43px;
+}
+      
+      .number-1 {
+    --rotate: 50deg;
+    left: 71px;
+}
+      
+      img#number01 {
+    background: #dadada00 !important;
+}
+
+.number-2 {
+    --rotate: 71deg;
+    left: 66px;
+}
+      
+      img#number02 {
+    background: #dadada !important;
+}
+</style>
+
+
+
+
+<div class="form-sucess">
+  
+  <div class="mycircle-success">
+    	<div class="cssprogresscontainer">
+	<div id="svgcontainer" class="clock">
+	
+	
+		<svg height="350" width="350" id="svg">
+			<circle id="progressbg1" cx="150" cy="150" r="136" stroke="#fff" stroke-width="12" fill="transparent" stroke-dasharray="853.9822368615503" />
+			<circle id="progressbg" cx="150" cy="150" r="134" stroke="#f2f2f2" stroke-width="10" fill="transparent" stroke-dasharray="848.9822368615503" />
+			<circle id="progress" cx="150" cy="150" r="134" stroke-width="8" fill="transparent" stroke-dasharray="848.9822368615503" />
+		</svg>
+		<div class="diallines"></div>
+		
+	 <div class="number number-1"><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/img_233940.png?v=1618924423" id="number01"></div>
+		<div class="number number-2 "  ><img src="" id="number02"></div>
+		<div class="number number-3"><img src="" id="number03"></div>
+		<div class="number number-4"><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/img_233940.png?v=1618924423" id="number04"></div>
+		<div class="number number-5"><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/img_233940.png?v=1618924423" id="number05"></div>
+		<div class="number number-6" ><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/img_233940.png?v=1618924423" id="number06"></div>
+		<div class="number number-7"><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/img_233940.png?v=1618924423" id="number07"></div>
+		<div class="number number-8" ><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/img_233940.png?v=1618924423" id="number08"></div>
+		<div class="number number-9" ><img src="" id="number09"></div>
+		
+      		<p id="target-area"> </p>
+		
+      <div id="slidervalue" >30</div><div id="slidervaluee"><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/burst.png?v=1618926917"><span>30</span></div>
+      
+	</div>
+	
+
+	<br />
+	<input type="range" id="slider" min="0" max="100" value="10" style="opacity:0;">
+	
+  </div>
+  </div>
+  
+  <div class="Register-sucess-content points-circle">
+    
+<!--     <h1>Hurrraaay!</h1>
+    <p>You are in<br>the White Circle now<br>and you have been rewarded<br>with 30 points</p>
+    <p class="sub-content">Fancy another 100 points?</p>
+
+    <a href="javascript://">Take the Quiz now</a> -->
+      
+      <h1>Hurrraaay! </h1>
+      <h2>You are in the White Circle now and you have been rewarded with 30 Points!</h2>
+      <p>Wanna start shopping now?</p>
+          <p>
+          <a href="/pages/map-signup" style="border:none;text-decoration:none">  <button class="next-btn next-btn2" type="button" >Select your Korres selling store
+            </button></a></p>
+    
+    
+  </div>
+</div>
+
+
+<script>
+	var yb = { id : function(str){return document.getElementById(str)} };
+	 var snippet = document.createTextNode("this was a generated paragraph");
+	
+	
+	function showSliderValue(){yb.id('slidervalue').innerHTML = yb.id('slider').value+'30';}
+	
+	
+	
+	setProgress();
+	
+	yb.id('slider').oninput = function(){showSliderValue(); setProgress()};
+	yb.id('slider').onchange = function(){showSliderValue(); setProgress()};
+	
+	
+	function setProgress(){
+		var radius = yb.id('progress').getAttribute('r');
+		var circumference = 2 * Math.PI * radius;
+	
+		var progress_in_percent = yb.id('slider').value;
+		var progress_in_pixels = circumference * (100-progress_in_percent)/100;
+		yb.id('progress').style.strokeDashoffset = progress_in_pixels+'px';
+	
+		if(yb.id('slider').value <= 10){
+			yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = 'white';
+			yb.id('number03').style.background = 'white';
+			yb.id('number04').style.background="white"
+			yb.id('number05').style.background = "white";
+			 yb.id('number06').style.background = "white";
+		 yb.id('number07').style.background = 'white';
+	  yb.id('number08').style.background = 'white';
+		yb.id('number09').style.background = 'white';
+		}
+			else if(yb.id('slider').value > 10 && yb.id('slider').value <= 20){
+			 yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = 'white';
+			yb.id('number04').style.background="white"
+			yb.id('number05').style.background = "white";
+			 yb.id('number06').style.background = "white";
+		 yb.id('number07').style.background = 'white';
+	  yb.id('number08').style.background = 'white';
+		yb.id('number09').style.background = 'white';
+		}
+			else if(yb.id('slider').value > 20 && yb.id('slider').value <= 30){
+			yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = '#060e9b';
+			yb.id('number04').style.background="white"
+			yb.id('number05').style.background = "white";
+			 yb.id('number06').style.background = "white";
+		 yb.id('number07').style.background = 'white';
+	  yb.id('number08').style.background = 'white';
+		yb.id('number09').style.background = 'white';
+		}
+		else if(yb.id('slider').value > 30 && yb.id('slider').value <= 40){
+			yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = '#060e9b';
+			yb.id('number04').style.background="white"
+			yb.id('number05').style.background = "white";
+			 yb.id('number06').style.background = "white";
+		 yb.id('number07').style.background = 'white';
+	  yb.id('number08').style.background = 'white';
+		yb.id('number09').style.background = 'white';
+		}
+	else if(yb.id('slider').value > 40 && yb.id('slider').value <= 50){
+		   yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = '#060e9b';
+			yb.id('number04').style.background = '#060e9b';
+			yb.id('number05').style.background = "white";
+			 yb.id('number06').style.background = "white";
+		 yb.id('number07').style.background = 'white';
+	  yb.id('number08').style.background = 'white';
+		yb.id('number09').style.background = 'white';
+		}
+		else if(yb.id('slider').value > 50 && yb.id('slider').value <= 60){
+		   yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = '#060e9b';
+			yb.id('number04').style.background = '#060e9b';
+			yb.id('number05').style.background =  '#060e9b';
+			 yb.id('number06').style.background = "white";
+		 yb.id('number07').style.background = 'white';
+	  yb.id('number08').style.background = 'white';
+		yb.id('number09').style.background = 'white';
+		}
+		else if(yb.id('slider').value > 60 && yb.id('slider').value <= 70){
+		   yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = '#060e9b';
+			yb.id('number04').style.background = '#060e9b';
+			yb.id('number05').style.background =  '#060e9b';
+			 yb.id('number06').style.background = '#060e9b';
+		 yb.id('number07').style.background = 'white';
+	  yb.id('number08').style.background = 'white';
+		yb.id('number09').style.background = 'white';
+		}
+		else if(yb.id('slider').value > 70 && yb.id('slider').value <= 80){
+		   yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = '#060e9b';
+			yb.id('number04').style.background = '#060e9b';
+			yb.id('number05').style.background =  '#060e9b';
+			 yb.id('number06').style.background = '#060e9b';
+		 yb.id('number07').style.background = '#060e9b';
+	  yb.id('number08').style.background = 'white';
+		yb.id('number09').style.background = 'white';
+		}
+		else if(yb.id('slider').value > 80 && yb.id('slider').value <= 90){
+		   yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = '#060e9b';
+			yb.id('number04').style.background = '#060e9b';
+			yb.id('number05').style.background =  '#060e9b';
+			 yb.id('number06').style.background = '#060e9b';
+		 yb.id('number07').style.background = '#060e9b';
+	  yb.id('number08').style.background = '#060e9b';
+		yb.id('number09').style.background = 'white';
+		}
+		else if(yb.id('slider').value > 90 && yb.id('slider').value <= 100){
+			yb.id('number01').style.background = '#060e9b';
+			yb.id('number02').style.background = '#060e9b';
+			yb.id('number03').style.background = '#060e9b';
+			yb.id('number04').style.background = '#060e9b';
+			yb.id('number05').style.background =  '#060e9b';
+			 yb.id('number06').style.background = '#060e9b';
+		 yb.id('number07').style.background = '#060e9b';
+	  yb.id('number08').style.background = '#060e9b';
+		yb.id('number09').style.background = '#060e9b';
+		}
+		else{
+			yb.id('progress').style.stroke = '#060e9b';
+			yb.id('slidervalue').style.color = '#060e9b';
+			yb.id('number01').style.background = 'white';
+			yb.id('number02').style.background = 'white';
+			
+		}
+		
+	}
+	
+	var dialLines = document.getElementsByClassName('diallines');
+	var clockEl = document.getElementsByClassName('clock')[0];
+	
+	for (var i = 1; i < 20; i++) {
+	  clockEl.innerHTML += "<div class='diallines'></div>";
+	  dialLines[i].style.transform = "rotate(" + 18 * i + "deg)";
+	}
+	
+	
+	
+	</script>
+
+

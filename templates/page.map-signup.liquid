@@ -1,0 +1,2439 @@
+{% comment %}<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+{{'signup-map.js' | asset_url | script_tag}}
+ 
+<style>  
+  @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+        .checkbox input[type=checkbox],
+        .checkbox-inline input[type=checkbox],
+        .radio input[type=radio],
+        .radio-inline input[type=radio] { 
+            left: 3px; 
+        }
+
+        #map_canvas {
+            height: 525px;
+            width: 100%; 
+            border-radius: 4px;
+        }
+  
+  body.customers-register.banner-open form#create_customer {
+    width: 100%;
+}
+  div#step3 {
+    
+    position: relative;
+    
+}
+  #map_canvas{
+   width:55%; 
+  }
+  .floating-label.deafult-pharma {
+    margin: 0px 0;
+    width: 73%;
+}
+
+        .overlay {
+       margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    top: 00px;
+    left: 00px;
+    padding: 0;
+    background: #FFF;
+    z-index: +999;
+    width: 100%;
+    margin: 0 11.4% 0 0;
+    display: block;
+    border: 2px solid #cccecf;
+    border-width: 2px 2px 2px 1px;
+}
+  select#foo_select {
+    background: #fcf7f1;
+    height: 180px;
+    margin-bottom: 22px;
+    overflow: hidden;
+}
+  #foo_select option:checked {
+    color: cyan;
+    font-size: 17px;
+    background: #000;
+    background: linear-gradient(#fcf7f1ad, #fcf7f1b0);
+    border-bottom: 1px solid #000;
+}
+  
+ #foo_select option {
+    padding: 5px 5px;
+}
+ 
+  body.customers-login .container {
+    margin-top: 180px;
+}
+  
+  
+  i.fa.fa-eye {
+    position: absolute;
+    right: 15px;
+    font-size: 17px;
+    color: #cccecf;
+    top: 42px;
+}
+  
+  i.fa.fa-eye {
+    cursor: pointer;
+}
+  
+  .floating-label.show-pass {
+    position: relative;
+}
+  
+   .floating-label.show-re-pass {
+    position: relative;
+}
+  
+  
+  
+  .log-left {
+    width: 33%;
+    float:left;
+}
+  
+  input.error-field {
+    border: 3px solid #002f87 !important;
+}
+  
+  .log-right {
+    width: 60%;
+    float:left;
+}
+  
+  .floating-label {
+    display: block;}
+  
+  body.customers-login .container {
+    margin-top: 180px;
+    max-width: 100%;
+    margin: 180px 3.5% 0;
+    padding: 0;
+}
+  
+  h1.n-heading-one {
+    color: #060e9b;
+    margin-bottom: 20px;
+    font-weight: 300;
+    text-align: center;
+    font-size: 33px;
+    font-family: 'Roboto Mono', monospace !important;
+}
+  
+  .log-left h1 {
+    font-size: 25px;
+    line-height: 1.5;
+}
+  
+  .floating-label {
+    display: block;
+}
+  
+  .floating-label label {
+    color: #cccecf;
+    margin-left: 18px;
+}
+  
+  .floating-label label {
+    font-size: 16px;
+    line-height: 1.15;
+}
+  
+.customers-login .floating-label input {
+    border: 1px solid #cccecf;
+    background: transparent !important;
+    color: #002f87 !important;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px 25px !important;
+}
+  
+  span.reqq-field {
+    DISPLAY: NONE;
+}
+  
+  form#create_customer.formhaserror span.reqq-field {
+    display: block;
+        color: #002f87;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+}
+  
+  [type='email']:focus{
+  border: 1px solid #cccecf;
+  }
+  
+  .log-map-selection {
+    width: 55%;
+    float: left;
+   
+}
+  
+  .log-Form-field {
+    width: 45%;
+    float: left;
+}
+  
+  ul#ui-id-1 {
+       padding: 0;
+    list-style: none;
+    background: #fff;
+    width: 366px !important;
+    z-index: +999;
+}
+  
+  ul#ui-id-1 li {
+    font-size: 17px;
+    padding: 8px 15px;
+    color: #cccecf;
+}
+  
+  .selected-pharmacy p {
+    width: fit-content;
+    float: left;
+    color: #060d9c;
+    font-size: 18px;
+    position: relative;
+    top: 4px;
+}
+  
+  .selectedAreas {
+    width: 80%;
+    margin: 0 auto;
+}
+  
+  .selected-pharmacy p {
+    width: fit-content;
+    float: left;
+    color: #060d9c;
+    font-size: 18px;
+    position: relative;
+    top: 4px;
+}
+  
+  .selectedAreas {
+    display: none;
+}
+  
+  ul#ui-id-1 li:hover div {
+    color: #070d9d;
+}
+  
+  ul#ui-id-1 li {
+    padding:  25px 50px;
+}
+  li.ui-menu-item:hover {
+    background: #c4c7c859;
+}
+  
+  #ui-id-1::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+#ui-id-1::-webkit-scrollbar-track {
+  background: #fff; 
+}
+ 
+/* Handle */
+#ui-id-1::-webkit-scrollbar-thumb {
+  background: #fff; 
+}
+
+/* Handle on hover */
+#ui-id-1::-webkit-scrollbar-thumb:hover {
+  background: #fff; 
+}
+  
+  .custom-combobox {
+            position: relative;
+            display: inline-block;
+        }
+
+        .custom-combobox-toggle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: -1px;
+            padding: 0;
+        }
+
+        .custom-combobox-input {
+            margin: 0;
+            padding: 5px 10px;
+        }
+  
+  .selected-pharmacy img {
+    float: right;
+    position: relative;
+    top: -5px;
+    width: 30px;
+}
+  
+  input#tester {
+   background: #fff;
+    border: 2px solid #002f87;
+    padding: 14px 36px;
+    border-radius: 32px;
+    color: #002f87;
+    font-weight: 400;
+    font-size: 18px;
+    margin: 36px auto 0;
+    display: block;
+}
+  
+  input#tester:hover {
+    background: #002f87;
+    color: #fff;
+}
+  
+  .f-bor-f {
+    padding: 20px 0 20px;
+    border-top: 2px solid #cccecf;
+    display: block;
+    margin-top: 40px;
+    width: 116%;
+    left: -7.5%;
+    position: relative;
+}
+  
+  .selected-pharmacy {
+padding: 17px 20px 5px;
+    display: table;
+    border: 2px solid #cccecf;
+    width: 100%;
+    border-width: 2px 2px 0px 2px;
+}
+  
+.selectedAreas {
+    background: #fff;
+    position: absolute;
+    z-index: 999;
+    width: 73%;
+    margin: 0 7%;
+    top: 30px;
+}
+  
+  .log-Form-field {
+    width: 45%;
+    float: left;
+    padding: 0 3.5%;
+}
+  
+  .customers-login .floating-label input {
+    margin-bottom: 20px;
+}
+  
+  .log-map-selection {
+    width: 55%;
+    float: left;
+    position: relative;
+        padding: 0 3.5%;
+    top: -35px;
+}
+  
+  .selectedAreas .selected-pharmacy:last-child {
+    border-bottom: 1px solid #cccecf;
+}
+  
+  .selectedAreas {
+    background: #fff;
+    position: absolute;
+    z-index: 999;
+    width: 73%;
+    margin: 0 7%;
+    top: 118px;
+}
+input.custom-combobox-input::placeholder {
+    font-size: 17px;
+    font-family: "Graphik", Helvetica, Arial, sans-serif;
+    top: 11px;
+    left: 18px;
+    color: #cccecf;
+}
+  
+  i.Remove-loc {
+    font-size: 18px;
+    font-style: normal;
+    color: #f00;
+    font-family: 'Roboto Mono', monospace !important;
+    width: fit-content;
+    position: relative;
+    right: -83px;
+    background: #fff;
+    padding: 6px 8px;
+    line-height: 1;
+    border-radius: 29px;
+    float: right;
+    top: -4px;
+}
+  
+  input.custom-combobox-input {
+    font-size: 17px;
+    font-family: "Graphik", Helvetica, Arial, sans-serif;
+    color: #030899;
+}
+  
+  span.custom-combobox {
+    width: 100%;
+}
+  .custom-combobox-input {
+    margin: 0;
+    padding: 17px 10px;
+    width: 100%;
+    border: none;
+}
+  
+  p.map-poi-title {
+    color: #cccecf;
+    font-size: 18px;
+    line-height: 1.15;
+    margin-left: 0px;
+    font-weight: 300;
+}
+  
+  button.next-btn {
+    background: #fff;
+    border: 2px solid #002f87;
+    padding: 14px 36px;
+    border-radius: 32px;
+    color: #002f87;
+    font-weight: 400;
+    font-size: 18px;
+    margin: 36px auto 0;
+    display: block;
+}
+  
+  .tab-pane {
+    width: 30%;
+    margin: 0 auto;
+}
+  
+  .custom-combobox-input {
+    margin: 0;
+    padding: 12px 10px 15px;}
+  
+.progressbar-dots {
+    height: 22px;
+    width: 22px;
+    margin: 0 15px;
+    background: lightgray;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0px 0px 2px grey inset;
+}
+
+.progressbar-dots.active {
+    background-color: #002f87;
+    box-shadow: inset 0px 0px 0px 2px #f7f7f7;
+    border: 2px solid #c6c6c6;
+    height: 22px;
+    width: 22px;
+}
+  .prog-container {
+    width: fit-content;
+    margin: 0 auto 40px;
+}
+  
+  ul#ui-id-1 {
+    display: block !important;
+}
+  
+ ul#ui-id-1 {
+    display:none !important;
+    width: 37% !important;
+    overflow-y: scroll;
+    position: relative !important;
+    height: 300px !important;
+    min-height: 80vh;
+    LEFT: 0 !IMPORTANT;
+}
+  li.ui-menu-item {
+    border-bottom: 1px solid;
+}
+  
+   ul#ui-id-1.active {
+     display: block !important;
+       border-top: 1px solid #cccecf;
+   }
+  
+  .pharm-selection {
+    width: 100%;
+    float: left;
+    margin-bottom: 30px;
+}
+  
+  .defau-selection {
+    width: 50%;
+    float: left;
+    margin-bottom: 30px;
+    
+}
+  
+  body.customers-register.banner-open .container {
+    margin-top: 180px;
+    max-width: 99%;
+    margin: 180px 0% 0;
+    padding: 0;
+}
+  
+  .ndnapps-sociallogin-wrapper {
+    DISPLAY: NONE;
+}
+  
+  ul#ui-id-1 > li { cursor: pointer; }
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: transparent !important;
+}
+ 
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(68 68 68 / 0%);}
+  
+   div#divMapModal {
+    position: absolute;
+    top: 115px;
+    left: 15px;
+    width: fit-content;
+}
+  div#divMapModal .modal-content p {
+    width: 65%;
+    font-size: 13px;
+    color: #909090;
+    line-height: 1.5;
+}
+  
+  body.modal-open {
+    overflow: unset;
+}
+  
+  div#divMapModal .modal-content {
+    padding: 15px 15px 30px;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+}
+  div#divMapModal button.btn-close {
+    width: 15px;
+    display: block;
+    margin: 0 0 0 auto;
+    border: none;
+    background: transparent;
+    color: #d9d9d9;
+    font-size: 15px;
+    font-family: 'Graphik';
+    position: absolute;
+    right: 18px;
+    top: 10px;
+}
+  div#divMapModal .btn {
+    width: fit-content;
+    padding: 10px 30px;
+    border-radius: 25px;
+    background: transparent;
+    color: #000686;
+    font-size: 15px;
+    margin: 16px auto 6px;
+    display: block;
+    border-color: #0a109f;
+}
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+  
+  .modal-backdrop.show {
+    opacity: 0.5;
+    display: none !important;
+}
+  .gm-style-mtc {
+    display: none;
+}
+</style>
+
+    <script src="https://kit.fontawesome.com/b38d30c7e6.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+{{ 'signup-map.css' | asset_url | stylesheet_tag }}
+<div class="container">
+ 
+  <div class="row tab-content-map">
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <div class="small-map-text map-panel-1">
+    <h1>Select a Korres Selling Store to:</h1>
+    <h2>Unlock Prices</h2>
+    <h2>Get Free Shipping</h2>
+    <h2>Collect Points</h2>
+    <h2>Redeem with Gifts</h2>
+    </div>
+  </div>
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    <div class="style-poi-multiple"></div>
+    {% form 'create_customer' %}
+
+      {{ form.errors | default_errors }}
+
+{% comment %}      <label for="FirstName" class="label--hidden">{{ 'customer.register.first_name' | t }}</label>
+      <input type="text" name="customer[first_name]" autocomplete="off" id="FirstName" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+
+      <label for="LastName" class="label--hidden">{{ 'customer.register.last_name' | t }}</label>
+      <input type="text" name="customer[last_name]" autocomplete="off" id="LastName" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+{% endcomment %}
+     		
+              <div class="tab-content">
+
+         <div class="tab-pane1" id="step3">
+   
+           <div class="pharm-selection">
+<!--      <p class="map-poi-title">Pick your Pharmacy (up to 3)</p>
+         -->
+          <div class="selectedAreas"></div>
+        <div class="overlay">
+        <div class="ui-widget" id="browserWrap">
+            <select name="browser" id="browser" placeholder="Store Name, Area, Postcode">
+
+            </select>
+        </div>
+    </div>
+             </div>
+           
+           <div class="defau-selection">
+             <div class="floating-label deafult-pharma">
+        <label for="first_name">Default Pharamacy*</label>
+<select id="default_pharmacy" name="customer[note][default_pharmacy]" value="" required class="def-pharmacy">
+  
+</select>
+        </div>
+           </div>
+           
+           <div class="modal" id="divMapModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+               
+                    <p><span id="locationName"></span></p>
+                    <button type="button" class="btn btn-primary addBtn" onclick="saveLocation()">Add</button>
+                    <button type="button" class="btn btn-primary removeBtn"
+                        onclick="saveRemoveLocation()">Remove</button>
+                
+            </div>
+        </div>
+    </div>
+           
+        	<div id="map_canvas"></div>
+
+
+<script>
+  
+  $('.btn-close').on("click", function () {
+    $(this).parents('#divMapModal').fadeOut();
+});
+  
+           </script>
+    
+
+{% comment %}<input name="customer[note][default_poi]" value="" hidden id="filter_pharamcy_name">{% endcomment %}
+<!-- 
+<input type="submit" id="tester" value="Complete Sign up" class="btn">
+        <span class="reqq-field">* REQUIRED FIELDS</span>
+          -->
+ `		  </div>          
+      </div>
+    {% endform %}
+    </div>
+  </div>
+  
+</div>
+
+{% comment %}<main>
+  {%- comment -%} Login form {%- endcomment -%}
+  <div id="CustomerLoginForm">
+  {% form 'customer_login' %}
+    <h3>Have an account? Log in now</h3>
+
+    <div class="floating-label">
+      <input
+        id="login_email"
+        type="email"
+        name="customer[email]"
+        placeholder="Email Address"
+        data-rule="required|email"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="login_email">Email Address</label>
+    </div>
+
+    <div class="floating-label">
+      <input
+        id="login_password"
+        type="password"
+        name="customer[password]"
+        placeholder="Password"
+        data-rule="required"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="login_password">Password</label>
+    </div>
+
+    <div class="error-container">
+      {{ form.errors | default_errors }}
+
+      <button class="forgot-pwd" type="button">
+        <a href="#" onclick="showRecoverPasswordForm();return false;"><span>Forgot your password?</span></a>
+      </button>
+    </div>
+
+    <input class="primary-btn" type="submit" value="Log In" />
+  {% endform %}
+  </div>
+  
+  
+  
+  <div id="RecoverPasswordForm" style="display: none;">
+    
+  
+  {%- comment -%} Reset password form {%- endcomment -%}
+  {% form 'reset_customer_password' %}
+    <h3>Create new password</h3>
+    <p>Enter a new password for your account.</p>
+
+    <div class="floating-label">
+      <input
+        id="login_password"
+        type="password"
+        name="customer[password]"
+        placeholder="New Password"
+        data-rule="required-8|minlength-8"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="login_password">New Password</label>
+    </div>
+
+    <div class="floating-label">
+      <input
+        id="login_password"
+        type="password"
+        name="customer[password_confirmation]"
+        placeholder="Confirm Password"
+        data-rule="required-8|minlength-8"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="login_password">Confirm Password</label>
+    </div>
+
+    <div class="error-container">
+      {{ form.errors | default_errors }}
+    </div>
+<button class="forgot-pwd" type="button">
+        <a href="#" onclick="hideRecoverPasswordForm();return false;">Cancel</a></button>
+    <input class="primary-btn" type="submit" value="Submit" />
+      
+    
+  {% endform %}
+
+
+    
+  </div>
+  
+  
+<!-- Begin ReCharge code -->
+{% include 'subscription-account-login' %}
+<!-- End ReCharge code -->
+
+
+  {%- comment -%} Reset password form {%- endcomment -%}
+  {% form 'recover_customer_password', id: "forgot_password", class: "hidden" %}
+    {% if form.posted_successfully? %}
+      <span class="hidden reset-password-success"></span>
+    {% endif %}
+
+    <h3>Forgot your password?</h3>
+    <p class="subtitle">We will send you an email to reset your password.</p>
+
+    <div class="floating-label">
+      <input
+        id="forgot_email"
+        type="email"
+        name="email"
+        placeholder="Email Address"
+        data-rule="required|email"
+        {%- if form.errors -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="forgot_email">Email Address</label>
+    </div>
+
+    <input class="primary-btn" type="submit" value="Submit" />
+
+    <p class="create-account">Don’t have an account? <a href="/account/login">Create One</a></p>
+  {% endform %}
+
+  <div class="forgot-success modal">
+    <div class="content">
+      <button class="close-modal">
+        {% render 'icon-close' %}
+      </button>
+
+      <p>A link has been sent to your email.</p>
+    </div>
+  </div>
+
+  {% comment %} Register form {% endcomment %}
+  {% form 'create_customer' %}
+    <h3>Create an account</h3>
+    
+    <div class="floating-label">
+      <input
+        id="first_name"
+        type="text"
+        name="customer[first_name]"
+        placeholder="First Name"
+        data-rule="required|firstname"
+      />
+      <label for="first_name">First Name</label>
+    </div>
+    
+    <div class="floating-label">
+      <input
+        id="last_name"
+        type="text"
+        name="customer[last_name]"
+        placeholder="Last Name"
+        data-rule="required|lastname"
+      />
+      <label for="last_name">Last Name</label>
+    </div>
+  	<div class="floating-label">
+      <input
+        id="birth_date"
+        type="date"
+        name="customer[note][birth_date]"
+        placeholder="Date of Birth"
+        data-rule="required|birthdate"
+      />
+      <label for="birth_date">Date of Birth</label>
+    </div>
+    <div class="floating-label">
+      <input
+        id="user_name"
+        type="text"
+        name="customer[note][user_name]"
+        placeholder="Username"
+        data-rule="required|Username"
+      />
+      <label for="user_name">Username</label>
+    </div>
+  	<div class="floating-label">
+        <select id="product_interest" name="customer[note][product_interest]" value="" class="register-drop">
+              <option value="" selected disabled="true">Product I am Interesting</option>
+              <option value="none">None</option>
+              <option value="women">Women Skin Type</option>
+              <option value="men">Men Skin Type</option>
+        </select>
+    </div>
+  <div class="floating-label">
+        <select id="skin_type" name="customer[note][skin_type]" value="" class="register-drop">
+              <option value="" selected disabled="true">Skin Type</option>
+              <option value="none">None</option>
+              <option value="dry">Dry</option>
+              <option value="oily">Oily</option>
+              <option value="normal">Normal</option>
+        </select>
+    </div>
+  	<div class="floating-label">
+      <div id="product_interest_wrap" >
+        <select id="preferences" name="customer[note][Preferences]" value="" class="register-drop">
+              <option value="" selected disabled="true">Preferences</option>
+              <option value="none">None</option>
+              <option value="skincare">Skincare</option>
+              <option value="bodycare">Bodycare</option>
+              <option value="makeup">Makeup</option>
+              <option value="fragrance">Fragrance</option>
+              <option value="hair">Hair</option>
+              <option value="fragrance">Fragrance</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="floating-label">
+      <input
+        id="register_email"
+        type="email"
+        name="customer[email]"
+        placeholder="Email Address"
+        data-rule="required|email"
+      />
+      <label for="register_email">Email Address</label>
+    </div>
+    
+    <div class="floating-label">
+      <input
+        id="register_password"
+        type="password"
+        name="customer[password]"
+        placeholder="Password"
+        data-rule="required-8|minlength-8"
+      />
+      <label for="register_password">Password</label>
+    </div>
+  <div class="floating-label">
+      <input hidden id="register_key"
+        type="text"
+        name="customer[note][key]"
+        placeholder="Password"
+        data-rule="required-8|minlength-8"
+      />
+    </div>
+  
+ 
+    <div class="floating-label">
+        {% comment %}<select id="pharmacy-name" name="customer[note][Pharmacy]" class="mySelect for" multiple="multiple">
+      	</select>
+     	<label for="pharmacy-name">Pick Your Pharmacy</label> {% endcomment %}
+    <select id="foo_select" class="dropdown" form="foo_form" multiple data-placeholder="Click to select an option...">
+			<option value="Store 1">Store 1</option>
+			<option value="Store 2">Store 2</option>
+			<option value="Store 3">Store 3</option>
+			<option value="Store 4">Store 4</option>
+			<option value="Store 5">Store 5</option>
+		</select>
+    </div>
+  
+  <div class="floating-label">
+      <div id="product_interest_wrap" >
+<label for="Default-label" class="primary-label">Select Default Pharmacy</label>
+        <select id="preferences" name="customer[note][Default]" value="" class="register-drop" placeholder="Select Default Pharmacy">
+              
+        </select>
+      
+      </div>
+    </div>
+  
+
+    <input type="hidden" name="return_to" value="/account" />
+    <input class="primary-btn" type="submit" value="Create Account" />
+  {% endform %}
+</main>  {% endcomment %}
+
+<script>
+function displayVals() {
+  var multipleValues = $( "#foo_select" ).val() || [];
+$( 'select[name="customer[note][Default]"]' )
+  .html( '<option>' + multipleValues.join( '</option><option>' ) + '</option>' );
+}
+
+
+$( "select#foo_select" ).change( displayVals );
+displayVals();
+</script>
+
+
+
+<script type="text/javascript">
+
+
+        $(document).ready(function() {
+
+          var last_valid_selection = null;
+
+          $('#foo_select').change(function(event) {
+
+            if ($(this).val().length > 3) {
+
+              $(this).val(last_valid_selection);
+            } else {
+              last_valid_selection = $(this).val();
+            }
+          });
+        });
+        </script>
+
+ <script type="text/javascript">
+
+
+$('#register_password').change(function() {
+    $('#register_key').val($(this).val());
+});
+
+
+  </script>
+
+
+<script>
+  /*
+    Show/hide the recover password form when requested.
+  */
+  function showRecoverPasswordForm() {
+    document.getElementById('RecoverPasswordForm').style.display = 'block';
+    document.getElementById('CustomerLoginForm').style.display='none';
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('RecoverPasswordForm').style.display = 'none';
+    document.getElementById('CustomerLoginForm').style.display = 'block';
+  }
+
+  if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+  
+</script>
+
+
+
+   
+  {{ 'jquery.validate.js' | asset_url | script_tag }}
+  <script>  
+    
+
+  var v = $("#create_customer").validate({
+      rules: {
+        'customer[email]': {
+          			required: true,
+                    email: true
+                   
+        },
+        'customer[password]': {
+          required: true,
+                    minlength: 8,
+          			pwcheck: true,
+                    maxlength: 25
+        },
+        'customer[password_confirmation]': {
+          required: true,
+                    minlength: 8,
+                    maxlength: 25,
+                    equalTo: "#register_password"
+        },
+        'customer[first_name]': {
+          required: true,
+          iamtext: true,
+          maxlength: 15
+        },
+        'customer[note][default_pharmacy]': {
+          required: true,
+        },
+        'customer[last_name]': {
+          required: true,
+          iamtext: true,
+         maxlength: 15
+        }
+      },
+      errorPlacement: function(error, element) {
+        error.insertAfter('.form-group');
+    }, 
+    highlight: function(element) {
+        $(element).addClass('error-field');
+		$(element).parent().parent().parent().addClass('formhaserror');
+    },
+    unhighlight: function(element) {
+        $(element).removeClass('error-field');
+      $(element).parent().parent().parent().removeClass('formhaserror');
+    }
+});
+  
+$.validator.addMethod("pwcheck", function(value) {
+   return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) 
+       && /[a-z]/.test(value) 
+    && /[A-Z]/.test(value) 
+       && /\d/.test(value) 
+});
+    
+      
+$.validator.addMethod("iamtext", function(value) {
+   return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value)
+});
+  
+  
+  
+    $(".next-btn0").click(function() {
+    
+      $(".tab-pane").hide();
+      $("#step1").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(1)').addClass('active');
+      $("#ui-id-1").removeClass('active');
+ });
+    
+    
+ 
+$(".next-btn1").click(function() {
+    
+      $(".tab-pane").hide();
+      $("#step2").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(2)').addClass('active');
+   $("#ui-id-1").removeClass('active');
+    
+ });
+$(".next-btn2").click(function() {
+    
+      $(".tab-pane").hide();
+      $("#step3").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(3)').addClass('active');
+  	  $("#ui-id-1").addClass('active');
+  
+    
+});
+  $("#tester").click(function() {
+  
+      $(".tab-pane").hide();
+      $("#step3").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(3)').addClass('active');
+    
+});
+  
+    $("#tester").click(function() {
+    if (v.form()) {
+      return true;
+    }
+});
+  
+     
+    
+   
+</script>
+
+<script>
+  
+$(function(){
+  $('.show-pass i').on('mousedown',function(){
+      $('#register_password').attr('type','text');
+  }).on('mouseup',function(){
+    $('#register_password').attr('type','password');
+  });
+});
+</script>
+
+<script>
+$(function(){
+  $('.show-re-pass i').on('mousedown',function(){
+      $('#password_confirm').attr('type','text');
+  }).on('mouseup',function(){
+    $('#password_confirm').attr('type','password');
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+
+
+$('#register_password').change(function() {
+    $('#register_key').val($(this).val());
+});
+
+
+  </script>
+
+<script type="text/javascript">
+
+
+$('#default_pharmacy').change(function() {
+   var value = $('#default_pharmacy').val().split(', ');
+
+var firstName = value.shift();
+
+var restOfNames = value.join(' ');
+
+$('#filter_pharamcy_name').val(firstName);
+});
+
+  
+  </script> {% endcomment %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<style>
+  @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+        .checkbox input[type=checkbox],
+        .checkbox-inline input[type=checkbox],
+        .radio input[type=radio],
+        .radio-inline input[type=radio] {
+            left: 3px;
+        }
+
+        #map_canvas {
+            height: 525px;
+            width: 55%;
+            border-radius: 4px;
+        }
+  .map-width-active {
+    width: 100% !important;
+}
+  
+  body.customers-register.banner-open form#create_customer {
+    width: 100%;
+}
+  div#step3 {
+        width: 100%;
+    position: relative;
+ 
+}
+  
+  .floating-label.deafult-pharma {
+    margin: 0px 0;
+    width: 73%;
+}
+
+        .overlay {
+       margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    top: 00px;
+    left: 00px;
+    padding: 0;
+    background: #FFF;
+    z-index: +999;
+    width: 85%;
+    margin: 0 11.4% 0 0;
+    display: block;
+    border: 2px solid #cccecf;
+    border-width: 2px 2px 2px 1px;
+}
+  select#foo_select {
+    background: #fcf7f1;
+    height: 180px;
+    margin-bottom: 22px;
+    overflow: hidden;
+}
+  #foo_select option:checked {
+    color: cyan;
+    font-size: 17px;
+    background: #000;
+    background: linear-gradient(#fcf7f1ad, #fcf7f1b0);
+    border-bottom: 1px solid #000;
+}
+  
+ #foo_select option {
+    padding: 5px 5px;
+}
+ 
+  body.customers-login .container {
+    margin-top: 180px;
+}
+  
+  
+  i.fa.fa-eye {
+    position: absolute;
+    right: 15px;
+    font-size: 17px;
+    color: #cccecf;
+    top: 42px;
+}
+  
+  i.fa.fa-eye {
+    cursor: pointer;
+}
+  
+  .floating-label.show-pass {
+    position: relative;
+}
+  
+   .floating-label.show-re-pass {
+    position: relative;
+}
+  
+  
+  
+  .log-left {
+    width: 33%;
+    float:left;
+}
+  
+  input.error-field {
+    border: 3px solid #002f87 !important;
+}
+  
+  .log-right {
+    width: 60%;
+    float:left;
+}
+  
+  .floating-label {
+    display: block;}
+  
+  body.customers-login .container {
+    margin-top: 180px;
+    max-width: 100%;
+    margin: 180px 3.5% 0;
+    padding: 0;
+}
+  
+  h1.n-heading-one {
+    color: #060e9b;
+    margin-bottom: 20px;
+    font-weight: 300;
+    text-align: center;
+    font-size: 33px;
+    font-family: 'Roboto Mono', monospace !important;
+}
+  
+  .log-left h1 {
+    font-size: 25px;
+    line-height: 1.5;
+}
+  
+  .floating-label {
+    display: block;
+}
+  
+  .floating-label label {
+    color: #cccecf;
+    margin-left: 18px;
+}
+  
+  .floating-label label {
+    font-size: 16px;
+    line-height: 1.15;
+}
+  
+.customers-login .floating-label input {
+    border: 1px solid #cccecf;
+    background: transparent !important;
+    color: #002f87 !important;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px 25px !important;
+}
+  
+  span.reqq-field {
+    DISPLAY: NONE;
+}
+  
+  form#create_customer.formhaserror span.reqq-field {
+    display: block;
+        color: #002f87;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+}
+  
+  [type='email']:focus{
+  border: 1px solid #cccecf;
+  }
+  
+  .log-map-selection {
+    width: 55%;
+    float: left;
+   
+}
+  
+  .log-Form-field {
+    width: 45%;
+    float: left;
+}
+  
+  ul#ui-id-1 {
+       padding: 0;
+    list-style: none;
+    background: #fff;
+    width: 366px !important;
+    z-index: +999;
+}
+  
+  ul#ui-id-1 li {
+    font-size: 17px;
+    padding: 8px 15px;
+    color: #cccecf;
+}
+  
+  .selected-pharmacy p {
+    width: fit-content;
+    float: left;
+    color: #060d9c;
+    font-size: 18px;
+    position: relative;
+    top: 4px;
+}
+  
+  .selectedAreas {
+    width: 80%;
+    margin: 0 auto;
+}
+  
+  .selected-pharmacy p {
+    width: fit-content;
+    float: left;
+    color: #060d9c;
+    font-size: 18px;
+    position: relative;
+    top: 4px;
+}
+  
+  .selectedAreas {
+    display: none;
+}
+  
+  ul#ui-id-1 li:hover div {
+    color: #070d9d;
+}
+  
+  ul#ui-id-1 li {
+  padding:  25px 50px;
+}
+  
+  
+  #ui-id-1::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+#ui-id-1::-webkit-scrollbar-track {
+  background: #fff; 
+}
+ 
+/* Handle */
+#ui-id-1::-webkit-scrollbar-thumb {
+  background: #fff; 
+}
+
+/* Handle on hover */
+#ui-id-1::-webkit-scrollbar-thumb:hover {
+  background: #fff; 
+}
+  
+  .custom-combobox {
+            position: relative;
+            display: inline-block;
+        }
+
+        .custom-combobox-toggle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin-left: -1px;
+            padding: 0;
+        }
+
+        .custom-combobox-input {
+            margin: 0;
+            padding: 5px 10px;
+        }
+  
+  .selected-pharmacy img {
+    float: right;
+    position: relative;
+    top: -5px;
+    width: 30px;
+}
+  
+  input#tester {
+   background: #fff;
+    border: 2px solid #002f87;
+    padding: 14px 36px;
+    border-radius: 32px;
+    color: #002f87;
+    font-weight: 400;
+    font-size: 18px;
+    margin: 36px auto 0;
+    display: block;
+}
+  
+  input#tester:hover {
+    background: #002f87;
+    color: #fff;
+}
+  
+  .f-bor-f {
+    padding: 20px 0 20px;
+    border-top: 2px solid #cccecf;
+    display: block;
+    margin-top: 40px;
+    width: 116%;
+    left: -7.5%;
+    position: relative;
+}
+  
+  .selected-pharmacy {
+padding: 17px 20px 5px;
+    display: table;
+    border: 2px solid #cccecf;
+    width: 100%;
+    border-width: 2px 2px 0px 2px;
+}
+  
+.selectedAreas {
+    background: #fff;
+    position: absolute;
+    z-index: 999;
+    width: 73%;
+    margin: 0 7%;
+    top: 30px;
+}
+  
+  .log-Form-field {
+    width: 45%;
+    float: left;
+    padding: 0 3.5%;
+}
+  
+  .customers-login .floating-label input {
+    margin-bottom: 20px;
+}
+  
+  .log-map-selection {
+    width: 55%;
+    float: left;
+    position: relative;
+        padding: 0 3.5%;
+    top: -35px;
+}
+  
+  .selectedAreas .selected-pharmacy:last-child {
+    border-bottom: 1px solid #cccecf;
+}
+  
+  .selectedAreas {
+    background: #fff;
+    position: absolute;
+    z-index: 999;
+    width: 73%;
+    margin: 0 7%;
+    top: 118px;
+}
+input.custom-combobox-input::placeholder {
+    font-size: 17px;
+    font-family: "Graphik", Helvetica, Arial, sans-serif;
+    top: 11px;
+    left: 18px;
+    color: #cccecf;
+}
+  
+  i.Remove-loc {
+    font-size: 18px;
+    font-style: normal;
+    color: #f00;
+    font-family: 'Roboto Mono', monospace !important;
+    width: fit-content;
+    position: relative;
+    right: -83px;
+    background: #fff;
+    padding: 6px 8px;
+    line-height: 1;
+    border-radius: 29px;
+    float: right;
+    top: -4px;
+}
+  
+  input.custom-combobox-input {
+    font-size: 17px;
+    font-family: "Graphik", Helvetica, Arial, sans-serif;
+    color: #030899;
+}
+  
+  span.custom-combobox {
+    width: 100%;
+}
+  .custom-combobox-input {
+    margin: 0;
+    padding: 17px 10px;
+    width: 100%;
+    border: none;
+}
+  
+  p.map-poi-title {
+    color: #cccecf;
+    font-size: 18px;
+    line-height: 1.15;
+    margin-left: 0px;
+    font-weight: 300;
+}
+  
+  button.next-btn {
+    background: #fff;
+    border: 2px solid #002f87;
+    padding: 14px 36px;
+    border-radius: 32px;
+    color: #002f87;
+    font-weight: 400;
+    font-size: 18px;
+    margin: 36px auto 0;
+    display: block;
+}
+  
+  .tab-pane {
+    width: 30%;
+    margin: 0 auto;
+}
+  
+  .custom-combobox-input {
+    margin: 0;
+    padding: 12px 10px 15px;}
+  
+.progressbar-dots {
+    height: 22px;
+    width: 22px;
+    margin: 0 15px;
+    background: lightgray;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0px 0px 2px grey inset;
+}
+
+.progressbar-dots.active {
+    background-color: #002f87;
+    box-shadow: inset 0px 0px 0px 2px #f7f7f7;
+    border: 2px solid #c6c6c6;
+    height: 22px;
+    width: 22px;
+}
+  .prog-container {
+    width: fit-content;
+    margin: 0 auto 40px;
+}
+  
+  ul#ui-id-1 {
+    display: block !important;
+}
+  
+ ul#ui-id-1 {
+    width: 35% !important;
+    overflow-y: scroll;
+    position: relative !important;
+    height: 300px !important;
+    min-height: 80vh;
+    LEFT: 0 !IMPORTANT;
+       border-top: 1px solid #cccecf;
+}
+  
+   ul#ui-id-1.active {
+     display: block !important;}
+  
+  .pharm-selection {
+    width: 65%;
+    float: left;
+    margin-bottom: 30px;
+}
+  
+  .defau-selection {
+    width: 50%;
+    float: left;
+    margin-bottom: 30px;
+}
+  
+  body.customers-register.banner-open .container {
+    margin-top: 180px;
+    max-width: 99%;
+    margin: 180px 0% 0;
+    padding: 0;
+}
+  
+  .ndnapps-sociallogin-wrapper {
+    DISPLAY: NONE;
+}
+  
+  ul#ui-id-1 > li { 
+    cursor: pointer; 
+      border-bottom: 1px solid;
+  }
+  li.ui-menu-item:hover{
+   background:#f8f8f8; 
+  }
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: transparent !important;
+}
+ 
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(68 68 68 / 0%);}
+  
+   div#divMapModal {
+    position: absolute;
+    top: 115px;
+    left: 15px;
+    width: fit-content;
+}
+  div#divMapModal .modal-content p {
+    width: 65%;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.5;
+}
+  
+  body.modal-open {
+    overflow: unset;
+}
+  
+  div#divMapModal .modal-content {
+    padding: 15px 15px 30px;
+    width: 80%;
+    border-radius: 8px;
+    border: none;
+}
+  p.modal-shopping {
+    margin-top: 25px;
+}
+  .btn.btn-primary.btn-primary.removeBtn {
+    background-color: #000686 !important;
+    color: #fff !important;
+}
+  div#divMapModal button.btn-close {
+    width: 15px;
+    display: block;
+    margin: 0 0 0 auto;
+    border: none;
+    background: transparent;
+    color: #d9d9d9;
+    font-size: 15px;
+    font-family: 'Graphik';
+    position: absolute;
+    right: 18px;
+    top: 10px;
+}
+  div#divMapModal .btn {
+    width: fit-content;
+    padding: 10px 30px;
+    border-radius: 25px;
+    background: transparent;
+    color: #000686;
+    font-size: 15px;
+    margin: 16px auto 6px;
+    display: block;
+    border-color: #0a109f;
+}
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5; 
+}
+  
+  .modal-backdrop.show {
+    opacity: 0.5;
+    display: none !important;
+}
+    .gm-style-mtc {
+    display: none;
+}
+  .right-map-text {
+    text-align: right;
+    margin-top: -15px;
+    margin-right: 12%;
+    color: #d6d2d2;
+    font-weight: 100;
+}
+.right-map-text h4{
+  font-weight: 300;
+}
+</style>
+{{'signup-map.css' | asset_url | stylesheet_tag}}
+    <script src="https://kit.fontawesome.com/b38d30c7e6.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<div class="container-fluid">
+ 
+  <div class="row" style="display: block;">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <div class="small-map-text map-panel-1">
+    <h1>Select a Korres Selling Store to:</h1>
+    <h2>Unlock Prices</h2>
+    <h2>Get Free Shipping</h2>
+    <h2>Collect Points</h2>
+    <h2>Redeem with Gifts</h2>
+    </div>
+  </div>
+   
+    
+
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+
+     
+    <div class="style-poi-multiple"></div>
+            
+   
+
+
+{% comment %}      <label for="FirstName" class="label--hidden">{{ 'customer.register.first_name' | t }}</label>
+      <input type="text" name="customer[first_name]" autocomplete="off" id="FirstName" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+
+      <label for="LastName" class="label--hidden">{{ 'customer.register.last_name' | t }}</label>
+      <input type="text" name="customer[last_name]" autocomplete="off" id="LastName" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+{% endcomment %}
+     		
+              <div class="tab-content">
+                
+               
+                
+			
+                
+                
+         <div class="tab-pane" id="step3" style="display:block;">
+   
+           <div class="pharm-selection">
+<!--      <p class="map-poi-title">Pick your Pharmacy (up to 3)</p>
+         -->
+          <div class="selectedAreas"></div>
+        <div class="overlay">
+        <div class="ui-widget" id="browserWrap">
+            <select name="browser" id="browser" placeholder="Store Name, Area, Postcode">
+
+            </select>
+        </div>
+    </div>
+             </div>
+           
+           <div class="defau-selection">
+             <div class="floating-label deafult-pharma">
+        <label for="first_name">Default Pharamacy*</label>
+<select hidden id="default_pharmacy" name="customer[note][default_pharmacy]" value="" required class="def-pharmacy">
+  
+</select>
+        </div>
+           </div> 
+            
+           <div class="modal" id="divMapModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+               
+                    <p><span id="locationName"></span></p>
+                    <button type="button" class="btn btn-primary addBtn" onclick="saveLocation()">Select</button>
+              <p class="modal-shopping" style="display:none">This is your Korres selling store. You can always edit in your <a href="#">Circle page</a></p>
+               {%- assign newsletter_form_id = 'addpharmacy' -%}
+{% form 'customer', id: newsletter_form_id %}
+  {%- if form.posted_successfully? -%}
+    <div class="note note--success">
+<!--        <a href="https://korresshop-greece.myshopify.com/collections/all">    <button type="button" class="btn btn-primary removeBtn"
+                                       >Start Shopping</button></a> -->
+    </div>
+  {%- endif -%}
+  {%- if form.errors and form.context == snippet_context -%}
+    {{ form.errors | default_errors }}
+  {%- endif -%}
+
+  {%- unless form.posted_successfully? -%}
+<input name="contact[tags]" value="" id="filter_pharamcy_name" type="hidden" >
+   <div class="input-group newsletter__input-group">
+      <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="contact[email]" id="Email-{{ section_id }}" class="input-group-field newsletter__input hidden" autocorrect="off" autocapitalize="off">
+       
+      <div class="input-group-btn">
+        <button type="submit" class="btn addpharmbtn" style="display:none;">
+         Add Pharmacy
+        </button>
+      </div>
+    </div>
+  {%- endunless -%}
+{% endform %}
+                   
+            </div>
+        </div>
+    </div> 
+           
+        	<div id="map_canvas"></div>
+
+
+<script>
+  
+  $('.btn-close').on("click", function () {
+    $(this).parents('#divMapModal').fadeOut();
+});
+  
+  $('.addBtn').click(function(){
+    $('.addpharmbtn').show();
+  })
+  
+           </script>
+    
+
+<input name="customer[note][default_poi]" value="" hidden id="filter_pharamcy_name">
+
+<!-- <input type="submit" id="tester" value="Complete Sign up" class="btn">
+        <span class="reqq-field">* REQUIRED FIELDS</span>
+        -->
+                </div>       
+                
+                
+      </div>
+  
+    <div class="right-map-text">
+      <h4>You may change this later at <a href="https://korresshop-greece.myshopify.com/pages/my-circle-1">my Circle</a></h4>
+            </div>
+
+    </div>
+    
+
+  </div>
+  
+</div>
+
+
+{% comment %}<main>
+  {%- comment -%} Login form {%- endcomment -%}
+  <div id="CustomerLoginForm">
+  {% form 'customer_login' %}
+    <h3>Have an account? Log in now</h3>
+
+    <div class="floating-label">
+      <input
+        id="login_email"
+        type="email"
+        name="customer[email]"
+        placeholder="Email Address"
+        data-rule="required|email"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="login_email">Email Address</label>
+    </div>
+
+    <div class="floating-label">
+      <input
+        id="login_password"
+        type="password"
+        name="customer[password]"
+        placeholder="Password"
+        data-rule="required"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="login_password">Password</label>
+    </div>
+
+    <div class="error-container">
+      {{ form.errors | default_errors }}
+
+      <button class="forgot-pwd" type="button">
+        <a href="#" onclick="showRecoverPasswordForm();return false;"><span>Forgot your password?</span></a>
+      </button>
+    </div>
+
+    <input class="primary-btn" type="submit" value="Log In" />
+  {% endform %}
+  </div>
+  
+  
+  
+  <div id="RecoverPasswordForm" style="display: none;">
+    
+  
+  {%- comment -%} Reset password form {%- endcomment -%}
+  {% form 'reset_customer_password' %}
+    <h3>Create new password</h3>
+    <p>Enter a new password for your account.</p>
+
+    <div class="floating-label">
+      <input
+        id="login_password"
+        type="password"
+        name="customer[password]"
+        placeholder="New Password"
+        data-rule="required-8|minlength-8"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="login_password">New Password</label>
+    </div>
+
+    <div class="floating-label">
+      <input
+        id="login_password"
+        type="password"
+        name="customer[password_confirmation]"
+        placeholder="Confirm Password"
+        data-rule="required-8|minlength-8"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="login_password">Confirm Password</label>
+    </div>
+
+    <div class="error-container">
+      {{ form.errors | default_errors }}
+    </div>
+<button class="forgot-pwd" type="button">
+        <a href="#" onclick="hideRecoverPasswordForm();return false;">Cancel</a></button>
+    <input class="primary-btn" type="submit" value="Submit" />
+      
+    
+  {% endform %}
+
+
+    
+  </div>
+  
+  
+<!-- Begin ReCharge code -->
+{% include 'subscription-account-login' %}
+<!-- End ReCharge code -->
+
+
+  {%- comment -%} Reset password form {%- endcomment -%}
+  {% form 'recover_customer_password', id: "forgot_password", class: "hidden" %}
+    {% if form.posted_successfully? %}
+      <span class="hidden reset-password-success"></span>
+    {% endif %}
+
+    <h3>Forgot your password?</h3>
+    <p class="subtitle">We will send you an email to reset your password.</p>
+
+    <div class="floating-label">
+      <input
+        id="forgot_email"
+        type="email"
+        name="email"
+        placeholder="Email Address"
+        data-rule="required|email"
+        {%- if form.errors -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+      <label for="forgot_email">Email Address</label>
+    </div>
+
+    <input class="primary-btn" type="submit" value="Submit" />
+
+    <p class="create-account">Don’t have an account? <a href="/account/login">Create One</a></p>
+  {% endform %}
+
+  <div class="forgot-success modal">
+    <div class="content">
+      <button class="close-modal">
+        {% render 'icon-close' %}
+      </button>
+
+      <p>A link has been sent to your email.</p>
+    </div>
+  </div>
+
+  {% comment %} Register form {% endcomment %}
+  {% form 'create_customer' %}
+    <h3>Create an account</h3>
+    
+    <div class="floating-label">
+      <input
+        id="first_name"
+        type="text"
+        name="customer[first_name]"
+        placeholder="First Name"
+        data-rule="required|firstname"
+      />
+      <label for="first_name">First Name</label>
+    </div>
+    
+    <div class="floating-label">
+      <input
+        id="last_name"
+        type="text"
+        name="customer[last_name]"
+        placeholder="Last Name"
+        data-rule="required|lastname"
+      />
+      <label for="last_name">Last Name</label>
+    </div>
+  	<div class="floating-label">
+      <input
+        id="birth_date"
+        type="date"
+        name="customer[note][birth_date]"
+        placeholder="Date of Birth"
+        data-rule="required|birthdate"
+      />
+      <label for="birth_date">Date of Birth</label>
+    </div>
+    <div class="floating-label">
+      <input
+        id="user_name"
+        type="text"
+        name="customer[note][user_name]"
+        placeholder="Username"
+        data-rule="required|Username"
+      />
+      <label for="user_name">Username</label>
+    </div>
+  	<div class="floating-label">
+        <select id="product_interest" name="customer[note][product_interest]" value="" class="register-drop">
+              <option value="" selected disabled="true">Product I am Interesting</option>
+              <option value="none">None</option>
+              <option value="women">Women Skin Type</option>
+              <option value="men">Men Skin Type</option>
+        </select>
+    </div>
+  <div class="floating-label">
+        <select id="skin_type" name="customer[note][skin_type]" value="" class="register-drop">
+              <option value="" selected disabled="true">Skin Type</option>
+              <option value="none">None</option>
+              <option value="dry">Dry</option>
+              <option value="oily">Oily</option>
+              <option value="normal">Normal</option>
+        </select>
+    </div>
+  	<div class="floating-label">
+      <div id="product_interest_wrap" >
+        <select id="preferences" name="customer[note][Preferences]" value="" class="register-drop">
+              <option value="" selected disabled="true">Preferences</option>
+              <option value="none">None</option>
+              <option value="skincare">Skincare</option>
+              <option value="bodycare">Bodycare</option>
+              <option value="makeup">Makeup</option>
+              <option value="fragrance">Fragrance</option>
+              <option value="hair">Hair</option>
+              <option value="fragrance">Fragrance</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="floating-label">
+      <input
+        id="register_email"
+        type="email"
+        name="customer[email]"
+        placeholder="Email Address"
+        data-rule="required|email"
+      />
+      <label for="register_email">Email Address</label>
+    </div>
+    
+    <div class="floating-label">
+      <input
+        id="register_password"
+        type="password"
+        name="customer[password]"
+        placeholder="Password"
+        data-rule="required-8|minlength-8"
+      />
+      <label for="register_password">Password</label>
+    </div>
+  <div class="floating-label">
+      <input hidden id="register_key"
+        type="text"
+        name="customer[note][key]"
+        placeholder="Password"
+        data-rule="required-8|minlength-8"
+      />
+    </div>
+  
+ 
+    <div class="floating-label">
+        {% comment %}<select id="pharmacy-name" name="customer[note][Pharmacy]" class="mySelect for" multiple="multiple">
+      	</select>
+     	<label for="pharmacy-name">Pick Your Pharmacy</label> {% endcomment %}
+    <select id="foo_select" class="dropdown" form="foo_form" multiple data-placeholder="Click to select an option...">
+			<option value="Store 1">Store 1</option>
+			<option value="Store 2">Store 2</option>
+			<option value="Store 3">Store 3</option>
+			<option value="Store 4">Store 4</option>
+			<option value="Store 5">Store 5</option>
+		</select>
+    </div>
+  
+  <div class="floating-label">
+      <div id="product_interest_wrap" >
+<label for="Default-label" class="primary-label">Select Default Pharmacy</label>
+        <select id="preferences" name="customer[note][Default]" value="" class="register-drop" placeholder="Select Default Pharmacy">
+              
+        </select>
+      
+      </div>
+    </div>
+  
+
+    <input type="hidden" name="return_to" value="/account" />
+    <input class="primary-btn" type="submit" value="Create Account" />
+  {% endform %}
+</main>  {% endcomment %}
+
+<script>
+function displayVals() {
+  var multipleValues = $( "#foo_select" ).val() || [];
+$( 'select[name="customer[note][Default]"]' )
+  .html( '<option>' + multipleValues.join( '</option><option>' ) + '</option>' );
+}
+
+
+
+$( "select#foo_select" ).change( displayVals );
+displayVals();
+</script>
+
+
+
+<script type="text/javascript">
+
+
+        $(document).ready(function() {
+
+          var last_valid_selection = null;
+
+          $('#foo_select').change(function(event) {
+
+            if ($(this).val().length > 3) {
+
+              $(this).val(last_valid_selection);
+            } else {
+              last_valid_selection = $(this).val();
+            }
+          });
+        });
+        </script>
+
+ <script type="text/javascript">
+
+
+$('#register_password').change(function() {
+    $('#register_key').val($(this).val());
+});
+
+
+  </script>
+
+
+<script>
+  /*
+    Show/hide the recover password form when requested.
+  */
+  function showRecoverPasswordForm() {
+    document.getElementById('RecoverPasswordForm').style.display = 'block';
+    document.getElementById('CustomerLoginForm').style.display='none';
+  }
+
+  function hideRecoverPasswordForm() {
+    document.getElementById('RecoverPasswordForm').style.display = 'none';
+    document.getElementById('CustomerLoginForm').style.display = 'block';
+  }
+
+  if (window.location.hash == '#recover') { showRecoverPasswordForm() }
+  
+</script>
+
+
+
+   
+  {{ 'jquery.validate.js' | asset_url | script_tag }}
+  <script>  
+    
+
+  var v = $("#create_customer").validate({
+      rules: {
+        'customer[email]': {
+          			required: true,
+                    email: true
+                   
+        },
+        'customer[password]': {
+          required: true,
+                    minlength: 8,
+          			pwcheck: true,
+                    maxlength: 25
+        },
+        'customer[password_confirmation]': {
+          required: true,
+                    minlength: 8,
+                    maxlength: 25,
+                    equalTo: "#register_password"
+        },
+        'customer[first_name]': {
+          required: true,
+          iamtext: true,
+          maxlength: 15
+        },
+        'customer[note][default_pharmacy]': {
+          required: true,
+        },
+        'customer[last_name]': {
+          required: true,
+          iamtext: true,
+         maxlength: 15
+        }
+      },
+      errorPlacement: function(error, element) {
+        error.insertAfter('.form-group'); 
+    }, 
+    highlight: function(element) {
+        $(element).addClass('error-field');
+		$(element).parent().parent().parent().addClass('formhaserror');
+    },
+    unhighlight: function(element) {
+        $(element).removeClass('error-field');
+      $(element).parent().parent().parent().removeClass('formhaserror');
+    }
+});
+  
+$.validator.addMethod("pwcheck", function(value) {
+   return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) 
+       && /[a-z]/.test(value) 
+    && /[A-Z]/.test(value) 
+       && /\d/.test(value) 
+});
+    
+      
+$.validator.addMethod("iamtext", function(value) {
+   return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value)
+});
+  
+  
+  
+    $(".next-btn0").click(function() {
+    
+      $(".tab-pane").hide();
+      $("#step1").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(1)').addClass('active');
+      $("#ui-id-1").removeClass('active');
+ });
+    
+    
+ 
+$(".next-btn1").click(function() {
+    
+      $(".tab-pane").hide();
+      $("#step2").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(2)').addClass('active');
+   $("#ui-id-1").removeClass('active');
+    
+ });
+$(".next-btn2").click(function() {
+    
+      $(".tab-pane").hide();
+      $("#step3").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(3)').addClass('active');
+  	  $("#ui-id-1").addClass('active');
+  
+    
+});
+  $("#tester").click(function() {
+  
+      $(".tab-pane").hide();
+      $("#step3").fadeIn(1000);
+      $('.progressbar-dots').removeClass('active');
+      $('.progressbar-dots:nth-child(3)').addClass('active');
+    
+});
+  
+    $("#tester").click(function() {
+    if (v.form()) {
+      return true;
+    }
+});
+  
+    
+    
+   
+</script>
+
+<script>
+  
+$(function(){
+  $('.show-pass i').on('mousedown',function(){
+      $('#register_password').attr('type','text');
+  }).on('mouseup',function(){
+    $('#register_password').attr('type','password');
+  });
+});
+</script>
+
+<script>
+$(function(){
+  $('.show-re-pass i').on('mousedown',function(){
+      $('#password_confirm').attr('type','text');
+  }).on('mouseup',function(){
+    $('#password_confirm').attr('type','password');
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+
+
+$('#register_password').change(function() {
+    $('#register_key').val($(this).val());
+});
+
+
+  </script>
+
+<script type="text/javascript">
+
+
+$('#default_pharmacy').change(function() {
+   var value = $('#default_pharmacy').val().split(', ');
+
+var firstName = value.shift();
+
+var restOfNames = value.join(' ');
+
+$('#filter_pharamcy_name').val(firstName);
+});
+
+  
+  
+  
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

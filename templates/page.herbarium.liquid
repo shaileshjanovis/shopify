@@ -1,0 +1,62 @@
+{% render 'shogun-products', content: page %}
+ <script type="text/javascript" src="//code.jquery.com/jquery-2.2.4.js"></script> 
+ 
+<main id ="herbarium-page">
+
+{%section 'Image-with-text' %}
+{%section 'olive-blossom'%}  
+  {%section 'extraction-lab'%}
+  {%section 'formulation-lab'%}
+  {%section 'herbarium-collection'%}
+</main>
+
+<script>
+$(document).ready(function() {
+  var topOfOthDiv = 800;
+  $(window).scroll(function() {
+    if($(window).scrollTop() > topOfOthDiv) {
+       $("#test-lab").addClass('show');
+    } else {
+       $("#test-lab").addClass('show');
+    }
+  });
+});
+  </script>
+
+
+<script>
+    var lastId,
+    topMenu = $("#test-lab"),
+    topMenuHeight = topMenu.outerHeight()+110,
+    menuItems = topMenu.find("a"),
+    scrollItems = menuItems.map(function(){
+      var item = $($(this).attr("href"));
+      if (item.length) { return item; }
+    });
+menuItems.click(function(e){
+  var href = $(this).attr("href"),
+      offsetTop = href === "#" ? 0 : $(href).offset().top-topMenuHeight+15;
+  $('html, body').stop().animate({ 
+      scrollTop: offsetTop
+  }, 200);
+  e.preventDefault();
+});
+
+$(window).scroll(function(){
+   var fromTop = $(this).scrollTop()+topMenuHeight;
+    var cur = scrollItems.map(function(){
+     if ($(this).offset().top < fromTop)
+       return this;
+   });
+   cur = cur[cur.length-1];
+   var id = cur && cur.length ? cur[0].id : "";
+   
+   if (lastId !== id) {
+       lastId = id;
+       menuItems
+         .parent().removeClass("cllicked")
+         .end().filter("[href='#"+id+"']").parent().addClass("cllicked");
+   }                   
+});
+</script>
+

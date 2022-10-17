@@ -1,0 +1,40 @@
+{% unless customer %}
+  <script>window.location.replace('/account/login/?return_url=/')</script>
+{% endunless %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/asvd/dragscroll/master/dragscroll.js"></script>
+
+{{ 'style-my-settings.css' | asset_url | stylesheet_tag }}
+
+<div class="hjsad circle_main">
+  <div class="custom-page-width">
+    <div class="d-none d-sm-block">
+ 	{% section 'gift_section' %}
+    </div>
+    <div class="d-block d-sm-none">
+    {%section 'gift-section-mob'%}
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".expand_view").on("click",function(){
+    $(".collection_in").toggleClass("full-width-expand");
+  });
+</script>
+
+<style>
+  .custom-page-width{
+  max-width:1600px; 
+    margin:0 auto;
+    padding:0 30px;
+  }
+  .page-circle-main .circle_main {
+    margin: 184px 0 84px 0;
+  }
+</style>
+

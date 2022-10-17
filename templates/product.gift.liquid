@@ -1,0 +1,417 @@
+{%- include 'country' -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign kettle_metafield = current_variant.metafields.kettle -%}
+{% assign subscription_product = product.metafields.subscriptions %}
+{% assign shipping_interval_unit_type = subscription_product.shipping_interval_unit_type | default: 'Days' %}
+{% assign shipping_interval_frequency = subscription_product.shipping_interval_frequency | split: ',' %}
+{% assign frequency_count = shipping_interval_frequency | size %}
+{% assign discount_percentage = subscription_product.discount_percentage | round: 2 %}
+{% assign discount_floor = subscription_product.discount_percentage | floor %}
+{% if discount_percentage == discount_floor %}
+{% assign discount_percentage = discount_floor %}
+{% endif %}    
+{% if frequency_count == 0 %}   
+{% assign has_ss = false %}
+{% else %} 
+{% assign has_ss = true %}
+{% endif %} 
+{% if has_ss %}
+{%- assign price_times = 100 | minus: discount_percentage -%}
+{% assign ss_price = current_variant.price | times: price_times | divided_by: 100 | money %}
+{% endif %}
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign page_url = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |   replace:'\/','/' |    replace:'%20',' ' |    replace:'\u0026','&'  -%}
+
+
+{%- assign param_page = '' -%}
+{%- for i in (1..1) -%}
+	{%- unless page_url contains "?" -%}{% break %}{%- endunless -%}
+	{%- assign query_string = page_url | split:'?' | last -%}
+	{%- assign qry_parts= query_string | split:'&' -%}
+	{%- for part in qry_parts -%}
+		{%- assign key_and_value = part | split:'=' -%}
+		{%- if key_and_value.size > 1 -%}
+			{% if key_and_value[0] == 'circle' %}
+				{%- assign param_page = key_and_value[1] -%}
+			{% endif%}
+		{%- endif -%}
+	{%- endfor -%}
+{%- endfor -%}
+
+{% assign first_order = customer.metafields.customer.first_order %}
+{% assign royalty = customer.metafields.points.loyalty | split : '|' | last | plus:0 %}
+{% assign customer_lavel = customer.metafields.Level %}
+{% capture gifts_list %}{%- for lavItem in customer_lavel -%}{{ lavItem[1] | append: ","}}{% endfor %}{% endcapture %}
+
+<aside id="pdp-sticky-nav" class="scroll-up">
+  <div class="thumbnail">
+    <img src="{{ kettle_metafield.hero_images | first }}" alt="{{ product.title }} Thumbnail">
+  </div>
+  <div class="title">{{ product.title }}</div>
+
+  {%- unless current_variant.available -%}
+  	<button class="add-to-cart btn-theme klaviyo-bis-trigger">Notify me when available</button>
+  {%- else -%}
+    <button type="button"
+            class="primary add-to-cart btn-theme" data-id="{{product.variants[0].id}}"
+            {% if kettle_metafield.hero_qvc_link %}data-href="{{ kettle_metafield.hero_qvc_link }}"{% endif %}
+            {% unless current_variant.available %}disabled{% endunless %}
+            >
+        {%- if kettle_metafield.hero_qvc_link -%}
+            Buy on QVC
+        {%- else -%}
+            Add To Cart -
+            {% if current_variant.compare_at_price > current_variant.price %}
+                <s><span data-regular-price>{{ current_variant.compare_at_price | money }}</span></s>
+            {% endif %}
+      		<span class="price"><span>{{ current_variant.price | money }}</span></span>
+
+            {% if has_ss %}
+                <span class="ss-price">{{ ss_price }}</span>
+            {% endif %}
+        {%- endif -%}
+      </button>
+	{%- endunless -%}
+
+</aside>
+
+<main role="main" class="product-detail product gift">
+  <div class="main-product-container product-single">
+    <div class="row">
+      
+      <div class="col-sm-6 no-pad">
+        {%if product.tags contains 'BEST SELLER'%}
+        <span class="tag-box d-block d-sm-none text-center">BEST SELLER</span>
+        {%endif%}
+        {%if product.tags contains 'New'%}
+        <span class="tag-box d-block d-sm-none text-center">NEW</span>
+        {%endif%}
+        <section class="h-img--container">
+          {% case product.images.size %}
+          {% when 0 %}
+            <img src="{{ 'no_image.png' | asset_url }}" alt="">
+          {% when 1 %}
+           <picture>
+                <source srcset="{{ product.featured_image.src | img_url: '250x' | format: 'jpg' }}" media="(max-width: 767px)">
+              <img src="{{ product.featured_image.src | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="">
+           </picture>
+          {% else %}
+          <div class="carousel-custom">
+            <div class="slide-container">
+              <div class="slide">
+                <picture>
+                    <source srcset="{{ product.images.first | img_url: '250x' }}" media="(max-width: 767px)">
+                    <img  id="primary_img_{{ section.id }}" src="{{ product.images.first | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="{{ product.images.first.alt }}" >
+                </picture>
+                <div class="move-slide"></div>
+              </div>
+              {% for image in product.images offset:1 %}
+              <div class="slide">
+                 <picture>
+                    <source srcset="{{ image.src | img_url: '250x' }}" media="(max-width: 767px)">
+                    <img src="{{ image.src | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="{{ product.images.first.alt }}" >
+                </picture>
+                <div class="move-slide"></div>
+              </div>
+              {% endfor %}
+            </div>
+            {% if product.images.size > 1 %}
+              <div class="slide-indicators">
+                <div class="slide-indicator active" data-slideindex="0"></div>
+                {% assign i = 0 %}
+                {% for image in product.images offset:1 %}
+                {% assign i = i | plus: 1  %}
+                <div class="slide-indicator" data-slideindex="{{ i }}"></div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          {% endcase %}
+      </section>
+      </div>
+      <div class="col-sm-6">
+        <section id="pdp-hero" class="product-hero-container" >
+          <section class="hero-desc--container">
+            {% assign productDescription = product.description | split: "<!-- split -->" %} 
+            {% assign productd = product.description | split: "<!-- split -->" %} 
+            <h1 class="product_title">{{ product.title }}</h1>
+            <p class="quantity-text">{{productd[6]}}</p>
+            
+            <div class="cart-button-mobile mobile">
+              {%- unless customer -%}
+              	<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/account/register">    <button class="user-icon js-call-popup-login add-to-cart btn-theme" style="margin-left:0">Sign Up to Shop</button></a>
+              {%- else -%}
+              	<button type="button" name="add" data-productid="{{current_variant.id}}" data-circle="" class="gift-cart-button andri reedim_points">{% if request.locale.iso_code == 'el' %}Εξαργύρωση{% else %}Earn this Gift{% endif %}<span> </span></button>
+              {%- endunless -%}
+            </div>
+            
+           	<div class="product_desc product_desc_truncat">
+             {% comment %} start of 11th May changes by madhav {% endcomment %}
+              {{ productDescription[1] | truncate: 200 }}
+              {% comment %}end of 11th May changes by madhav{% endcomment %}
+            </div>
+            
+            <div class="product_desc product_desc_full" style="display:none;">
+              {{ productDescription[1]}}
+            </div>
+            
+            {% if productd[12] != '0' and productd[12] != '' %}
+            	<p><strong>{{productd[12]}}</strong></p>
+            {% endif %}
+            
+            <div id="show-more" {% if productDescription[1].size > 100 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+              <a href="javascript:void(0)">{{ 'shop_gallery.links.show_more' | t: show_more }}</a>
+            </div>
+            
+            <div id="show-more-content">
+              <div id="show-less">
+                <a href="javascript:void(0)">{{ 'shop_gallery.links.show_less' | t: show_less }}</a>
+              </div>
+            </div>
+            
+            <div class="extra_info">
+              {% if productd[8] != '0' and productd[8] != '' %}
+              	<p><strong>{{ 'shop_gallery.product.your_need' | t: your_need }}</strong> <span class="pro_need">{{productd[8] | replace:'_',' '}}</span></p>
+              {% endif %}
+              
+              {% if productd[9] != '0' and productd[9] != '' %}
+              	<p><strong>{{ 'shop_gallery.product.your_type' | t: your_type }}</strong> <span class="pro_type">{{productd[9] | replace:'_',' '}}</span></p>
+              {% endif %}
+              
+              {% if productd[10] != '0' and productd[10] != '' %}
+              	<p><strong>{{ 'shop_gallery.product.our_technology' | t: our_technology }}</strong> {{productd[10] | replace:'_',' '}}</p>
+              {% endif %}
+              
+              <p><strong>{% comment %}{{ 'shop_gallery.product.natural_origin_content' | t: natural_origin_content }}{% endcomment %}{{productd[21] | replace:'_',' '}}</strong></p>
+              
+              {% if productd[11] != '0' and productd[11] != '' %}
+              	<p><strong>{{ 'shop_gallery.product.our_award' | t: our_award }}</strong> {{productd[11] | replace:'_',' '}}</p>
+              {% endif %}
+            </div>
+            
+            <div class="recycle-box">
+              <div class="recycle_inner">
+                <img src="{{ 'recycle1.svg' | asset_url }}">
+                <span>RECYCLABLE PACKAGING</span>
+              </div>
+              
+              <div class="recycle_inner">
+                <img src="{{ 'recycle2.svg' | asset_url }}">
+                <span>CLEAN FORMULAS</span>
+              </div>
+              
+              <div class="recycle_inner">
+                <img src="{{ 'recycle3.svg' | asset_url }}">
+                <span>ECO FRIENDLY MANUFACTURING PROCESS</span>
+              </div>
+            </div>
+            
+            {{ product_handle }}
+
+            {%- if site_features contains 'afterpay' -%}
+            <div class="afterpay-label--mobile">
+              <div><span bss-b2b-product-id="{{ product.id }}" bss-b2b-product-handle="{{ product.handle }}" bss-b2b-variant-id="{{ current_variant.id }}" bss-b2b-current-variant-price>{{ current_variant.price | money }}</span></div>
+            </div>
+            {%- endif -%}
+
+            {%- if kettle_metafield.hero_blurb -%}
+            	<p class="m0">{{ kettle_metafield.hero_blurb }}</p>
+            {%- else -%}
+            	<ol class="product-info"></ol>
+            {%- endif -%}
+            
+			<div class="cart-button-desktop web">
+              {%- unless customer -%}
+              	<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/account/register">    <button class="user-icon js-call-popup-login add-to-cart btn-theme" style="margin-left:0">Sign Up to Shop</button></a>
+              {%- else -%}
+              	<button type="button" name="add" data-productid="{{current_variant.id}}" data-circle="" class="gift-cart-button andri reedim_points">{% if request.locale.iso_code == 'el' %}Εξαργύρωση{% else %}Earn this Gift{% endif %}<span> </span></button>
+              {%- endunless -%}
+            </div>
+          </section>
+        </section>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div style="clear:both;"></div>
+  {% include 'spin-section' %}
+  <div class="pro-accordion-section">
+    {% render 'product-desc-accordian' %}
+  </div>
+  
+  <div style="clear:both;"></div>
+  {% section 'recommended-products' %}
+  
+  {%- comment -%} ========== Subscribtion ========== {%- endcomment -%}
+  <section class="subscribtion">
+    <div class="row no-gutters">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="left">
+          <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/sub-back-circle.jpg?v=1623317512" class="img-fluid"/>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="right">
+          <div class="inner-section-sub-pro">
+            {% form 'customer' %}
+            <input id="contact_tags" name="contact[tags]" type="hidden" value="prospect,newsletter" />
+            <div class="news-wrap">
+              <div class="news-container">
+                <div class="content-news">
+                  <h2>{{ 'shop_gallery.subscribe.title' | t: title }}</h2>
+                  <p>{{ 'shop_gallery.subscribe.subtitle' | t: subtitle }}</p>
+                  <div class="footer-input">
+                    <input id="contact_email" name="contact[email]" type="text" placeholder="Name@email.com" class="form-control" />
+                    <input class="submit arrow" type="submit" value="&#10141;">
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+</main> 
+
+<script>
+  var url = $(location).attr('href'),
+    parts = url.split("giftpoint="),
+    last_part_point = parts[parts.length-1];
+    var first_order = {{ first_order }};
+    var royalty_cus = {{ royalty }};
+    var gift_list = "{{ gifts_list }}";
+    var items = "";
+    var button_class = '';
+
+    if(first_order){
+      if(royalty_cus < last_part_point){
+        var button_text = "{% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %}";
+        $('.gift-cart-button').text(button_text).addClass('locked_gift').prop('disabled', true); 
+      } else {
+          if(gift_list.indexOf(last_part_point) != -1){
+            var button_text = "{% if request.locale.iso_code == 'el' %}Εξαργυρωμένο{% else %}Earned Gift{% endif %}";
+            $('.gift-cart-button').text(button_text).addClass('earned_gift').prop('disabled', true); 
+          } else {
+            var button_text = "{% if request.locale.iso_code == 'el' %}Ξεκλείδωτο Δώρο{% else %}Unlocked Gift{% endif %}";
+          }
+      }
+    } else {
+      var button_text = "{% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %}";
+      $('.gift-cart-button').text(button_text).addClass('locked_gift').prop('disabled', true); 
+    }
+       
+</script>
+
+<script>
+  function selectCallback=function(variant,selector){
+    if (variant) {
+      var form = jQuery('#' + selector.domIdPrefix).closest('form');
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+        if (radioButton.size()) {
+          radioButton.get(0).checked = true;
+        }
+      }
+    }
+    // END SWATCHES
+  }
+</script>
+
+{% if request.locale.iso_code == 'el' %}
+  {% assign prod_title = product.metafields.language.value | json%}
+  <script>
+    var productLang = {{prod_title}};
+    var product = productLang['el (Greek)']
+    var title = product.gr_title;
+    var fulltitle = product.gr_item_full_title; 
+    var description = product.gr_description; 
+    var need = product.gr_need_title;
+    var type = product.gr_type;
+    var how_to = product.gr_how_to;
+    var benifit = product.gr_benefits;
+    var formulation_desc = product.gr_formulation;
+    var soil_desc = product.gr_soil;
+    var molecular_desc = product.gr_molecular;
+    var extraction_desc = product.gr_extraction;
+    var design_desc = product.gr_design;
+    var recycle_desc = product.gr_recycle;
+    $('.product_title').html(fulltitle);
+
+    if(description != ''){
+      $('#show-more').hide();
+      var lengthCount = description.length;
+      if(lengthCount > 100){
+          $('#show-more').show();
+          var fhunt = description.substring(0, 100).concat('...');
+          $('.product_desc_truncat').html(fhunt);
+
+          $('.product_desc_full').html(description);
+      }
+      if(lengthCount < 100){
+          $('.product_desc_truncat').html(description);
+          $('.product_desc_full').html(description);
+      }
+    }
+
+    $('.pro_need').html(need);
+    $('.pro_type').html(type);
+    $('.how_to_use').html(how_to);
+    $('.visible_results').html(benifit);
+     $('.formulation_description').html(formulation_desc);
+    $('.soil_description').html(soil_desc);
+    $('.molecular_description').html(molecular_desc);
+    $('.extraction_description').html(extraction_desc);
+    $('.design_description').html(design_desc);
+    $('.recycle_description').html(recycle_desc);
+    $('.fulltitle_text a').html(title);
+
+  </script>
+{% endif %}
+
+<style>
+  .circle_title{
+    text-align: center;
+    margin-bottom: 143px;
+    font-size: 64px;
+    font-weight: normal;
+    color: #656635;
+  }
+  .yotpo.yotpo-main-widget {
+    background-color: transparent !important;
+    display: none;
+  }
+  #shopify-section-recommended-products .product_home_carousel .home_product_carousel .product-item .price {
+    display: none;
+  }
+  #shopify-section-recommended-products .product-item .thumbnail button{
+    color: #002f87;
+    border: 1px solid #002f87;
+    border-radius: 10px;
+  }
+  .product-hero-container .product_desc {
+    overflow-wrap: break-word;
+    word-spacing: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+  @media all and (max-width:767px){
+    #shopify-section-recommended-products .flickity-viewport.is-pointer-down{
+      min-height:340px !important; 
+    }
+    #shopify-section-recommended-products .flickity-viewport{
+      min-height:340px !important; 
+    }
+    .hero-desc--container #show-more-content{
+      display:none;
+    }
+  }
+</style>

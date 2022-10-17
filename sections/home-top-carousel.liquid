@@ -1,0 +1,215 @@
+<div class="home-top-carousel carousel-custom">
+  	<div class="slide-container">
+      {% for block in section.blocks %}
+          {% if block.type == 'type-block1' %}
+            <div class="slide row no-gutters">
+			  <div class="slide-right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				  <img src="{{ block.settings.image-web | image_url  }}" class="banner-full-img desktop img-fluid"/>
+				  <img src="{{ block.settings.image-mobile | image_url  }}" class="banner-full-img mobile img-fluid"/>
+			  </div>
+			  <div class="slide-left col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				  <div class="inner-content">
+					  <h1 class="title"> {{ block.settings.slide-title }} </h1>
+					  <div class="sub-title">
+						  {{ block.settings.slide-sub-title }}
+					  </div>
+					  <div class="banner-logen-line desktop">
+						  {{ block.settings.slide-sub-text-web }}
+					  </div>
+					  <div class="banner-logen-line mobile">
+						  {{ block.settings.slide-sub-text-mob }}
+					  </div>
+					  <a href="{{ block.settings.slide-link }}" class="btn-theme-blue">{{ block.settings.slide-link-text}}</a>
+				  </div>  
+			  </div>
+		  </div>
+          <!--<div class="slide slide-with-img" >
+            <div class="bg-slide-img">
+              <img src="{{ block.settings.image-web | image_url  }}" class="banner-full-img desktop">
+              <img src="{{ block.settings.image-mobile | image_url  }}" class="banner-full-img mobile">
+            </div>
+            <div class="inner-content">
+              <div class="title">
+                <h1> {{ block.settings.slide-title }} </h1>
+              </div>
+              <div class="sub-title">
+                {{ block.settings.slide-sub-title }}
+              </div>
+            </div>            
+            <div class="banner-logen-line"> <b>SUPER</b> Cooling, Invisible, Skin + Sea Conscious.</div>              
+          </div>-->
+          {% endif %}
+          {% if block.type == 'type-block2' %}
+          <div class="slide  banner-slider-wrap"  data-section-id="{{ section.id }}">
+            <div class="banner-slider-container">
+              <div class="banner-slider-content">
+                      <div class="slider-item image">
+                      <div class="slider-content">
+                        <div class="image-f">
+                          <div class="video-wrapper">
+                            <video autoplay muted loop playsinline preload="metadata">
+                              <source src="{{block.settings.sliderlink}}" type="video/mp4">
+                            </video>
+                          </div>
+                        </div>
+                        <div class="caption-wrap">
+                          <div class="caption-container">
+                            <div class="cap-content">
+                              <p class="heading futu-light">{{block.settings.cap-head}}</p>
+                               <img src="{{block.settings.text_image | img_url: 'master'}}" />
+                              <p class="sub-heading futu-med">{{block.settings.cap-subhead}}</p>
+                              <p class="btn-wrap" id="bannerId">
+                                <a href="{{block.settings.btnUrl}}" class="btn-new mr-2">{{block.settings.btnText}}</a>
+                                <a href="{{block.settings.btnUrl2}}" class="btn-new border">{{block.settings.btnText2}}</a>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 </div>
+              </div>
+            </div>
+          {% endif %}
+      	{% endfor %}
+      	{% if section.blocks.size > 1 %}
+        	<div class="arrow back back-button" data-arrow="backward"><</div>
+ 			<div class="arrow forward forward-button"  data-arrow="forward">></div>
+        {% endif %}
+     </div>
+</div>
+{% for block in section.blocks %}
+{% if block.type == 'type-block1' %}
+<style>
+  /*
+.bg-slide-img {
+	background-image: url({{ block.settings.image-web | image_url  }})!important; 
+	background-repeat: no-repeat; 
+	background-position: center; 
+	background-size: cover; 
+	height:96vh; 
+	width:100vw;  
+    margin-top: 100px;
+}
+@media screen and (max-width: 768px) {
+	.bg-slide-img {
+		background-image: url({{ block.settings.image-mobile | image_url  }})!important;  
+		height:80vh; 
+	}
+}*/
+</style>
+  {% endif %}
+ {% endfor %}
+
+{% schema %}
+{
+	"name": "Home Top Slider",
+	"class": "home_top_slider",
+	"settings": [], 
+	"blocks": [{
+			"type": "type-block1",
+			"name": "Slide with Image",
+			"settings": [
+                {
+					"id": "slide-title",
+					"type": "html",
+					"label": "Title"
+				},
+				{
+					"id": "slide-sub-title",
+					"type": "html",
+					"label": "Sub Title"
+				},
+                {
+					"id": "slide-sub-text-web",
+					"type": "richtext",
+					"label": "Text Web"
+				},
+				{
+					"id": "slide-sub-text-mob",
+					"type": "richtext",
+					"label": "Text Mobile"
+				},
+				{
+					"id": "slide-link",
+					"type": "url",
+					"label": "Slide Link"
+				},
+				{
+					"id": "slide-link-text",
+					"type": "text",
+					"label": "Slide link Button Text", 
+					"default": "Discover the Collection"
+				},
+				{
+					"id": "image-web",
+					"type": "image_picker",
+					"label": "Image Web"
+				},
+				{
+					"id": "image-mobile",
+					"type": "image_picker",
+					"label": "Image Mobile" 
+				}
+			]
+		},
+		{
+			"type": "type-block2",
+			"name": "Slide with Video",
+			"settings": [{
+				"type": "header",
+				"content": "Image Content"
+			},
+			{
+				"type": "url",
+				"id": "sliderlink",
+				"label": "Slider video link"
+			},
+			{
+				"type": "text",
+				"id": "cap-head",
+				"label": "Caption Heading",
+				"default": "Banner Heading"
+			},
+			{
+				"type": "image_picker",
+				"id": "text_image",
+				"label": "Text image"
+			},
+			{
+				"type": "textarea",
+				"id": "cap-subhead",
+				"label": "Caption Heading",
+				"default": "our black Friday sale is here!"
+			},
+			{
+				"type": "text",
+				"id": "btnText",
+				"label": "Btn Text",
+				"default": "Shop"
+			},
+			{
+				"type": "url",
+				"id": "btnUrl",
+				"label": "Btn Url"
+			},
+			{
+				"type": "text",
+				"id": "btnText2",
+				"label": "Btn Text",
+				"default": "Shop"
+			},
+			{
+				"type": "url",
+				"id": "btnUrl2",
+				"label": "Btn Url"
+			}
+			]
+		}
+	],
+	"presets": [{
+		"name": "Home Top Slider",
+		"category": "Slider"
+	}]
+}
+{% endschema %}

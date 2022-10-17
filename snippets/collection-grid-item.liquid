@@ -1,0 +1,76 @@
+{% unless current_collection == blank %}
+    {% assign current_collection = collection %}
+{% endunless %}
+{% assign on_sale = false %}
+{% assign sale_text = 'products.product.sale' | t %}
+{% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% assign sold_out_text = 'products.product.sold_out' | t %}
+{% if product.available %}
+    {% assign sold_out = false %}
+{% endif %}
+<a
+        href="{{ product.url | within: collection }}"
+        class="product-item"
+        data-productid="{{ product.id }}"
+        data-id="{{ first_variant.id }}"
+        data-handle="{{ product_handle }}"
+>
+    <div class="add-to-wishlist">
+        <div class="show">
+            <div class="default-wishbutton-{{ product.handle }} loading">
+    <span title="{{ 'products.wishlist.add_to_wishlist' }}" class="add-in-wishlist-js btn"
+          href="{{ product.handle | handleize }}">
+      <i class="far fa-heart"></i>
+      <span class="tooltip-label" style="display: none;">Add to wishlist</span>
+    </span>
+            </div>
+            <div class="loadding-wishbutton-{{ product.handle }} loading btn"
+                 style="display: none; pointer-events: none">
+   <span class="add_to_wishlist" href="{{ product.handle | handleize }}">
+     <i class="fas fa-spinner"></i>
+   </span>
+            </div>
+            <div class="added-wishbutton-{{ product.handle }} loading" style="display: none;">
+    <span title="{{ 'products.wishlist.view_wishlist' }}" class="added-wishlist add_to_wishlist btn"
+          href="/pages/wishlist">
+      <i class="fas fa-heart"></i>
+      <span class="tooltip-label" style="display: none;">View Wishlist</span>
+    </span>
+            </div>
+        </div>
+    </div>
+    <div class="thumbnail">
+        <img
+                src="{{ product.featured_image | img_url: 'master' | format: 'jpg' }}"
+                alt="{{ block.settings.slide_heading }}"
+        >
+    </div>
+    <div class="product-item--review empty"></div>
+    <h4>{{ product.title }}</h4>
+    {%- unless customer -%}
+        <button class="add-to-cart btn-theme signup-link">Sign Up to Shop</button>
+    {%- else -%}
+        <p class="price">
+                  <span>
+                    {{ product.price | money }}
+                  </span>
+        </p>
+        <div class="btn-wish">
+            <button type="submit" id="order-submit" name="add" data-price="{{ current_variant.price | money }}" class="add-to-cart btn-theme andri"
+            >Add To Cart</button>
+        </div>
+    {%- endunless -%}
+</a>
+
+
+ 
+
+
+
+
+
+           
+         

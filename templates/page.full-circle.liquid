@@ -1,0 +1,19 @@
+{% render 'shogun-products', content: page %}
+{{ 'style-full-circle.css' | asset_url | stylesheet_tag }}
+
+<div class="container-fluid p-0" >
+  <div class="full-circle-container">
+    <div class="row no-gutters">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+        <div class="left">
+          {%section 'full-circle-left'%}
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+        <div class="right">
+          {% section 'circle' %}
+        </div> 
+      </div>  
+    </div>
+  </div>
+</div>

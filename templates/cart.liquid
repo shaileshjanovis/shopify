@@ -1,0 +1,501 @@
+{{ 'style-cart.css' | asset_url | stylesheet_tag }}
+{%- include 'country' -%}
+{%- assign disableAddFreeSample = false -%}
+{%- assign gift_product = all_products[settings.gift_product] -%}
+{%- assign gift_variant = gift_product.selected_or_first_available_variant -%}
+
+<script>
+  let collection;
+  let position;
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  var removeCartData = getCookie('removeCartData');
+  //console.log("hhhh",removeCartData);
+  if(removeCartData != '' && removeCartData != undefined){
+    var $data = JSON.parse(removeCartData);
+    dataLayer.push({
+      'ecommerce': {
+        'remove': {
+          'products': [{
+            'name':$data.name,
+            'price':$data.price,
+            'brand':$data.brand,
+            'category':$data.collection,
+            'position':$data.position,
+            'quantity': 0
+          }]
+        }
+      },
+      'event': 'removeFromCart'
+    }); 
+    document.cookie = "removeCartData=; expires=365; path=/";
+  }
+</script>
+
+
+<h3 class="cart-title">{{ 'my_cart.title.heading' | t: heading }}</h3>
+<h1 id="custtest" style="display:none">{{ customer.id }}</h1>
+<main class="cart-drawer-container full-page" data-currency="{{ cart.currency.iso_code }}">
+  <section class="cart-container 2">
+    <div class="header">
+      <div>
+        {% render 'icon-shopping-cart' %}
+        <h1>My Cart (<span>{{cart.item_count}}</span>)</h1>
+      </div> 
+
+      <h6{% if cart.item_count == 0 %} style="display: none"{% endif %}>
+        Congratulations! You get free shipping with this order
+      </h6> 
+    </div>  
+
+    <div class="items {% unless settings.enable_cart_links %}items--no-links{% endunless %}">
+      {%- if cart.item_count > 0 -%}
+        {%- for item in cart.items -%}
+          
+          {% assign custom_price = '' %}
+          {% for property in item.properties %}
+          <!-- code by vishvaraj -->
+          {% if property.first contains 'custom-price' %}
+          {% assign custom_price = property.last %}
+          {% endif %}
+          <!-- endcode by vishvaraj -->
+          {% endfor %}
+      
+          {% if custom_price == '' %}
+          {% assign custom_price = item.price %}
+          {% endif %}
+          
+          {%- assign shipping_frequency = item.properties.shipping_interval_frequency -%}
+          {%- assign shipping_unit = item.properties.shipping_interval_unit_type -%}
+          {%- assign isFreeSample = item.properties.free_sample -%}
+
+          {%- if isFreeSample -%}
+            {%- assign disableAddFreeSample = true -%}
+          {%- endif -%}
+
+          {% assign item_url = item.url %}
+
+          {% if settings.gift_link != blank and item.variant.id == gift_variant.id %}
+            {% assign item_url = settings.gift_link %}
+          {% endif %}
+
+          <div class="line-item {% if item.variant.id == gift_variant.id and settings.gift_link != blank %}line-item--gift line-item--gift-link {% elsif item.variant.id == gift_variant.id %}line-item--gift{% endif %}" data-id="{{ item.variant.id }}">
+            <div class="inner">
+            <div class="img-container">
+              <a href="{{- item_url -}}">
+                <img data-src="{{ item | img_url }}" alt="{{ item.product.title }}" class="lozad">
+              </a>
+            </div>
+
+            <div class="details">
+             <h2 style="display:none;" id="pidtest">{{ item.variant.id }}</h2>
+              <h2 style="display:none;" id="cidtest">{{ customer.id }}</h2>
+              <h2 class="product-title" data-customprice="{{ custom_price }}">
+                <a href="{{- item_url -}}" class="product_title_{{ forloop.index }}">{{ item.product.title | remove: " Auto renew" }}</a>
+              </h2>
+        
+
+              {%- if shipping_frequency -%}
+                <p class="1">Quantity: {{ item.quantity }} - <span bss-b2b-cart-item-key={{ item.key }} bss-b2b-item-original-price>{{ item.price | money }}</span></p>
+              {%- endif -%}
+
+              {% for option in item.product.options_with_values %}                
+                  {% for value in option.values %}
+                    {%- if value == item.variant.option1 -%}
+                      <p class="2">{%- assign selected_value = item.variant.option1 -%}</p>
+                    {%- elsif value == item.variant.option2 -%}
+                      <p class="3">{%- assign selected_value = item.variant.option2 -%}</p>
+                    {%- elsif value == item.variant.option3 -%}
+                      <p class="4">{%- assign selected_value = item.variant.option3 -%}</p>
+                    {%- endif -%}
+                  {% endfor %}
+
+                  {%- if option.name == "Ingredient" or option.name == "Color" -%}
+                    <p class="5">Color: {{ selected_value }}</p>
+                  {%- elsif option.name != "Title" -%}
+                    <p class="6">{{ option.name }}: {{ selected_value }}</p>
+                  {%- endif -%}                
+              {% endfor %}
+
+              {%- if shipping_frequency -%}
+                <p class="7">Next shipment: Every {{ shipping_frequency }} {{ shipping_unit }} </p>
+              {%- elsif isFreeSample != true -%}
+                    <div class="adjust-quantity">
+                  <button class="minus">
+                    <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke="#444" stroke-width="2" d="M12 1H0"/>
+                    </svg>
+                  </button>
+                  <p>{% if item.quantity < 10 %}{% endif %}{{ item.quantity }}</p>
+                  <button class="plus">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke="#444" stroke-width="2" d="M6 0v12M12 6H0"/>
+                    </svg>
+                  </button>
+                </div>
+              {%- endif -%}
+            </div>
+        {% assign productDescription = item.product.description | split: "<!-- split -->" %} 
+            <div class="cart-redemption">
+              <p class="">{{ productDescription[4] | times: item.quantity }} Points</p>
+            </div>
+            <div class="push">
+              <div class="right-top">
+                <!--<div class="product-add-wishlist">
+                  {%if customer%}
+                    {% include 'wishlist-product' %}
+                  {%endif%}
+              </div>-->
+              <button class="product-remove"> 
+                {% comment  %}  Start of 22nd Apr 2022 chnages by Madhav || Google Tag Manager {% endcomment %}
+                <a onclick="removeCart('{{item.url}}')"  class="removecart" href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><span>x</span></a>
+                {% comment  %}  End of 22nd Apr 2022 chnages by Madhav || Google Tag Manager {% endcomment %}
+              </button>
+              </div>
+              {% assign flag = 0 %}
+              {% for property in item.properties %}
+              {% if property.first == 'Gift' %}
+              {% assign flag = 1 %}
+              {% break %}
+              {% endif %}
+              {% endfor %}
+              <div style="display:none">{{ flag }} {{ item.price }}</div>
+              {% if flag == 0 %}
+              <p class="asdsd unit-price" data-price="{{ item.price }}">
+                {%- if item.price > 0 -%}
+                {% if customer %}
+                <!-- code by vishvaraj -->
+                {% assign newcustom =  custom_price | replace : '.' ,'' %}
+                <span  custom-price="{{ newcustom | money}}">{{ newcustom | money}}</span>
+                <!-- end code by vishvaraj -->
+                {% else %}
+                <span >{{ item.price | money}}</span>
+                {% endif %}
+                {%- else -%}
+                <span >{{ 0 | money }}</span>
+                {%- endif -%}
+              </p>
+              {% else %}
+              {% assign gift_price = item.original_price %}
+              <p class="unit-price" data-price="{{ item.price }}">
+                {%- if item.price > 0 -%}
+                <span bss-b2b-cart-item-key="{{ item.key }}" bss-b2b-cart-item-unit-price>{{ 0 | money }}</span>
+                {%- else -%}
+                <span bss-b2b-cart-item-key="{{ item.key }}" bss-b2b-cart-item-unit-price>{{ 0 | money }}</span>
+                {%- endif -%}
+              </p>
+              {% endif %}
+            </div>
+          </div>
+          </div>
+      
+      
+      {% if request.locale.iso_code == 'el' %}  
+      {% assign product = item.product %}
+      {% assign prod_title = product.metafields.language.value | json %}
+      {% if product.metafields.language.value %}
+      {% assign forloop_index = forloop.index %}
+      
+      <script>
+        (function (){
+          
+          setTimeout(function () {
+          
+            var productLang = {{ prod_title }};
+            var product = productLang['el (Greek)'];
+            if (product != undefined) {
+              var title = product.gr_item_full_title;
+              document.getElementsByClassName('product_title_{{ forloop_index }}')[0].innerHTML = title;                                          
+            }
+            
+                                              }, 2000);
+    
+            })();
+      </script>
+      {% endif %}
+      {% endif %}
+ <script>
+          //console.log('sdsadsadadasd herer')
+          //console.log({{ item }})
+          
+                  collection = getCookie('cat_{{item.product.id}}');
+                        position = getCookie('pos_{{item.product.id}}');
+            
+            
+                        dataLayer.push({
+            'ecommerce': {
+              'currencyCode': 'EUR',
+              'add': { // 'add' actionFieldObject measures.
+                'products': [{ // adding a product to a shopping cart.
+                  'name': '{{ item.product.title }}',
+                  'price': '{{ item.price | divided_by: 100.00 }}',
+                  'brand': '{{ item.vendor }}',
+                  'category': collection,
+                                  'position': position,
+                  'quantity': {{ item.quantity }}
+                }]
+              },
+              'event': 'addToCart'
+            }});      
+        </script>
+        {%- endfor -%}
+      {%- else -%}
+      <div class="empty-cart">
+        <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/empty_cart.png?v=1645464370">
+        <h4>{{ 'my_cart.empty_cart.looks_like_empty' | t: looks_like_empty }}</h4>
+        <p>{{ 'my_cart.empty_cart.awarded_product' | t: awarded_product }}</p>
+        <a href="/collections/all-products"><button class="primary-btn"  value="Proceed to Checkout" style="background-color: {{ settings.cart_btn_bg}}; color: {{ settings.cart_btn_color}};">
+      {{ 'my_cart.empty_cart.back_to_shop' | t: back_to_shop }}
+          </button></a>
+      </div>
+      {%- endif -%}
+    </div>
+    
+    {% if cart.item_count == 0 %}
+    <div class="free-product-mini">
+      <h6{% if cart.item_count == 0 %} style="display: none"{% endif %}>
+      </h6>
+    </div>
+    {% endif %}
+  </section>
+  <footer {% if cart.item_count == 0 %}class="hidden"{% endif %}>
+    {% assign tot_price = cart.total_price | minus:gift_price %}
+    <div class="inner summary-box">
+        <div class="summary-label">
+          <h3>{{ 'my_cart.labels.summary' | t: summary }}</h3>
+          <span class="cart_item_count"> {{cart.item_count}}  {% if cart.item_count > 1 %}Items {%else%} Item {%endif%}</span>
+        </div>
+        <div class="hhh subtotal">
+          <h4>{{ 'my_cart.labels.sub_total' | t: sub_total }}</h4>
+          <p data-subtotal-bss="{{ tot_price }}">
+            <span bss-b2b-cart-total-price>{{- tot_price | money -}}</span>
+          </p>
+        </div>
+        <div class="tax">
+          <h4>{{ 'my_cart.labels.delivery_method' | t: delivery_method }}</h4>
+          <p><strong>Calculated at Checkout</strong></p>
+        </div>
+      <div class="mycircle_box">
+        <h4>{{ 'my_cart.labels.my_circle_points' | t: my_circle_points }}</h4>
+        {%- for item in cart.items -%}  
+        {% assign productObj = item.product %}
+        {% assign productP = productObj.description | split:'<!-- split -->' %}
+        {% assign prodP = item.final_line_price | money_without_currency %}
+		{% assign prodP = prodP | replace:',','.' | plus:0 %}
+        {% assign prodP = prodP | times: 25 %}
+        {% assign points = points | plus:prodP %}
+        {% endfor %}
+        {% assign royalty = customer.metafields.points.loyalty | split : '|' | last | plus:0 %}
+        
+        {% assign circles = shop.metafields.circle %}
+        {% assign circleValue = '' %}
+        {% assign max = 0 %}
+        {% for circle in circles %}
+        {% if circle[0] contains 'My_' %}
+        {% unless circle[0] contains 'level_' %}
+        {% assign values = shop.metafields.circle[circle[0]] | split:'|' %}
+        {% assign levelName =  shop.metafields.circle[circle[0]] | split:'|' | first | prepend:'level_' %}
+        {% assign pointsValue =  shop.metafields.circle[levelName] | split:'|'%}
+        {% for p in pointsValue %}
+        {% assign pointV = p | plus:0 %}
+          {% if pointV > 0 %}
+            <input class="points point_{{ forloop.index }}" type="hidden" value="{{ pointV }}"/>
+          {% endif %}
+        {%endfor%}
+        {% assign min = values[1] | plus:0  %}
+        {% assign max = values[2] | plus:0  %}
+        {% if min < royalty and max >= royalty  %}
+        {% assign max = values[2] | plus:0 %}
+        {% break %}
+        {% endif %}
+        {% endunless %}
+        {% endif %}
+        {% endfor %}
+        <input type="hidden" value="{{points | plus:royalty}}" id="current_point">
+       <div class="my-circle-points">
+           <p>{{ 'my_cart.labels.With_this_purchase' | t: With_this_purchase }} <span>{{points | plus:royalty | ceil}} {{ 'my_cart.labels.of' | t: 0f }} <span class="max_points">{{max}}</span> {{ 'my_cart.labels.points' | t: points }}.</span> <span class="w-100">{{ 'my_cart.labels.you_need' | t: you_need }} <span class="remain_points">{{max | minus:points | minus:royalty | ceil}}</span> {{ 'my_cart.labels.more_till_your_next_gift' | t: more_till_your_next_gift }}<span></p>
+           <div class="mycircle_points right">+{{points | ceil}}<span>Points</span></div>
+       </div>
+      </div>
+      
+    </div>
+    <div class="inner total-box">
+          <div class="total">
+              <div class="left">
+              <h4>{{ 'my_cart.title.Total' | t: Total }}</h4><p class="vat-text">({{ 'my_cart.title.vat_included' | t: vat_included }})</p>
+              </div>
+          <p data-subtotal-bss="{{ tot_price }}">
+            <span bss-b2b-cart-total-price>{{- tot_price | money}}</span>
+          </p>
+        </div>
+    </div>
+    {% if cart.total_price > 0 %}
+      <div class="hj checkout">
+        <form action="/cart" method="post" novalidate>
+          <div class="hidden-xs">
+            {%- if settings.cart_btn_text != blank -%}
+              {%- if settings.cart_is_checkout -%}
+              <a href="/checkout?step=contact_information"  class="jkd primary-btn" name="checkout" value="Proceed to Checkout" style="background-color: {{ settings.cart_btn_bg}}; color: {{ settings.cart_btn_color}};">
+<!--                 {{settings.cart_btn_text}} -->Proceed to Checkout
+              </a>
+              {%- else -%}
+                <a class="primary-btn" href="{{settings.cart_btn_url}}" style="background-color: {{ settings.cart_btn_bg}}; color: {{ settings.cart_btn_color}};">{{settings.cart_btn_text}}</a>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if settings.cart_btn_text_2 != blank -%}
+              {%- if settings.cart_is_checkout_2 -%}
+              <button type="submit" class="lkds primary-btn" name="checkout" style="background-color: {{ settings.cart_btn_bg_2}}; color: {{ settings.cart_btn_color_2}};">
+                {{settings.cart_btn_text_2}}
+              </button>
+              {%- else -%}
+                <a class="primary-btn jksdf" href="{{settings.cart_btn_url_2}}" style="background-color: {{ settings.cart_btn_bg_2}}; color: {{ settings.cart_btn_color_2}};">{{settings.cart_btn_text_2}}</a>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if settings.cart_btn_text_3 != blank -%}
+              {%- if settings.cart_is_checkout_3 -%}
+              <button type="submit" class="primary-btn ksdf" name="checkout" style="background-color: {{ settings.cart_btn_bg_3}}; color: {{ settings.cart_btn_color_3}};">
+                {{settings.cart_btn_text_3}}
+              </button>
+              {%- else -%}
+                <a class="primary-btn" href="{{settings.cart_btn_url_3}}" style="background-color: {{ settings.cart_btn_bg_3}}; color: {{ settings.cart_btn_color_3}};">{{settings.cart_btn_text_3}}</a>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+
+          <div class="visible-xs-block ">
+            {%- if settings.cart_btn_mobile_text != blank -%}
+              {%- if settings.cart_is_checkout_mobile -%}
+              <button type="submit" class="primary-btn mfoe" name="checkout" style="background-color: {{ settings.cart_btn_mobile_bg}}; color: {{ settings.cart_btn_mobile_color}};">
+                {{settings.cart_btn_mobile_text}}
+              </button>
+              {%- else -%}
+                <a class="primary-btn oefj" href="{{settings.cart_btn_mobile_url}}" style="background-color: {{ settings.cart_btn_mobile_bg}}; color: {{ settings.cart_btn_mobile_color}};">{{settings.cart_btn_mobile_text}}</a>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if settings.cart_btn_mobile_text_2 != blank -%}
+              {%- if settings.cart_is_checkout_mobile_2 -%}
+              <button type="submit" class="primary-btn poef" name="checkout" style="background-color: {{ settings.cart_btn_mobile_bg_2}}; color: {{ settings.cart_btn_mobile_color_2}};">
+                {{settings.cart_btn_mobile_text_2}}
+              </button>
+              {%- else -%}
+                <a class="primary-btn sfsoa" href="{{settings.cart_btn_mobile_url_2}}" style="background-color: {{ settings.cart_btn_mobile_bg_2}}; color: {{ settings.cart_btn_mobile_color_2}};">{{settings.cart_btn_mobile_text_2}}</a>
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if settings.cart_btn_mobile_text_3 != blank -%}
+              {%- if settings.cart_is_checkout_mobile_3 -%}
+              <button type="submit" class="primary-btn masuie" name="checkout" style="background-color: {{ settings.cart_btn_mobile_bg_3}}; color: {{ settings.cart_btn_mobile_color_3}};">
+                Proceed to Checkout
+              </button>
+              {%- else -%}
+                <a class="primary-btn moieg" href="{{settings.cart_btn_mobile_url_3}}" style="background-color: {{ settings.cart_btn_mobile_bg_3}}; color: {{ settings.cart_btn_mobile_color_3}};">{{settings.cart_btn_mobile_text_3}}</a>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        </form>
+      </div>
+    {% endif %}
+  </footer>
+</main>
+<div class="bottom_instruct text-center"><span>Do you have any questions?</span> You can visit our <a href="/pages/faq">Help page</a> to find answers in all your order related questions.</div>
+{% include 'subscription-cart-footer' %}
+{%- if site_features contains 'afterpay' -%}
+  {% include 'afterpay-cart-footer' %}
+{%- endif -%}
+{% if settings.mlvedaACS_isMessageDisplay %}
+<p class="mlvedaCartNote" style="display:none">
+  {{ settings.mlvedaACS_messageContent | replace: "<<shop.name>>", shop.name | replace:"<<shop.currency>>",shop.currency|replace:"<<shop.selected_currency>>","<span class='selected-currency'></span>"}}
+</p>
+{% endif %}
+<style>
+  @media(max-width:768px){
+    .banner-open>main {
+    margin-top: 0px;
+}
+  }
+</style>
+  <script>
+  var product_id= document.getElementById('pidtest').innerHTML;
+    var User_Id = document.getElementById('cidtest').innerHTML;
+//  $('.removecart').on('click',() => {
+//  $.ajax({
+//         url: "https://api.korresfamily.com/api/v1/MarketplaceItem/DeleteItemCartbyShopify?product_id="+product_id +"&User_id="+User_Id,
+//         type: 'GET',
+//         success:function(res){
+//           console.log(res);
+//         },
+//         error: function (error) {
+//           console.log(error);
+//         }
+//       });
+ 
+
+// })
+
+$(document).ready(function(){
+  // code by vishvaraj
+  var total = 0;
+//   $('.items .line-item').each(function(e){
+//    var cust_price = $(this).find('.details .product-title').data('customprice');
+//     var quantity = $(this).find('.details .adjust-quantity p').text();
+    
+//     cust_price = parseFloat(cust_price)
+//     quantity = parseInt(quantity)
+//     var price = (cust_price * quantity);
+    
+//     total += price;
+//     console.log(total);
+// //     setInterval(function(e){
+// //       var newFtotal = total / 100;
+// //       newFtotal = new Intl.NumberFormat('de-DE').format(total / 100);
+// //       console.log(newFtotal)
+// //       $(".subtotal p span").html('€'+newFtotal);
+// //       $(".total span").html('€'+newFtotal);
+// //       $('.cart-drawer-container .subtotal p').html('€'+newFtotal);
+// //     },500);
+// //     $(".subtotal p span").attr('data-custprice','€'+newFtotal);
+    
+//   })
+//   setTimeout(function(e){
+//     console.log(total);
+//   },500)
+ // end code by vishvaraj
+    //$('.total').text(currency + (price * quantity).toFixed(2));
+  //});
+});
+
+</script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  var product_id= document.getElementById('pidtest').innerHTML;
+    var User_Id = document.getElementById('cidtest').innerHTML;
+</script>
+<script>
+ $.ajax({
+        url: "https://uatpayship.korrescircle.com/rest/api/User/token?zip_code="+zip_Code+"&weight="+weight,
+        type: 'GET',
+        success:function(res){
+          console.log(res);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+})
+</script>

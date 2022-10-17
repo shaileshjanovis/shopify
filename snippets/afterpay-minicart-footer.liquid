@@ -1,0 +1,90 @@
+<script>
+    (function () {
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/cart.js', {method: 'GET'})
+                .then((res) => res.json())
+                .then(res => {
+                    const apConfig = {
+                        priceSelector: '#shopify-section-cart div.tax',
+                        locale: 'en_US',
+                        currency: 'USD',
+                        afterpayLogoColor: 'color',
+                        showUpperLimit: false,
+                        hideInterestFree: true,
+                        amount: res.total_price,
+                        minMaxThreshold: {
+                            min: 100,
+                            max: 100000,
+                        },
+                    };
+                    new presentAfterpay(apConfig).init();
+                })
+                .catch(console.log);
+            const price = document.querySelector('#shopify-section-cart div.subtotal > p > span');
+            const config = {childList: true, subtree: true};
+            const updateOnCartMutation = function (mutations) {
+                fetch('/cart.js', {method: 'GET'})
+                    .then((res) => res.json())
+                    .then(res => {
+                        let isSubscription = false;
+                        const apConfig = {
+                            priceSelector: '#shopify-section-cart div.tax',
+                            locale: 'en_US',
+                            currency: 'USD',
+                            afterpayLogoColor: 'color',
+                            showUpperLimit: false,
+                            hideInterestFree: true,
+                            amount: price.innerText.slice(1) * 100,
+                            minMaxThreshold: {
+                                min: 100,
+                                max: 100000,
+                            },
+                        };
+                        document.querySelector('#shopify-section-cart .afterpay-paragraph') && document.querySelector('#shopify-section-cart .afterpay-paragraph').remove();
+                        const {items} = res;
+                        for (let i = 0; i < items.length; i++) {
+                            if (items[i].properties && items[i].properties.shipping_interval_frequency) {
+                                isSubscription = true;
+                                break;
+                            }
+                        }
+                        if (!isSubscription) new presentAfterpay(apConfig).init();
+                    })
+                    .catch(console.log);
+            }
+            const observer = new MutationObserver(updateOnCartMutation);
+            observer.observe(price, config);
+        });
+    })();
+</script>
+<style type="text/css">
+    p.afterpay-paragraph {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    #shopify-section-cart p.afterpay-paragraph {
+        margin-top: 6px;
+    }
+
+    .afterpay-link {
+        border: none;
+    }
+
+    img.afterpay-logo {
+        width: 80px !important;
+        height: auto !important;
+    }
+
+    @media only screen and (max-width: 480px) {
+        .afterpay-paragraph {
+            font-size: 10px;
+        }
+
+        .afterpay-logo {
+            height: auto !important;
+            width: auto !important;
+        }
+    }
+</style>
+

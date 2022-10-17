@@ -1,0 +1,178 @@
+{%- assign _section = section.settings -%}
+{%- assign _blocks = section.blocks -%}
+{%- if _blocks.size > 0 and _section.enable_bar -%}
+  <div
+    class="banner"
+    style="color: {{ _section.text_color }}; background-color: {{ _section.background_color }};"
+  >
+    <div
+      class="banner__items js-announcement-bar-slider"
+      data-interval="{{- _section.interval -}}"
+      {%- for block in _blocks -%}
+        {%- assign _block = block.settings -%}
+        {%- if _block.content != blank -%}
+          {%- assign countdown_html = '' -%}
+          {%- if
+            _block.countdown_date != blank and
+            _block.content contains '[countdown]' and
+            _block.countdown_expire_text != blank
+          -%}
+            {%- assign target_timestamp = _block.countdown_date | date: '%s' -%}
+            {%- assign countdown_html = countdown_html | append: '<time class="js-countdown-timer"' | append: 'datetime="' | append: _block.countdown_date | append: '"' | append: 'data-expire-text="' | append: _block.countdown_expire_text | append: '">' | append: '</time>' -%}
+          {%- endif -%}
+          <div class="banner__item">
+            {{- _block.content | strip_newlines | strip | replace: '<p>', '' | replace: '</p>', '' | replace: '<br>', '' | replace: '[countdown]', countdown_html -}}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+{% schema %}
+{
+
+  "name": "Announcement Bar",
+
+  "settings": [
+
+    {
+
+      "type": "header",
+
+      "content": "General"
+
+    },
+
+    {
+
+      "type": "checkbox",
+
+      "id": "enable_bar",
+
+      "label": "Show/Hide",
+
+      "default": false
+
+    },
+
+    {
+
+      "type": "range",
+
+      "id": "interval",
+
+      "min": 1,
+
+      "max": 20,
+
+      "step": 1,
+
+      "unit": "sec",
+
+      "label": "Interval between each message",
+
+      "default": 3,
+
+      "info": "In seconds"
+
+    },
+
+    {
+
+      "type": "header",
+
+      "content": "Appearance"
+
+    },
+
+    {
+
+      "type": "color",
+
+      "id": "text_color",
+
+      "label": "Text color",
+
+      "default": "#444444"
+
+    },
+
+    {
+
+      "type": "color",
+
+      "id": "background_color",
+
+      "label": "Background color",
+
+      "default": "#fcf7f1"
+
+    }
+
+  ],
+
+  "blocks": [
+
+    {
+
+      "type": "item",
+
+      "name": "Item",
+
+      "settings": [
+
+        {
+
+          "type": "text",
+
+          "id": "title",
+
+          "label": "Title",
+
+          "info": "This field is only for easier navigation in blocks. It will not show any content."
+
+        },
+
+        {
+
+          "type": "text",
+
+          "id": "countdown_date",
+
+          "label": "Countdown date",
+
+          "info": "Use the following pattern: YYYY-MM-DD HH:MM"
+
+        },
+
+        {
+
+          "type": "textarea",
+
+          "id": "countdown_expire_text",
+
+          "label": "Countdown expire text"
+
+        },
+
+        {
+
+          "type": "richtext",
+
+          "id": "content",
+
+          "label": "Content",
+
+          "info": "[countdown] will be replaced with a countdown timer from the choosen date above"
+
+        }
+
+      ]
+
+    }
+
+  ]
+
+}
+{% endschema %}
+

@@ -1,0 +1,227 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{{ 'style-footer-pages.css' | asset_url | stylesheet_tag }}
+<div class="partner_main contact_main width-1784">
+  <div class="page_main">
+  <div class="inner">
+    
+    <main role="main" class="main-wrap main-wrap-custom partner-contact-page contact-page with-sidebar">
+      <div class="page-main-content partner-contact-from-area">
+      	<div class="header-hero bg-color-white">
+          	<div class="inner">
+              <h1 class="header-title theme-blue">{{ page.title }}</h1>
+              <p class="sub-title">{{ page.content }}</p>
+            </div>
+        </div>
+      	<form action="/" name="korres_partner" id="korres_partner">
+      	<div class="page-main-content">
+
+        {{ form.errors | default_errors }}
+        <div class="floating-label"> 
+          <div class="cust-width"><label for="input_full_name">{% if request.locale.iso_code == 'en' %}Full name{% else %}Ονοματεπώνυμο{% endif %} *</label></div>
+          <div class="cust-width">
+            <input id="input_full_name"
+                   type="text"
+                   name="input_full_name"
+                   placeholder="e.g {% if request.locale.iso_code == 'en' %}Angeliki Arnaoutaki{% else %}Αγγελική Αρναουτάκη{% endif %}"
+                   autocomplete="name"
+                   data-rule="required"> 
+          </div>
+        </div>
+        
+        <div class="floating-label">
+          <div class="cust-width"><label for="input_company_name">{% if request.locale.iso_code == 'en' %}Company name{% else %}Επωνυμία Επιχείρησης{% endif %} *</label></div>
+          <div class="cust-width">
+            <input id="input_company_name"
+                   type="text"
+                   name="input_company_name"
+                   placeholder="e.g {% if request.locale.iso_code == 'en' %}Arnaoutaki Bros.{% else %}Επωνυμία Επιχείρησης{% endif %}"
+                   data-rule="required">  
+          </div>
+        </div>
+        
+        <div class="floating-label">
+          <div class="cust-width"><label for="input_company_phone">{% if request.locale.iso_code == 'en' %}Phone number{% else %}Τηλέφωνο{% endif %} *</label></div>
+          <div class="cust-width">
+            <input id="input_company_phone"
+                   type="text"
+                   name="input_company_phone"
+                   placeholder="e.g 210 1234567"
+                   data-rule="required"> 
+          </div>
+        </div>
+        
+        <div class="floating-label">
+          <div class="cust-width"><label for="input_email">Email*</label></div>
+          <div class="cust-width">
+            <input id="input_email"
+                   type="email"
+                   name="input_email"
+                   placeholder="e.g korrespartner@gmail.com"
+                   autocomplete="email"
+                   data-rule="required|email">
+          </div>
+        </div>
+
+        <div class="floating-label">
+          <div class="cust-width"><label for="input_message">{% if request.locale.iso_code == 'en' %}Comments{% else %}Σχόλια{% endif %}</label></div>
+          <div class="cust-width">
+            <textarea id="input_message"
+                      name="input_message"
+                      rows="10"
+                      data-rule="required"></textarea>   
+          </div>
+        </div>
+
+        <div class="floating-label">
+          <div class="cust-width">
+              <button class="submit-btn callAPI btn-theme-blue" disabled="disabled" type="button">{% if request.locale.iso_code == 'en' %}Submission{% else %}Υποβολή{% endif %}</button>
+          </div>
+        </div>
+      	
+		</div>
+      </form>
+      </div>
+	
+      <div class="partner_register_success" style="display:none;">
+          <div class="thank_section">
+            <div class="header-hero bg-color-white form--success">
+              <div class="inner">
+                <div class="row partner_register_success_main">
+                  <div class="col-12 col-lg-6 img-top-container partner_register_img">
+                    <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/cantact-thank-you-page.png?v=1652434808" class="img-fluid"/>
+                    <!--<img src="{{ 'kor-21.jpg' | asset_url }}" />-->
+                  </div>
+                  <div class="col-12 col-lg-6 text-container partner_register_content">
+                    <h1 class="header-title"> {{ page.metafields.success_title.success_title.value }} </h1>
+                    <p class="header-desc"> {{ page.metafields.success_content.success_content.value }} </p>
+                    <div class="thank-btn-box floating-label-submit">
+                      <a href="/" class="btn-theme-blue submit-btn">{{ page.metafields.success_button.success_button.value }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      <p class="phoneErrormsg" style="display:none"> {{ page.metafields.phone_error_message.phone_error_message.value }} </p>
+    </main>
+    
+  </div>
+  </div>
+</div>
+
+{{ 'jquery.validate.js' | asset_url | script_tag }}
+<script> 
+  var phoneErrormsg = $('.phoneErrormsg').text();
+  
+  $(document).ready(function () {
+    $('.page-main-content').on("input",function (e)  {
+
+      var ifullname = $('input[name="input_full_name"]').val();
+      var iname = $('input[name="input_company_name"]').val();
+      var iphone = $('input[name="input_company_phone"]').val(); 
+      var iemail = $('input[name="input_email"]').val(); 
+      var imessage = $('textarea[name="input_message"]').val(); 
+
+      if(ifullname == ''){
+          $('input[name="input_full_name"]').removeClass('bs-border');
+      } else {
+          $('input[name="input_full_name"]').addClass('bs-border');
+      }
+
+      if(iname == ''){
+          $('input[name="input_company_name"]').removeClass('bs-border');
+      } else {
+          $('input[name="input_company_name"]').addClass('bs-border');
+      }
+
+      if(iphone == ''){
+          $('input[name="input_company_phone"]').removeClass('bs-border');
+      } else {
+          $('input[name="input_company_phone"]').addClass('bs-border');
+      }
+
+      if(iemail == ''){
+          $('input[name="input_email"]').removeClass('bs-border');
+      } else {
+          $('input[name="input_email"]').addClass('bs-border');
+      }
+
+      if(imessage == ''){
+          $('textarea[name="input_message"]').removeClass('bs-border');
+      } else {
+          $('textarea[name="input_message"]').addClass('bs-border');
+      }
+
+      if (ifullname.lenght <= 0  || iname <= 0 || iphone <= 0 || iemail <= 0) {
+        $('.page-main-content button[type="button"]').prop('disabled', true);
+      } else {
+        $('.page-main-content button[type="button"]').prop('disabled', false);
+      }
+
+    });
+  });
+  
+  $.extend(jQuery.validator.messages, {
+    required: "This field is required.",
+    email: "Please enter a valid email address.",
+    company_phonemsg: phoneErrormsg
+  });
+  var v = $("#korres_partner").validate({
+    rules: {
+      'input_full_name': {
+        required: true
+      },
+      'input_company_name': {
+        required: true
+      },
+      'input_company_phone': {
+        required: true,
+		number: true,
+        minlength : 10,
+        maxlength : 12,
+      },
+      'input_email': {
+        required: true,
+        email: true
+      }
+    },
+    messages: {
+     input_company_phone: {
+      required: phoneErrormsg,
+      number: phoneErrormsg,
+      minlength: phoneErrormsg,
+      maxlength: phoneErrormsg,
+     }
+    },
+  });
+  
+  $(".callAPI").click(function() {
+    if (v.form()) {
+      	$('.page-main-content button[type="button"]').prop('disabled', true);
+        var full_name =$('[name="input_full_name"]').val();
+        var company_name =$('[name="input_company_name"]').val();
+        var company_phone =$('[name="input_company_phone"]').val();
+        var email =$('[name="input_email"]').val();
+        var message =$('[name="input_message"]').val();
+		var url = "https://api.korresfamily.com/api/v1/MarketplaceItem/AddCirclePartner?full_name="+full_name+"&company_name="+company_name+"&company_phone="+company_phone+"&email="+email+"&message="+message;
+
+        $.ajax({
+          url: url,
+          type: 'GET',
+          success:function(res){
+            setTimeout(function(){
+              $('.partner-contact-from-area').css("display", "none");
+              $('.partner_register_success').css("display", "block");
+            },1000);
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+    }
+  });
+</script>

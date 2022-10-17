@@ -1,0 +1,33 @@
+{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+<div class="filter_container">
+<div class="btn-group sort_by_custom" onclick="myFunction()">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {% if sort_by == '' %}Sort by{% else %}
+    {% for option in collection.sort_options %}
+    {% if option.value contains 'price' or option.value == 'created-descending' or option.value contains 'best'%}
+    {% if sort_by == option.value %}
+    {% if option.value == 'created-descending' %}New In{% else %}{{option.name | replace: 'selling', 'Sellers' }}{% endif %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </button>
+  <div class="dropdown-menu dropdown-menu-right" id="myDIV">
+    {% for option in collection.sort_options %}
+    {% if option.value contains 'price' or option.value == 'created-descending' or option.value contains 'best'%}
+    <button class="dropdown-item {% if sort_by == option.value %}active{% endif %}" data-value="{{ option.value }}" type="button">{% if option.value == 'created-descending' %}{{ 'shop_collection.filter.new_in' | t: new_in }}{% else %}{{option.name | replace: 'selling', 'Sellers'}}{% endif %}</button>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+</div>
+<script>
+  function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script> 

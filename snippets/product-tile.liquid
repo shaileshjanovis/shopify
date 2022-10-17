@@ -1,0 +1,41 @@
+<div class="product-tile-container wishlist-tile-container col-xs-6 col-sm-6 col-lg-3 wishlist-item-url" data-product-id="{{ product.id }}" data-product-handle="{{ product.id }}">
+    <div  class="kk wishlist-items" id="product-{{ product.id }}">
+      <div class="inner">
+        <div class="top">
+          {%if product.tags contains 'BEST SELLER'%}
+          <span class="tag-box d-block text-center">BEST SELLER</span>
+          {%endif%}
+          {%if product.tags contains 'New'%}
+          <span class="tag-box d-block text-center">NEW</span>
+          {%endif%}
+          <div class="product-wishlist">
+            <a href="#" class="remove remove_from_wishlist product-remove-js wishlist-btn" data-product-handle="{{product.id}}" title="Remove this product">
+              <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/wishlist-icon.png?v=1645441845" alt="wishlist icon" />
+            </a>
+          </div>
+        </div>
+       <div class="bg-opacity">
+       <a href="#" class="product-img">
+          {% if product.images.size > 0 %}
+          <img id="primary_img_{{ section.id }}" class="img-responsive" src="{{ product.images.first | product_img_url: '470x509', crop: section.settings.image_alignment  }}" alt="{{ product.images.first.alt }}"/>
+          {% else %}
+          <div class="demo-image">
+            <img src="{{ 'no-image.png' | asset_img_url:'large' }}" />
+          </div>
+          {%endif%}
+        </a>
+        <input type="hidden" class="wish_page" value="{{ product.variants[0].id }}"/>
+            <div class="" style="padding:0">
+              <a href="javascript:;" class="btn-theme-white sm add-to-cart  order_submit_data desktop" data-id="{{product.variants[0].id}}">Quick Add</a>
+              <p class="price" style="display:none;"></p>
+            </div>
+          </div>
+          <h1 class="product-title">
+            <a class="link product_title_{{forloop_index}}" href="{{product.url}}">{{ product.title }}</a>
+          </h1>
+          <div class="product-price">{{ product.price | money}}</div>
+        <a href="javascript:;" class="btn-theme-white sm add-to-cart  order_submit_data mobile" data-id="{{product.variants[0].id}}">Quick Add</a>
+          </div>
+      </div>
+</div>
+

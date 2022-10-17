@@ -1,0 +1,43 @@
+{% assign filename = "'" %}
+<div class="container" style="margin-top:250px;">
+{% capture my_variable %}
+  {% for i in (1..200) %}
+  {% assign lbKey = 'pharmacy' | append:i %}
+  {% assign lbMetafield = shop.metafields.[lbKey].poi | split: "| " %}
+  {% if lbMetafield != blank %}[ {{ lbMetafield[0] | append: filename | prepend: filename }},  {{ lbMetafield[1] }} ,],{% continue %}{% endif %}
+{% endfor %}
+{% endcapture %}
+	{% assign add = {{my_variable}} | split: "],"%}
+	{% for adds in add %}
+{% capture idx %}{{forloop.index0}}{% endcapture %}
+  {% assign key = idx | slice: -3, 3 %}
+  	{% if forloop.last == true %}
+      
+    {% else %}
+       <p>{{adds}} {{idx}} ],</p>
+    {% endif %}
+{% endfor %}  
+</div>
+{% assign filename = "'" %}
+
+<div class="container" style="margin-top:250px;">
+  
+{% capture my_variable %}
+  {% for i in (1..200) %}
+  {% assign lbKey = 'pharmacy' | append:i %}
+  {% assign lbMetafield = shop.metafields.[lbKey].poi | split: "| " %}
+  {% if lbMetafield != blank %}{ name: {{ lbMetafield[0] | append: filename | prepend: filename }},  value: },{% continue %}{% endif %}
+{% endfor %}
+{% endcapture %}
+	{% assign add = {{my_variable}} | split: "},"%}
+	{% for adds in add %}
+{% capture idx %}{{forloop.index0}}{% endcapture %}
+  {% assign key = idx | slice: -3, 3 %}
+  	{% if forloop.last == true %}
+      
+    {% else %}
+       <p>{{adds}} '{{idx}}' },</p>
+    {% endif %}
+{% endfor %}  
+</div>
+

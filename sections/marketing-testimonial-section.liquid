@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-lg-8 col-sm-10 col-md-offset-2 col-lg-offset-2">
+      <div class="review">
+        <p>{{section.settings.review-text}}</p>
+      </div>
+      <div class="author">
+        <p>{{section.settings.review-writer}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="testimonial-image">
+         <img src="{{section.settings.product-image | img_url:'master'}}">
+        
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 col-lg-8 col-sm-10 col-md-offset-2 col-lg-offset-2">
+		<div class="review-stars">
+          {{section.settings.review-stars}}
+     	</div>
+     	 <div class="review-product">
+          {{section.settings.product-name}}
+     	</div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Marketing Testimonial ",
+    "settings": [
+	{
+	"type": "text",
+    "id"  : "review-text",
+	"label": "Review"
+	},
+	{
+	"type": "text",
+    "id"  : "review-writer",
+	"label": "Author"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "product-image",
+	"label": "Review Image"
+	},
+	{
+	"type": "html",
+    "id"  : "review-stars",
+	"label": "Stars"
+	},
+	{
+	"type": "text",
+    "id"  : "product-name",
+	"label": "Product Name"
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

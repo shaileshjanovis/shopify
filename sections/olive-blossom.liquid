@@ -1,0 +1,138 @@
+<div class="container" id="soil">
+ <div class="row first-image">
+   <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 pd-xs-0">
+	<img src="{{section.settings.section-image| img_url:'large'}}">
+   </div>
+   <div class="col-md-7 col-lg-7 col-sm-6 col-xs-12 pd-xs-0">
+     <img src="{{section.settings.soli-lab-image-1 | img_url:'large'}}">
+   </div>
+   <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 blossom-text">
+     {{section.settings.soli-lab-text-1}}
+   </div>
+ </div>
+  
+  <div class="row second-image">
+    <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 pd-xs-0">
+      
+   </div>
+   <div class="col-md-7 col-lg-7 col-sm-6 col-xs-12 pd-xs-0">
+      <img src="{{section.settings.soli-lab-image-2 | img_url:'medium'}}">
+   </div>
+   
+ </div>
+  
+  <div class="row third-image">
+   <div class="col-md-7 col-lg-7 col-sm-6 col-xs-12 pd-xs-0">
+      <img src="{{section.settings.soli-lab-image-3 | img_url:'large'}}">
+   </div>
+   <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 ">
+   </div>
+ </div>
+  
+</div>
+{% schema %}
+  {
+    "name": "Soli Lab Section",
+	"class":"section-margin",
+    "settings": [
+		{
+	"type": "html",
+    "id"  : "heading",
+	"label": "Heading"
+	},
+	{
+	"type": "text",
+    "id"  : "farmer",
+	"label": "Farmer"
+	},
+	{
+	"type": "text",
+    "id"  : "place",
+	"label": "Place"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "section-image",
+	"label": "Section Image"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "soli-lab-image-1",
+	"label": "Soli Lab Image 1"
+	},
+	{
+	"type": "html",
+    "id"  : "soli-lab-text-1",
+	"label": "Soli Lab Text 1"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "soli-lab-image-2",
+	"label": "Soli Lab Image 2"
+	},
+
+	{
+	"type": "image_picker",
+    "id"  : "soli-lab-image-3",
+	"label": "Soli Lab Image 3"
+	}
+
+]
+  }
+{% endschema %}
+
+<style>
+  #sticky {
+
+  background-color: #fff;
+  color: #000;
+
+}
+
+#sticky.stick {
+  position: fixed;
+  top: 0;
+   padding-top: 20px;
+  z-index: 10000;
+border-bottom: 1px solid #333;
+}
+</style>
+
+<script>
+  function sticky_relocate() {
+  var window_top = $(window).scrollTop();
+  var div_top = $('#sticky-anchor').offset().top;
+  if (window_top > div_top) {
+    $('#sticky').addClass('stick');
+  } else {
+    $('#sticky').removeClass('stick');
+  }
+}
+  if (screen.width <= 768) {
+  $(function () {
+    $(window).scroll(function(){
+      sticky_relocate();
+      if($(window).scrollTop() > $('#soil').offset().top 
+         && $(window).scrollTop() < $('#soil').offset().top + $('#soil').outerHeight(false)
+      ){
+         $('h4.section-heading').text('SOIL LAB');
+      }else if($(window).scrollTop() > $('#extractionn').offset().top 
+         && $(window).scrollTop() < $('#extractionn').offset().top + $('#extractionn').outerHeight(false)
+      ){
+         $('h4.section-heading').text('EXTRACTION LAB');
+      }else if($(window).scrollTop() > $('#formulationn').offset().top 
+         && $(window).scrollTop() < $('#formulationn').offset().top + $('#formulationn').outerHeight(false)
+      ){
+         $('h4.section-heading').text('FORMULATION LAB');
+      }else if($(window).scrollTop() > $('#section4').offset().top 
+         && $(window).scrollTop() < $('#section4').offset().top + $('#section4').outerHeight(true)
+      ){
+         $('h4.section-heading').text('Section 4');
+      }else{
+      	$('h4.section-heading').text('Arcade Fire');
+      }
+    });
+});
+  };
+  
+</script>

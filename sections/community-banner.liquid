@@ -1,0 +1,137 @@
+{% if section.settings.enable_co %}
+<div class="comm_banner">
+  <div class="banner_inner" id="banner_inner">
+    <div class="image_blck">
+      <picture class="lozad" data-iesrc="{{ section.settings.desk_img | img_url : '1903x' }}" data-alt="">
+        <source srcset="{{ section.settings.mob_img | img_url : '767x' }}" media="(max-width: 768px)">
+        <source srcset="{{ section.settings.desk_img | img_url : '1024x' }}" media="(max-width: 1024px)">
+        <source srcset="{{ section.settings.desk_img | img_url : '1200x' }}" media="(max-width: 1200px)">
+        <img  id="korres_circle_promo" name="korres_circle_promo"  class="image"  src="{{ section.settings.desk_img | img_url : '1903x' }}">
+      </picture>
+    </div>
+    <div class="text_blck">
+      <h3 class="sec_head">{{ section.settings.sec_head }}</h3>
+      <div class="subtitle">{{ section.settings.sub_tit }}</div>
+      <div id="bannerId" class="button_contain">        
+        {% if section.settings.btn_url_1 != blank %}
+            {% if section.settings.btn_lbl1 != blank %}
+                <a class="but_act" target="_blank" href="{{ section.settings.btn_url_1 }}">{{ section.settings.btn_lbl1 }}</a>
+            {% else %}
+                <a class="but_act" target="_blank" href="{{ section.settings.btn_url_1 }}"><img src="{{ section.settings.btn_img_1 | img_url : 'master' }}"/></a>
+            {% endif %}
+        {% endif %}
+        
+        {% if section.settings.btn_url_2 != blank %}
+            {% if section.settings.btn_lbl2 != blank %}
+                <a class="but_act" target="_blank" href="{{ section.settings.btn_url_2 }}">{{ section.settings.btn_lbl2 }}</a>
+            {% else %}
+                <a class="but_act" target="_blank" href="{{ section.settings.btn_url_2 }}"><img src="{{ section.settings.btn_img_2 | img_url : 'master' }}"/></a>
+            {% endif %}
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+</div>
+	<script>
+  dataLayer.push({
+    'ecommerce': {
+    'promoView': {
+    'promotions': [
+    {
+      
+      'id': 'korres_circle_promo',
+      'name': 'korres_circle_promo',
+      'creative':'{{ section.settings.desk_img | img_url : 'master' }}',
+      'position': 'promo_top'      
+    }
+    ]
+    }
+    },
+    'event': 'promotionView'
+    });
+
+dataLayer.push({
+'ecommerce': {
+'promoClick': {
+'promotions': [
+{
+'id': "bannerId",
+  'position': "position_1"
+}]
+}
+},
+'event': 'promotionClick'
+});
+</script>
+
+{% endif %}
+{% schema %}
+  {
+    "name": "Bottom Banner",
+	"class":"community_banner",
+    "settings": [
+	  {
+		"type":"checkbox",
+		"id":"enable_co",
+		"label":"Enable bottom banner"
+	  },
+	  {
+		"type":"image_picker",
+		"id":"desk_img",
+		"label":"Desktop image"
+	  },
+	  {
+		"type":"image_picker",
+		"id":"mob_img",
+		"label":"Mobile image"
+	  },
+	  {
+		"type":"richtext",
+		"id":"sec_head",
+		"label":"Banner title"
+	  },
+	  {
+		"type":"richtext",
+		"id":"sub_tit",
+		"label":"Banner subtitle"
+	  },
+	  {
+		"type":"text",
+		"id":"btn_lbl1",
+		"label":"Button label"
+      },
+	  {
+		"type":"image_picker",
+		"id":"btn_img_1",
+		"label":"Button image"
+	  },
+	  {
+		"type":"url",
+		"id":"btn_url_1",
+		"label":"Button link"
+	  },
+	  {
+		"type":"text",
+		"id":"btn_lbl2",
+		"label":"Button label"
+      },
+	  {
+		"type":"image_picker",
+		"id":"btn_img_2",
+		"label":"Button image"
+	  },
+	  {
+		"type":"url",
+		"id":"btn_url_2",
+		"label":"Button link"
+	  }
+	],
+	"presets": [
+      {
+        "name": "Bottom Banner",
+        "category": "Banner"
+      }
+    ]
+  }
+{% endschema %}

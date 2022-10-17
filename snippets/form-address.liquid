@@ -1,0 +1,52 @@
+<div class="address-form-inner">
+  <div class="floating-label">
+    <input type="text" id="AddressFirstName-{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}"
+           placeholder="First Name">
+    <label for="AddressFirstName-{{ form.id }}">First Name</label>
+  </div>
+  <div class="floating-label">
+    <input type="text" id="AddressLastName-{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}"
+           placeholder="Last Name">
+    <label for="AddressLastName-{{ form.id }}">Last Name</label>
+  </div>
+  <div class="floating-label">
+    <input type="text" id="AddressCompany-{{ form.id }}" name="address[company]" value="{{ form.company }}"
+           placeholder="Company">
+    <label for="AddressCompany-{{ form.id }}">Company</label>
+  </div>
+  <div class="floating-label">
+    <input type="text" id="AddressAddress1-{{ form.id }}" name="address[address1]" value="{{ form.address1 }}"
+           placeholder="Address 1">
+    <label for="AddressAddress1-{{ form.id }}">Address 1</label>
+  </div>
+  <div class="floating-label">
+    <input type="text" id="AddressAddress2-{{ form.id }}" name="address[address2]" value="{{ form.address2 }}"
+           placeholder="Address 2">
+    <label for="AddressAddress2-{{ form.id }}">Address 2</label>
+  </div>
+  <div class="floating-label">
+    <input type="text" id="AddressCity-{{ form.id }}" name="address[city]" value="{{ form.city }}" placeholder="City">
+    <label for="AddressCity-{{ form.id }}">City</label>
+  </div>
+  <div>
+    <label for="AddressCountry-{{ form.id }}">Country</label>
+    <select id="AddressCountry-{{ form.id }}" name="address[country]" data-default="{{ form.country }}">
+      {{ all_country_option_tags }}
+    </select>
+  </div>
+  <div class="province-wrap" id="province-wrap-{{ form.id }}">
+    <label for="AddressProvince-{{ form.id }}">State or Province</label>
+    <select id="AddressProvince-{{ form.id }}" name="address[province]" data-default="{{ form.province }}"></select>
+  </div>
+  <div class="floating-label">
+    <input type="text" id="AddressZip-{{ form.id }}" name="address[zip]" value="{{ form.zip }}"
+           autocapitalize="characters"
+           placeholder="Zip">
+    <label for="AddressZip-{{ form.id }}">Zip</label>
+  </div>
+  <div class="floating-label">
+    <input type="tel" id="AddressPhone-{{ form.id }}" name="address[phone]" value="{{ form.phone }}" placeholder="Phone">
+    <label for="AddressPhone-{{ form.id }}">Phone</label>
+  </div>
+</div>
+<button type="submit" class="primary-btn btn-address-submit">Submit</button>

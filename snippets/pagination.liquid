@@ -1,0 +1,49 @@
+{% if template contains 'search' %}
+<ul class="defult_pagination">
+  {% if paginate.previous.is_link %}
+  <li class="page_change">
+    <a href="{{ paginate.previous.url }}">{% include 'left' %}</a> 
+  </li>
+  {% endif %}
+  {% assign count = paginate.pages %}
+  {% assign page_url = canonical_url | split: 'q='%}
+  {% for part in (1..count) limit:6 %}
+  <li {% if paginate.current_page == part %}class="active"{% endif %}><a href="/search?page={{ forloop.index }}&q={{ page_url.last }}">{{ forloop.index }}</a></li>
+  {% endfor %}
+  {% if paginate.next.is_link %}
+  <li class="page_change right">
+    <a href="{{ paginate.next.url }}">{% include 'right' %}</a>
+  </li>
+  {% endif %}
+</ul>
+{% else%}
+<ul class="pagination">
+  {% if paginate.previous.is_link %}
+  <li class="page_change">
+    <a href="{{ paginate.previous.url }}">
+      {% include 'left' %}
+    </a>
+  </li>
+  {% endif %}
+  {% for part in paginate.parts %}
+  {% if part.is_link %}
+  <li>
+    <a href="{{ part.url }}" title="">{{ part.title }}</a>
+  </li>
+  {% else %}
+  {% if part.title == paginate.current_page %}
+  <li class="active"><a href="#">{{ part.title }}</a></li>
+  {% else %}
+  <li><a href="">{{ part.title }}</a></li>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  {% if paginate.next.is_link %}
+  <li class="page_change right">
+    <a href="{{ paginate.next.url }}" class="btn btn--tertiary btn--narrow">
+      {% include 'right' %}
+    </a>
+  </li>
+  {% endif  %}
+</ul>
+{% endif %}

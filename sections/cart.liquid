@@ -1,0 +1,143 @@
+{%- include 'country' -%}
+ {% assign countryUrl = '' %}
+  {% if request.locale.iso_code == 'el' %}
+  {% assign countryUrl = '/el' %}
+  {% endif %}
+
+<header>
+  <div>
+    {% render 'icon-shopping-cart' %}
+    <h1>{{  'my_cart.title.heading' | t: heading }} (<span style="display:inline-block;">{{ cart.item_count }}</span>)</h1>
+  </div>
+
+  <h6 class="shipping_free" style="display: none">Congratulations! You get free shipping with this order</h6>
+
+  <button type="button" name="close">
+    <span>{% render 'icon-close' %}</span>
+  </button>
+</header>
+<section class="hh cart-container 1">
+  <div class="hha items {% unless settings.enable_cart_links %}items--no-links{% endunless %}">
+    <p class="empty">Your shopping Bag is empty</p>
+  </div>
+  <div class="hhh_a free-sample hidden">
+    <p>Choose 1 free sample</p>
+
+    <div class="item-container">
+      {%- for product in collections['sample'].products -%}
+        <div class="item" data-id="{{ product.selected_or_first_available_variant.id }}">
+          <img
+            src="{{ product.featured_image.src | img_url: '140x140' }}"
+            alt="product.featured_image.alt"
+          >
+
+          <p>{{- product.title -}}</p>
+
+          <button>+ Add</button>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<footer class="hidden">
+  <div class="discounts">
+    <p>Promo codes can be applied at checkout</p>
+  </div>
+
+  <div>
+    <h3>Order Summary</h3>
+  </div>
+  <div class="hsada subtotal sssssss">
+    <h4>{{ 'my_cart.title.Total' | t: Total }}<span>({{ 'my_cart.title.vat_included' | t: vat_included }})</span></h4>
+    <p>
+      <span> {{- cart.total_price | money -}}  </span>
+    </p>
+  </div>
+  <div class="shipping">
+    <h4>Shipping</h4>
+    <p>Free</p>
+  </div>
+  <div class="tax">
+    <h4>Tax</h4>
+    <p>Calculated at Checkout</p>
+  </div>
+  <div class="checkout-cont">
+    <form action="/checkout" method="post" novalidate>
+      <div class="hidden-xs">
+        {%- if settings.mini_btn_text != blank -%}
+          {%- if settings.mini_is_checkout -%}
+          <a href="/pages/checkout-custom" class="primary-btn checkout" style="background-color: {{ settings.mini_btn_bg}}; color: {{ settings.mini_btn_color}};">
+           {{ 'my_cart.button.proceed_to_checkout' | t: proceed_to_checkout }}
+          </a>
+          {%- else -%}
+            <a class="primary-btn" href="{{settings.mini_btn_url}}" style="background-color: {{ settings.mini_btn_bg}}; color: {{ settings.mini_btn_color}};">{{settings.mini_btn_text}}</a>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if settings.mini_btn_text_2 != blank -%}
+          {%- if settings.mini_is_checkout_2 -%}
+        <div class="inline-btn">
+        <a class="ajax-cart-btn " href="{{countryUrl}}/cart" style="background-color: #444444; color: #ffffff;">{{ 'my_cart.button.view_cart' | t: view_cart }}</a>
+          <a href="/checkout?step=contact_information" class="primary-btn checkout" style="background-color: {{ settings.mini_btn_bg_2}}; color: {{ settings.mini_btn_color_2}};">
+            {{ 'my_cart.button.checkout' | t: checkout }}
+          </a>
+        </div>
+          {%- else -%}
+            <a class="primary-btn" href="{{settings.mini_btn_url_2}}" style="background-color: {{ settings.mini_btn_bg_2}}; color: {{ settings.mini_btn_color_2}};">{{settings.mini_btn_text_2}}</a>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if settings.mini_btn_text_3 != blank -%}
+          {%- if settings.mini_is_checkout_3 -%}
+          <a href="/pages/checkout-custom" class="primary-btn checkout" style="background-color: {{ settings.mini_btn_bg_3}}; color: {{ settings.mini_btn_color_3}};">
+            {{ 'my_cart.button.proceed_to_checkout' | t: proceed_to_checkout }}
+          </a>
+          {%- else -%}
+            <a class="primary-btn" href="{{settings.mini_btn_url_3}}" style="background-color: {{ settings.mini_btn_bg_3}}; color: {{ settings.mini_btn_color_3}};">{{settings.mini_btn_text_3}}</a>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+
+      <div class="visible-xs-block">
+        {%- if settings.mini_btn_mobile_text != blank -%}
+          {%- if settings.mini_is_checkout_mobile -%}
+         <a href="/pages/checkout-custom" class="primary-btn" style="background-color: {{ settings.mini_btn_mobile_bg}}; color: {{ settings.mini_btn_mobile_color}};">
+            {{settings.mini_btn_mobile_text}}
+          </a>
+          {%- else -%}
+            <a class="primary-btn" href="{{settings.mini_btn_mobile_url}}" style="background-color: {{ settings.mini_btn_mobile_bg}}; color: {{ settings.mini_btn_mobile_color}};">{{settings.mini_btn_mobile_text}}</a>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if settings.mini_btn_mobile_text_2 != blank -%}
+          {%- if settings.mini_is_checkout_mobile_2 -%}
+          <a href="/pages/checkout-custom" class="primary-btn checkout" style="background-color: {{ settings.mini_btn_mobile_bg_2}}; color: {{ settings.mini_btn_mobile_color_2}};">
+            {{settings.mini_btn_mobile_text_2}}
+          </a>
+          {%- else -%}
+            <a class="primary-btn" href="{{settings.mini_btn_mobile_url_2}}" style="background-color: {{ settings.mini_btn_mobile_bg_2}}; color: {{ settings.mini_btn_mobile_color_2}};">{{settings.mini_btn_mobile_text_2}}</a>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if settings.mini_btn_mobile_text_3 != blank -%}
+          {%- if settings.mini_is_checkout_mobile_3 -%}
+          <a href="/pages/checkout-custom" class="primary-btn" style="background-color: {{ settings.mini_btn_mobile_bg_3}}; color: {{ settings.mini_btn_mobile_color_3}};">
+            {{settings.mini_btn_mobile_text_3}}
+          </a>
+          {%- else -%}
+            <a class="primary-btn" href="{{settings.mini_btn_mobile_url_3}}" style="background-color: {{ settings.mini_btn_mobile_bg_3}}; color: {{ settings.mini_btn_mobile_color_3}};">{{settings.mini_btn_mobile_text_3}}</a>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </form>
+  </div>
+</footer>
+
+{%- if site_features contains 'afterpay' -%}
+  {% include 'afterpay-minicart-footer' %}
+{%- endif -%}
+<style>
+  body.cart .cart-drawer-container.full-page{
+    justify-content: center;
+  }
+</style>

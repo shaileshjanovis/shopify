@@ -1,0 +1,65 @@
+{% assign on_sale = false %}
+{% assign sale_text = 'products.product.sale' | t %}
+{% if product.compare_at_price > product.price %}
+    {% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% assign sold_out_text = 'products.product.sold_out' | t %}
+{% if product.available %}
+    {% assign sold_out = false %}
+{% endif %}
+<div class="carousel-cell rec-items">
+    <a href="{{ product.url | within: collection }}"
+       class="product-item"
+       data-productid="{{ product.id }}"
+       data-id="{{ product.variants.first.id }}"
+       data-handle="{{ product.handle }}"
+    >
+        <div class="thumbnail">
+            <picture class="lozad"data-iesrc="{{ product.featured_image | img_url: '266x' | format: 'jpg' }}" data-alt="{{ block.settings.slide_heading }}">
+              	<source srcset="{{ product.featured_image | img_url: '126x' | format: 'jpg' }}" media="(max-width: 767px)">
+              	<img  src="{{ product.featured_image | img_url: '266x' | format: 'jpg' }}" data-sizes="auto" />
+           	</picture>
+        </div>
+        <div class="product-item--review empty"></div>
+        <h4 class="product_title_{{ forloop.index }}">{{ product.title }}</h4>
+        <p class="price">
+      <span>
+        {{ product.price | money }}
+      </span>
+        </p>
+        <h3 class="msg-added-in-bag" data-id="{{ product.variants[0].id }}">
+            {% assign myproduct = product.id %}
+            {% for item in cart.items %}
+                {% if item.product.id == myproduct %}
+                     {% comment %}start of 11th may changes by madhav{% endcomment %}
+    			{{ 'shop_gallery.Buttons.added_to_bag' | t:added_to_bag}}
+      {% comment %}start of 11th may changes by madhav{% endcomment %}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+        </h3>
+        {% include 'wishlist-product' %}
+    </a>
+    {% assign flag = 0 %}
+    {% for item in cart.items %}
+        {% assign myproduct = product.id %}
+        {% if item.product.id == myproduct %}
+            {% comment %}start of 11th may changes by madhav{% endcomment %}
+  			<button class="btn-theme-white sm primary remove_from_cart"  data-id="{{product.variants[0].id}}" type="button">{{ 'shop_gallery.Buttons.remove_from_bag' | t:remove_from_bag}}</button>
+  			{% comment %}start of 11th may changes by madhav{% endcomment %}
+            {% assign flag = 1 %}
+            {% break %}
+        {% endif %}
+    {% endfor %}
+    {% if customer %}
+        {% if flag == 0 %}
+           {% comment %}start of 11th may changes by madhav{% endcomment %}
+    	<button id="order-submit" data-id="{{product.variants[0].id}}" class="primary btn-theme-white sm add-to-cart order_submit_data recommended-button-submission" type="button">{{ 'shop_gallery.Buttons.add_to_bag' | t:add_to_bag}}</button>
+  {% comment %}end of 11th may changes by madhav{% endcomment %}
+        {% endif %}
+    {% else %}
+        <a class="Whattest uppercase btn-theme-white sm btn-sign-up" href="/account/register"> Sign Up to Shop</a>
+    {% endif %}
+</div>
+

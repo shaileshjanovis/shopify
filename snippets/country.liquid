@@ -1,0 +1,12 @@
+{% liquid
+
+comment
+  Determine country by domain name
+endcomment
+if shop.domain == 'www.korres.com' or shop.domain == 'korresshop.myshopify.com'
+  assign site_country = 'us'
+  assign site_features = 'afterpay'
+elsif shop.domain == 'uk.korres.com' or shop.domain == 'korresshopuk.myshopify.com'
+  assign site_country = 'uk'
+  assign site_features = ''
+endif %}

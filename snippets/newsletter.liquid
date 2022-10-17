@@ -1,0 +1,29 @@
+{% form 'customer', id: 'newsletter-form' %}
+  <input id="contact_tags" name="contact[tags]" type="hidden" value="prospect,newsletter" />
+  <div class="news-wrap">   
+    <div class="content-news">
+      <h3> {{ 'homepage.title.join_the_korres_family' | t: join_the_korres_family }}</h3>
+    </div>   
+    <div class="footer-input custom_nsltr_frm">
+      <input
+             id="contact_email"
+             class="form-control"
+             type="email"
+             name="contact[email]"
+             placeholder="name@email.com"
+             data-rule="required|email"
+             aria-required="true"
+             required
+             {%- if form.errors -%}
+             aria-invalid="true"
+             {%- endif -%}
+             />
+      <input class="submit arrow main_news_btn hidden"  type="submit" /> 
+      <input class="submit arrow disabled_news_btn"  type="submit" /> 
+    </div>
+  </div>
+  <p class="form--error hidden err_msg_news">{% if request.locale.iso_code == 'el' %}Εισαγάγετε ένα έγκυρο email{% else %} Enter a valid email! {% endif %}</p>
+  {% if form.posted_successfully? %}
+      <p class="form--success">{% if request.locale.iso_code == 'el' %}Ευχαριστούμε για την εγγραφή {% else %} Thanks for subscribing! {% endif %}</p>
+  {% endif %}
+{% endform %}

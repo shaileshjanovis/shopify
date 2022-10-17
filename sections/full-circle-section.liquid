@@ -1,0 +1,157 @@
+<div class="inner second-step-our-story" style="display:none;">		
+	   <div class="small-circle our-labs js-call-our-labs">Our<br/> 6 Labs</div>
+		<div class="big-circle">
+			<div class="inner-big-circle">
+			 <a href="/pages/full-circle-1973" class="read-full-story center-div">Read the Full Story</a>
+				<div class="help">
+					<div class="section section-1">
+						<div>
+						<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/section-1973-active.png?v=1623059185"/>
+							<span>1973</span>
+						</div>
+					</div>
+					<div class="section section-2">
+						<div>
+						<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/section-1978.png?v=1623059185"/>
+							<span>1978</span>
+						</div>
+					</div>
+					<div class="section section-3">
+						<div>
+						<!--<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/section-2007-active.png?v=1623059185"/>-->
+						<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/section-3.png?v=1619185320"/>
+							<span>2007</span>
+						</div>
+					</div>
+					<div class="section section-4">
+						<div>
+						<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/section-2009-active.png?v=1623059185"/>
+							<span>2009</span>
+						</div>
+					</div>
+					<div class="section section-5">
+						<div>
+						<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/section-2011.png?v=1623059185"/>
+							<span>2011</span>
+						</div>
+					</div>
+					<div class="section section-6">
+						<div>
+						<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/section-present-day-active.png?v=1623059186"/>
+							<span>Present day</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="year-counter">
+		   <div class="wrapper">
+				<div class="container-year">
+				</div>
+				<div class="d-none invisible">
+				  <button id="get">get index</button>
+				  <button id="getText">get text</button>
+				  <button id="selected-year">random</button>
+				</div>
+			</div>
+	   </div>
+	</div>
+
+        <div class="inner second-step-our-6-labs" style="display:none;">
+            <div class="small-circle our-story js-call-our-story">Our<br /> Story</div>
+            <div class="big-circle">
+                <div class="inner-big-circle">
+                    <a href="/pages/full-circle-1973" class="read-full-story center-div">
+                        Recycle Lab <sup>6</sup>
+                        Read more >
+                    </a>
+                    <div class="help" style="    transform: rotate(200deg);">
+                        <div class="section section-1-labs">
+                            <div>
+                                <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/our-6-labs-section-1-soil-lab.png?v=1624613184" />
+                                <span>1</span>
+                                <span>SOIL LAB</span>
+                            </div>
+                        </div>
+                        <div class="section section-2-labs">
+                            <div>
+                                <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/our-6-labs-section-2-extraction-lab.png?v=1624613184" />
+                                <span>2</span>
+                                <span>EXTRACTION LAB</span>
+                            </div>
+                        </div>
+                        <div class="section section-3-labs">
+                            <div>
+                                <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/our-6-labs-section-3-meleculr-lab.png?v=1624613184" />
+                                <span>3</span>
+                                <span>MOLECULAR LAB</span>
+                            </div>
+                        </div>
+                        <div class="section section-4-labs">
+                            <div>
+                                <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/our-6-labs-section-4-formulation-lab.png?v=1624613184" />
+                                <span>4</span>
+                                <span>
+                                    FORMULATION LAB
+                                </span>
+                            </div>
+                        </div>
+                        <div class="section section-5-labs">
+                            <div>
+                                <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/our-6-labs-section-5-design-lab.png?v=1624613184" />
+                                <span>5</span>
+                                <span>DESIGN LAB</span>
+                            </div>
+                        </div>
+                        <div class="section section-6-labs">
+                            <div>
+                                <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/our-6-labs-section-6-recycle-lab.png?v=1624613184" />
+                                <span>6</span>
+                                <span>RECYCLE LAB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="year-counter">
+                <div class="wrapper">
+                    <div class="container-year">
+                    </div>
+                    <div class="d-none invisible">
+                        <button id="get">get index</button>
+                        <button id="getText">get text</button>
+                        <button id="selected-year">random</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% schema %}
+  {
+    "name": "Circle",
+    "blocks": [
+              {
+              	"type": "add_circle",
+                "name": "story",
+                "settings": [
+                            {
+                              "type": "image_picker",
+                              "id": "circle-img",
+                              "label": "Select Story"
+                            },
+							{
+                              "id": "circle-text",
+                              "type": "text",
+                              "label": "Add circle text"
+                            }
+                  			]
+                }
+    			]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

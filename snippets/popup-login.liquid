@@ -1,0 +1,70 @@
+<div class="poup-login-destop js-poup-login-destop">
+  <div id="CustomerLoginForm" class="login-card">
+  {% form 'customer_login' %}
+    <a href="javascript:void(0)" class="close eveland-close-login js-btn-close-login"></a>
+    <div class="floating-label"> 
+      <label for="login_email">Email Address</label>
+      <input
+        id="login_email"
+        type="email"
+        name="customer[email]"
+        placeholder="e.g maria@gmail.com"
+        data-rule="required|email"
+        {%- if form.errors contains 'form' -%}
+          class="input--error"
+          aria-invalid="true"
+        {%- endif -%}
+      />
+    </div>
+    <div class="floating-label">
+      <label for="login_password">Password</label>
+        <input
+          id="login_password"
+          type="password"
+          name="customer[password]"
+          placeholder="Minimum 8 Case-sensitive characters"
+          data-rule="required"
+            -="" if="" form.errors="" contains="" 'form' -=''
+            class="input--error"
+            aria-invalid="true"
+            -="" endif="" -=""%}
+      />
+    </div>
+    <div class="error-container">
+      {{ form.errors | default_errors }}
+      <button class="forgot-pwd" type="button">
+        <a href="#" onclick="showRecoverPasswordForm();return false;"><span>Forgot password?</span></a>
+      </button>
+    </div>
+    <input class="btn-rounded-blue btn-login" type="submit" value="Login" />
+    <div class="sign-up-text">
+      New to the Circle? <a href="/account/register"> Sign Up</a>
+    </div>
+  {% endform %}
+    <div class="bot">       
+      <div class="check-row check-row-signed">          
+        <span class="bold"> Stay Signed in</span>
+        <label class="customcheck rounded">
+          <input type="checkbox"/>
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div class="check-row ">
+          <span>Accept terms & conditions</span>
+          <label class="customcheck rounded">
+              <input type="checkbox"/>
+              <span class="checkmark"></span>
+          </label>
+      </div>
+      <div class="check-row">
+        <span>Subscribe to Newsletter</span>
+        <label class="customcheck rounded">
+            <input type="checkbox"/>
+            <span class="checkmark"></span>
+         </label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-login-popup js-bg-login-popup">
+</div>

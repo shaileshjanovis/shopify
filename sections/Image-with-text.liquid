@@ -1,0 +1,213 @@
+<div class="container" id="top-section">
+   <div id="sticky-anchor-desktop"></div>
+  <div class="row d-none d-sm-block " id="sticky-desktop"> 
+      <div id="test-lab" class="show">
+<div class="text-lab-link" id="sticky-desktop1">  
+  <div class="lab-contain"><a href="#soil" class="scroll"><label for="soil">soil lab</label><input type="radio" name="lab" value="soil" /></a> </div>/
+  <div class="lab-contain"><a href="#extractionn" class="scroll"><label for="extration">extration lab</label><input type="radio"  name="lab" value="extration" /> </a></div>/
+  <div class="lab-contain"><a href="#formulationn" class="scroll"><label for="formulation">formulation lab</label><input type="radio" name="lab" value="formulation" /></a> </div>
+</div>
+</div>  
+        <div class="col-12 head-container">
+          <a href="#" class="map-nav"> < map </a>
+      <div class="title-box">
+        <div class="tb-center">
+          
+          <p>Place: <b>{{section.settings.place}}</b></p>
+        <p>Farmer: <b>{{section.settings.farmer}}</b></p>
+        
+        </div>
+      </div>
+    </div>
+    <div class="col-12 head-container">
+      <h3 class="heading">
+      {{section.settings.herb}}
+      </h3>
+    </div>
+  </div>
+   <!---- Mobile TItle ---->
+    <div class="row d-block d-sm-none">
+        <div id="sticky-anchor"></div>
+      <div id="sticky">
+       <h4 class="section-heading main-title">SOIL LAB</h4>
+      
+    <div class="title-box bot-line">
+     
+      <p><b>Place : </b>{{section.settings.place}}</p>
+      <p><b>Farmer : </b>{{section.settings.farmer}}</p>
+       <h3 class="heading">
+      {{section.settings.herb}}
+      </h3>
+    
+      </div>
+  </div>
+</div>
+  <div class="row banner-section d-none d-sm-block">
+  
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+      <div class="image-left">
+    <img src= "{{section.settings.image-left | img_url: 'large' }}">
+      </div>
+      <div class="image-text">
+        {{section.settings.text-left}}
+      </div>
+    </div>
+   
+    
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+       <div class="image-right">
+    <img src= "{{section.settings.image-right | img_url: 'large' }}">
+      </div>
+      <div class="image-text">
+        {{section.settings.text-right}}
+      </div>
+    </div>
+  </div>
+  
+    <div class="row banner-section d-block d-sm-none">
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+       <div class="image-right">
+    <img src= "{{section.settings.image-right | img_url: 'large' }}">
+      </div>
+      <div class="image-text">
+        {{section.settings.text-right}}
+      </div>
+    </div>
+  
+    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+      <div class="image-left">
+    <img src= "{{section.settings.image-left | img_url: 'large' }}">
+      </div>
+      <div class="image-text">
+        {{section.settings.text-left}}
+      </div>
+    </div>
+   
+  </div>
+  
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 col-sm-6 col-sm-offset-3 col-xs-12">
+     <div class="description-text">
+      	<p class="text-center">{{section.settings.description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% schema %}
+  {
+    "name": "Image with text",
+    "settings": [
+	{
+	"type": "text",
+    "id"  : "place",
+	"label": "Place"
+	},
+	{
+	"type": "text",
+    "id"  : "farmer",
+	"label": "Farmer"
+	},
+	{
+	"type": "html",
+    "id"  : "herb",
+	"label": "Herb"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "image-left",
+	"label": "Left Side Image"
+	},
+	{
+	"type": "html",
+    "id"  : "text-left",
+	"label": "Left Side text"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "image-right",
+	"label": "Right Side image"
+	},
+	{
+	"type": "html",
+    "id"  : "text-right",
+	"label": "Right Side text"
+	},	
+	{
+	"type": "text",
+    "id"  : "description",
+	"label": "Description"
+	}
+
+]
+  }
+{% endschema %}
+<style>
+  #sticky-desktop.stick-desk {
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    
+    margin: 0 auto;
+    width: 100%;
+    left: 0;
+    background: #fff;
+    right: 0;
+}
+  .head-container{
+   max-width:1140px;
+    margin:0 auto; 
+    padding:0 !important;
+  }
+  .stick-desk .head-container{
+   max-width:1140px;
+    margin:0 auto;
+    padding:0 !important;
+  }
+  a.map-nav {
+    position: relative;
+    right: 7%;
+    font-size: 18px;
+     top: 32px;
+    color: #333;
+
+    display: none;
+}
+.stick-desk a.map-nav{
+  display: block;
+}
+</style>
+<script>
+    function sticky_relocate_desk() {
+  var window_top_desk = $(window).scrollTop();
+  var div_top_desk = $('#sticky-anchor-desktop').offset().top;
+  if (window_top_desk > div_top_desk) {
+    $('#sticky-desktop').addClass('stick-desk');
+  } else {
+    $('#sticky-desktop').removeClass('stick-desk');
+  }
+      
+     if (window_top_desk > div_top_desk) {
+    $('#sticky-desktop1').addClass('stick-desk');
+  } else {
+    $('#sticky-desktop1').removeClass('stick-desk');
+  }
+}
+  
+  $(function() {
+  $(window).scroll(sticky_relocate_desk);
+  sticky_relocate_desk();
+}); 
+  
+  $(window).scroll(function() {
+  if ($(this).scrollTop() < 1000) {
+    $('.main-title').hide();
+  } else {
+    $('.main-title').show();
+  }
+});
+  
+</script>

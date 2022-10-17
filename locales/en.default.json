@@ -1,0 +1,450 @@
+{
+  "general": {
+    "404": {
+      "title": "Not found",
+      "subtext_html": "The page you were looking for does not exist"
+    },
+    "navigation": {
+      "shop_all": "Shop All"
+    },
+    "notification": {
+      "message": "You haven’t selected a Pickup Store yet. In order to earn more experiences, ",
+      "redirection_message": "choose your favourite location in your Settings"
+    }
+  },
+  "header_text": {
+    "heading": {
+      "hello": "Hello"
+    }
+  },
+  "header": {
+    "title": {
+      "my_circle": "My Circle",
+      "my_gifts": "My Gifts",
+      "my_orders": "My Orders",
+      "my_gift_list": "My Gift List",
+      "my_messages": "My Notifications",
+      "my_settings": "My Settings",
+      "logout": "Logout"
+    }
+  },
+  "homepage": {
+    "title": {
+      "Discover_all": "Discover All",
+      "discover": "Discover",
+      "products_we_all_love": "Products we all Love",
+      "join_the_korres_family": "Join our KORRES Newsletter!",
+      "community": "COMMUNITY",
+      "read_more": "Read more"
+    }
+  },
+  "Login": {
+    "Title": {
+      "title": "Hello!",
+      "subtext_html": "Welcome to KORRES Circle",
+      "continue_with_text": "Or Continue with"
+    },
+    "Fields": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "Password_placeholder": {
+      "placeholder": "Minimum 8 Case-sensitive characters"
+    },
+    "Links": {
+      "forgot": "Forgot Password",
+      "keep_signed": "Keep me Signed in",
+      "signup": "New to the Circle?",
+      "signup_link": "Sign Up"
+    },
+    "Buttons": {
+      "sign_in": "Sign In"
+    },
+    "Facebook_popup": {
+      "Title": "KORRES Circle wants to use 'Facebook.com' to Log in",
+      "sub_title": "This allows the app and the website to connect with your Facebook account",
+      "Continue": "Continue",
+      "Oh_no": "Prefer not to"
+    },
+    "Reset_Passoword": {
+      "Title": "Reset your Password",
+      "sub_title": "Enter your email address below and we'll send you an email with instructions on how to create a new password",
+      "Reset_Password": "Reset Password",
+      "Never_Mind": "Never Mind"
+    },
+    "Success": {
+      "Title": "Success",
+      "sub_title": "An email has been sent to the email you provided with instructions on how to reset your password",
+      "Button": "Ok!"
+    }
+  },
+  "Register": {
+    "Title": {
+      "title": "Welcome!",
+      "subtext_html": "Create your account"
+    },
+    "Fields": {
+      "email": "Email",
+      "password": "Password",
+      "Retype_Password": "Retype Password",
+      "Name": "Name",
+      "Surname": "Surname",
+      "Mobile_Number": "Mobile Number",
+      "optional": "(optional)"
+    },
+    "Placeholder": {
+      "Store_Area_PostCode": "Store Name, Area, Post Code"
+    },
+    "Links": {
+      "agree": "I Agree to",
+      "Service": "Terms of Service",
+      "policy": "Privacy Policy",
+      "Subscribe": "Subscribe me to",
+      "news_link": "KORRES News",
+      "Account": "Already have an account?",
+      "Sign_in": "Sign In"
+    },
+    "validation": {
+      "please_confirm_you_accept": "Please confirm you accept our terms and conditions before proceeding",
+      "mobile_number_already_exist": "This Number is already registered, please login instead.",
+      "email_id_already_exist": "This email id is already registered, please login instead."
+    },
+    "Button": {
+      "Next": "Next"
+    },
+    "Select_store": {
+      "title": "Select your store",
+      "subtext_html": "You may change this later at MyCircle",
+      "Select_circle": "Select a Korres Selling Store to",
+      "Select_circle_new": "Stores participating in KORRES Circle program may be Pharmacies, online pharmacies of beauty stores",
+      "Unlock_prices": "Unlock prices",
+      "Get_free_shipping": "Get free shipping",
+      "Collect_points": "Collect Points",
+      "Pickup_your_Gifts": "Pickup your Gifts",
+      "Selected_Pickup_location": "Selected Pickup location",
+      "sub_text1": "This is your Korres selling store.",
+      "sub_text2": " You can always edit in your Circle page",
+      "pharmacy_msg": "If your preferred pharmacy does not appear on the map, please kindly ask your Pharmacist to activate KORRES Circle. They will be able to activate it shortly after, so you can get started on your shopping with rewards experience!"
+    },
+    "Select_Buton": {
+      "Select": "Select Store"
+    },
+    "loader": {
+      "loader_title": "Almost Done!",
+      "loader_text": "One moment, we are making sure your KORRES Circle experience matches your vibe!",
+      "loader_loading": "LOADING…"
+    }
+  },
+  "Custom_Checkout": {
+    "process_flow": {
+      "Delivery_Method": "Delivery Method",
+      "Shipping_Details": "Shipping Details",
+      "Payment": "Payment",
+      "Checkout": "Checkout"
+    },
+    "Delivery_Method": {
+      "FREE_Pickup_from_Store": "Free Pickup from Store",
+      "Delivery_Courier": "Delivery Courier",
+      "Estimated_time_of_Delivery": "Estimated Delivery",
+      "add_new_delivery_address": "Add a new address",
+      "save_new_address": "Save new Address",
+      "proceed_to_payment": "After clicking 'Proceed to Payment' you will be redirected to Viva Wallet to complete your purchase securely"
+    },
+    "Shipping_Details": {
+      "Pickup_Store": "Pickup Store",
+      "Address": "Address",
+      "Expected": "Expected",
+      "Telephone": "Contact Number"
+    },
+    "Payment_Method": {
+      "title": "Payment Method",
+      "Pay_at_Store": "Pay at Store",
+      "Pay_Online": "Pay Online",
+      "Telephone": "Telephone"
+    },
+    "Complete_Checkout": {
+      "title": "Complete Checkout",
+      "by_confirming": "By confirming your order you agree to our",
+      "Terms_Conditions": "Terms & Conditions",
+      "Proceed_to_Checkout": "Proceed to Checkout",
+      "thank_you": "Congrats",
+      "thank_you_confirm": "Your redeemed bundle order has been placed successfully and your goodies are on their way.",
+      "Do_you_have_any_questions": "Do you have any questions? You can visit our",
+      "help": "help page",
+      "to_find_answers_to_all_your_order_related_questions": "to find answers to all your order related questions",
+      "help_page": "",
+      "view_my_circle_page": "View My Circle Page",
+      "back_to_shop": "Back to Shop",
+      "order_products": "Order Products"
+    },
+    "summary_box": {
+      "Summary": "Summary",
+      "Purchased_on": "",
+      "Items": "Items",
+      "Points_earned": "Points earned",
+      "Sub_total": "Sub total",
+      "Delivery_Method": "Delivery",
+      "Expected": "Expected",
+      "Total": "Total",
+      "VAT_included": "VAT included"
+    }
+  },
+  "shop_collection": {
+    "filter": {
+      "Filters": "Filters",
+      "by_type": "By Type",
+      "by_need": "By Need",
+      "by_ingredient": "By Ingredient",
+      "new_in": "New In"
+    },
+    "shop_all": "Shop All"
+  },
+  "shop_gallery": {
+    "Buttons": {
+      "add_to_bag": "Add to Bag",
+      "added_to_bag": "Added to Bag",
+      "remove_from_bag": "Remove from Bag"
+    },
+    "links": {
+      "show_more": "Show More",
+      "show_less": "Show Less"
+    },
+    "texts": {
+      "points": "Points",
+      "sold_by": "Sold by",
+      "and_shipped_by": "and shipped by"
+    },
+    "product": {
+      "your_need": "Your Need:",
+      "your_type": "Your Type:",
+      "our_technology": "Our Technology:",
+      "natural_origin_content": "Natural Origin Content ",
+      "our_award": "Our Award:"
+    },
+    "recommendation": {
+      "title": "Complete your Routine",
+      "subtitle": "Meno Reversetm Technology For Post Menopause Volume – Replenishing Deep Wrinkles.",
+      "skincare_title": "Complete your Routine",
+      "suncare_title": "Before, during and after the sun",
+      "body_title": "You may also like",
+      "hair_title": "Discover the rest of our natural haircare",
+      "makeup_title": "You may also like",
+      "fragrance_title": "Discover more scents",
+      "apothecary_title": "More daily solutions from our Heritage collection",
+      "baby_title": "Also great for babies",
+      "kids_title": "Also great for kids"
+    },
+    "subscribe": {
+      "title": "Join our Circle!",
+      "subtitle": "Create an Account & make every purchase give you back!"
+    },
+    "circle_spin": {
+      "the_full_circle_of": "The KORRES Full Circle",
+      "soil": "Soil",
+      "extraction": "Extraction",
+      "molecular": "Molecular",
+      "formulation": "Formulation",
+      "design": "Design",
+      "recycle": "Recycle",
+      "soil_lab": "Soil Lab",
+      "extraction_lab": "Extraction Lab",
+      "molecular_lab": "Molecular Lab",
+      "formulation_lab": "Formulation Lab",
+      "design_lab": "Design Lab",
+      "recycle_Lab": "Recycle Lab",
+      "how_to_use": "How to Use",
+      "visible_results": "Visible Results",
+      "ingredients": "Ingredients",
+      "complete_your_routine": "Complete your routine"
+    },
+    "join_ur_circle": {
+      "title": "Join our Circle!",
+      "subtitle": "Create an account & make every purchase give you back!"
+    }
+  },
+  "contact_us": {
+    "field": {
+      "full_name": "Full Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send_message": "Send Message",
+      "btn_back_to_home": "Back to Homepage",
+      "btn_discover_more": "Discover more",
+      "message_call": "You can also call us at KORRES Circle Customer Service at 2130188800 (10:00 - 18:00)",
+      "message_call_1_mob": "You can also call us at KORRES Circle Customer Service at",
+      "message_call_2_mob": "2130188800 (10:00 - 18:00)",
+      "message_call_3_mob": ""
+    }
+  },
+  "my_wishlist": {
+    "title": {
+      "your_wishlist_is_empty": "Your Wishlist is Empty!",
+      "make_a_wish": "Save your favorite items here",
+      "button": "Keep Browsing",
+      "button_url": "\/collections\/all-products"
+    }
+  },
+  "my_cart": {
+    "title": {
+      "Total": "Total",
+      "vat_included": "V.A.T. Included",
+      "heading": "My Shopping Bag"
+    },
+    "button": {
+      "checkout": "Checkout",
+      "view_cart": "View Bag",
+      "proceed_to_checkout": "Proceed to Checkout"
+    },
+    "labels": {
+      "summary": "Summary",
+      "sub_total": "Sub total",
+      "delivery_method": "Delivery Method",
+      "my_circle_points": "My Circle Points",
+      "With_this_purchase": "With this purchase you now have",
+      "of": "of",
+      "points": "points",
+      "you_need": "You need",
+      "more_till_your_next_gift": "more till your next gift"
+    },
+    "empty_cart": {
+      "looks_like_empty": "Looks like your Cart is Empty!",
+      "awarded_product": "138 awarded items make this hard to believe. You might need to go",
+      "back_to_shop": "Back to Shop"
+    }
+  },
+  "my_order": {
+    "title": {
+      "online": "ONLINE",
+      "store": "IN-STORE",
+      "order_no": "Order No",
+      "status": "Status",
+      "pending": "Pending",
+      "delivered": "Delivered",
+      "view_all": "View All",
+      "back_to_my_orders": "Back to my Orders",
+      "total": "Total",
+      "points_earned": "Points earned",
+      "expected": "Expected",
+      "payment_method": "Payment Method",
+      "shipping": "Shipping",
+      "delivery_address": "Delivery Address",
+      "all_the_items": "All the Items of your Order",
+      "btn-return-to-shop": "Return to Shop",
+      "empty-order": "You haven’t placed any orders with us.",
+      "processing": "Processing"
+    }
+  },
+  "my_gift": {
+    "title": {
+      "show_more": "Show more"
+    }
+  },
+  "my_message": {
+    "title": {
+      "load_older_messages": "Load older messages",
+      "you_have_uread": "You have 2 unread messages in your inbox"
+    }
+  },
+  "my_setting": {
+    "title": {
+      "name": "Name",
+      "my_settings": "My Settings",
+      "surname": "Surname",
+      "date_of_birth": "Date of Birth",
+      "info": "You can only insert this once.  If you wish to change it, please contact contact@korres.com",
+      "email": "Email",
+      "mobile_number": "Mobile Number",
+      "my_pickup_store": "My Pickup Store",
+      "address": "Address",
+      "notifications_settings": "Notifications Settings",
+      "push_notifications": "Push Notifications",
+      "save_information": "Save Information",
+      "mobile_validation_messge": "This Number is already registered.",
+      "join_our_mailing": "Get 25 bonus points! Join our mailing list.",
+      "join_our_text_message": "Get 25 bonus points! Join our text message list.",
+      "profile_saved": "Profile Saved",
+      "settings_changes_saved": "Your settings changes have been successfully saved.",
+      "back_to_settings": "Back to Settings",
+      "back_to_my_settings": "Back to my Settings"
+    },
+    "dob_confirm_popup": {
+      "heading": "Before you enter",
+      "content_html": "We will be sending gift points on your birthday! Make sure you have entered the right date of birth <b>because you won’t be able to change it later.<\/b>",
+      "ok": "Ok",
+      "cancel": "Cancel"
+    }
+  },
+  "logout_popup": {
+    "title": {
+      "are_you_sure": "Are you sure? ",
+      "subtitle": "Are you sure you wish to logout from your KORRES Profile?",
+      "logout": "Logout",
+      "stay": "Stay"
+    }
+  },
+  "Hurray_successful": {
+    "title": {
+      "hurrraaay": "Hurrraaay!",
+      "subtitle": "You are in the Olive Circle now and you have been rewarded with {{ royalty }} Points!",
+      "button": "Start Shopping"
+    }
+  },
+  "circle_page": {
+    "title": {
+      "out_of": "Out of",
+      "points": "points",
+      "joined": "Joined:",
+      "more_points": "more points",
+      "till_your_next_gift": "till your next gift",
+      "back_to_shop": "Back to Shop",
+      "congratulations_level_up": "Congratulations! Level Up!",
+      "unlock_your_gift_collection": "Unlock Your Gift Collection",
+      "discover_more_gifts_by_earning_points": "Discover more gifts by earning points",
+      "earned_gift": "Earned Gift",
+      "locked_gift": "locked Gift",
+      "unlocked_gift": "Unlocked Gift",
+      "gift_collection_has_been_unlocked": "Gift Collection has been unlocked",
+      "completed": "Completed",
+      "expand_gifts_points": "Expand Gifts View",
+      "back_to_mycircle": "Back to MyCircle"
+    }
+  },
+  "shopify": {
+    "checkout": {
+      "order_summary": {
+        "expand_order_summary": "Show Order Summary & Enter Promo Code",
+        "shopping_cart_label": "Summary",
+        "subtotal_label": "Sub Total",
+        "shipping_default_value": "Calculated at next steps"
+      },
+      "delivery_options": {
+        "ship": "Delivery Courier",
+        "shipping_address": "Shipping Details",
+        "pick_up": "Pickup from Store"
+      },
+      "general": {
+        "continue_to_shipping_method": "Continue to Shipping",
+        "continue_to_payment_method": "Continue to Payment Method"
+      },
+      "payment": {
+        "title": "Payment Method"
+      }
+    },
+    "errors": {
+      "taken": "This email is already registered, please login instead."
+    }
+  },
+  "fullcricle": {
+    "leftsection": {
+      "title": "Full Circle"
+    }
+  },
+  "errorpage": {
+    "title": {
+      "errorpagetitle": "Not what were you looking for?",
+      "subtitle": "You can go back to our Homepage and start again.",
+      "btn": "Homepage"
+    }
+  }
+}

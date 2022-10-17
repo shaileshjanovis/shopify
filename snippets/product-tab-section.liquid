@@ -1,0 +1,102 @@
+<style>
+.tab {
+    float: left;
+    background-color: #fff;
+    width: 12%;
+    height: 300px;
+    margin-right: 1%;
+}
+.tab button {
+  display: block;
+  background-color: #fff;
+  color: #ccc;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 16px;
+  border-bottom: 1px solid #e7e7e7;
+}
+.tab button.hover {
+  color: #111;
+}
+
+.tab button.active {
+  color: #111;
+}
+
+.tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #e7e7e7;
+    width: 87%;
+    height: 300px;
+}
+.tabcontent td {
+    font-family: 'Graphik';
+    line-height: 24px;
+    color: #5e5e5e;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    padding-right: 20px;
+}
+.tabcontent th {
+   padding: 12px 0 20px;
+    font-family: Graphik;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    text-align: left;
+}
+  .description-tab-section{
+  margin-top: 15px;
+  }
+</style>
+<div class="tab-inner-description">
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'tab1')" id="defaultOpen">Soil Lab:</button>
+  <button class="tablinks" onclick="openCity(event, 'tab2')">Extraction Lab:</button>
+  <button class="tablinks" onclick="openCity(event, 'tab3')">Molecular Lab:</button>
+  <button class="tablinks" onclick="openCity(event, 'tab4')">Formulation Lab:</button>
+  <button class="tablinks" onclick="openCity(event, 'tab5')">Design Lab:</button>
+  <button class="tablinks" onclick="openCity(event, 'tab6')">Recycle Lab:</button>
+</div>
+<div id="tab1" class="tabcontent">
+  {{ product.metafields.global.description_tab1 }}
+</div>
+<div id="tab2" class="tabcontent">
+  {{ product.metafields.global.description_tab2 }}
+</div>
+<div id="tab3" class="tabcontent">
+  {{ product.metafields.global.description_tab3 }}
+</div>
+  <div id="tab4" class="tabcontent">
+  {{ product.metafields.global.description_tab4 }}
+</div>
+  <div id="tab5" class="tabcontent">
+  {{ product.metafields.global.description_tab5 }}
+</div>
+  <div id="tab6" class="tabcontent">
+  {{ product.metafields.global.description_tab6 }}
+</div>
+</div>
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+  
+document.getElementById("defaultOpen").click();
+</script>
+   

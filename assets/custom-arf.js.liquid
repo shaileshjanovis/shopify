@@ -1,0 +1,109 @@
+$(document).ready(function(){
+  $('header nav .bm-nav li, header nav .main-nav__desktop').not('header nav li.fdad.search').click(function(){
+    $('header nav .search-container-main .search-container--desktop').removeClass('active');
+  });
+  $('header nav .bm-nav li.fdad.search').click(function(){
+  	$('header nav .search-container-main .search-container--desktop').toggleClass('active');
+  });
+  
+  /* search mobile */
+  $('.top-search .back-btn').click(function(){
+  	$('header nav .search-container-main .search-container--desktop').toggleClass('active');
+  });
+
+  /* Home Tiles */
+  $('.homeBlock-wrap .homeBlock-container .homeBlock-content .block-single .block-content').click(function(){
+  	$(this).closest('.block-text-wrap').toggleClass('active');
+  });
+  
+  var mouse_is_inside = false;
+  $('header nav .bm-nav li.fdad.search').click(function(){ 
+        mouse_is_inside=true; 
+    }, function(){ 
+        mouse_is_inside=false; 
+    });
+
+    $("body").mouseup(function(){ 
+        if(! mouse_is_inside) $('.form_wrapper').hide();
+    });
+  $('.f_view_more').click(function(){
+    $(this).parent('ul').children('li').removeClass('hidden');
+    $(this).addClass('hidden');
+  });
+    
+  var regExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  $(function(){
+    $('.custom_nsltr_frm input[type="email"]').on('keyup', function() {
+        var nws_email = regExp.test( $(this).val());
+      if (nws_email == true ) {
+        $('.err_msg_news').addClass('hidden');
+        $('.custom_nsltr_frm .main_news_btn').removeClass('hidden');
+        $('.custom_nsltr_frm .disabled_news_btn').addClass('hidden');
+      }
+      else {
+        $('.custom_nsltr_frm .main_news_btn').addClass('hidden');
+        $('.custom_nsltr_frm .disabled_news_btn').removeClass('hidden');
+      }
+    });
+  });
+  $('.custom_nsltr_frm .disabled_news_btn').click(function(e){
+    e.preventDefault();
+    $('.err_msg_news').removeClass('hidden');
+  });
+  
+  $('.search-bar #input-search').on("focus", function(){
+    $(document).keydown(
+      function(e)
+      {
+        if ($(".predictive-search-wrapper .predictive-search")){
+          if (e.keyCode == 38) {
+            if (!$('li.predictive-search-item').hasClass('active_focused')) {
+              $("li.predictive-search-item:last-child").addClass('active_focused');
+              $("li.predictive-search-item.active_focused a").focus();
+              
+            }
+          }
+          if (e.keyCode == 40) {
+            if (!$('li.predictive-search-item').each().hasClass('active_focused')) {
+              $("li.predictive-search-item:first-child").addClass('active_focused');
+              $("li.predictive-search-item.active_focused a").focus();
+            }
+            
+          }
+        }
+      }
+    );
+    
+  });
+  $(document).keydown(
+    
+    function(e)
+    {
+      var index = $('.active_focused').index('li.predictive-search-item');
+      var $li = $('li.predictive-search-item');
+      if (e.keyCode == 38) {
+        if (!$('.predictive-search li.predictive-search-item').hasClass('active_focused')) {
+          $li.eq( (0) % $li.length ).addClass('active_focused');
+          $("li.predictive-search-item.active_focused a").focus();
+        }
+        else {
+          $li.removeClass('active_focused');
+          $li.eq( (index-1) % $li.length ).addClass('active_focused');
+          $("li.predictive-search-item.active_focused a").focus();
+        }
+      }
+      if (e.keyCode == 40) {
+        if (!$('.predictive-search li.predictive-search-item').hasClass('active_focused')) {
+          $li.eq( (0) % $li.length ).addClass('active_focused');
+          $("li.predictive-search-item.active_focused a").focus();
+        }
+        else {
+          $li.removeClass('active_focused');
+          $li.eq( (index+1) % $li.length ).addClass('active_focused');
+          $("li.predictive-search-item.active_focused a").focus();
+        }
+      }
+    }
+  );
+  
+});

@@ -1,0 +1,756 @@
+<div class="reward_circle_main width-1784">
+  <div class="cover">
+    <div class="inner">
+      <div class="circular">
+        {% assign points = shop.metafields.circle.level_My_White_Circle  | split : '|' | last | plus:0 %}
+        <div class="inn"></div>
+        <div class="number">{{points}}</div>
+        <div class="circle">
+          <div class="bar left">
+            <div class="progress"></div>
+          </div>
+          <div class="bar right">
+            <div class="progress"></div>
+          </div>
+        </div>
+        {% assign levels = shop.metafields.circle.level_My_White_Circle  | split : '|' %}
+        {% assign pointlevel = shop.metafields.circle.My_White_Circle  | split : '|' %}
+        {% assign maxpoint = pointlevel[2] | plus:0 %}
+        <div class="levels_cover">
+          {% for level in levels %}
+		  {% assign plevel = level | plus:0 %}
+          {% if plevel != maxpoint %}
+          {% assign pointr = level | plus:0 | times:360 | divided_by:2000 %}
+          {% if plevel > 1000 %}
+          {% assign pointr = level | plus:0 | times:360 | divided_by:2000 | minus:28 %}
+          {% else %}
+          {% assign pointr = level | plus:0 | times:360 | divided_by:2000 | plus:28 %}
+          {% endif %}
+          {% else %}
+          {% assign pointr = 336%}
+          {% endif %}
+          <div class="dot_lk one" data-level="{{level}}" style="transform: translateY(-50%) rotate({{pointr}}deg);">
+            <img src="{{ 'lock.svg' | asset_url }}">
+          </div>
+          {% endfor %}
+        </div>
+        <div class="blank" style="transform: translateY(-50%);">
+          <img src="{{ 'cutt.png' | asset_url }}">
+        </div>
+      </div>
+
+    </div>
+    <div class="inner text_part">
+      <div class="text_inner">
+        <h3>{{ section.settings.title }}</h3>
+        <span class="date">Joined: 5/6/21</span>
+        <a href="javascript:;" class="btn_link"><b>{{remainpoints}} more points</b> till {{ section.settings.btn_text }}</a>
+        <a href="#" class="btn-new border">{{ section.settings.btn_text1 }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="earn_unloack_main">
+  <h2>Earn & Unlock</h2>
+  <span>Explore your gifts by earning points</span>
+  <div class="earn_slider" data-flickity='{"adaptiveHeight": true, "imagesLoaded": true, "draggable": false, "cellAlign": "center","pageDots": false, "freeScroll": true ,"wrapAround":true}'>
+    {% for block in section.blocks %}
+    <div class="box">
+      <div class="round" style="border-color:{{ block.settings.border }};">
+        {% include 'lock_ic' %}
+        <label>{{ block.settings.text }}</label>
+        <div class="img_cv {% if block.settings.image != blank %}have{% endif %}" style="background-image:url('{{ block.settings.image | img_url:'master' }}');">
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+<style>
+  .circular{
+    height: 320px;
+    width: 320px;
+    position: relative;
+    margin: 0 auto;
+    margin-right: 70px;
+  }
+  .circular .inn{
+    position: absolute;
+    z-index: 6;
+    top: 50%;
+    left: 50%;
+    height: 290px;
+    width: 290px;
+    margin: -145px 0 0 -145px;
+    background: #fff;
+    border-radius: 100%;
+}
+  .circular .number{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  z-index:10;
+  font-size:18px;
+  font-weight:500;
+  color:#4158d0;
+}
+  .circular .bar{
+  position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    -webkit-border-radius: 100%;
+    clip: rect(0px, 320px, 320px, 160px);
+}
+  .circle .bar .progress{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-border-radius: 100%;
+  clip: rect(0px, 160px, 320px, 0px);
+  background: #dcdcdc;
+}
+  .circle .left .progress{
+  z-index:1;
+  animation: left 4s linear both;
+}
+  .circular .dot_lk{
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 15px transparent solid;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  transition: transform 0.3s linear;
+  animation: rotate 0.3s infinite linear;
+  z-index: 11;
+  }
+  .circular .dot_lk img{
+    position: absolute;
+    width: 51px;
+    height: 51px; 
+  }
+  .circular .dot_lk.one img{
+    position: absolute;
+    top: 30px;
+    bottom: auto;
+    left: 0;
+    right: auto;
+    margin: 0 auto;
+    width: 51px;
+    height: 51px; 
+  }
+  .circular .dot_lk.two img {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    top: -30px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: auto;
+  }
+  .circular .dot_lk.three img {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    left: auto;
+    right: -28px;
+    top: 93px;
+  }
+  .circular .dot_lk.four img {
+    position: absolute;
+    width: 51px;
+    height: 51px;
+    top: -auto;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -30px;
+  }
+  .levels_cover{
+    transform: rotate(-130deg);
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+  }
+  
+  .circular .blank {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    border-radius: 0;
+    border: 20px transparent solid;
+    top: auto;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: transform 0.3s linear;
+    animation: rotate 0.3s infinite linear;
+    z-index: 99;
+    bottom: -89px;
+    text-align: center;
+  }
+  .circular .blank img {
+    width: 124px;
+    height: 54px;
+  }
+  @keyframes left{
+    100%{
+      transform: rotate(180deg);
+    }
+  }
+  .circle .right {
+    transform: rotate(180deg);
+    z-index:3;
+
+  }
+  .circle .right .progress{
+    animation: right 4s linear both;
+    animation-delay:4s;
+  }
+  @keyframes right{
+    100%{
+      transform: rotate(180deg);
+    }
+  }
+
+
+  .progressbar {
+    width: 258px;
+    height: 258px;
+    /* border: 18px solid; */
+    border=r: ;
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%) rotate({{pointsPerbg}}deg);
+    left: 0;
+    right: 0;
+    padding: 18px;
+    background: linear-gradient( to left, #fff {{pointro}}%, #ccc 0%);
+    margin: 0 auto;
+  }
+  .progressbar:after {
+    content: '';
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    top: 18px;
+    left: 18px;
+    background: #fff;
+  }
+  .reward_circle_main {
+    margin-top: 90px;
+  }
+  .reward_circle_main .cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .reward_circle_main .text_part h3{
+    font-size:64px;
+    line-height:55px;
+    color:#9D9894;
+    font-weight:300;
+    font-family: Roboto,sans-serif!important;
+  }
+  .reward_circle_main .inner{
+    width:100%; 
+    padding: 0 35px;
+  }
+  .reward_circle_main .text_part span{
+    font-size:25px;
+    line-height:26px;
+    color:#B3B5B6;
+    display:block;
+    width:max-content;
+    margin-bottom:39px;
+    font-family: Roboto,sans-serif!important;
+  }
+  .reward_circle_main .text_part .btn_link{
+    font-size: 25px;
+    line-height: 33px;
+    color: #050F96;
+    font-family: Roboto,sans-serif!important;
+    border-bottom: 1px #050F96 solid;
+    display: block;
+    width: max-content;
+    margin-bottom: 50px;
+
+  }
+  .reward_circle_main .text_part .btn_link:hover{
+    text-decoration:none; 
+  }
+  .reward_circle_main .text_part .btn-new{
+    width: 273px;
+    display: block;
+  }
+  .reward_circle_main .text_part .btn-new:hover{
+    text-decoration:none; 
+  }
+  .earn_unloack_main h2{
+    font-size:22px;
+    color:#32322D;
+    text-align:center;
+    margin-bottom: 2px;
+    font-family: Roboto,sans-serif!important;
+  }
+  .earn_unloack_main span{
+    font-size:14px;
+    line-height:16px;
+    color:#707071;
+    display:block;
+    width:max-content;
+    margin:0 auto;
+    font-family: Roboto,sans-serif!important;
+    font-weight:300;
+  }
+  .earn_slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1320px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 30px 0;
+  }
+  .earn_slider .box .round{
+    background:#f0f0f0; 
+    width:122px;
+    height:122px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    position:relative;
+    border:2px transparent solid;
+  }
+  .earn_slider .box .round svg{
+    width: 63px;
+    height: 64px;
+    position: absolute;
+    top: 15px;
+  }
+  .earn_slider .box{
+    margin: 0 10px;
+    width: 9.6%;
+    cursor:pointer;
+  }
+  .earn_slider .box:hover .img_cv.have{
+   opacity:1; 
+  }
+  .earn_slider .box:hover .round{
+    border:0;
+  }
+  .earn_slider .box .round label{
+    font-size: 16px;
+    line-height: 16px;
+    color: #707071;
+    font-family: Roboto,sans-serif!important;
+    font-weight: 300;
+    margin: 0;
+    margin-top: 35px;
+  }
+  .earn_slider .flickity-viewport{
+    width:100%; 
+  }
+  .earn_slider .flickity-button{
+    display:block !important; 
+    background:transparent;
+  }
+  
+  .earn_slider .flickity-prev-next-button.previous {
+    left: -50px;
+  }
+  .earn_slider .flickity-prev-next-button.next {
+    right: -50px;
+  }
+  .reward_circle_main .pro_image {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    opacity:0;
+  }
+  .reward_circle_main.product_active .pro_image{
+    opacity:1;
+  }
+  .reward_circle_main .pro_image img {
+    width: 100%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  .img_cv.have {
+    position: absolute;
+    width: 122px;
+    height: 122px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-size: cover;
+    border-radius: 50%;
+    background-position: center;
+    opacity:0;
+  }
+  .slider_label {
+    position: absolute;
+    top: 53%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15px;
+  }
+  #svgcontainer{
+    margin-right:70px; 
+  }
+  #svgcontainer div#slidervalue {
+    opacity: 1 !important;
+  }
+  #slider{
+    width: 300px;
+    margin-right:110px;
+  }
+
+  #slidervalue{
+    width: 60%;
+    text-align: center;
+    position: absolute;
+    top: 125px;
+    left: 20%;
+    font-size: 50px;
+    font-weight: 100;
+    color: #000;
+    transition: color 1s linear;
+
+    /*transform: rotate(90deg);*/
+  }
+
+  #svgcontainer{
+    position: relative;
+    display: inline-block;
+    width: 375px;
+    margin-top: 30px;
+  }
+
+  #svg{
+    position:relative;
+  }
+
+  #progressbg{
+    z-index:0;
+    position:absolute;
+    top:0px;
+
+    box-shadow: 5px 5px 5px 5px #333;
+    stroke: #dcdcdc;
+  }
+
+  #progress{
+    stroke-dashoffset: 125px;
+    stroke: #fff;
+    transition: stroke 1s linear;
+
+    z-index:1;
+    position:absolute;
+    top:0px;
+  }
+
+  .cssprogresscontainer{
+    text-align:right;
+    padding: 0px 0px 160px;
+  }
+  .cir_cv {
+    position: relative;
+  }
+  .cir_cv .dot {
+    position: absolute;
+    width: 258px;
+    height: 258px;
+    border-radius: 50%;
+    border: 20px transparent solid;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: transform 0.3s linear;
+    animation: rotate 0.3s infinite linear;
+    z-index:11;
+  }
+  .cir_cv svg#degree {
+    position: absolute;
+    top: auto;
+    bottom: -65px;
+    left: 11px;
+    right: 0;
+    margin: 0 auto;
+    width:72px;
+  }
+  .dot_lock {
+    position: absolute;
+    width: 258px;
+    height: 258px;
+    border-radius: 50%;
+    border: 20px transparent solid;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: transform 0.3s linear;
+    animation: rotate 0.3s infinite linear;
+  }
+  .dot_lock img {
+    position: absolute;
+    top: -35px;
+    bottom: auto;
+    left: 11px;
+    right: 0;
+    margin: 0 auto;
+    width: 51px;
+    height: 51px;
+  }
+  .dot_tick {
+    position: absolute;
+    width: 258px;
+    height: 258px;
+    border-radius: 50%;
+    border: 20px transparent solid;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    transition: transform 0.3s linear;
+    animation: rotate 0.3s infinite linear;
+     z-index:1;
+}
+  .dot_tick img {
+    position: absolute;
+    top: auto;
+    bottom: -25px;
+    left: -98px;
+    right: 0;
+    margin: 0 auto;
+    width: 51px;
+    height: 51px;
+    z-index:1;
+  }
+  .dot_lock.two{
+   z-index:1; 
+  }
+  .dot_lock.two img {
+    top: auto;
+    bottom: -25px;
+    right: -98px;
+    left: 0;
+    z-index:1;
+  }
+  .dot_tick .txt {
+    position: absolute;
+    top: auto;
+    bottom: -13px;
+    left: -202px;
+    right: 0;
+    margin: 0 auto;
+    width: 92px;
+    height: auto;
+    text-align: center;
+    background: #fff;
+    padding: 3px 12px;
+    border-radius: 50px;
+    box-shadow: -1px 0px 4px 0px rgb(0 0 0 / 50%);
+    font-size: 14px;
+    z-index: 0;
+    opacity:0;
+  }
+ .dot_tick img:hover+.txt {
+    opacity: 1;
+}
+  .dot_lock.two .txt{
+    position: absolute;
+    top: auto;
+    bottom: -13px;
+    right: -202px;
+    left: 0;
+    margin: 0 auto;
+    width: 92px;
+    height: auto;
+    text-align: center;
+    background: #fff;
+    padding: 3px 12px;
+    border-radius: 50px;
+    box-shadow: -1px 0px 4px 0px rgb(0 0 0 / 50%);
+    font-size: 14px;
+    z-index: 0;
+    opacity:0;
+  }
+  .dot_lock.two img:hover+.txt {
+    opacity: 1;
+  }
+  
+  @media(max-width:1200px){
+   .earn_slider{
+     padding: 30px 60px;
+   }
+    .earn_slider .flickity-prev-next-button.previous {
+      left: 10px;
+    }
+    .earn_slider .flickity-prev-next-button.next {
+      right: 10px;
+    }
+    .img_cv.have {
+      width: 110px;
+      height: 110px;
+    }
+    .earn_slider .box .round {
+      width: 110px;
+      height: 110px;
+    }
+    .earn_slider .box {
+      width: 9.3%;
+    }
+  }
+  @media(max-width:1024px){
+    .reward_circle_main {
+      margin-top: 88px;
+    }
+    .reward_circle_main .cover{
+      flex-direction:column; 
+   }
+    .cssprogresscontainer{
+      text-align:center; 
+      padding: 0 0px 60px;
+    }
+    .reward_circle_main .text_part h3{
+     text-align:center; 
+    }
+    .reward_circle_main .text_part span{
+      margin:0 auto;
+      margin-bottom:30px;
+    }
+    .reward_circle_main .text_part .btn_link{
+      margin:0 auto;
+      margin-bottom:40px;
+    }
+    .reward_circle_main .cover .text_inner{
+      margin-bottom:40px; 
+    }
+    .reward_circle_main .text_part .btn-new{
+     margin:0 auto; 
+    }
+    .earn_slider .box {
+      width: 18.3%;
+    }
+    .earn_slider .box .round {
+      width: 150px;
+      height: 150px;
+    }
+    .img_cv.have {
+      width: 150px;
+      height: 150px;
+    }
+    #svgcontainer{
+      margin-right:0; 
+    }
+  }
+  @media(max-width:768px){
+    .text_part h3 {
+      font-size: 40px !important;
+      line-height: 40px !important;
+    }
+    .reward_circle_main .text_part span {
+      font-size: 20px;
+      line-height: 20px;
+    }
+    .reward_circle_main .text_part .btn_link {
+      font-size: 20px;
+      line-height: 26px;
+      margin-bottom:32px;
+    }
+    .earn_slider .box .round,.img_cv.have {
+      width: 96px;
+      height: 96px;
+    }
+  }
+  @media(max-width:600px){
+    .earn_slider .box {
+      width: 33.33%;
+    } 
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Reward Circle",
+    "class": "reward_circle_white",
+    "settings": [
+      {
+        "type": "text",
+        "id" : "title",
+        "label" : "Title"
+      },
+      {
+        "type": "text",
+        "id" : "points",
+        "label" : "Out of Points"
+      },
+      {
+        "type": "text",
+        "id" : "btn_text",
+        "label" : "Button text"
+      },
+      {
+        "type": "text",
+        "id" : "btn_text1",
+        "label" : "Button text back"
+      }
+],
+"blocks": [
+    {
+      "type": "text_block",
+      "name": "block",
+      "settings": [
+        {
+          "type": "text",
+          "id" : "text",
+          "label" : "label"
+        },
+        {
+          "type": "color",
+          "id" : "border",
+          "label" : "Border color"
+        },
+        {
+          "type": "image_picker",
+          "id" : "image",
+          "label" : "Select image"
+        }
+      ]
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

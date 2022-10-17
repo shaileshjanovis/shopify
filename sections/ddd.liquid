@@ -1,0 +1,298 @@
+<div class="checkout_cover">
+    <div class="inner">
+      <form action="#">
+        <div class="delivery_part section_div" id="delivery">
+          <h3 class="title">1.Delivery Method</h3>
+          <div class="inner_wrap">
+            <div class="input_cover">
+              <input type="radio" class="ship_method" value="Free Pickup from Store" id="del1" name="radio-group_1" checked>
+              <label for="del1">Free Pickup from Store<span class="pt">+10 points</span></label>
+              <div class="location_pick active">
+                <span>{% include 'location_ic' %}</span>
+                <label class="pickuplocation"></label>
+              </div>
+              <p>Estimated time of Delivery:14/07/2021 - 22/07/2021</p>
+            </div>
+            <div class="input_cover">
+              <input type="radio" class="ship_method" value="Delivery Courier" id="del2" name="radio-group_1">
+              <label for="del2">Delivery Courier</label>
+              `<div class="cover_addresses">
+              
+
+              <div class="drop-down select_cover">
+                <div class="selected">
+                  {% include 'delivery_ic' %}
+                  {% for address in customer.addresses %}
+                  <a href="#"><span class="update">{{ address.address1 }}<small>{{address.city}},{{address.zip}}</small></span></a>
+                  {% break %}
+                  {% endfor %}
+                </div>
+              </div>
+              
+              <div class="options">
+                <ul>
+                  {% for address in customer.addresses %}
+                  <li><a href="#" data-id="{{address.id}}"><span class="address_orig">{{ address.address1 }}<small>{{address.city}},{{address.zip}}</small></span></a></li>
+                  {% endfor %}
+                  <li><a href="javascript:;" class="add_new_address">+ Add a new address</a></li>
+                </ul>
+              </div>
+              </div>
+             
+              <p>Estimated time of Delivery:14/07/2021 - 22/07/2021</p>
+            </div>
+          </div>
+        </div>
+        <div class="shipping_part section_div" id="shipping">
+          <h3 class="title">2.Shipping Details</h3>
+          <div class="shipping_detail">
+            <div class="pickup_store">
+              <p class="pickup"><label>Pickup Store:</label><span>Αρναουτάκη Αρετή</span></p>
+              <p class="address"><label> Address:</label><span></span></p>
+              <p><label>Expected:</label>28/11 - 30/11</p>
+              <p class="phone"><label>Telephone:</label><span>{{ customer.phone }}</span></p>
+            </div>
+            <div class="delivery_courier">
+              {% for address in customer.addresses %}
+              <div class="addresses {{address.id}}">
+                <p><label>First Name:</label> <span class="fname">{{address.first_name}}</span></p>
+                <p><label>Last Name:</label> <span class="lname">{{address.last_name}}</span></p>
+                <p class="daddress"><label>Delivery Address:</label><span class="add">{{address.address1}}</span></p>
+                <p><label>Postcode:</label> <span class="pcode">{{address.zip}}</span></p>
+                <p class="phone"><label>City:</label><span class="city">{{ address.city }}</span></p>
+                <p class="phone"><label>Expected:</label><span class="date">28/11 - 30/11</span></p>
+                <p class="phone"><label>Telephone:</label><span class="tel">{{address.phone}}</span></p>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="shipping_form" data-custoid="{{ customer.id }}" style="display:none;">
+            <div class="fields fields--2">
+              <label class="field">
+                <span class="field__label" for="firstname">First Name <b>*</b></span>
+                {% if customer.first_name %}
+                <input class="field__input" type="text" id="firstname" value="{{customer.first_name}}" readonly/>
+                {% else %}
+                <input class="field__input" type="text" id="firstname" value="{{customer.first_name}}" />
+                {% endif %}
+              </label>
+              <label class="field">
+                <span class="field__label" for="lastname">Last Name <b>*</b></span>
+                {% if customer.last_name %}
+                <input class="field__input" type="text" id="lastname" value="{{customer.last_name}}" readonly/>
+                {% else %}
+                <input class="field__input" type="text" id="lastname" value="{{customer.last_name}}" />
+                {% endif %}
+              </label>
+            </div>
+            <div class="fields fields--2">
+              <label class="field">
+                <span class="field__label" for="address">Delivery Address <b>*</b></span>
+                <input class="field__input" type="text" id="address" />
+              </label>
+              <label class="field">
+                <span class="field__label" for="zipcode">Postcode <b>*</b></span>
+                <input class="field__input" type="text" id="zipcode" />
+              </label>
+            </div>
+
+            <div class="fields fields--2">
+              <label class="field">
+                <span class="field__label" for="city">City <b>*</b></span>
+                <select class="field__input" id="city">
+                  <option value=""></option>
+                  <option value="Athens">Athens</option>
+                  <option value="Larissa">Larissa</option>
+                  <option value="Los Angeles">Los Angeles</option>
+                  <option value="New York">New York</option>
+                  <option value="California">California</option>
+                  <option value="Chicago">Chicago</option>
+                </select>
+              </label>
+              <label class="field">
+                <span class="field__label" for="country">Country <b>*</b></span>
+                <select class="field__input" id="country">
+                  <option value=""></option>
+                  <option value="Greece">Greece</option>
+                  <option value="United States">United States</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                </select>
+              </label>
+            </div>
+            <div class="fields">
+              <label class="field">
+                <span class="field__label" for="zipcode">Telephone <b>*</b></span>
+                <input class="field__input" type="text" id="phone" />
+              </label>
+            </div>
+            <div class="fields field">
+              <button class="button btn-new" id="add_address">Save new Address</button>
+            </div>
+          </div>
+        </div>
+        <div class="payment_part section_div" id="payment">
+          <h3 class="title">3.Payment Method</h3>
+          <div class="inner_wrap">
+            <div class="input_cover play_store">
+              {% include 'play_store_ic'%}
+              <input class="payment" type="radio" id="pay1" value="pay-cod" name="radio-group" checked>
+              <label for="pay1">Pay at Store</label>
+              
+            </div>
+            <div class="pay_online">
+              <div class="input_cover">
+                {% include 'pay_online_ic'%}
+                <input class="payment" type="radio" id="pay2" value="pay-online" name="radio-group">
+                <label for="pay2">Pay Online</label>
+              </div>
+              <div class="info_cover" style="display:none;">
+                After clicking “Proceed to Payment”, you will be redirected to Viva Wallet to complete your purchase securely
+                <a href="javascript:;" class="close_ic">+</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="complete_part">
+          <h3 class="title">4.Complete Checkout</h3>
+          <p>By confirming your order you agree to our <a href="#">Terms & Conditions</a></p>
+          <button type="button" id="proceed_checkout" data-custId="{{customer.id}}" class="btn-new">Proceed to Checkout</button>
+        </div>
+      </form>
+      <div class="Success_section" style="display:none;">
+        <div class="message_part">
+          <h3>Thank you {{customer.first_name}}!</h3>
+          <p>Your order has been placed successfully and you will receive an email shortly</p>
+          <div class="button_cover">
+            <a href="#" class="btn-new">View MyCircle Page</a>
+            <a href="/collections/all" class="btn-new">Back to Shop</a>
+          </div>
+        </div>
+        <div class="order_part">
+          {% assign orderTags = order.tags | join: ', ' %}
+          <h2>Order Products</h2>
+          <div class="order_in">
+            {%- for item in cart.items -%}
+              <div class="box">
+                <img src="{{ item | img_url }}" alt="{{ item.product.title }}">
+                <h1>{{ item.product.title | remove: " Auto renew" }}</h1>
+              </div>
+            {%endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="inner order_section">
+      <div class="order_box">
+        <label class="order_no">Order No: <span class="order_name">0045227750</span></label>
+        <span class="order_date">Purchased on: {{ "now" | date: "%d-%m-%Y" }}</span>
+        <div class="summary">
+          <label>Summary</label><span>{{cart.item_count}} item</span>
+        </div>
+        <div class="order_inner">
+          {%- if cart.item_count > 0 -%}
+          {%- for item in cart.items -%}
+              {%- assign shipping_frequency = item.properties.shipping_interval_frequency -%}
+              {%- assign shipping_unit = item.properties.shipping_interval_unit_type -%}
+              {%- assign isFreeSample = item.properties.free_sample -%}
+
+              {%- if isFreeSample -%}
+              {%- assign disableAddFreeSample = true -%}
+              {%- endif -%}
+
+              {% assign item_url = item.url %}
+
+              {% if settings.gift_link != blank and item.variant.id == gift_variant.id %}
+              {% assign item_url = settings.gift_link %}
+              {% endif %}
+              <div class="order_wrap {% if item.variant.id == gift_variant.id and settings.gift_link != blank %}line-item--gift line-item--gift-link {% elsif item.variant.id == gift_variant.id %}line-item--gift{% endif %}" data-qty="{{ item.quantity }}" data-id="{{ item.variant.id }}" >
+                <div class="img_thumb">
+                  <img src="{{ item | img_url }}" alt="{{ item.product.title }}">
+                </div>
+                <div class="detail">
+                  <h2 class="pro_name">{{ item.product.title | remove: " Auto renew" }}</h2>
+                  {% for option in item.product.options_with_values %}
+                    <span class="pro_var">
+                      {% for value in option.values %}
+                      {%- if value == item.variant.option1 -%}
+                      {%- assign selected_value = item.variant.option1 -%}
+                      {%- elsif value == item.variant.option2 -%}
+                      {%- assign selected_value = item.variant.option2 -%}
+                      {%- elsif value == item.variant.option3 -%}
+                      {%- assign selected_value = item.variant.option3 -%}
+                      {%- endif -%}
+                      {% endfor %}
+
+                      {%- if option.name == "Ingredient" or option.name == "Color" -%}
+                      Color: {{ selected_value }}
+                      {%- elsif option.name != "Title" -%}
+                      {{ option.name }}: {{ selected_value }}
+                      {%- endif -%}
+                    </span>
+                  {% endfor %}
+                  <label class="pro_qty">Quantity: {{ item.quantity }}</label>
+                </div>
+                {% assign flag = 0 %}
+                {% for property in item.properties %}
+                {% if property.first == 'Gift' %}
+                {% assign flag = 1 %}
+                {% break %}
+                {% endif %}
+                {% endfor %}
+                {% if flag == 0 %}
+                <span class="price">
+                  {%- if item.original_price != item.final_price -%}
+                  <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                  <del class="cart-item__original-price">{{ item.original_price | money }}</del>
+                  <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
+                  <span class="order-discount cart-item__price">{{ item.final_price | money }}</span>
+                  {%- else -%}
+                  <span class="cart-item__original-price cart-item__price">{{ item.original_price | money }}</span>
+                  {%- endif -%}
+                  {%- if item.variant.available and item.unit_price_measurement -%}
+                  {% include 'product-unit-price', variant: item, available: item.variant.available %}
+                  {%- endif -%}
+                </span>
+                {% else %}
+                {% assign gift_price = item.original_price %}
+                <span class="price">
+                  {%- if item.original_price != item.final_price -%}
+                  <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                  <del class="cart-item__original-price">{{ 0 | money }}</del>
+                  <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
+                  <span class="order-discount cart-item__price">{{ 0 | money }}</span>
+                  {%- else -%}
+                  <span class="cart-item__original-price cart-item__price">{{ 0 | money }}</span>
+                  {%- endif -%}
+                </span>
+                {% endif %}
+              </div>    
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div class="order_footer">
+          <div class="billing_detail">
+            {% assign points = 0 | plus:0 %}
+            {% assign tot_price = cart.total_price | minus:gift_price %}
+            
+            {%- for item in cart.items -%}  
+            {% assign productObj = item.product %}
+            {% assign productP = productObj.description | split:'<!-- split -->' | last %}
+            {% assign prodP = productP | plus:0 %}
+            {% assign points = points | plus:prodP %}
+            {% endfor %}
+            <p><label>Points Earned</label><span class="pts">{{ points }} pts</span></p>
+            <p><label>Sub Total</label><span>{{- tot_price | money -}} </span></p>
+            <p><label>Delivery Method</label><span class="del_price" style="visibility: hidden;">{{0.00 | money}}</span></p>
+            <p><label>Expected</label><span>18/11 - 26/11</span></p>
+            <div class="total">
+              <div>
+                <label>Total</label>
+                <span>(V.A.T. Included)</span>
+              </div>
+              <div class="t_price">{{ tot_price | money }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

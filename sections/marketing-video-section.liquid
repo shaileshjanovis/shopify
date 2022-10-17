@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="video-section">
+        {{section.settings.video-link}}        
+    </div>
+    <div class="video-description">
+      <p> {{section.settings.video-description}}</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Marketing Video section",
+	"class":"section-margin",
+    "settings": [
+	{
+	"type": "html",
+    "id"  : "video-link",
+	"label": "Video"
+	},
+	{
+	"type": "text",
+    "id"  : "video-description",
+	"label": "Description"
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,84 @@
+{% assign tagline = product.metafields.accentuate.tagline | default: collection.metafields.accentuate.tagline %}
+
+<a id="{{ id_prefix }}item-{{ variant.id }}" class="product-item{{ my_class }}" href="{{ variant.url }}">
+  {%- assign thumbnail = variant.metafields.kettle.hero_images | first -%}
+  {%- assign badge = variant.metafields.kettle.badge -%}
+
+  {%- if badge -%}
+    <div class="badge">
+      {%- if badge == "Best Seller" -%}
+        {% render 'icon-best-seller' %}
+      {% elsif badge == "Exclusive" %}
+        {% render 'icon-exclusive' %}
+      {% elsif badge == "New Arrival" %}
+        {% render 'icon-new-arrival' %}
+      {% elsif badge == "Limited Edition" %}
+        {% render 'icon-limited-edition' %}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="thumbnail">
+    <picture>
+      <source
+        media="(min-width: 768px)"
+        srcset="{{ thumbnail }}"
+      />
+      <source
+        media="(max-width: 767.98px)"
+        srcset="//images.accentuate.io?c_options=w_343&image={{ thumbnail }} 1x,
+                //images.accentuate.io?c_options=w_686&image={{ thumbnail }} 2x"
+      />
+      <img src="{{  product.featured_image | img_url: 'master' | format: 'jpg' }}" alt="{{ variant.title }}">
+    </picture>
+    <div
+      class="quick-view"
+    >
+      {%- if variant.available -%}
+        <button type="button" onclick="window.location.href='{{ variant.url }}'">View Product</button>
+      {%- else -%}
+        <button type="button" disabled>Out of stock</button>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="rating"></div>
+  <h3>{{ product.title }}</h3>
+  {%- unless product.has_only_default_variant -%}
+    {%- assign ingredient_size = product.options_by_name['Ingredient'].values | size -%}
+    {%- assign color_size = product.options_by_name['Color'].values | size -%}
+    {%- assign volume_size = product.options_by_name['Size'].values | size -%}
+    {%- assign scent_size = product.options_by_name['Scent'].values | size -%}
+    <h5>
+      {{- variant.title }} {% if ingredient_size > 0 -%}
+        ({{ ingredient_size }} colors available)
+      {%- elsif color_size > 0 -%}
+        ({{ color_size }} colors available)
+      {%- elsif volume_size > 0 -%}
+        ({{ volume_size }} sizes available)
+      {%- elsif scent_size > 0 -%}
+        ({{ scent_size }} scents available)
+      {%- endif -%}
+    </h5>
+  {%- endunless -%}
+  {% if tagline %}
+    <div class="tagline">
+      {{- tagline -}}
+    </div>
+  {% endif %}
+  <div data-sale-price class="price">
+    {%- if variant.available -%}
+      {%- if variant.compare_at_price > variant.price -%}
+        <span class="visually-hidden">Regular Price</span>
+        <s><span>{{ variant.compare_at_price | money }}</span></s>
+        <span class="visually-hidden">Sale price</span>
+      {%- endif -%}
+      <span
+        class="{% if variant.compare_at_price > variant.price %}sale{% endif %}"
+      >
+        {{- variant.price | money -}}
+      </span>
+    {%- else -%}
+      Out of stock
+    {%- endif -%}
+  </div>
+</a>

@@ -1,0 +1,211 @@
+<div class="container" style="margin-top:150px;">
+<div class="row circle-row">
+<div class="col-md-6 col-lg-6 col-sm-12 circle-design">
+<svg
+   class="progress-circle"
+   width="256"
+   height="256">
+  
+  <circle
+		class="circle-background"
+    stroke="#e5e2d7"
+    stroke-width="8"
+    fill="transparent"
+    r="110"
+    cx="128"
+    cy="128"/>
+  
+  <circle
+    class="progress"
+    stroke="#a4bfb8"
+    stroke-width="8"
+    fill="transparent"
+    r="110"
+    cx="128"
+    cy="128"/>
+  
+  <circle
+    class="handle"
+    stroke="#fff"
+    stroke-width="6"
+    fill="#a4bfb8"
+    r="15"
+    cx="128"
+    cy="128"/>
+	
+	  <circle
+    id="lock-half"
+    stroke="#333"
+    stroke-width="6"
+    fill="#a4bfb8"
+    r="15"
+    cx="50%"
+    cy="7%"/>
+
+ 
+  <text x="55%" y="55%" 
+        class="user-score"
+        font-size="48"
+        font-family="futura-pt"
+        font-weight="bold" 
+        fill="#a4bfb8"
+        text-anchor="end"
+        letter-spacing="-2"
+        alignment-baseline="bottom">
+    4.2
+  </text>
+  
+  <text x="130" y="170" 
+        font-size="48"
+        font-family="futura-pt"
+        font-weight="bold" 
+        fill="#e5e2d7"
+        text-anchor="start"
+        alignment-baseline="top">
+   
+  </text>
+
+</svg>
+
+<input
+  value="30"
+  type="number"
+  step="5"
+  min="0"
+  max="100"
+  placeholder="progress"
+>
+<input
+   class="sec-input"    
+  value="30"
+  type="number"
+  step="5"
+  min="0"
+  max="100"
+  placeholder="progress"
+>
+
+<div class="coords"></div>
+</div>
+<div class="col-md-6 col-lg-6 col-sm-12 circle-content">
+<h1>My White Circle</h1>
+<p class="joining-date">Joined 05/06/2021</p>
+<h6><b>900 more points</b> till your next gift</h6>
+<a href="#" class="circle-btn">Back to shop</a>
+</div>
+</div>
+
+<div class="row">
+<div class="col-12 slider-content">
+<h6>Earn & Unlock</h6>
+<p>Exlpore your gifts by earning points</p>
+</div>
+<div class="col-12">
+<div class="slick-slider">
+  <div class="element element-1">1</div>
+  <div class="element element-2">2</div>
+  <div class="element element-3">3</div>
+  <div class="element element-4">4</div>
+  <div class="element element-5">4</div>
+  <div class="element element-6">6</div>
+  <div class="element element-7">7</div>
+  <div class="element element-8">8</div>
+  <div class="element element-9">9</div>
+  <div class="element element-10">10</div>
+</div>
+</div>
+</div> 
+</div>
+
+<style>
+
+
+circle.progress {
+  transform: rotate(120deg);
+  transform-origin: 50% 50%;
+}
+circle.handle{
+  transform: rotate(215deg);
+      transform-origin: 50% 50%;
+}
+input {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 80px;
+}
+input.sec-input  {
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  width: 80px;
+}
+
+div.coords {
+  position: absolute;
+  left: 50%;
+  margin-left: 150px;
+  width: 200px;
+}
+</style>
+
+<script>
+// Get circle parameters
+var circle = document.querySelector('circle.progress');
+var radius = circle.r.baseVal.value;
+var circumference = radius * 2 * Math.PI;
+
+var originX = circle.cx.baseVal.value;
+var originY = circle.cy.baseVal.value;
+
+var user_score = document.querySelector('text.user-score');
+
+var handle = document.querySelector('circle.handle');
+var coords = document.querySelector('div.coords');
+
+circle.style.strokeDasharray = `${circumference} ${circumference}`;
+circle.style.strokeDashoffset = `${circumference}`;
+
+function setProgress(percent) {
+  user_score.innerHTML = 100 - percent
+  var reverse_percent =  percent ;
+  const offset = reverse_percent / 100 * circumference;
+  circle.style.strokeDashoffset = 1 * offset;
+  setHandleRotation(percent);
+}
+function setHandleRotation(percent) {
+  var angle = (180 + (percent*3.6) ) % 360;
+  var angle_radians = angle * Math.PI / 180;
+
+  var xOffset = radius * ( Math.sin( angle_radians ) );
+  var yOffset = radius * ( Math.cos( angle_radians ) );
+  var x = originX + xOffset;
+  var y = originY + yOffset;
+
+  handle.attributes.cx.value = x;
+  handle.attributes.cy.value = y; 
+
+  coords.innerHTML = 
+    'Percent: ' + percent + '<br>' +
+    'Center X: ' + originX + '<br>' +
+    'Center Y: ' + originY + '<br>' +
+    'Angle (Degrees): ' + angle + '<br>' +
+    'Angle (Radians): ' + (Math.round(100*angle_radians)/100) + '<br>' +
+    'X: ' + (Math.round(100*x)/100) + '<br>' +
+    'Y: ' + (Math.round(100*y)/100) + '<br>' 
+  ;
+
+  console.log( angle, xOffset, yOffset );
+}
+const secin = document.querySelector('input.sec-input');
+secin.value = Math.round( Math.random() * 100 );
+const input = document.querySelector('input');
+input.value = 100 - input;
+setProgress(100 - input.value);
+input.addEventListener('change', function(e) {
+  if (input.value < 101 && input.value > -1) {
+    setProgress(100 - input.value);
+  }  
+})
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

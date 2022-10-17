@@ -1,0 +1,85 @@
+{% render 'shogun-products', content: page %}
+{{ 'full-circle.css' | asset_url | stylesheet_tag }}
+{% comment %}<h1>{{ page.title }}</h1>
+<div>{{ page.content }}</div>{% endcomment %} 
+
+<div class="container-fluid">
+        <section class="page-full-circle">
+            <div class="full-circle-content full-circle-content-1988">
+                <div class="row align-items-center">
+                    <div class="col-lg-2">
+                        <div class="small-circle our-labs js-call-our-labs">6 Labs</div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row no-gutters">
+                            <div class="col-lg-5">
+                                <div class="left-content-1988 align-items-center d-flex h-100">
+                                    <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/full-circle-1988.png?v=1620309117" class="img-fluid" />
+                                    <p class="text text-1988">
+                                        While still a student at the Pharmacy
+                                        School of the University of Athens,
+                                        George starts working at Athens
+                                        oldest homoeopathic pharmacy,
+                                        developing a deep understanding of
+                                        natural ingredients in over 3,000
+                                        herbal remedies. He starts developing
+                                        formulas, testing them on friends.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="right-content-1988">                                  
+                                    <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/full-circle-korres-1988.png?v=1620309118" class="img-fluid" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="year-counter">
+                            <div class="wrapper">
+                                <div class="container-year"></div>
+                                <div class="">
+				                  <button id="get">get index</button>
+				                  <button id="getText">get text</button>
+				                  <button id="selected-year">random</button>
+				                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+        </section>
+    </div>
+    
+
+{{ 'jQuery.WSlot.js' | asset_url | script_tag }} 
+<script> 
+    debugger;
+    var pathname = window.location.pathname;
+	var items = ['1973', '1988', '1996', '1999', '2000', '2003', '2006', '2007', '2008', '2010', '2012', '2014', '2016'];
+
+		$('.container-year').WSlot({
+          items:['1973','1988','1996','1999','2000','2003','2006','2007','2008', '2010', '2012', '2014', '2016'],
+          center : 'first',
+          distance : 100,
+          displayed_length : 2,
+          angle : 30,
+          rotation : 0,
+          item_height : 40,
+        }).on('WSlot.change',function(e,index){
+         
+        });
+
+        $(function() {	
+            $('#selected-year').on('click',function(){
+                $('.container-year').WSlot('rollTo',1);
+            });
+
+             setTimeout(function() {
+                $("#selected-year").trigger('click');
+            },10);
+        });
+
+</script>
+
+

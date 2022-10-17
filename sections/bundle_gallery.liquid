@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="row bundle-content">
+  <h1 class="text-center">{{section.settings.title}}</h1>
+  <p class="description text-center">{{section.settings.description}}</p>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 bundle-collection-img">
+      
+      <a href="{{section.settings.bundle_link_1}}">
+        <div class="overlay-bg">
+      <img src="{{section.settings.bundle-image1 | img_url:'large'}}" >
+          <div class="overlay_circle"></div>
+          </div>
+        
+      </a>
+     <p class="gift-col-title">{{section.settings.gift_col_title}}</p>
+
+    </div>
+    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 bundle-collection-img">
+       
+      <a href="{{section.settings.bundle_link_2}}">
+         <div class="overlay-bg">
+      <img src="{{section.settings.bundle-image2 | img_url:'large'}}">
+           <div class="overlay"></div>
+        </div>
+        
+      </a>
+   	`<p class="gift-col-title">{{section.settings.gift_col_title_2}}</p>
+
+    </div> 
+    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 bundle-collection-img">
+      <a href="{{section.settings.bundle_link_3}}">
+         <div class="overlay-bg">
+      <img src="{{section.settings.bundle-image3 | img_url:'large'}}">
+        <div class="overlay"></div>
+        </div>
+        
+      </a>
+      <p class="gift-col-title">{{section.settings.gift_col_title_3}}</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "My Circle Gallery",
+    "settings": [
+	{
+	"type": "text",
+    "id"  : "title",
+	"label": "Title"
+	},
+	{
+	"type": "text",
+    "id"  : "description",
+	"label": "Description"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "bundle-image1",
+	"label": "Bundle Image 1"
+	},
+	{
+	"type": "url",
+    "id"  : "bundle_link_1",
+	"label": "Link 1"
+	},
+	{
+	"type": "text",
+    "id"  : "gift_col_title",
+	"label": "Collection Title"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "bundle-image2",
+	"label": "Bundle Image 2"
+	},
+	{
+	"type": "url",
+    "id"  : "bundle_link_2",
+	"label": "Link 2"
+	},
+	{
+	"type": "text",
+    "id"  : "gift_col_title_2",
+	"label": "Collection Title"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "bundle-image3",
+	"label": "Bundle Image 3"
+	},
+	{
+	"type": "url",
+    "id"  : "bundle_link_3",
+	"label": "Link 3"
+	},
+	{
+	"type": "text",
+    "id"  : "gift_col_title_3",
+	"label": "Collection Title"
+	}
+
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

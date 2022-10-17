@@ -1,0 +1,98 @@
+
+<div class="top-margin" style="margin-top:180px">
+  
+</div>
+<h1 class="gift_product_title">Olive Circle Gift</h1>
+
+{%assign product = all_products['ενυδατωση-χειλιωνbals-lipbl-bluberry-tinted-b']%}
+
+<div class="container">
+  <div class="row gift_product_page">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <section class="h-img--container">
+      {% case product.images.size %}
+						{% when 0 %}
+							<img src="{{ 'no_image.png' | asset_url }}" alt="">
+						{% when 1 %}
+							<img src="{{ product.featured_image.src | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="">
+
+						{% else %}
+						
+                  <div class="swiper-container">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<img id="primary_img_{{ section.id }}" src="{{ product.images.first | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="{{ product.images.first.alt }}">
+									</div>
+
+									{% for image in product.images offset:1 %}
+										<div class="swiper-slide">
+											<img src="{{ image.src | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="">
+										</div>
+									{% endfor %}
+								</div>
+                    
+                  <div class="swiper-pagination"></div>
+
+							</div>
+
+                  {% endcase %}
+
+    </section>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <section class="hero-desc--container">
+        {% assign productDescription = product.description | split: "<!-- split -->" %} 
+        <h6><a>{{ productDescription[0]}}</a></h6>
+        
+      <h1>{{ product.title }}</h1>
+        
+      <p class="quantity-text">{{ product.metafields.global.quantity }}</p>
+        
+      <p>{{ productDescription[1]}}</p>
+        
+     <div id="show-more">
+       <a href="javascript:void(0)">Show More <i class="fa fa-angle-down" aria-hidden="true"></i>
+</a></div>
+        
+      <div id="show-more-content">
+    	<div id="show-less"><a href="javascript:void(0)">Show Less<i class="fa fa-angle-up" aria-hidden="true"></i>
+							</a>
+        </div>
+      <p>{{ product.metafields.global.need }}</p>
+      <p>{{ product.metafields.global.type }}</p>
+      <p>{{ product.metafields.global.technology }}</p>
+      <p>{{ product.metafields.global.award }}</p>
+      
+      <div class="vegan-text">
+        <p>{{ product.metafields.global.vegan-text }}</p>
+      </div>
+ 
+      </div>
+        
+   {%- unless product.available -%}
+                      <button class="add-to-cart btn-theme klaviyo-bis-trigger">Notify me when available</button>
+                    {%- else -%}
+                      <button
+                        type="submit"
+                        id="order-submit"
+                        name="add"
+                        data-price="{{ product.price | money }}"
+                        class="add-to-cart btn-theme andri"
+                        {% if kettle_metafield.hero_qvc_link %}data-href="{{ kettle_metafield.hero_qvc_link }}"{% endif %}
+                        {% unless product.available %}disabled{% endunless %}
+                      >
+                        {%- if kettle_metafield.hero_qvc_link -%}
+                          Buy On QVC
+                        {%- else -%}
+                          I want this
+                         {% if has_ss %}
+                            <span class="ss-price">{{ ss_price }}</span>
+                          {% endif %}
+                        {%- endif -%}
+                      {%- endunless -%}
+                    </button>
+        <button type="button" id="locked-btn" disabled> Gift Locked </button>
+      </section>
+    </div>
+  </div>
+</div>

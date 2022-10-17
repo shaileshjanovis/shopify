@@ -1,0 +1,157 @@
+
+
+.page-map-signup {
+  margin-top: 150px;
+}
+
+.small-map-text h1 {
+  font-family: 'Roboto', sans-serif !important;
+  color: #707070;
+  margin: 0 0;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 300;
+}
+
+.store_selection_pop .small-map-text {
+  margin: 0 0;
+  text-align: left;
+  max-width: 100%;
+}
+
+.small-map-text h2 {
+  font-weight: 300;
+  font-size: 18px;
+  text-align: left;
+  margin: 48px 0;
+  color: #707070;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+/*.small-map-text h1 {
+font-size: 24px;
+font-weight: 300;
+text-align: left;
+margin: 40px 0 50px 0;
+line-height: 28px;
+color: #707070;
+display: flex;
+align-items: center;
+}*/
+
+div#map-step1 {
+  max-width: 50%;
+}
+
+#map_canvas_beta {
+  height: 525px;
+  width: 100%;
+}
+
+.gmnoprint button[aria-label="Show street map"], .gmnoprint button[aria-label="Show satellite imagery"] {
+  display: none !important;
+}
+
+.gmnoprint button[aria-label="Zoom in"], .gmnoprint button[aria-label="Zoom out"], button[aria-label="fullscreen"] {
+  background: #fff !important;
+}
+/*  .defau-selection {
+display: none;
+}	
+*/
+
+/* start of 5th May 2022 changes by Madhav */ 
+ul#ui-id-1>li{
+  margin-right:30px;
+}
+ul#ui-id-1{
+  border:none;
+  overflow-y:initial
+}
+.back_my_setting span{
+  text-align:left;
+}
+/* End of 5th May 2022 changes by Madhav */ 
+
+
+@media all and (max-width:768px) {
+  .small-map-text h2 {
+    margin: 25px 0;
+  }
+
+  .ui-menu-item-wrapper {
+    font-size: 14px;
+    line-height: 21px;
+    align-items: flex-start;
+  }
+
+  .ui-menu-item-wrapper:before {
+    margin: 4px 8px 0 0;
+  }
+
+  .store_selection_pop .small-map-text {
+    margin: 0 auto;
+    text-align: center;
+    color: #002f87;
+    max-width: 210px;
+  }
+
+  .floating-label.deafult-pharma {
+    margin: 15px 0;
+  }
+
+  a.ui-button {
+    width: 13px;
+    height: 13px;
+    background-size: 13px;
+    right: 16px;
+    top: 15px;
+  }
+
+  span.custom-combobox {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  input.custom-combobox-input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Start of 5th May 2022 changes by Madhav */
+  div#divMapModal {
+    top: 0;
+    width:92%;
+  }
+  ul#ui-id-1 {
+    margin:0 auto;
+    left:0!important;
+    border:none;
+    width:100% !important;
+  }
+  ul#ui-id-1 li{
+    width:100% !important;
+    margin:0;
+    padding-left:55px;
+    padding-right:50px;
+  }
+  .back_my_setting span{
+    text-align:center;
+  }  
+  /* End of 5th May 2022 changes by Madhav */
+}
+
+@media(max-width:768px) {
+  .register_cover .sub-heading {
+  	display: none;
+  }
+  .register_cover .small-map-text h1 {
+  	color: #050F96;
+  }
+  .register_cover a.great_btn {
+  	max-width: 100%;
+  }
+}

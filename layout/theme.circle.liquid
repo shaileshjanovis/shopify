@@ -1,0 +1,641 @@
+{%- include 'country' -%}
+<!doctype html>
+<html lang="en">
+<head>
+    <script type="text/javascript">(function e() {
+            var e = document.createElement("script");
+            e.type = "text/javascript", e.async = true, e.src = "//staticw2.yotpo.com/54Cl6vxdUXl0gZrAqkzjhA72n0G1wHecRBo69g0B/widget.js";
+            var t = document.getElementsByTagName("script")[0];
+            t.parentNode.insertBefore(e, t)
+        })();</script>
+    <meta name="google-site-verification" content="8lKcd5rs9b-YwVSnsEhhhKsDlh8KJGX6V_O2TQ34XIk"/>
+    <title>{{ page_title }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    {% if handle contains 'sample' %}
+        <meta name="robots" content="noindex">
+    {% endif %}
+    <meta name="description" content="{{ page_description | escape }}">
+    <meta name="description" content="{{ page_description | escape }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="shortcut icon" href="{{ 'favicon.ico' | asset_url }}">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+    {%- if site_features contains 'afterpay' -%}
+        <script type="text/javascript" src="https://static-us.afterpay.com/javascript/present-afterpay.js"></script>
+    {%- endif -%}
+    <meta name="google-site-verification" content="EW3lVS3cQ9TduyN-KFd852sVJ1a5To6yZytnqr83owY"/>
+   <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-K5Q6HZK');</script>
+   {%- if theme.name == 'Korres Theme' -%}
+        <script src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"
+                integrity="sha384-wF7Jc4ZlWVxe/L8Ji3hOIBeTgo/HwFuaeEfjGmS3EXAG7Y+7Kjjr91gJpJtr+PAT"
+                crossorigin="anonymous"></script>
+        <script>
+            Sentry.init({dsn: 'https://ea27f19f1a6d4c1888e45cd62d9fd2b0@o17917.ingest.sentry.io/5215467'});
+        </script>
+    {%- endif -%}
+    {{ 'microsoft-uet.js' | asset_url | script_tag }}
+   {{ 'bounce-x.js' | asset_url | script_tag }}
+   <script src="https://www.dwin1.com/19038.js" type="text/javascript" defer="defer"></script>
+    {{ content_for_header }}
+    {{ 'index.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'new-custom.css' | asset_url | stylesheet_tag }}
+    {{ 'custom-new.css' | asset_url | stylesheet_tag }}
+    {{ 'custom-bt.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="https://npmcdn.com/flickity@2/dist/flickity.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript">
+        Window.storeUrl = '{{ shop.permanent_domain }}'
+    </script>
+    {%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
+    {%- assign time_now = 'now' | date: '%s' %}
+    {%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
+    {%- assign diffSeconds = time_now | minus: yotpo_live_time %}
+    {%- if yotpo_offload_content == 'yes' and diffSeconds < 86400 -%}
+        {{ 'yotpo-full-css.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {% render 'minmaxify-head' %}
+    {% render 'shogun-head' %}
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () {
+                (h.hj.q = h.hj.q || []).push(arguments)
+            };
+            h._hjSettings = {hjid: 1997974, hjsv: 6};
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script');
+            r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <script>
+        window.mlvedaShopCurrency = "{{ shop.currency }}";
+        window.shopCurrency = "{{ shop.currency }}";
+        window.supported_currencies = "{{ settings.mlvedaACS_supportedCurrencies }}";
+    </script>
+    {% if content_for_header contains 'bss-b2b' %}{% include 'bss-b2b-cp-header' %}{% endif %}</head>
+{% assign body_cls = '' %}
+{% if page.id %}
+    {% assign body_cls = body_cls | append: ' page page-' | append: page.handle %}
+{%- else -%}
+    {% assign body_cls = template | replace: '.', '-' | replace: '/', '-' %}
+{% endif %}
+{% assign banner_text = shop.metafields.kettle_banner.text %}
+<body class="{{ body_cls | strip }}">
+{%- section 'announcement-bar' -%}
+{%- section 'exclude-from-search' -%}
+{% if request.path == '/challenge' %}
+    {% render 'form-challenge-wrap', content: content_for_layout %}
+{% else %}
+    {{ content_for_layout }}
+{% endif %}
+<aside>
+    {% section 'cart' %}
+</aside>
+<footer>
+    {% section 'footer' %}
+</footer>
+<footer>
+    {% section 'footer-main' %}
+</footer>
+<div class="nav-backdrop"></div>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5Q6HZK"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script async type="text/javascript"
+        src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id={{ settings.klaviyo_key }}"></script>
+<script type="text/javascript" src="//staticw2.yotpo.com/{{ settings.yotpo_key }}/widget.js"></script>
+<script type="text/javascript" src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script>
+    var bannerText = {{ shop.metafields.kettle_banner.text | json }};
+    var bannerLink = {{ shop.metafields.kettle_banner.link | json }};
+    var yotpoKey = '{{ settings.yotpo_key }}';
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+{{ 'index.js' | asset_url | script_tag }}
+{{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+{% if template contains 'collection' %}
+    {{ 'collection.js' | asset_url | script_tag }}
+{% endif %}
+{% include 'criteo-tracking' %}
+{% if template contains 'product' %}
+    {%- capture minified_css_bis -%}
+        @font-face{font-family:Graphik;font-style:normal;font-weight:400;src:url({{ 'Graphik-Regular.woff2' | asset_url }}) format('woff2'),url({{ 'Graphik-Regular.woff' | asset_url }}) format('woff')}@font-face{font-family:'Italian Typewriter';font-style:normal;font-weight:700;src:url({{ 'Italian-Typewriter-Bold.woff2' | asset_url }}) format('woff2'),url({{ 'Italian-Typewriter-Bold.woff' | asset_url }}) format('woff'),url({{ 'Italian-Typewriter-Bold.eot' | asset_url }}) format('eot'),url({{ 'Italian-Typewriter-Bold.ttf' | asset_url }}) format('truetype')}.modal-title{width:90%;margin:0 auto;font-family:Graphik,sans-serif;font-size:20px;text-align:center}.modal-title+p{text-align:center}.btn{font-family:'Italian Typewriter',serif;font-size: 18px}
+    {%- endcapture -%}
+    <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+    <script>
+        var klaviyo = klaviyo || [];
+        klaviyo.init({
+            account: "{{- settings.klaviyo_key -}}",
+            list: '{{- settings.klaviyo_list_id -}}',
+            platform: "shopify"
+        });
+        klaviyo.enable("backinstock", {
+            trigger: {
+                product_page_text: "Notify Me When Available",
+                product_page_class: "btn",
+                product_page_text_align: "center",
+                product_page_margin: "0px",
+                replace_anchor: false
+            },
+            modal: {
+                newsletter_subscribe_label: "Sign up for our newsletter, too.",
+                headline: "{product_name}",
+                body_content: "Leave us your email and we'll let you know when it's back.",
+                email_field_label: "Email",
+                button_label: "Let Me Know",
+                subscription_success_label: "You're in! We'll let you know when it's back.",
+                footer_content: '',
+                additional_styles: "{{- minified_css_bis -}}",
+                drop_background_color: "#000",
+                background_color: "#fff",
+                text_color: "#222",
+                button_text_color: "#fff",
+                button_background_color: "#111E90",
+                close_button_color: "#ccc",
+                error_background_color: "#fcd6d7",
+                error_text_color: "#C72E2F",
+                success_background_color: "#d3efcd",
+                success_text_color: "#1B9500"
+            }
+        });
+    </script>
+{% endif %}
+{% if settings.mini_upsell_text != blank %}
+    <script type="text/javascript">
+        window.miniUpsell = {
+            text: "{{- settings.mini_upsell_text -}}",
+            color: "{{- settings.mini_upsell_color -}}",
+            font: "{{- settings.mini_upsell_font -}}"
+        }
+    </script>
+{% endif %}
+<script src="{{ 'swiper-bundle.min.js' | asset_url }}"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+    var swiper = new Swiper('.home-pro-slide', {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        loop: false,
+        simulateTouch: false,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+    var swiper = new Swiper('.related-slid', {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        loop: false,
+
+        simulateTouch: false,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+    var swiper = new Swiper('.swiper-container', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    var swiper = new Swiper('.swiper-container-tabs-olive', {
+        slidesPerView: 8,
+        spaceBetween: 15,
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    var swiper = new Swiper('.swiper-container-olive', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    $('a[href*="#"]').click(function (event) {
+        var href = $(this.hash);
+        if (href.length) {
+            event.preventDefault();
+            $('html, body').animate({
+                scrollTop: href.offset().top - 100
+            }, 750, function () {
+            });
+        }
+    });
+    $(function () {
+        $('.scroll').click(function () {
+            $(this).parent().addClass('cllicked');
+            $(this).parent().siblings().removeClass('cllicked');
+        });
+    });
+</script>
+{%- if settings.gift_product != blank and settings.min_price != blank or settings.gift_promo != blank -%}
+    {%- assign gift_product = all_products[settings.gift_product] -%}
+    {%- assign gift_variant = gift_product.selected_or_first_available_variant -%}
+{%- if gift_product.id != product.id -%}
+    <div id="gift-product" class="hide-element">
+        <form action="/cart/add" method="post" enctype="multipart/form-data" class="js-gift-product">
+            <input type="hidden" name="id" value="{{- gift_variant.id -}}"/>
+            <input type="hidden" name="discount" value="Free product"/>
+            <input type="hidden" name="quantity" value="1"/>
+        </form>
+    </div>
+{%- endif -%}
+    <script type="text/javascript">
+        window.minPrice = {{ settings.min_price | times: 100 }};
+        window.giftProductPrice = {{ gift_product.price }};
+        window.variantID = {{ gift_variant.id }};
+        window.giftProduct = {
+            link: '{{ settings.gift_link }}',
+            product: '{{ settings.gift_product }}'
+        };
+        {% if settings.gift_promo != blank %}
+        window.promoCode = '{{ settings.gift_promo }}';
+        {% endif %}
+        {%- if settings.gift_message != blank -%}
+        window.giftMessage = {{ settings.gift_message | json }};
+        {%- endif -%}
+    </script>
+{%- else -%}
+    <script type="text/javascript">
+        window.minPrice = '';
+        window.promoCode = '';
+        window.giftProductPrice = '';
+        window.variantID = '';
+        window.giftProduct = {
+            link: '',
+            product: ''
+        };
+    </script>
+{%- endif -%}
+<script>(function (document, tag) {
+        var script = document.createElement(tag);
+        var element = document.getElementsByTagName('body')[0];
+        script.src = 'https://acsbap.com/apps/app/assets/js/acsb.js';
+        script.async = true;
+        script.defer = true;
+        (typeof element === 'undefined' ? document.getElementsByTagName('html')[0] : element).appendChild(script);
+        script.onload = function () {
+            acsbJS.init({
+                statementLink: '',
+                feedbackLink: '',
+                footerHtml: '',
+                hideMobile: false,
+                hideTrigger: false,
+                language: 'en',
+                position: 'left',
+                leadColor: '#111e90',
+                triggerColor: '#111e90',
+                triggerRadius: '50%',
+                triggerPositionX: 'left',
+                triggerPositionY: 'bottom',
+                triggerIcon: 'people',
+                triggerSize: 'medium',
+                triggerOffsetX: 20,
+                triggerOffsetY: 20,
+                mobile: {
+                    triggerSize: 'small',
+                    triggerPositionX: 'left',
+                    triggerPositionY: 'center',
+                    triggerOffsetX: 0,
+                    triggerOffsetY: 0,
+                    triggerRadius: '0'
+                }
+            });
+        };
+    }(document, 'script'));</script>
+{% include 'subscription-theme-footer' %}
+{{ 'ndnapps-sociallogin.css' | asset_url | stylesheet_tag }}
+{% if shop.customer_accounts_enabled %}{% unless customer %}{{ 'ndnapps-sociallogin-script.js' | asset_url | script_tag }}{% endunless %}{% endif %}
+{{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+{{ 'shop.js' | asset_url | script_tag }}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxvzSaxB2OhMHLmQbUGAR-UE8t_P6pV4U&amp;v=3"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+<script>
+    $(function () {
+        $.widget("custom.combobox", {
+            _create: function () {
+                this.wrapper = $("<span>")
+                    .addClass("custom-combobox")
+                    .insertAfter(this.element);
+                this.element.hide();
+                this._createAutocomplete();
+                this._createShowAllButton();
+            },
+            _createAutocomplete: function () {
+                var selected = this.element.children(":selected"),
+                    value = selected.val() ? selected.text() : "";
+                this.input = $("<input>")
+                    .appendTo(this.wrapper)
+                    .val(value)
+                    .attr("title", "")
+                    .addClass("custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left")
+                    .attr('placeholder', 'Store Name, Area, Postcode')
+                    .autocomplete({
+                        delay: 0,
+                        minLength: 0,
+                        source: $.proxy(this, "_source")
+                    })
+                    .tooltip({
+                        classes: {
+                            "ui-tooltip": "ui-state-highlight"
+                        }
+                    });
+                this._on(this.input, {
+                    autocompleteselect: function (event, ui) {
+                        ui.item.option.selected = true;
+                        this._trigger("select", event, {
+                            item: ui.item.option
+                        });
+                    },
+                    autocompletechange: "_removeIfInvalid"
+                });
+            },
+            _createShowAllButton: function () {
+                var input = this.input,
+                    wasOpen = false;
+                $("<a>")
+                    .attr("tabIndex", -1)
+                    .attr("title", "Show All Items")
+                    .tooltip()
+                    .appendTo(this.wrapper)
+                    .button({
+                        icons: {
+                            primary: "ui-icon-triangle-1-s"
+                        },
+                        text: false
+                    })
+                    .removeClass("ui-corner-all")
+                    .addClass("custom-combobox-toggle ui-corner-right")
+                    .on("mousedown", function () {
+                        wasOpen = input.autocomplete("widget").is(":visible");
+                    })
+                    .on("click", function () {
+                        input.trigger("focus");
+                        if (wasOpen) {
+                            return;
+                        }
+                        input.autocomplete("search", "");
+                    });
+            },
+            _source: function (request, response) {
+                var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                response(this.element.children("option").map(function () {
+                    var text = $(this).text();
+                    if (this.value && (!request.term || matcher.test(text)))
+                        return {
+                            label: text,
+                            value: text,
+                            option: this
+                        };
+                }));
+            },
+            _removeIfInvalid: function (event, ui) {
+                if (ui.item) {
+                    return;
+                }
+                var value = this.input.val(),
+                    valueLowerCase = value.toLowerCase(),
+                    valid = false;
+                this.element.children("option").each(function () {
+                    if ($(this).text().toLowerCase() === valueLowerCase) {
+                        this.selected = valid = true;
+                        return false;
+                    }
+                });
+                if (valid) {
+                    return;
+                }
+                this.input
+                    .val("")
+                    .attr("title", value + " didn't match any item")
+                    .tooltip("open");
+                this.element.val("");
+                this._delay(function () {
+                    this.input.tooltip("close").attr("title", "");
+                }, 2500);
+                this.input.autocomplete("instance").term = "";
+            },
+            _destroy: function () {
+                this.wrapper.remove();
+                this.element.show();
+            }
+        });
+        $("#toggle").on("click", function () {
+            $("#combobox").toggle();
+        });
+    });
+</script>
+<script>
+    var currentSelectOption = 0;
+    var selectedItems = [];
+    var availableItems = [ {% include 'poi-available' %}  ];
+    function setGoogleMarkers() {
+        markers.map(function (r) {
+            r.setIcon("https://cdn.shopify.com/s/files/1/0515/5785/9489/files/plus.png?v=1618776237")
+        })
+        $(".selectedAreas").empty();
+        $(".def-pharmacy").empty();
+        if (selectedItems != undefined && selectedItems != null && selectedItems.length > 0) {
+            for (var index = 0; index < selectedItems.length; index++) {
+                var element = selectedItems[index];
+                var location = locations.filter(r => r[3] == element);
+                if (location.length > 0) location = location[0];
+                for (let j = 0; j < markers.length; j++) {
+                    var marker = markers[j];
+                    if (marker.position.lat() == location[1] && marker.position.lng() == location[2]) {
+                        marker.setIcon("https://cdn.shopify.com/s/files/1/0515/5785/9489/files/ticknk.png?v=1623357201");
+                        $('.style-poi-multiple').append(`<style>.location${location[3]} ~ .location${location[3]}{display:none!important;}</style>`)
+                        $(".selectedAreas").append(`<div class="selected-pharmacy location${location[3]}"><p>${locations[element][0]}</p> <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/ticknk.png?v=1623357201"><i class="Remove-loc" onclick="removeLocation(${location[3]})">X</i></div>`);
+                        $(".def-pharmacy").append(`<option class="location${location[3]}"><div class="selected-pharmacy"><p>${locations[element][0]}</p></div></option>`);
+                        $('#filter_pharamcy_name').val(`${locations[element][0]}`);
+                    }
+                }
+            }
+        }
+    }
+    function setItems() {
+        var htmlData = "";
+        for (let i = 0; i < availableItems.length; i++) {
+            htmlData += `<option value="${availableItems[i].value}">${availableItems[i].name}</option>`;
+        }
+        $("#browser").html(htmlData);
+    }
+    $(document).ready(function () {
+        setItems();
+        $("#browser").combobox({
+            select: function (event, ui) {
+                if (selectedItems.includes(ui.item.value))
+                    removeLocation(ui.item.value);
+                else {
+                    addToLocation(ui.item.value);
+                }
+            }
+        });
+        $("#browserWrap .custom-combobox-input").val('');
+    })
+    var locations = [
+        {% include 'poi-location' %}
+    ];
+    var map;
+    var markers = [];
+    function removeLocation(sLocation) {
+        currentSelectOption = sLocation;
+        var selectedDetails = availableItems.filter(r => r.value == sLocation)[0];
+        $("#locationName").text(selectedDetails.name);
+        showModal("divMapModal");
+        $('.addBtn').hide();
+        $('.removeBtn').show();
+    }
+    function init() {
+        var styles = [{
+            stylers: [{
+                saturation: -100
+            }]
+        }];
+        var styledMap = new google.maps.StyledMapType(styles, {
+            name: "Styled Map"
+        });
+        map = new google.maps.Map(document.getElementById('map_canvas'), {
+            zoom: 15,
+            center: new google.maps.LatLng(37.984052, 23.731278),
+            icon: 'https://cdn.shopify.com/s/files/1/0515/5785/9489/files/plus.png?v=1618776237',
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        var selectedSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 5
+        };
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style')
+
+        var num_markers = locations.length;
+        for (var i = 0; i < num_markers; i++) {
+            markers[i] = new google.maps.Marker({
+                position: {
+                    lat: locations[i][1],
+                    lng: locations[i][2]
+                },
+                map: map,
+                icon: 'https://cdn.shopify.com/s/files/1/0515/5785/9489/files/plus.png?v=1618776237',
+                html: locations[i][0],
+                id: i
+            });
+            google.maps.event.addListener(markers[i], 'click', function () {
+                if (selectedItems == null) {
+                    selectedItems = [];
+                }
+                if (selectedItems.includes(this.id.toString()))
+                    removeLocation(this.id.toString());
+                else {
+                    addToLocation(this.id.toString());
+                }
+                setGoogleMarkers();
+                var infowindow = new google.maps.InfoWindow({});
+                var markerrr = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    icon: 'https://cdn.shopify.com/s/files/1/0515/5785/9489/files/ticknk.png?v=1623357201'
+                });
+                google.maps.event.addListenerOnce(infowindow, 'closeclick', function () {
+                    markers[this.id].setVisible(true);
+                });
+                this.setVisible(true);
+                this.setIcon(markerrr);
+                infowindow.open(map);
+            });
+        }
+    }
+    init();
+    function saveLocation() {
+        if (currentSelectOption != "") {
+            if (selectedItems.length < 3)
+                selectedItems.push(currentSelectOption);
+            setGoogleMarkers();
+            setTimeout(() => {
+                $("#browserWrap .custom-combobox-input").val('');
+            }, 100)
+            $('.addBtn').hide();
+            $('.removeBtn').show();
+            $('.modal-shopping').show();
+        }
+    }
+    function saveRemoveLocation() {
+        selectedItems = selectedItems.filter((r) => {
+            if (r != currentSelectOption) return r;
+        })
+        setGoogleMarkers();
+        $('.addBtn').show();
+        $('.removeBtn').hide();
+    }
+    function addToLocation(sLocation) {
+        if (selectedItems.length > 2) {
+            alert('Maximum 3 location allowed to select!');
+            return;
+        }
+        currentSelectOption = sLocation;
+        var selectedDetails = availableItems.filter(r => r.value == sLocation)[0];
+        $("#locationName").text(selectedDetails.name);
+        $('.addBtn').show();
+        $('.removeBtn').hide();
+        showModal("divMapModal");
+    }
+    function hideModal($selectedEle) {
+        $("#" + $selectedEle).find("[data-bs-dismiss='modal']").click();
+    }
+    function showModal($selectedEle) {
+        var myModal = new bootstrap.Modal(document.getElementById($selectedEle), {});
+        myModal.show();
+    }
+</script>
+<script>
+    jQuery(document).ready(function () {
+        jQuery(".page-map-signup .custom-combobox-input").on("keyup", function () {
+
+            jQuery("#map_canvas").addClass('map-width-active');
+            jQuery('.map-panel-1').hide();
+        });
+    });
+    $('.signup-link').click(function () {
+        window.location.href = '/account/register';
+        return false;
+    });
+</script>
+{% include 'mlveda-currencies-switcher' %}{% include 'mlveda-currencies' %}{% include 'mlveda-flag' %}{% include 'mlveda-currencies-style' %}{% if content_for_header contains 'bss-b2b' %}{% include 'bss-b2b-jquery-341-js' %}{% include 'bss-b2b-js' %}{% endif %}
+</body>
+</html>

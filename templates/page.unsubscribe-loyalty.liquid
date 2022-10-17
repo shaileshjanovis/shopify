@@ -1,0 +1,139 @@
+{% layout none %}
+{% render 'shogun-products', content: page %}
+{{ 'style-unsubscribe.css' | asset_url | stylesheet_tag }}
+<table cellpadding="0" cellspacing="0" width="750" height="100%" class="container-table">
+  <tr>
+    <td class="v-middle">
+      <table cellpadding="0" cellspacing="0" width="750" class="inner-container-table">
+        <tr>
+          <td class="inner-container-td">
+            <div class="border-div">
+              <table cellpadding="0" cellspacing="0" class="step-1" >
+                <tr>
+                  <td class="logo-unsubscribe-container">
+                    <img class="logo-unsubscribe" src="https://d3k81ch9hvuctc.cloudfront.net/company/Xtb59D/images/947ea09b-33d9-40d1-8b07-74b64be323a1.jpeg" alt="KORRES|Circle" />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="unsubscribe-header">
+                    <h2>Unsubscribe loyalty</h2>
+                    <p>We are sorry to see you go!</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="email-td">
+                    <span class="email-header">
+                      Email <span>*</span>
+                    </span>
+                    <input id="input-email" placeholder="e.g maria@gmail.com" class="input-email" />
+                    <div class="error-message error-message-email">Enter a valid email address</div>
+                    <div class="error-message error-message-email-empty">Enter your email</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="btn-unsubscribe-td">
+                    <input type="button" value="Unsubscribe my email" class="btn-unsubscribe" />
+                        <div class="error-message error-message-email-empty msg-bold">This email id is not exist.</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="nevermind-link-td">
+                    <a class="nevermind-link" href="https://korresshop-greece.myshopify.com" target="_blank">Nevermind</a>
+                  </td>
+                </tr>
+              </table>
+              <table cellpadding="0" cellspacing="0" class="step-2">
+                <tr>
+                  <td class="header-step-2">
+                    <img  class="logo-unsubscribe" src="https://d3k81ch9hvuctc.cloudfront.net/company/Xtb59D/images/947ea09b-33d9-40d1-8b07-74b64be323a1.jpeg" alt="KORRES|Circle"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="unsubscribe-header">
+                    <h2>Sorry to see you go!</h2>
+                    <p class="message">You have been successfully unsubscribed, you will no longer receive this type of emails from the KORRES Team. If you have unsubscribed by mistake please follow the link below.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="https://korresshop-greece.myshopify.com" target="_blank" class="btn-site">Go to Website</a>
+                  </td>
+                </tr>
+              </table>
+            <div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+ 		var url = window.location.href;    	
+    	var link = url.split('?')[1];
+    	var email = link.split('&')[0];
+    	var finalmail = email.split('=')[1];
+    	var getEmail = finalmail.replace('%40','@')
+        $('.input-email').val(getEmail);
+  $('.btn-unsubscribe').click(function () {
+    
+  var email = $('#input-email').val();        
+    if(email != getEmail){
+      $('.msg-bold').text('Please enter your email id.');
+    	$('.msg-bold').show();
+      	$('.btn-unsubscribe').attr('disabled', true);
+      	return false;
+    }   
+
+    var url = "https://api.korresfamily.com/api/v1/MarketplaceItem/Loyaltyunsubscribe?email="+email;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success:function(data){
+        console.log(data);
+        if(data.status == false){
+          console.log(data.message);
+          $('.msg-bold').show();
+        }else{
+          setTimeout(function(e){
+      $('.msg-bold').hide();
+            $('.step-2').show();
+            $('.step-1').hide();
+          },500);
+        }
+      },
+      error: function (error) {
+        console.log(error);
+      }
+     
+  });
+  
+  });
+
+  $("#input-email").on("keyup", function (e) {
+    var userEmail = $('#input-email').val();
+    isValidEmail(userEmail);
+  });
+
+  function isValidEmail(email) {
+    var filter = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+
+    if (!filter.test(email)) {
+      $(".error-message-email").show();
+      $('.btn-unsubscribe').attr('disabled', true);
+      $('.email-header').addClass("error");
+      $('.input-email').addClass("error");
+      valid = false;
+      return false;
+    }
+    $(".error-message-email").hide();
+    $('.btn-unsubscribe').attr('disabled', false);
+    $('.email-header').removeClass("error");
+    $('.input-email').removeClass("error");
+    return true;
+  }
+  
+  //======
+  
+ 
+</script>

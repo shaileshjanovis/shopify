@@ -1,0 +1,181 @@
+{% if request.locale.iso_code == 'el' %}
+<div class="filter_list cu_fll_list">
+   <ul>
+      <h3 class="filter_list hide-from-desktop">Φίλτρα</h3>
+      <h2 class="fill_head hide-from-desktop">Φίλτρα</h2>
+      <h3 class="fill_by hide-from-desktop"> Φίλτρα</h3>
+      <li class="type-filter fill_desktop by-type hide-from-mobile" data-type="by-type">
+         <h2 data-ly-mutation-count="1">Κατηγορίες Προϊόντων</h2>
+         <div class="list_inner" style="display:none;">
+            <p>
+               <input type="checkbox" id="type_1" name="radio-group0" class="hh filter-blck by_need" data-value="ΣΙΡΟΠΙ" value="σιροπι">
+               <label for="type_1">ΣΙΡΟΠΙ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_2" name="radio-group0" class="hh filter-blck by_need" data-value="ΚΑΡΑΜΕΛΕΣ" value="καραμελεσ">
+               <label for="type_2">ΚΑΡΑΜΕΛΕΣ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_3" name="radio-group0" class="hh filter-blck by_need" data-value="ΡΟΦΗΜΑΤΑ" value="ροφηματα">
+               <label for="type_3">ΡΟΦΗΜΑΤΑ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_4" name="radio-group0" class="hh filter-blck by_need" data-value="ΣΥΜΠΛΗΡΩΜΑΤΑ" value="συμπληρωματα">
+               <label for="type_4">ΣΥΜΠΛΗΡΩΜΑΤΑ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_5" name="radio-group0" class="hh filter-blck by_need" data-value="ΟΔΟΝΤΟΚΡΕΜΕΣ" value="οδοντοκρεμεσ">
+               <label for="type_5">ΟΔΟΝΤΟΚΡΕΜΕΣ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_6" name="radio-group0" class="hh filter-blck by_need" data-value="ΕΝΤΟΜΟΑΠΩΘΗΤΙΚΑ" value="εντομοαπωθητικα">
+               <label for="type_6">ΕΝΤΟΜΟΑΠΩΘΗΤΙΚΑ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_7" name="radio-group0" class="hh filter-blck by_need" data-value="ΑΝΤΙ-ΦΘΕΙΡΙΚΑ" value="αντι-φθειρικα">
+               <label for="type_7">ΑΝΤΙ-ΦΘΕΙΡΙΚΑ</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter by-type hide-from-desktop overlay" data-type="by-type">
+         <h2 data-ly-mutation-count="1">Κατηγορίες Προϊόντων</h2>
+         <div class="list_inner" style="display:none;">
+            <p>
+               <input type="checkbox" id="type_1" name="radio-group0" class="hh filter-blck by_need" data-value="ΣΙΡΟΠΙ" value="σιροπι">
+               <label for="type_1">ΣΙΡΟΠΙ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_2" name="radio-group0" class="hh filter-blck by_need" data-value="ΚΑΡΑΜΕΛΕΣ" value="καραμελεσ">
+               <label for="type_2">ΚΑΡΑΜΕΛΕΣ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_3" name="radio-group0" class="hh filter-blck by_need" data-value="ΡΟΦΗΜΑΤΑ" value="ροφηματα">
+               <label for="type_3">ΡΟΦΗΜΑΤΑ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_4" name="radio-group0" class="hh filter-blck by_need" data-value="ΣΥΜΠΛΗΡΩΜΑΤΑ" value="συμπληρωματα">
+               <label for="type_4">ΣΥΜΠΛΗΡΩΜΑΤΑ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_5" name="radio-group0" class="hh filter-blck by_need" data-value="ΟΔΟΝΤΟΚΡΕΜΕΣ" value="οδοντοκρεμεσ">
+               <label for="type_5">ΟΔΟΝΤΟΚΡΕΜΕΣ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_6" name="radio-group0" class="hh filter-blck by_need" data-value="ΕΝΤΟΜΟΑΠΩΘΗΤΙΚΑ" value="εντομοαπωθητικα">
+               <label for="type_6">ΕΝΤΟΜΟΑΠΩΘΗΤΙΚΑ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_7" name="radio-group0" class="hh filter-blck by_need" data-value="ΑΝΤΙ-ΦΘΕΙΡΙΚΑ" value="αντι-φθειρικα">
+               <label for="type_7">ΑΝΤΙ-ΦΘΕΙΡΙΚΑ</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter fill_desktop by-need " data-type="by-need">
+         <h2 data-ly-mutation-count="1">Ανάγκες</h2>
+         <div class="list_inner" style="display:none;">
+         </div>
+      </li>
+      <li class="type-filter fill_desktop by-ingredient" data-type="by-ingredient">
+         <h2 data-ly-mutation-count="1">Συστατικά</h2>
+         <div class="list_inner" style="display:none;">
+         </div>
+      </li>
+      <div class="fil_button_cover">
+         <button type="submit" class="btn-theme-blue button1 hide-from-desktop"> View
+         Products
+         </button>
+         <input type="reset" value="Reset" class="btn-theme-white button2 hide-from-desktop">
+      </div>
+   </ul>
+</div>
+{% else %}
+<div class="filter_list cu_fll_list">
+   <ul>
+      <h3 class="filter_list hide-from-desktop">Filters</h3>
+      <h2 class="fill_head hide-from-desktop">Filters</h2>
+      <h3 class="fill_by hide-from-desktop"> Filters</h3>
+      <li class="type-filter fill_desktop by-type hide-from-mobile" data-type="by-type">
+         <h2>By Type</h2>
+         <div class="list_inner" style="display:none;">
+            <p>
+               <input type="checkbox" id="type_1" name="radio-group0" class="hh filter-blck by_need" data-value="SYRUP" value="syrup">
+               <label for="type_1">SYRUP</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_2" name="radio-group0" class="hh filter-blck by_need" data-value="PASTILLES" value="pastilles">
+               <label for="type_2">PASTILLES</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_3" name="radio-group0" class="hh filter-blck by_need" data-value="BEVERAGE" value="beverage">
+               <label for="type_3">BEVERAGE</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_4" name="radio-group0" class="hh filter-blck by_need" data-value="SUPPLEMENTS" value="supplements">
+               <label for="type_4">SUPPLEMENTS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_5" name="radio-group0" class="hh filter-blck by_need" data-value="ORAL CARE" value="oral-care">
+               <label for="type_5">ORAL CARE</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_6" name="radio-group0" class="hh filter-blck by_need" data-value="INSECT REPELLENTS" value="insect-repellents">
+               <label for="type_6">INSECT REPELLENTS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_7" name="radio-group0" class="hh filter-blck by_need" data-value="ANTI-LICE TREATMENT" value="anti-lice-treatment">
+               <label for="type_7">ANTI-LICE TREATMENT</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter by-type hide-from-desktop overlay" data-type="by-type">
+         <h2>By Type</h2>
+         <div class="list_inner" style="display:none;">
+            <p>
+               <input type="checkbox" id="type_1" name="radio-group0" class="hh filter-blck by_need" data-value="SYRUP" value="syrup">
+               <label for="type_1">SYRUP</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_2" name="radio-group0" class="hh filter-blck by_need" data-value="PASTILLES" value="pastilles">
+               <label for="type_2">PASTILLES</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_3" name="radio-group0" class="hh filter-blck by_need" data-value="BEVERAGE" value="beverage">
+               <label for="type_3">BEVERAGE</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_4" name="radio-group0" class="hh filter-blck by_need" data-value="SUPPLEMENTS" value="supplements">
+               <label for="type_4">SUPPLEMENTS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_5" name="radio-group0" class="hh filter-blck by_need" data-value="ORAL CARE" value="oral-care">
+               <label for="type_5">ORAL CARE</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_6" name="radio-group0" class="hh filter-blck by_need" data-value="INSECT REPELLENTS" value="insect-repellents">
+               <label for="type_6">INSECT REPELLENTS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_7" name="radio-group0" class="hh filter-blck by_need" data-value="ANTI-LICE TREATMENT" value="anti-lice-treatment">
+               <label for="type_7">ANTI-LICE TREATMENT</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter fill_desktop by-need " data-type="by-need">
+         <h2>By Need</h2>
+         <div class="list_inner" style="display:none;">
+         </div>
+      </li>
+      <li class="type-filter fill_desktop by-ingredient" data-type="by-ingredient">
+         <h2>By Ingredient</h2>
+         <div class="list_inner" style="display:none;">
+         </div>
+      </li>
+      <div class="fil_button_cover">
+         <button type="submit" class="btn-theme-blue button1 hide-from-desktop"> View
+         Products
+         </button>
+         <input type="reset" value="Reset" class="btn-theme-white button2 hide-from-desktop">
+      </div>
+   </ul>
+</div>
+{% endif %}

@@ -1,0 +1,67 @@
+{{ 'style-greece.css' | asset_url | stylesheet_tag }}
+
+<div class="container-fluid p-0">
+	<div class="greece-container">
+		<div class="greece-top-section">
+			<div class="row no-gutters">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+					 {%section 'greece-left'%}
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+					{%section 'greece-map'%}
+                    <!--{%section 'greece-map-mobile'%}-->
+				</div>
+			</div>
+		</div>
+		{% section 'greece-cooperations' %} 
+	</div>
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+    //close pop up when clisk outside of this
+    $('.map-of-greece').click(function (event)     
+    {
+        if(!$(event.target).closest('.pop-up-container').length && !$(event.target).is('.pop-up-container')) {
+            $(".pop-up-container").hide();
+        }     
+    });
+
+    $('.pop-up-container').hide();
+    //$('.place').click(function () {
+    $('.place').on('mouseover', function(event){
+        $(".pop-up-container").hide();
+        $(this).next('.pop-up-container').show();
+    });
+
+     $(".pop-up-container").mouseleave(function() {
+        $(".pop-up-container").hide();
+    });
+
+    //Places Tab 
+    $('.greece-menu-item-places').click(function () {
+        $(".greece-pins").hide();
+        $(".greece-menu-item").removeClass("active");
+        $(this).addClass("active");
+        $(".greece-places").show();
+    });
+
+
+    //Farmers Tab
+    $('.greece-menu-item-farmers').click(function () {
+        $(".greece-pins").hide();
+        $(".greece-menu-item").removeClass("active");
+        $(this).addClass("active");
+        $(".greece-farmers").show();
+    });
+
+    //Herbs Tab
+    $('.greece-menu-item-herbs').click(function () {
+        $(".greece-pins").hide();
+        $(".greece-menu-item").removeClass("active");
+        $(this).addClass("active");
+        $(".greece-herbs").show();
+    });
+
+
+</script>

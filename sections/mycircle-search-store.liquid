@@ -1,0 +1,56 @@
+<div class="store-search-container">
+  <div class="row no-gutters w-100">
+    <div class="col-lg-12">
+      <div class="map-icon">
+        <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/map-icon.png?v=1643962087" />
+      </div>
+      <h6>{{ section.settings.page-title }}</h6>
+      <p>{{ section.settings.page-text-1 }}</p>
+      <p class="last">{{ section.settings.page-text-2 }}</p>
+      <a class="btn" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.button-link }}">{{ section.settings.button-text }}</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "MyCircle Search Store",
+"settings": [
+{
+"id": "map-icon-img",
+"type":"image_picker",
+"label": "Map Icon Img"
+},
+{
+"id": "page-title",
+"type": "textarea",
+"label": "Page Title",
+"default": "Πως θα βρω το αγαπημένο μου σημείο;"
+},
+{
+"id": "page-text-1",
+"type": "textarea",
+"label": "Page Text 1",
+"default": "Αγοράστε online τα φυσικά προϊόντα KORRES, ή από το αγαπημένο σας σημείο πώλησης και παραλάβετέ τα όπου εσείς θέλετε."
+},
+{
+"id": "page-text-2",
+"type": "textarea",
+"label": "Page Text 2",
+"default": "Διαλέξτε το κατάστημα που σας εξυπηρετεί για γρήγορες αγορές και παραλαβές δώρων από τη λίστα συνεργατών."
+},
+{
+"id":"button-text",
+"type": "textarea",
+"label":"Button Text",
+"default": "Αναζήτηση καταστήματος"
+},
+{
+"id":"button-link",
+"type": "textarea",
+"label":"Button link",
+"default": "/account/register"
+}
+]
+}
+{% endschema %}

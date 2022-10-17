@@ -1,0 +1,275 @@
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+		<script>
+		function sd_LockData(){
+		{% raw %}
+		sdLockData =""
+		{% endraw %}
+			var pageType = ShopifyAnalytics.meta.page.pageType;
+		var pageID = ShopifyAnalytics.meta.page.resourceId;
+		var customerID = ShopifyAnalytics.meta['page']['customerId'];
+		var store = Shopify.shop;
+		var custStatus = 'false';
+		var currentUrl = window.location.href;
+
+
+
+		var sd_lockContent;
+		if (pageType == 'product') {
+			var productId = ShopifyAnalytics.meta.product.id;
+		}
+
+		if (sdLockData || sdLockData != '') {
+			var i;
+			for (i = 0; i < sdLockData.length; i++) {
+
+				var product_idsAry = sdLockData[i]['product_ids'].split(',');
+				var collection_ids =  sdLockData[i]['collection_ids'].split(',');
+				var collection_idsAry = sdLockData[i]['collection_productids'].split(',');
+				var combine_Ary = product_idsAry.concat(collection_idsAry).concat(collection_ids);
+				const allProduct_ids = Array.from(new Set(combine_Ary));
+				if (sdLockData[i]['status'] == 'Active' && sdLockData[i]['content'] != '') {
+					var contentArr = sdLockData[i]['content'].split(',');
+                  console.log(contentArr);
+					if (sdLockData[i]['applies_to'] != '' || sdLockData[i]['applies_to'] != 'undefined') {
+						if (sdLockData[i]['applies_to'] == 'all_login_customers') {
+							var appliesCust = 'all';
+						} else if (sdLockData[i]['applies_to'] == 'selected_customers') {
+							if (sdLockData[i]['customer_ids'] != '') {
+								var customerIdArr = sdLockData[i]['customer_ids'].split(',');
+								if (customerIdArr.includes('' + customerID + '')) {
+									var appliesCust = 'selected';
+								}
+							}
+						} else if (sdLockData[i]['applies_to'] == 'guest_customers') {
+							var appliesCust = 'guest';
+						}else if (sdLockData[i]['applies_to'] == 'wholesale_customers') {
+							var appliesCust = 'wholesale';
+						}else if (sdLockData[i]['applies_to'] == 'nonWholesale_customers') {
+							var appliesCust = 'nonWholesale';
+						}
+					}
+					//redirect urls
+					if (sdLockData[i]['restriction_rule'] != '' || sdLockData[i]['restriction_rule'] != 'undefined') {
+						if (sdLockData[i]['restriction_rule'] == '404') {
+							var sdRedirectLock = window.location.origin + '/404';
+						} else if (sdLockData[i]['restriction_rule'] == 'login') {
+							if (typeof customerID == 'undefined' || customerID == null) {
+								var sdRedirectLock = window.location.origin + '/account/login';
+							} else {
+								var sdRedirectLock = window.location.origin + '/account';
+							}
+						}else if (sdLockData[i]['restriction_rule'] == 'same_page') {
+								var sdRedirectLock = 'show_message';
+								var message = sdLockData[i]['redirectotherurl'];
+						} else if(sdLockData[i]['restriction_rule'] == 'another_url'){
+							var sdRedirectLock = sdLockData[i]['redirectotherurl'];
+
+							if(currentUrl.includes(sdRedirectLock) && (currentUrl != 'https://'+store+'/' || currentUrl != 'https://'+store) ){
+							   console.log(sdRedirectLock) ;
+                              var sdRedirectLock = currentUrl;
+							}
+						}else {
+						}
+					}
+                   console.log(sdRedirectLock);
+
+					if (appliesCust == 'all') {
+						if (typeof customerID != 'undefined' || customerID != null) {
+						   custStatus = 'true';
+						}
+					} else if (appliesCust == 'selected') {
+						if ((typeof customerID != 'undefined' || customerID != null)) {
+							var customerIdArr1 = sdLockData[i]['customer_ids'].split(',');
+							if (customerIdArr1.includes('' + customerID + '')) {
+								   custStatus = 'true';
+							}
+						}
+					} else if (appliesCust == 'guest') {
+						if (typeof customerID == 'undefined' || customerID == null) {
+								custStatus = 'true';
+						}
+					}else if(appliesCust == 'wholesale' || appliesCust == 'nonWholesale'){
+							if(((appliesCust == 'wholesale' && (typeof customerID != 'undefined' || customerID != null)) || (appliesCust == 'nonWholesale' && (typeof customerID != 'undefined' || customerID != null)))){
+								jQuery.ajax({
+									url: 'https://shinedezigninfotech.com/wholesale_dev/LockManagement/lockCustomer',
+									type: 'POST',
+									async: false,
+									data: {
+										'store' : store,
+										'customerId':customerID,
+										'custType':appliesCust
+									},
+									success: function(response) {
+										var parsedJson = $.parseJSON(response);
+										custStatus = parsedJson.status;
+
+									}
+								});
+							}else if(appliesCust == 'nonWholesale' && (typeof customerID == 'undefined' || customerID == null)){
+								custStatus = 'true';
+							}else{
+								custStatus = 'false';
+							}
+					}
+                  console.log(custStatus);
+						if(custStatus == 'true'){
+							if(contentArr.includes('site')){
+								if(currentUrl.indexOf('collections/all') > -1 && sdRedirectLock == 'https://'+store+'/collections/all'){
+									var currentUrl = sdRedirectLock;
+								}else if(currentUrl.indexOf('/account') > -1 && (sdRedirectLock == 'https://'+store+'/account' || sdRedirectLock == 'https://'+store+'/account/login' || sdRedirectLock == 'https://'+store+'/login')){
+									var currentUrl = sdRedirectLock;
+								  }
+
+								if(currentUrl == sdRedirectLock){
+								}else{
+									if((typeof customerID == 'undefined' || customerID == null) && (currentUrl.indexOf('/account') > -1) && (sdRedirectLock.indexOf('/account') > -1)){
+										// window.location.replace('https://'+store+'/account');
+									}else{
+									 window.location.replace(sdRedirectLock);
+									}
+								}
+								break;
+							}
+
+							if(contentArr.includes('content')){
+								$( document ).ready(function() {
+									$('.sd_lockContent').remove();
+								});
+								break;
+							}
+
+								if((contentArr.includes('products') && sdLockData[i]['product_ids'] != '') || (contentArr.includes('collection') && sdLockData[i]['collection_ids'] != '')){
+										for (let i = 0; i < allProduct_ids.length; i++) {
+											if(allProduct_ids[i] != ''){
+												if(store == 'la-shampista-hair.myshopify.com'){
+													$('.sd_'+allProduct_ids[i]).remove();
+												}else{
+													$('.sd_'+allProduct_ids[i]).addClass('sd-wholesale-locked-overlay');
+												}
+											}
+										}
+								}
+								if (contentArr.includes('pages') && sdLockData[i]['page_ids'] != '') {
+									var pageIdArr = sdLockData[i]['page_ids'].split(',');
+                                  console.log(pageIdArr);
+									if (pageIdArr.includes('' + pageID + '')){
+										if(sdRedirectLock == 'show_message'){
+											setTimeout(function(){  $('#MainContent').html('' + message + ''); }, 300);
+										}else{
+											window.location.replace(sdRedirectLock);
+										}
+										break;
+									}
+								}
+							//  neha updated code(14-7-2021)
+							if (contentArr.includes('specific_URL') && sdLockData[i]['specific_url'] != '') {
+								   var urlArr = sdLockData[i]['specific_url'].split(',');
+                                    console.log(urlArr);
+                                   var alternate_current_url = '';
+								   var current_url_string =  currentUrl.substr(0, currentUrl.indexOf('?'));
+                              if(current_url_string == ''){
+                              current_url_string = currentUrl;
+                              }
+							             console.log(current_url_string);
+                                   if(current_url_string == 'https://'+store+'/account/login'){
+                                    alternate_current_url= 'https://'+store+'/account/';
+                                   }
+                              if((sdRedirectLock == 'https://'+store && currentUrl == 'https://'+store+'/') ){
+                                   console.log('matchess');
+								   }else if (urlArr.includes('' + currentUrl + '') || urlArr.includes('' + currentUrl + '/') || urlArr.includes('' + current_url_string + '') || (alternate_current_url != '' && urlArr.includes('' + alternate_current_url + ''))) {
+                                      console.log('includes');
+										if(sdRedirectLock == 'show_message'){
+										setTimeout(function(){  $('#MainContent').html('' + message + ''); }, 300);
+										}else{
+										 window.location.replace(sdRedirectLock);
+										}
+										break;
+								}
+
+							}
+								if (contentArr.includes('blog') && sdLockData[i]['blog_ids'] != '') {
+									var blogIdArr = sdLockData[i]['blog_ids'].split(',');
+									if (blogIdArr.includes('' + pageID + '')) {
+										  if(sdRedirectLock == 'show_message'){
+											setTimeout(function(){  $('#MainContent').html('' + message + ''); }, 300);
+											}else{
+											 window.location.replace(sdRedirectLock);
+											}
+											break;
+									}
+								}
+
+								if (pageType == 'product') {
+									if (contentArr.includes('products') && sdLockData[i]['product_ids'] != '') {
+										var productrIdArr = sdLockData[i]['product_ids'].split(',');
+										if (productrIdArr.includes('' + productId + '')) {
+											  if(sdRedirectLock == 'show_message'){
+											setTimeout(function(){  $('#MainContent').html('' + message + ''); }, 300);
+											}else{
+											 window.location.replace(sdRedirectLock);
+											}
+											 break;
+										}
+									}
+								}
+
+								if (pageType == 'collection' || pageType == 'product') {
+										if (contentArr.includes('collection') && sdLockData[i]['collection_ids'] != '') {
+										var collIdArr = sdLockData[i]['collection_ids'].split(',');
+										 var collprdIdArr = sdLockData[i]['collection_productids'].split(',');
+										if (collIdArr.includes('' + pageID + '')) {
+										  if(sdRedirectLock == 'show_message'){
+											 setTimeout(function(){  $('#MainContent').html('' + message + ''); }, 300);
+											}else{
+											 window.location.replace(sdRedirectLock);
+											}
+											 break;
+										}
+										if(collprdIdArr.includes('' + productId + '')) {
+											  if(sdRedirectLock == 'show_message'){
+											 setTimeout(function(){  $('#MainContent').html('' + message + ''); }, 300);
+											}else{
+											 window.location.replace(sdRedirectLock);
+											}
+											 break;
+										}
+
+									}
+								}
+					}
+
+					} else {
+						continue;
+					}
+				}
+			}
+		}
+		$(window).on('load', function(){
+			sd_LockData();
+		});
+
+	  	$(window).on('load', function () {
+				$(`input[name='q']`).on('keyup change', function(e) {
+				  var store = Shopify.shop;
+				  if(store == 'la-shampista-hair.myshopify.com'){
+					setTimeout(function () {
+					sd_LockData();
+					}, 400);
+				  }
+				})
+	  	});
+		$('body').addClass('.sd_hideSelected').on('click', function(){
+			setTimeout(function () {
+				sd_LockData();
+			}, 1200);
+		});
+		(function(history){
+			var pushState = history.pushState;
+			history.pushState = function(state) {
+			// YOUR CUSTOM HOOK / FUNCTION
+			sd_LockData();
+			return pushState.apply(history, arguments);
+			};
+	  	})(window.history);
+		</script>
+		

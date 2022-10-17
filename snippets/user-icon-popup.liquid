@@ -1,0 +1,58 @@
+ {% assign countryUrl = '' %}
+  {% if request.locale.iso_code == 'el' %}
+  {% assign countryUrl = '/el' %}
+  {% endif %}
+
+{% assign can_url = canonical_url %}
+{% if can_url contains 'circle-main' %}
+{% assign circle_active = 'circle_active' %}
+{% endif %}
+{% if can_url contains 'account' %}
+{% assign acc_active = 'acc_active' %}
+{% endif %}
+{% if can_url contains 'my-gifts' %}
+{% assign gifts_active = 'gifts_active' %}
+{% endif %}
+{% if can_url contains 'my-messages' %}
+{% assign my_msg_active = 'my_msg_active' %}
+{% endif %}
+{% if can_url contains 'my-settings' %}
+{% assign my_settings_active = 'my_settings_active' %}
+{% endif %}
+<div class="user-icon-popup test" id="user-icon-popup">
+  <div class="user-header">
+    <div class="logo">
+      <a href="/">{% render 'icon-korres' %}</a>
+    </div>
+    <div class="user-mobile-close">
+      <i class="fas fa-times"></i>
+	</div>
+  </div>
+  <div class="top">
+    <span class="user-name">{{ 'header_text.heading.hello' | t: hello }}<br/> {{customer.first_name | default: "Customer" }}!</span>
+  </div>
+  
+  <ul class="menu">
+    <li class="nav-item{% if menuCategory == 'Primary Category' %} emphasis{% endif %}{% if navImage %} nav-img-container{% endif %} {{ current_page }} {{ circle_active }}">
+    <a href="{{countryUrl}}/pages/circle-main">{{ 'header.title.my_circle' | t: my_circle }}</a>
+    </li>
+    <li class="social-login nav-item{% if menuCategory == 'Primary Category' %} emphasis{% endif %}{% if navImage %} nav-img-container{% endif %} {{ current_page }} {{ acc_active }}">
+      <a href="{{countryUrl}}/account">{{ 'header.title.my_orders' | t: my_orders }}</a>
+    </li>
+    <li class="nav-item{% if menuCategory == 'Primary Category' %} emphasis{% endif %}{% if navImage %} nav-img-container{% endif %} {{ current_page }} {{ gifts_active }}">
+      <a href="{{countryUrl}}/pages/my-gifts">{{ 'header.title.my_gift_list' | t: my_gift_list }}</a>
+    </li>
+    <li class="nav-item my-notifications{% if menuCategory == 'Primary Category' %} emphasis{% endif %}{% if navImage %} nav-img-container{% endif %} {{ current_page }} {{ my_msg_active }}">
+      <a href="{{countryUrl}}/pages/my-notifications">{{ 'header.title.my_messages' | t: my_messages }}</a>
+    </li>
+    <li class="nav-item{% if menuCategory == 'Primary Category' %} emphasis{% endif %}{% if navImage %} nav-img-container{% endif %} {{ current_page }} {{ my_settings_active }}">
+      <a href="{{countryUrl}}/pages/my-settings">{{ 'header.title.my_settings' | t: my_settings }}</a>
+    </li>
+    <li class="nav-item logout-link">
+      <a href="#logout" data-image-link="" rel="modal:open">{{ 'header.title.logout' | t: logout }}</a>
+    </li>
+  </ul>
+</div>
+
+
+

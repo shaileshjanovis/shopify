@@ -1,0 +1,2281 @@
+<div class="greece-right">
+  <div class="map web">
+    <img src="{{section.settings.img-map | img_url: 'master'}}" class="img-fluid lozad map-of-greece" alt="map of greece" />
+    <div class="greece-places greece-pins">
+      <div class="place place-evros">
+        <span class="text">{{ section.settings.pin-evros-region }}</span>        
+      </div>
+      <div class="place-evros pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-evros-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-evros-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-evros-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-evros-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-evros-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-evros-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-rodopi">       
+        <span class="text">{{ section.settings.pin-rodopi-region }}</span>
+      </div>
+      <div class="place-rodopi pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-rodopi-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-rodopi-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-rodopi-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-rodopi-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-rodopi-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-rodopi-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-kilkis">        
+        <span class="text">{{ section.settings.pin-kilkis-region }}</span>
+      </div>
+      <div class="place-kilkis pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-kilkis-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-kilkis-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-kilkis-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kilkis-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-kilkis-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kilkis-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-kozani">       
+        <span class="text">{{ section.settings.pin-kozani-region }}</span>
+      </div>
+      <div class="place-kozani pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-kozani-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-kozani-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-kozani-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kozani-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-kozani-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kozani-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-olympus">
+        
+        <span class="text">{{ section.settings.pin-olympus-region }}</span>
+      </div>
+      <div class="place-olympus pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-olympus-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-olympus-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-olympus-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-olympus-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-olympus-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-olympus-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-larisa">
+        
+        <span class="text">{{section.settings.pin-larisa-region}}</span>
+      </div>
+      <div class="place-larisa pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-larisa-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{section.settings.pin-larisa-herb-caps}}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{section.settings.pin-larisa-herb-latin}}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-larisa-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{section.settings.pin-larisa-producer}}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{section.settings.pin-larisa-link}}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-pindos-1">
+        
+        <span class="text">{{ section.settings.pin-pindos-1-region }}</span>
+      </div>
+      <div class="place-pindos-1 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-pindos-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-pindos-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-pindos-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-pindos-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-pindos-2">
+        
+        <span class="text">{{ section.settings.pin-pindos-2-region }}</span>
+      </div>
+      <div class="place-pindos-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-pindos-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-pindos-2-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-pindos-2-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-pindos-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-thesprotia-1">
+        
+        <span class="text">{{ section.settings.pin-thesprotia-1-region }}</span>
+      </div>
+      <div class="place-thesprotia-1 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-thesprotia-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-thesprotia-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-thesprotia-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-thesprotia-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-thesprotia-2">
+        
+        <span class="text">{{ section.settings.pin-thesprotia-2-region }}</span>
+      </div>
+      <div class="place-thesprotia-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-thesprotia-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-thesprotia-2-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-thesprotia-2-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-thesprotia-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-arcadia">
+        
+        <span class="text">{{ section.settings.pin-arcadia-region }}</span>
+      </div>
+      <div class="place-arcadia pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-arcadia-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-arcadia-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-arcadia-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-arcadia-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-arcadia-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-arcadia-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-naxos">
+        
+        <span class="text">{{ section.settings.pin-naxos-region }}</span>
+      </div>
+      <div class="place-naxos pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-naxos-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-naxos-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-naxos-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-naxos-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-naxos-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-naxos-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-santorini">
+        <span class="text">{{ section.settings.pin-santorini-region }}</span>
+        
+      </div>
+      <div class="place-santorini pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-santorini-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-santorini-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-santorini-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-santorini-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-santorini-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-santorini-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-crete-1">
+        <span class="text">{{ section.settings.pin-crete-1-region }}</span>
+        
+      </div>
+      <div class="place-crete-1 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-crete-2">
+        <span class="text">{{ section.settings.pin-crete-2-region }}</span>
+        
+      </div>
+      <div class="place-crete-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-2-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-2-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-crete-3">
+        <span class="text">{{ section.settings.pin-crete-3-region }}</span>
+        
+      </div>
+      <div class="place-crete-3 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-3-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-3-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-3-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-3-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-3-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-3-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-crete-4">        
+        <span class="text">{{ section.settings.pin-crete-4-region }}</span>
+      </div>
+      <div class="place-crete-4 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="bold">{{ section.settings.pin-crete-4-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-4-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="herb">{{ section.settings.pin-crete-4-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-4-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="name">{{ section.settings.pin-crete-4-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-4-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-crete-5">
+        
+        <span class="text">{{ section.settings.pin-crete-5-region }}</span>
+      </div>
+      <div class="place-crete-5 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-5-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-5-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-5-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-5-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-5-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-5-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="greece-farmers greece-pins">
+      <div class="place farmer-evros">
+        <span class="text">{{ section.settings.pin-evros-producer }}</span>
+        
+      </div>
+      <div class="place-evros pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-evros-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-evros-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-evros-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-evros-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-evros-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-evros-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-rodopi">        
+        <span class="text">{{ section.settings.pin-rodopi-producer }}</span>
+      </div>
+      <div class="farmer-rodopi pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-rodopi-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-rodopi-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-rodopi-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-rodopi-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-rodopi-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-rodopi-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-kilkis">
+        
+        <span class="text">{{ section.settings.pin-kilkis-producer }}</span>
+      </div>
+      <div class="farmer-kilkis pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-kilkis-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-kilkis-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-kilkis-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kilkis-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-kilkis-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kilkis-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-kozani">
+        
+        <span class="text">{{ section.settings.pin-kozani-producer }}</span>
+      </div>
+      <div class="farmer-kozani pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-kozani-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-kozani-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-kozani-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kozani-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-kozani-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kozani-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-olympus">
+        
+        <span class="text">{{ section.settings.pin-olympus-producer }}</span>
+      </div>
+      <div class="farmer-olympus pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-olympus-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-olympus-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-olympus-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-olympus-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-olympus-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-olympus-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-larisa">
+        
+        <span class="text">{{section.settings.pin-larisa-producer}}</span>
+      </div>
+      <div class="farmer-larisa pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{section.settings.pin-larisa-region}}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{section.settings.pin-larisa-herb-caps}}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{section.settings.pin-larisa-herb-latin}}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-larisa-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{section.settings.pin-larisa-producer}}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-larisa-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-pindos-1">
+        
+        <span class="text">{{ section.settings.pin-pindos-1-producer }}</span>
+      </div>
+      <div class="place-pindos-1 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-pindos-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-pindos-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-pindos-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-pindos-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-pindos-2">
+        
+        <span class="text">{{ section.settings.pin-pindos-2-producer }}</span>
+      </div>
+      <div class="place-pindos-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-pindos-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-pindos-2-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-pindos-2-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-pindos-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-thesprotia-1">        
+        <span class="text">{{ section.settings.pin-thesprotia-1-producer }}</span>
+      </div>
+      <div class="place-thesprotia-1 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-thesprotia-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-thesprotia-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-thesprotia-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-thesprotia-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-thesprotia-2">
+        
+        <span class="text">{{ section.settings.pin-thesprotia-2-producer }}</span>
+      </div>
+      <div class="place-thesprotia-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-thesprotia-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-thesprotia-2-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-thesprotia-2-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-thesprotia-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-arcadia">
+        
+        <span class="text">{{ section.settings.pin-arcadia-producer }}</span>
+      </div>
+      <div class="place-arcadia pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-arcadia-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-arcadia-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-arcadia-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-arcadia-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-arcadia-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-arcadia-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-naxos">
+        
+        <span class="text">{{ section.settings.pin-naxos-producer }}</span>
+      </div>
+      <div class="farmer-naxos pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-naxos-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-naxos-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-naxos-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-naxos-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-naxos-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-naxos-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-santorini">
+        <span class="text">{{ section.settings.pin-santorini-producer }}</span>        
+      </div>
+      <div class="place-santorini pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-santorini-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-santorini-herb-caps }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-santorini-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-santorini-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-santorini-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-crete-1">
+        <span class="text">{{ section.settings.pin-crete-1-producer }}</span>        
+      </div>
+      <div class="place-crete-1 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-crete-2">
+        <span class="text">{{ section.settings.pin-crete-2-producer }}</span>        
+      </div>
+      <div class="place-crete-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-2-herb-caps }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-crete-3">
+        <span class="text">{{ section.settings.pin-crete-3-producer }}</span>       
+      </div>
+      <div class="place-crete-3 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-3-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-3-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-3-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-3-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-3-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-3-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-crete-4">       
+        <span class="text">{{ section.settings.pin-crete-4-producer }}</span>
+      </div>
+      <div class="farmer-crete-4 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="bold">{{ section.settings.pin-crete-4-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-4-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="herb">{{ section.settings.pin-crete-4-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-4-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="name">{{ section.settings.pin-crete-4-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-4-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place farmer-crete-5">       
+        <span class="text">{{ section.settings.pin-crete-5-producer }}</span>
+      </div>
+      <div class="farmer-crete-5 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-5-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-5-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-5-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-5-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-5-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-5-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="greece-herbs greece-pins">
+      <div class="place herb-evros">
+        <span class="text">{{ section.settings.pin-evros-herb }}</span>        
+      </div>
+      <div class="place-evros pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-evros-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-evros-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-evros-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-evros-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-evros-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-evros-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-rodopi">        
+        <span class="text">{{ section.settings.pin-rodopi-herb }}</span>
+      </div>
+      <div class="herb-rodopi pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-rodopi-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-rodopi-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-rodopi-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-rodopi-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-rodopi-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-rodopi-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-kilkis">       
+        <span class="text">{{ section.settings.pin-kilkis-herb }}</span>
+      </div>
+      <div class="herb-kilkis pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up-row">
+          <span class="herb">{{ section.settings.pin-kilkis-herb-caps }}</span>
+        </div>
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-kilkis-herb-latin }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-kilkis-region }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kilkis-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-kilkis-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kilkis-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-kozani">        
+        <span class="text">{{ section.settings.pin-kozani-herb }}</span>
+      </div>
+      <div class="herb-kozani pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-kozani-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-kozani-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-kozani-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kozani-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-kozani-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-kozani-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-olympus">        
+        <span class="text">{{ section.settings.pin-olympus-herb }}</span>
+      </div>
+      <div class="place-olympus pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-olympus-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-olympus-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-olympus-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-olympus-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-olympus-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-olympus-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-larisa">       
+        <span class="text">{{section.settings.pin-larisa-herb}}</span>
+      </div>
+      <div class="place-larisa pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{section.settings.pin-larisa-region}}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{section.settings.pin-larisa-herb-caps}}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{section.settings.pin-larisa-herb-latin}}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-larisa-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{section.settings.pin-larisa-producer}}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-larisa-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-pindos-1">        
+        <span class="text">{{ section.settings.pin-pindos-1-herb }}</span>
+      </div>
+      <div class="place-pindos-1 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-pindos-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-pindos-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-pindos-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-pindos-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-pindos-2">        
+        <span class="text">{{ section.settings.pin-pindos-2-herb }}</span>
+      </div>
+      <div class="place-pindos-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-pindos-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-pindos-2-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-pindos-2-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-pindos-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-pindos-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-thesprotia-1">       
+        <span class="text">{{ section.settings.pin-thesprotia-1-herb }}</span>
+      </div>
+      <div class="place-thesprotia-1 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-thesprotia-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-thesprotia-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-thesprotia-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-thesprotia-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-thesprotia-2">       
+        <span class="text">{{ section.settings.pin-thesprotia-2-herb }}</span>
+      </div>
+      <div class="place-thesprotia-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-thesprotia-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-thesprotia-2-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-thesprotia-2-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-thesprotia-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-thesprotia-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place place-arcadia">        
+        <span class="text">{{ section.settings.pin-arcadia-herb }}</span>
+      </div>
+      <div class="place-arcadia pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-arcadia-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-arcadia-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-arcadia-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-arcadia-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-arcadia-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-arcadia-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-naxos">       
+        <span class="text">{{ section.settings.pin-naxos-herb }}</span>
+      </div>
+      <div class="herb-naxos pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-naxos-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-naxos-herb-caps }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-naxos-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-naxos-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-naxos-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-santorini">
+        <span class="text">{{ section.settings.pin-santorini-herb }}</span>       
+      </div>
+      <div class="place-santorini pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-santorini-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-naxos-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-santorini-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-santorini-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-santorini-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-santorini-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-crete-1">
+        <span class="text">{{ section.settings.pin-crete-1-herb }}</span>       
+      </div>
+      <div class="place-crete-1 pop-up-container" style="border:2px solid red;">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-1-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-1-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-1-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-1-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-1-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-1-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-crete-2">
+        <span class="text">{{ section.settings.pin-crete-2-herb }}</span>        
+      </div>
+      <div class="place-crete-2 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-2-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-2-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-2-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-2-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-2-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-2-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-crete-3">
+        <span class="text">{{ section.settings.pin-crete-3-herb }}</span>        
+      </div>
+      <div class="place-crete-3 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-3-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-3-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-3-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-3-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-3-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-3-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-crete-4">        
+        <span class="text">{{ section.settings.pin-crete-4-herb }}</span>
+      </div>
+      <div class="herb-crete-4 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="bold">{{ section.settings.pin-crete-4-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-4-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="herb">{{ section.settings.pin-crete-4-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-4-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">{{ section.settings.popup-where }}:</span>
+            <span class="name">{{ section.settings.pin-crete-4-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-4-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+      <div class="place herb-crete-5">
+        
+        <span class="text">{{ section.settings.pin-crete-5-herb }}</span>
+      </div>
+      <div class="herb-crete-5 pop-up-container">
+        <img src="{{section.settings.img-farmer-popup | img_url: 'master'}}" class="img-fluid lozad"  alt="farmer" />
+        <div class="pop-up">
+          <div class="pop-up-row">
+            <span class="title">Where:</span>
+            <span class="bold">{{ section.settings.pin-crete-5-region }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="herb">{{ section.settings.pin-crete-5-herb-caps }}</span>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">What:</span>
+            <span class="herb">{{ section.settings.pin-crete-5-herb-latin }}</span>
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-5-link }}" class="long-arrow-right"></a>
+          </div>
+          <div class="pop-up-row">
+            <span class="title">Who:</span>
+            <span class="name">{{ section.settings.pin-crete-5-producer }}</span>
+          </div>
+          <div class="pop-up-row">
+            <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.pin-crete-5-link }}" class="arrow-right">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="map mobile">
+    <img src="{{section.settings.img-map-mob | img_url: 'master'}}" class="img-fluid lozad map-of-greece" alt="map of greece" />
+    <div class="greece-places greece-pins">
+      <div class="place place-evros-mobile">
+        <span class="text">{{ section.settings.pin-evros-region }}</span>
+        
+      </div>
+      <div class="place place-rodopi-mobile">
+        <span class="text">{{ section.settings.pin-rodopi-region }}</span>
+        
+      </div>
+      <div class="place place-kilkis-mobile">
+        
+        <span class="text">{{ section.settings.pin-kilkis-region }}</span>
+      </div>
+      <div class="place place-kozani-mobile">
+        
+        <span class="text">{{ section.settings.pin-kozani-region }}</span>
+      </div>
+      <div class="place place-olympus-mobile">
+        
+        <span class="text">{{ section.settings.pin-olympus-region }}</span>
+      </div>
+      <div class="place place-larisa-mobile">
+        
+        <span class="text">{{section.settings.pin-larisa-region }}</span>
+      </div>
+      <div class="place place-pindos-1-mobile">
+        
+        <span class="text">{{ section.settings.pin-pindos-1-region }}</span>
+      </div>
+      <div class="place place-pindos-2-mobile">
+        
+        <span class="text">{{ section.settings.pin-pindos-2-region }}</span>
+      </div>
+      <div class="place place-thesprotia-1-mobile">
+        
+        <span class="text">{{ section.settings.pin-thesprotia-1-region }}</span>
+      </div>
+      <div class="place place-thesprotia-2-mobile">
+        
+        <span class="text">{{ section.settings.pin-thesprotia-2-region }}</span>
+      </div>
+      <div class="place place-arcadia-mobile">
+        
+        <span class="text">{{ section.settings.pin-arcadia-region }}</span>
+      </div>
+      <div class="place place-naxos-mobile">
+        <span class="text">{{ section.settings.pin-naxos-region }}</span>
+        
+      </div>
+      <div class="place place-santorini-mobile">
+        <span class="text">{{ section.settings.pin-santorini-region }}</span>
+        
+      </div>
+      <div class="place place-crete-1-mobile">
+        <span class="text">{{ section.settings.pin-crete-1-region }}</span>
+        
+      </div>
+      <div class="place place-crete-2-mobile">
+        <span class="text">{{ section.settings.pin-crete-2-region }}</span>
+        
+      </div>
+      <div class="place place-crete-3-mobile">
+        <span class="text">{{ section.settings.pin-crete-3-region }}</span>
+        
+      </div>
+      <div class="place place-crete-4-mobile">
+        
+        <span class="text">{{ section.settings.pin-crete-4-region }}</span>
+      </div>
+      <div class="place place-crete-5-mobile">
+        
+        <span class="text">{{ section.settings.pin-crete-5-region }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="greece-menu">
+    <div class="greece-menu-item active greece-menu-item-places">
+      {{ section.settings.menu-item-1 }}
+    </div>
+    <div class="greece-menu-item greece-menu-item-farmers">
+      {{ section.settings.menu-item-2 }}
+    </div>
+    <div class="greece-menu-item greece-menu-item-herbs">
+      {{ section.settings.menu-item-3 }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "Page Right Content",
+"settings": [
+{
+"id":"img-map",
+"type":"image_picker",
+"label":"Map of Greece Image"
+},
+{
+"id":"img-map-mob",
+"type":"image_picker",
+"label":"Mobile Map of Greece Image"
+},
+{
+"id":"img-farmer-popup",
+"type":"image_picker",
+"label":"Image of Farmer in Pop Up"
+},
+{
+"id":"popup-where",
+"type":"text",
+"label":"Pop Up Where Text",
+"default":"Where"
+},
+{
+"id":"popup-what",
+"type":"text",
+"label":"Pop Up What Text",
+"default":"What"
+},
+{
+"id":"popup-who",
+"type":"text",
+"label":"Pop Up Who",
+"default":"Who"
+},
+{
+"id":"menu-item-1",
+"type":"text",
+"label":"Menu Item Places",
+"default":"PLACES"
+},
+{
+"id":"menu-item-2",
+"type":"text",
+"label":"Menu Item Farmers",
+"default":"FARMERS"
+},
+{
+"id":"menu-item-3",
+"type":"text",
+"label":"Menu Item Herbs",
+"default":"HERBS"
+},
+{
+"id":"pin-evros-region",
+"type":"text",
+"label":"Region Evros",
+"default":"Orestiada"
+},
+{
+"id":"pin-evros-herb",
+"type":"text",
+"label":"Herb Evros",
+"default":"Organic Greek Sunflower Oil"
+},
+{
+"id":"pin-evros-herb-caps",
+"type":"text",
+"label":"Herb Evros Caps",
+"default":"ORGANIC GREEK SUNFLOWER OIL"
+},
+{
+"id":"pin-evros-herb-latin",
+"type":"text",
+"label":"Herb Evros Latin",
+"default":"Helianthus anuus"
+},
+{
+"id":"pin-evros-producer",
+"type":"text",
+"label":"Name of Producer Evros",
+"default":"Argiri Ntintoudi"
+},
+{
+"id":"pin-evros-link",
+"type":"text",
+"label":"Link of Evros Herb Page",
+"default":"/pages/herb-sunflower"
+},
+{
+"id":"pin-rodopi-region",
+"type":"text",
+"label":"Region Rodopi",
+"default":"Rodopi"
+},
+{
+"id":"pin-rodopi-herb",
+"type":"text",
+"label":"Herb Rodopi",
+"default":"Calendula Flowers"
+},
+{
+"id":"pin-rodopi-herb-caps",
+"type":"text",
+"label":"Herb Rodopi Caps",
+"default":"CALENDULA FLOWERS"
+},
+{
+"id":"pin-rodopi-herb-latin",
+"type":"text",
+"label":"Herb Rodopi Latin",
+"default":"Calendula Officinalis"
+},
+{
+"id":"pin-rodopi-producer",
+"type":"text",
+"label":"Name of Producer Rodopi",
+"default":"Giorgos Ereliadis"
+},
+{
+"id":"pin-rodopi-link",
+"type":"text",
+"label":"Link of Rodopi Herb Page",
+"default":"/pages/herb-calendula"
+},
+{
+"id":"pin-kilkis-region",
+"type":"text",
+"label":"Region Kilkis",
+"default":"Kilkis"
+},
+{
+"id":"pin-kilkis-herb",
+"type":"text",
+"label":"Herb Kilkis",
+"default":"Wild Rose"
+},
+{
+"id":"pin-kilkis-herb-caps",
+"type":"text",
+"label":"Herb Kilkis Caps",
+"default":"WILD ROSE"
+},
+{
+"id":"pin-kilkis-herb-latin",
+"type":"text",
+"label":"Herb Kilkis Latin",
+"default":"Rosa Canina"
+},
+{
+"id":"pin-kilkis-producer",
+"type":"text",
+"label":"Name of Producer Kilkis",
+"default":"B.B.G. of Kroussia"
+},
+{
+"id":"pin-kilkis-link",
+"type":"text",
+"label":"Link of Kilkis Herb Page",
+"default":"/pages/wild-rose-sunflower"
+},
+{
+"id":"pin-kozani-region",
+"type":"text",
+"label":"Region Kozani",
+"default":"Kozani"
+},
+{
+"id":"pin-kozani-herb",
+"type":"text",
+"label":"Herb Kozani",
+"default":"Krocus Kozanis"
+},
+{
+"id":"pin-kozani-herb-caps",
+"type":"text",
+"label":"Herb Kozani Caps",
+"default":"KROCUS KOZANIS"
+},
+{
+"id":"pin-kozani-herb-latin",
+"type":"text",
+"label":"Herb Kozani Latin",
+"default":"Crocus Sativus"
+},
+{
+"id":"pin-kozani-producer",
+"type":"text",
+"label":"Name of Producer Kozani",
+"default":"Kozani Saffron Producers Cooperative"
+},
+{
+"id":"pin-kozani-link",
+"type":"text",
+"label":"Link of Kozani Herb Page",
+"default":"/pages/herb-krocus-kozanis"
+},
+{
+"id":"pin-olympus-region",
+"type":"text",
+"label":"Region Olympus",
+"default":"Olympus"
+},
+{
+"id":"pin-olympus-herb",
+"type":"text",
+"label":"Herb Olympus",
+"default":"Olympus Tea"
+},
+{
+"id":"pin-olympus-herb-caps",
+"type":"text",
+"label":"Herb Olympus Caps",
+"default":"OLYMPUS TEA"
+},
+{
+"id":"pin-olympus-herb-latin",
+"type":"text",
+"label":"Herb Olympus Latin",
+"default":"Sideritis Scardica"
+},
+{
+"id":"pin-olympus-producer",
+"type":"text",
+"label":"Name of Producer Olympus",
+"default":"Vassilis + Dimitris Chalkias"
+},
+{
+"id":"pin-olympus-link",
+"type":"text",
+"label":"Link of Olympus Herb Page",
+"default":"/pages/herb-olympus-tea"
+},
+{
+"id":"pin-larisa-region",
+"type":"text",
+"label":"Region Larisa",
+"default":"Larisa"
+},
+{
+"id":"pin-larisa-herb",
+"type":"text",
+"label":"Herb Larisa",
+"default":"Almond Tree"
+},
+{
+"id":"pin-larisa-herb-caps",
+"type":"text",
+"label":"Herb Larisa Caps",
+"default":"ALMOND TREE"
+},
+{
+"id":"pin-larisa-herb-latin",
+"type":"text",
+"label":"Herb Larisa Latin",
+"default":"Prunus Dulcis"
+},
+{
+"id":"pin-larisa-producer",
+"type":"text",
+"label":"Name of Producer Larisa",
+"default":"Nikos Perifanos"
+},
+{
+"id":"pin-larisa-link",
+"type":"text",
+"label":"Link of Larisa Herb Page",
+"default":"/pages/herb-almond-tree"
+},
+{
+"id":"pin-pindos-1-region",
+"type":"text",
+"label":"Region Pindos 1",
+"default":"Pinus National Park"
+},
+{
+"id":"pin-pindos-1-herb",
+"type":"text",
+"label":"Herb Pindos 1",
+"default":"White Pine"
+},
+{
+"id":"pin-pindos-1-herb-caps",
+"type":"text",
+"label":"Herb Pindos 1 Caps",
+"default":"WHITE PINE"
+},
+{
+"id":"pin-pindos-1-herb-latin",
+"type":"text",
+"label":"Herb Pindos 1 Latin",
+"default":"Pinus Heldreichii"
+},
+{
+"id":"pin-pindos-1-producer",
+"type":"text",
+"label":"Name of Producer Pindos 1",
+"default":"Michalis Chliapas & D.F.G."
+},
+{
+"id":"pin-pindos-1-link",
+"type":"text",
+"label":"Link of Pindos 1 Herb Page",
+"default":"/pages/herb-white-pine"
+},
+{
+"id":"pin-pindos-2-region",
+"type":"text",
+"label":"Region Pindos 2",
+"default":"Pinus National Park"
+},
+{
+"id":"pin-pindos-2-herb",
+"type":"text",
+"label":"Herb Pindos 2",
+"default":"Black Pine"
+},
+{
+"id":"pin-pindos-2-herb-caps",
+"type":"text",
+"label":"Herb Pindos 2 Caps",
+"default":"BLACK PINE"
+},
+{
+"id":"pin-pindos-2-herb-latin",
+"type":"text",
+"label":"Herb Pindos 2 Latin",
+"default":"Pinus Pinus Nigra"
+},
+{
+"id":"pin-pindos-2-producer",
+"type":"text",
+"label":"Name of Producer Pindos 2",
+"default":"Michalis Chliapas & D.F.G."
+},
+{
+"id":"pin-pindos-2-link",
+"type":"text",
+"label":"Link of Pindos 2 Herb Page",
+"default":"/pages/herb-black-pine"
+},
+{
+"id":"pin-thesprotia-1-region",
+"type":"text",
+"label":"Region Thesprotia 1",
+"default":"Village Faskomilia"
+},
+{
+"id":"pin-thesprotia-1-herb",
+"type":"text",
+"label":"Herb Thesprotia 1",
+"default":"Balsam"
+},
+{
+"id":"pin-thesprotia-1-herb-caps",
+"type":"text",
+"label":"Herb Thesprotia 1 Caps",
+"default":"BALSAM"
+},
+{
+"id":"pin-thesprotia-1-herb-latin",
+"type":"text",
+"label":"Herb Thesprotia 1 Latin",
+"default":"Hypericum Perforatum"
+},
+{
+"id":"pin-thesprotia-1-producer",
+"type":"text",
+"label":"Name of Producer Thesprotia 1",
+"default":"Maria Komini"
+},
+{
+"id":"pin-thesprotia-1-link",
+"type":"text",
+"label":"Link of Thesprotia 1 Herb Page",
+"default":"/pages/herb-balsam"
+},
+{
+"id":"pin-thesprotia-2-region",
+"type":"text",
+"label":"Region Thesprotia 2",
+"default":"Village Margariti"
+},
+{
+"id":"pin-thesprotia-2-herb",
+"type":"text",
+"label":"Herb Thesprotia 2",
+"default":"Sage"
+},
+{
+"id":"pin-thesprotia-2-herb-caps",
+"type":"text",
+"label":"Herb Thesprotia 2 Caps",
+"default":"SAGE"
+},
+{
+"id":"pin-thesprotia-2-herb-latin",
+"type":"text",
+"label":"Herb Thesprotia 2 Latin",
+"default":"Salvia Fruticosa"
+},
+{
+"id":"pin-thesprotia-2-producer",
+"type":"text",
+"label":"Name of Producer Thesprotia 2",
+"default":"Maria Komini"
+},
+{
+"id":"pin-thesprotia-2-link",
+"type":"text",
+"label":"Link of Thesprotia 2 Herb Page",
+"default":"/pages/herb-sage"
+},
+{
+"id":"pin-arcadia-region",
+"type":"text",
+"label":"Region Arcadia",
+"default":"Arcadia"
+},
+{
+"id":"pin-arcadia-herb",
+"type":"text",
+"label":"Herb Arcadia",
+"default":"Castanea Arcadia"
+},
+{
+"id":"pin-arcadia-herb-caps",
+"type":"text",
+"label":"Herb Arcadia Caps",
+"default":"CASTANEA ARCADIA"
+},
+{
+"id":"pin-arcadia-herb-latin",
+"type":"text",
+"label":"Herb Arcadia Latin",
+"default":"Castanea Sativa"
+},
+
+{
+"id":"pin-arcadia-producer",
+"type":"text",
+"label":"Name of Producer Arcadia",
+"default":"Dimitris Maniatis"
+},
+{
+"id":"pin-arcadia-link",
+"type":"text",
+"label":"Link of Arcadia Herb Page",
+"default":"/pages/castania-arcadia"
+},
+{
+"id":"pin-naxos-region",
+"type":"text",
+"label":"Region Naxos",
+"default":"Naxos"
+},
+{
+"id":"pin-naxos-herb",
+"type":"text",
+"label":"Herb Naxos",
+"default":"Thyme"
+},
+{
+"id":"pin-naxos-herb-caps",
+"type":"text",
+"label":"Herb Naxos Caps",
+"default":"THYME"
+},
+{
+"id":"pin-naxos-herb-latin",
+"type":"text",
+"label":"Herb Naxos Latin",
+"default":"Thymus Vulgaris"
+},
+{
+"id":"pin-naxos-producer",
+"type":"text",
+"label":"Name of Producer Naxos",
+"default":"Nikos Xatziandreou"
+},
+{
+"id":"pin-naxos-link",
+"type":"text",
+"label":"Link of Naxos Herb Page",
+"default":"/pages/herb-thyme"
+},
+{
+"id":"pin-santorini-region",
+"type":"text",
+"label":"Region Santorini",
+"default":"Santorini"
+},
+{
+"id":"pin-santorini-herb",
+"type":"text",
+"label":"Herb Santorini",
+"default":"Santorini Grape"
+},
+{
+"id":"pin-santorini-herb-caps",
+"type":"text",
+"label":"Herb Santorini Caps",
+"default":"SANTORINI GRAPE"
+},
+{
+"id":"pin-santorini-herb-latin",
+"type":"text",
+"label":"Herb Santorini Latin",
+"default":"Vitis Venifera"
+},
+{
+"id":"pin-santorini-producer",
+"type":"text",
+"label":"Name of Producer Santorini",
+"default":"U.S.C./Sanztowine"
+},
+{
+"id":"pin-santorini-link",
+"type":"text",
+"label":"Link of Santorini Herb Page",
+"default":"/pages/herb-santorini-grape"
+},
+
+{
+"id":"pin-crete-1-region",
+"type":"text",
+"label":"Region Crete 1",
+"default":"Zounaki Village"
+},
+{
+"id":"pin-crete-1-herb",
+"type":"text",
+"label":"Herb Crete 1",
+"default":"Olive Tree"
+},
+{
+"id":"pin-crete-1-herb-caps",
+"type":"text",
+"label":"Herb Crete 1 Caps",
+"default":"OLIVE TREE"
+},
+{
+"id":"pin-crete-1-herb-latin",
+"type":"text",
+"label":"Herb Crete 1 Latin",
+"default":"Olea Europea"
+},
+{
+"id":"pin-crete-1-producer",
+"type":"text",
+"label":"Name of Producer Crete 1",
+"default":"Athanasia Papadantonaki"
+},
+{
+"id":"pin-crete-1-link",
+"type":"text",
+"label":"Link of Crete 1 Herb Page",
+"default":"/pages/herb-olive-tree"
+},
+{
+"id":"pin-crete-2-region",
+"type":"text",
+"label":"Region Crete 2",
+"default":"Lefka Ori"
+},
+{
+"id":"pin-crete-2-herb",
+"type":"text",
+"label":"Herb Crete 2",
+"default":"Malotira"
+},
+{
+"id":"pin-crete-2-herb-caps",
+"type":"text",
+"label":"Herb Crete 2 Caps",
+"default":"MALORITA"
+},
+{
+"id":"pin-crete-2-herb-latin",
+"type":"text",
+"label":"Herb Crete 2 Latin",
+"default":"Sideritis Syriaca"
+},
+{
+"id":"pin-crete-2-producer",
+"type":"text",
+"label":"Name of Producer Crete 2",
+"default":"Local Farmers"
+},
+{
+"id":"pin-crete-2-link",
+"type":"text",
+"label":"Link of Crete 2 Herb Page",
+"default":"/pages/herb-malotira"
+},
+{
+"id":"pin-crete-3-region",
+"type":"text",
+"label":"Region Crete 3",
+"default":"Messara"
+},
+{
+"id":"pin-crete-3-herb",
+"type":"text",
+"label":"Herb Crete 3",
+"default":"Olive Tree"
+},
+{
+"id":"pin-crete-3-herb-caps",
+"type":"text",
+"label":"Herb Crete 3 Caps",
+"default":"OLIVE TREE"
+},
+{
+"id":"pin-crete-3-herb-latin",
+"type":"text",
+"label":"Herb Crete 3 Latin",
+"default":"Olea Europea"
+},
+{
+"id":"pin-crete-3-producer",
+"type":"text",
+"label":"Name of Producer Crete 3",
+"default":"Organic Farmers Cooperative of Messara"
+},
+{
+"id":"pin-crete-3-link",
+"type":"text",
+"label":"Link of Crete 3 Herb Page",
+"default":"/pages/herb-olive-tree-messara"
+},
+{
+"id":"pin-crete-4-region",
+"type":"text",
+"label":"Region Crete 4",
+"default":"Arkalochori"
+},
+{
+"id":"pin-crete-4-herb",
+"type":"text",
+"label":"Herb Crete 4",
+"default":"Marjoram"
+},
+{
+"id":"pin-crete-4-herb-caps",
+"type":"text",
+"label":"Herb Crete 4 Caps",
+"default":"MARJORAM"
+},
+{
+"id":"pin-crete-4-herb-latin",
+"type":"text",
+"label":"Herb Crete 4 Latin",
+"default":"Origanum Majorana"
+},
+{
+"id":"pin-crete-4-producer",
+"type":"text",
+"label":"Name of Producer Crete 4",
+"default":"Local Farmers"
+},
+{
+"id":"pin-crete-4-link",
+"type":"text",
+"label":"Link of Crete 4 Herb Page",
+"default":"/pages/herb-marjoram"
+},
+{
+"id":"pin-crete-5-region",
+"type":"text",
+"label":"Region Crete 5",
+"default":"Arkalochori"
+},
+{
+"id":"pin-crete-5-herb",
+"type":"text",
+"label":"Herb Crete 5",
+"default":"Dittany"
+},
+{
+"id":"pin-crete-5-herb-caps",
+"type":"text",
+"label":"Herb Crete 5 caps",
+"default":"DITTANY"
+},
+{
+"id":"pin-crete-5-herb-latin",
+"type":"text",
+"label":"Herb Crete 5 Latin",
+"default":"Origanum Dictamnus"
+},
+{
+"id":"pin-crete-5-producer",
+"type":"text",
+"label":"Name of Producer Crete 5",
+"default":"Local Farmers"
+},
+{
+"id":"pin-crete-5-link",
+"type":"text",
+"label":"Link of Crete 5 Herb Page",
+"default":"/pages/herb-dittany "
+}
+]
+}
+{% endschema %}

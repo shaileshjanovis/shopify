@@ -1,0 +1,182 @@
+<div class="my-noti-inner">
+  <div class="header_ti">
+    <h3 class="shead">{{ page_title }}</h3>
+    <p class="subhead">{% if request.locale.iso_code == 'el' %}Έχεις{% else %}You have{% endif %} <strong> <span class="noti_count">0</span> {% if request.locale.iso_code == 'el' %}νέες ειδοποιήσεις{% else %}new notifications{% endif %}</strong></p>
+  </div>
+  
+  <div class="container">
+    <div class="noti-loader"></div>
+    <div class="notifactions-rece noti-disable-on-load">
+        <div class="notifactions-new">
+          <h4 class="notifactions-new-head">{% if request.locale.iso_code == 'el' %}Νέες{% else %}New{% endif %}</h4>
+          <ul class="list_noti new-notifications">
+            <li class="single-noti unnotification">
+              <div class="single_noti_cover">
+                <div class="cover-noti">
+                  <div class="text_noti"><p>{% if request.locale.iso_code == 'el' %}Φαίνεται ότι δεν έχεις ακόμη ειδοποιήσεις!{% else %}Looks like you don’t have any notifications yet!{% endif %}</p></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+    
+        <div class="notifactions-olds">
+          <h4 class="notifactions-new-head">{% if request.locale.iso_code == 'el' %}Προηγούμενες{% else %}Older{% endif %}</h4>
+          <ul class="list_noti older-notifications">
+            <li class="single-noti unnotification">
+              <div class="single_noti_cover">
+                <div class="cover-noti">
+                  <div class="text_noti"><p>{% if request.locale.iso_code == 'el' %}Φαίνεται ότι δεν έχεις ακόμη ειδοποιήσεις!{% else %}Looks like you don’t have any notifications yet!{% endif %}</p></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="load-more-noti" style="display:none;"> <span> More Notifications </span> </div>
+        </div>
+    </div>
+    
+    <div class="empty-notifactions" style="display:none;">
+      <p>{% if request.locale.iso_code == 'el' %}Φαίνεται ότι δεν έχεις ακόμη <br> ειδοποιήσεις!{% else %}Looks like you don’t have <br> any notifications yet!{% endif %}</p>
+      <a href="/collections/all-products" class="submit-btn">{% if request.locale.iso_code == 'el' %}Επιστροφή στο Κατάστημα{% else %}Back to Shop{% endif %}</a> 
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": "My notifications",
+    "class":"my-notifications mygift-prods",
+    "settings": []
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(e){
+    var custid = $('body').data("original");
+    if ( typeof custid !== 'undefined') {
+      /************ GetShNotification ***********/
+      var countActive = 0;
+      var newlstdata = "";
+      var oldlstdata = "";
+      var myCurrentDate = new Date();
+      var myPastDate = new Date(myCurrentDate);
+      myPastDate.setDate(myPastDate.getDate() - 1);
+
+      $.get('https://api.korresfamily.com/api/v1/MarketplaceItem/GetShNotification?userid='+custid,function(notidata){
+
+        if($.trim(notidata)){
+          notidata.forEach(function(e, index){
+            var todate = notidata[index].create_date;
+            var setdate = new Date(todate).toISOString().split('T')[0];
+            setdate = new Date(setdate);
+            var notiDes = notidata[index].description;
+            var notiTitle = notidata[index].title;
+            var notiId = notidata[index].id;
+            var notify_time = notidata[index].notify_time;
+            var token = notidata[index].token;
+            
+            var order_num = notidata[index].shopify_order_number;
+            var order_id = notidata[index].order_id;
+            if(order_id > 0){
+                var notiDesCheck = notidata[index].description;
+                var notiDes = notiDesCheck.replace(/\d+/, '<a href="/account/orders/'+token+'">'+order_num+'</a>'); 
+            } else {
+                var notiDes = notidata[index].description;
+            }
+
+            var readStatus = notidata[index].is_read;
+            if(readStatus == false){
+              var activeCls = "active_msg";
+              countActive++;
+            } else {
+              var activeCls = "older_msg";
+            }
+
+            if (setdate > myPastDate) { 
+              newlstdata += '<li class="single-noti '+activeCls+'" data-notiId="'+notiId+'"><div class="single_noti_cover"><div class="cover-noti"><div class="text_noti"><p>'+notiDes+'</p></div></div><div class="order-las"><p class="time-range">'+notify_time+'</p></div></div></li>';
+            }else {   
+              oldlstdata += '<li class="single-noti '+activeCls+'" data-notiId="'+notiId+'"><div class="single_noti_cover"><div class="cover-noti"><div class="text_noti"><p>'+notiDes+'</p></div></div><div class="order-las"><p class="time-range">'+notify_time+'</p></div></div></li>';
+            }
+          });
+        } else {
+          $('.notifactions-rece').hide();
+          $('.empty-notifactions').show();
+        }
+
+        if($.trim(newlstdata)){
+          $('.new-notifications li').remove();
+          $('.new-notifications').append(newlstdata);
+        } else {
+          $('.notifactions-new').hide();
+        }
+
+        if($.trim(oldlstdata)){
+          $('.older-notifications li').remove();
+          $('.older-notifications').append(oldlstdata);
+        } else {
+          $('.notifactions-olds').hide();
+        }
+
+        setTimeout(function() { $.fn.loadmoreFunction(); }, 3000);
+
+        $('.noti_count').text(countActive);
+        if(countActive > 0){
+          $('.nav-item.my-notifications').addClass('have-notifications');
+        }
+        
+        $('.notifactions-rece').removeClass('noti-disable-on-load');
+        $('.noti-loader').hide();
+
+        console.log(notidata);
+      },'json')
+      $(document).on("click", '.active_msg', function(event) {   
+        var notiid = $(this).data("notiid");
+        var getcount = Number($('.noti_count').text());
+        var lessone = getcount-1;
+        $('.noti_count').text(lessone);
+
+        $(this).removeClass("active_msg").addClass('older_msg');
+        $.ajax({
+          type: "GET",
+          url: 'https://api.korresfamily.com/api/v1/MarketplaceItem/ReadShNotification?id='+notiid,
+          success: function(data){
+            console.log(data)
+          }, error: function(data){
+            console.log(data);
+          }
+        });
+      });
+      $.fn.loadmoreFunction = function(){ 
+
+        var list = $(".older-notifications li");
+        var numToShow = 10;
+        var button = $(".load-more-noti span");
+        var parentbutton = $(".load-more-noti");
+        var numInList = list.length;
+
+        list.hide();
+        if (numInList > numToShow) {
+          parentbutton.show();
+        }
+        list.slice(0, numToShow).show();
+
+        button.click(function(){
+          var showing = list.filter(':visible').length;
+          list.slice(showing - 1, showing + numToShow).fadeIn();
+          var nowShowing = list.filter(':visible').length;
+          if (nowShowing >= numInList) {
+            parentbutton.hide();
+          }
+        });
+      };
+    }
+     //====Start of 17th May changes by madhav 
+     localStorage.setItem("notification", ""); 
+     //====End of 17th May changes by madhav 
+  }); 
+</script>

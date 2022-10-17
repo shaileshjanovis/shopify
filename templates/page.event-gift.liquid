@@ -1,0 +1,278 @@
+{% unless customer %}
+  <script>window.location.replace('/account/login/?return_url=/')</script>
+{% endunless %}
+
+{% assign giftFullUrl = canonical_url %}
+{% assign giftUri = giftFullUrl | split: "=" %}
+
+{% assign giftUriFinal = giftUri[1] | split: "&" %}
+{% assign productUri = giftFullUrl | split: "type=" %}
+
+{% assign circles = shop.metafields.circle %}
+{% assign first_order = customer.metafields.customer.first_order %}
+{% assign royalty = customer.metafields.points.loyalty | split : '|' | last | plus:0 %} 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div id="event-gift-page" class="gift-page-container">
+    {% assign circleValue = '' %}
+    {% for circle in circles %}
+        {% if circle[0] contains 'My_' %}
+            {% unless circle[0] contains 'level_' %}
+                {% assign circleValue = circle[0] | prepend:'level_' %}
+              {% assign valuedonwcase = circle[0] | downcase %}
+  
+        <div id="{{ circle[0] }}" class="events-gift-main" style="{% if valuedonwcase == giftUriFinal[0] %}display: block;{% else %}display: none;{% endif %}">
+                    {% for i in (1..5) %}
+                      {% assign increase = 'Event_' | append: i %}
+                      {% assign events = shop.metafields.[increase].[circleValue] %}
+
+                      {% if events != null and events != "" %}
+
+                        {% assign checktest = events | split: "|" %}
+                        {% assign img = checktest[5] | remove: "," %}
+                      {% assign points = checktest[6]  %}
+                        {% assign pointsChk = 'label_' | append: checktest[6]  %}
+                  
+                        {% assign lvl_nme = checktest[0] |  replace:' ','-' | strip %}
+
+                        <div id="{{ lvl_nme }}" class="events-gift" style="{% if pointsChk == productUri[1] %}display: block;{% else %}display: none;{% endif %}">
+                            <h1 style="display:none;" id="CircleNameAt">{{ checktest[0] }}</h1>
+                            <div id="imgtestid" class="top-img">
+                                <img id="apid" src="{{ img }}" alt="{{checktest[0]}}" class="img-fluid"/>
+                            </div>
+                            <div class="gift-content">
+                                <h1 class="ClLotter_name" id="lotter_name">{{checktest[0]}}</h1>
+                                <p class="sub-title">{{checktest[1]}}</p>
+                                {% assign royaltytest = royalty | plus: 0 %}
+                                {% assign pointstest = points | plus: 0 %}
+                              
+                                {% if first_order %}
+                        {% if royaltytest < pointstest %}
+                                    <button class="btn-gift btn-earn-gift product-info-locked"> {% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %} </button>
+                                    {% else %}
+                                        {% assign str = 'Level_' | append: points  %}
+                                        {% if customer.metafields.Level contains str  %}
+                                      <button class="btn-gift product-info-earned">{% if request.locale.iso_code == 'el' %}Εξαργυρωμένο{% else %}Earned Gift{% endif %}</button>
+                                    {% else %}
+                                            <button class="vktest btn-gift btn-earn-gift">{% if request.locale.iso_code == 'el' %}Ξεκλείδωτο Δώρο{% else %}Earn this Gift{% endif %} <span></span></button>
+                                        {% endif %}
+                                    {% endif %}
+                                {% else %}
+                                    <button class="btn-gift btn-earn-gift product-info-locked"> {% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %} </button>
+                                {% endif %}
+                              
+                                <div class="text">
+                                    <p>{{checktest[2]}}</p>
+                                    <p>{{checktest[3]}}</p>
+                                    <p>{{checktest[4]}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                      {% endif %}
+                    {% endfor %}
+          </div>
+          
+          {% endunless %}
+        {% endif %}
+    {% endfor %}
+  
+    <div class="event-gift-form">
+      <div class="page-main-content">
+        <form action="/" name="gift_form" id="gift_form">
+          <div class="floating-label">
+              <div class="cust-width"><label for="input-contact-name">{% if request.locale.iso_code == 'el' %}Όνομα{% else %}Name{% endif %}</label></div>
+              <div class="cust-width">
+                <input id="input-contact-name"
+                       type="text"
+                       name="input-contact-name"
+                       placeholder="e.g {% if request.locale.iso_code == 'el' %}Ιωάννης{% else %}John{% endif %}"
+                       autocomplete="name"
+                       data-rule="required"> 
+              </div>
+            </div>
+        
+          <div class="floating-label">
+              <div class="cust-width"><label for="input-contact-surname">{% if request.locale.iso_code == 'el' %}Επώνυμο{% else %}Surname{% endif %}</label></div>
+              <div class="cust-width">
+                <input id="input-contact-surname"
+                       type="text"
+                       name="input-contact-surname"
+                       placeholder="e.g {% if request.locale.iso_code == 'el' %}Πρωτοπαπαδάκης{% else %}Doe{% endif %}"
+                       data-rule="required">    
+              </div>
+            </div>
+
+          <div class="floating-label">
+              <div class="cust-width"><label for="input-contact-phone">{% if request.locale.iso_code == 'el' %}Τηλέφωνο Επικοινωνίας{% else %}Contact Phone{% endif %}</label></div>
+              <div class="cust-width">
+                <input id="input-contact-phone"
+                       type="text"
+                       name="input-contact-phone"
+                       placeholder="e.g 6912345678"
+                       data-rule="required">    
+              </div>
+            </div>
+        
+          <div class="floating-label">
+              <div class="cust-width"><label for="input-contact-address">{% if request.locale.iso_code == 'el' %}Διεύθυνση{% else %}Address{% endif %}</label></div>
+              <div class="cust-width">
+                <input id="input-contact-address"
+                       type="text"
+                       name="input-contact-address"
+                       placeholder="e.g Πτολεμαίου 44, Αθήνα, 15771"
+                       data-rule="required">    
+              </div>
+            </div>
+        
+          <div class="floating-label">
+              <div class="cust-width"><label for="input-contact-email">Email</label></div>
+              <div class="cust-width">
+                <input id="input-contact-email"
+                       type="email"
+                       name="input-contact-email"
+                       placeholder="e.g johndoe@gmail.com"
+                       autocomplete="email"
+                       data-rule="required|email">    
+              </div>
+            </div>
+          
+
+          <div class="floating-label point-status">
+              <div class="cust-width">
+                <div class="check-row check-row-signed">
+                  <label class="customcheck rounded">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+                  <span class="bold">By clicking here I give permission to Korres Circle to contact me with personalized and general information. I have read and agree to the Privacy Policy</span>
+                </div>
+                
+                <input type="hidden" name="customer_id" value="{{customer.id}}">
+                <input type="hidden" name="customer_email" value="{{customer.email}}">
+                <input type="hidden" name="event_points" value="{{ productUri[1] | remove: "label_" }}">
+                <input type="hidden" name="royalty" value="{{ royalty }}">
+                <button class="submit-btn callAPI"  type="button" disabled='disabled'>{% if request.locale.iso_code == 'el' %}Ενημέρωση{% else %}Update{% endif %}</button>
+              </div>
+            </div>
+        </form>
+      </div>
+  </div>  
+    
+</div>
+
+{{ 'jquery.validate.js' | asset_url | script_tag }}
+<script> 
+  var custid = $('input[name="customer_id"]').val();
+  var points = parseInt($('input[name="event_points"]').val());
+  var royalty = parseInt($('input[name="royalty"]').val());
+  
+  if(points > royalty){
+    $(".event-gift-form").addClass("section-info-locked");
+  } else {
+  $.ajax({
+        url: "https://api.korresfamily.com/api/v1/MarketplaceItem/CheckEventbooking?userid="+custid+"&points="+points,
+        type: 'GET',
+        success: function(res) {        
+            $(".active #lockedtest1").html(res.data);
+            if(res.status == 'earned'){
+              $(".point-status").hide();
+              //$("#"+circlename).addClass("section-info-earned");
+              
+              $('input[name="input-contact-name"]').val(res.event_data.name).prop('readonly', true);;
+              $('input[name="input-contact-surname"]').val(res.event_data.surname).prop('readonly', true);;
+              $('input[name="input-contact-phone"]').val(res.event_data.phone).prop('readonly', true);; 
+              $('input[name="input-contact-address"]').val(res.event_data.address).prop('readonly', true);; 
+              $('input[name="input-contact-email"]').val(res.event_data.email).prop('readonly', true);;
+            } else {
+              $(".point-status").show();                
+            }
+            
+    }, error: function(error) {
+            console.log('error');
+        }
+    });
+  }
+  
+    
+  $(document).ready(function () {
+    $('.page-main-content').on("input",function (e)  {
+
+      var iname = $('input[name="input-contact-name"]').val();
+      var isurname = $('input[name="input-contact-surname"]').val();
+      var iphone = $('input[name="input-contact-phone"]').val(); 
+      var iaddress = $('input[name="input-contact-address"]').val(); 
+    var iemail = $('input[name="input-contact-email"]').val(); 
+      
+      if (iname.lenght <= 0  || isurname <= 0 || iphone <= 0 || iaddress <= 0 || iemail <= 0) {
+        $('.submit-btn').prop('disabled', true);
+      } else {
+        $('.submit-btn').prop('disabled', false);
+      }
+
+    });
+  });
+  
+  $.extend(jQuery.validator.messages, {
+    required: "This field is required.",
+    email: "Please enter a valid email address.",
+    company_phonemsg: "Please enter vaild phone number."
+  });
+  var v = $("#gift_form").validate({
+    rules: {
+      'input-contact-name': {
+        required: true
+      },
+      'input-contact-surname': {
+        required: true
+      },
+      'input-contact-phone': {
+        required: true,
+    	number: true,
+        minlength : 10,
+        maxlength : 12,
+      },
+      'input-contact-address': {
+        required: true
+      },
+      'input-contact-email': {
+        required: true,
+        email: true
+      }
+    }
+  });
+  
+  $(".callAPI").click(function() {
+    if (v.form()) {
+     
+        var iname = $('input[name="input-contact-name"]').val();
+        var isurname = $('input[name="input-contact-surname"]').val();
+        var iphone = $('input[name="input-contact-phone"]').val(); 
+        var iaddress = $('input[name="input-contact-address"]').val(); 
+        var iemail = $('input[name="input-contact-email"]').val(); 
+        var policy_status = $('input[name="privecy_policy_status"]').val();
+        var points = $('input[name="event_points"]').val();
+        var userid = $('input[name="customer_id"]').val();
+      
+        var url = "https://api.korresfamily.com/api/v1/MarketplaceItem/ShopifyEventBooking";
+
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data:{name: iname, surname: isurname, email: iemail, phone: iphone, address: iaddress, points: points, user_id: userid, privecy_policy_status: policy_status },
+          success:function(res){
+            setTimeout(function(){
+              $('.callAPI').text('Earned');
+              window.location.reload();
+            },1000);
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+    }
+  });
+</script>

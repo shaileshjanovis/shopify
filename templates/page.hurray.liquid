@@ -1,0 +1,71 @@
+{% assign royalty = 30 | plus:0 %}
+{% if customer.accepts_marketing == true %}
+	{% assign royalty = royalty | plus:25 %}
+{% endif %}
+
+{% if customer.phone %}
+	{% assign royalty = royalty | plus:25 %}
+{% endif %}
+{{ 'style-hurray.css' | asset_url | stylesheet_tag }}
+
+<input type="hidden" value="{{royalty}}" name="hidden_value">
+<div class="sucessfull_register">
+  <div class="custom-page-width">
+    <div class="sucessfull_register_cover">
+     
+      <div class="circle_detail mobile">
+        <h3><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/hurrraaay-lines.png?v=1645019299" />{{ 'Hurray_successful.title.hurrraaay' | t: hurrraaay }}</h3>
+        <p>{{ 'Hurray_successful.title.subtitle' | t: royalty:royalty }}</p>
+      </div>
+      
+      <div class="circle_inner">
+        <div class="pie_main"  data-count="{{royalty}}">
+         <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/olive-circle-hurray.png?v=1655213433" class="img-fluid" />
+          {% comment %}<svg id="animated" viewbox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="transparent"/>
+            <path id="progress" stroke-linecap="round" stroke-width="4" stroke-dasharray= "50 237"; stroke="#fff" fill="none"
+                  d="M50 10
+                     a 40 40 0 0 1 0 80
+                     a 40 40 0 0 1 0 -80">
+            </path>
+          </svg>
+        
+          <div class="degree" style="transform: translateY(-50%)rotate(50deg);">
+            <img src="{{ 'dot_one.svg' | asset_url }}">
+          </div>
+          <div class="tick">
+            {% include 'tick' %}
+          </div>
+          <div class="lock hhhh" style="transform: translateY(-50%)rotate(151deg);">
+            <img src="{{ 'lock.svg' | asset_url }}" style="transform:rotate(-151deg);">
+            <span></span>
+          </div>
+          <div class="lock step2" style="transform: translateY(-50%)rotate(320deg);">
+            <img src="{{ 'lock.svg' | asset_url }}" style="transform:rotate(-320deg);">
+            <span></span>
+          </div>
+          {% endcomment %}
+          <div class="points">
+            <div class="points_inner incomplete_points">
+              <span class="circle-points loyalpoints">{{royalty}}</span>
+              <label class="circle-total-points">
+              {% if request.locale.iso_code == 'el' %}
+                Από τους 2,000 πόντους
+              {% else %}
+              	Out of 2,000 points
+              {% endif %}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="circle_detail">
+        <h3 class="web"><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/hurrraaay-lines.png?v=1645019299" />{{ 'Hurray_successful.title.hurrraaay' | t: hurrraaay }}</h3>
+        <p class="web">{{ 'Hurray_successful.title.subtitle' | t: royalty:royalty }}</p>
+        <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/all-products" class="btn-theme-white">{{ 'Hurray_successful.title.button' | t: button }}</a>
+      </div>
+      
+    </div>
+  </div>
+</div>

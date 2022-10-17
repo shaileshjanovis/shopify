@@ -1,0 +1,189 @@
+{{ 'style-my-settings.css' | asset_url | stylesheet_tag }}
+<p id="rc_link_container">
+  <a href="/tools/recurring/login">Manage Subscriptions</a>
+</p>
+<main role="main" class="main-wrap with-sidebar no-header">
+  <div class="page-main-content">
+    <div class="section-wrap section-profile">
+      <h1 class="section-title">Profile</h1>
+      <div class="section section-profile-info">
+        <h2 class="section-sub-title">Personal Information</h2>
+        <ul class="info-list">
+          <li>{{ customer.first_name }} {{ customer.last_name }}</li>
+          <li>{{ customer.email }}</li>
+          {{ customer.metafields.global.neww }}
+        </ul>
+      </div>
+    </div>
+    <div class="section-separator"></div>
+    {% assign cols = "Order number;Date;Shipping status;Total" | split: ";" %}
+    <div class="section-wrap section-orders">
+      <h1 class="section-title page-title">{{ 'header.title.my_orders' | t: my_orders }}</h1>
+      {% paginate customer.orders by 10 %}
+      {% if customer.orders.size != 0 %}
+      {% else %}
+      <ul class="tabs">
+        <li class="tab-link current" data-tab="tab-1">{{ 'my_order.title.online' | t: online }}</li>
+        <li class="tab-link" data-tab="tab-2">{{ 'my_order.title.store' | t: store }}</li>
+      </ul>
+      <div class="orders-empty-container">
+        <p class="top">{{ 'my_order.title.empty-order' | t: empty-order }}</p>
+        <a class="btn-theme-blue" href="{{ shop.secure_url }}/collections/all-products">{{ 'my_order.title.btn-return-to-shop' | t: btn-return-to-shop }}</a>
+      </div>
+      {% endif %}
+      {% for part in paginate.parts %}
+      {% if part.is_link %}
+      {% assign paginate.parts[forloop.index0].url = paginate.parts[forloop.index0].url | append: '#page-orders' %}
+      {% endif %}
+      {% endfor %}
+      <div class="account-pagination-wrap">
+        {{ paginate | default_pagination: next: '<i class="icon ki-caret-right"></i>', previous: '<i class="icon ki-caret-left"></i>' }}
+      </div>
+      {% endpaginate %}
+    </div>
+    {% if customer.orders.size != 0 %}
+    <div class="container-fluid">
+      <ul class="tabs">
+        <li class="tab-link current" data-tab="tab-1">{{ 'my_order.title.online' | t: online }}</li>
+        <li class="tab-link" data-tab="tab-2">{{ 'my_order.title.store' | t: store }}</li>
+      </ul>
+      {% assign cols = "Order number;Date;Shipping status;Total" | split: ";" %}
+      <div id="tab-1" class="tab-content current">
+        {% for order in customer.orders %}
+        {% unless order.tags contains 'gift' %}
+        {% unless order.tags contains 'Microsite' or order.tags contains 'microsite' %}
+        <div class="order-container">
+          <div class="order-status">
+            <h5>{{ 'my_order.title.order_no' | t: order_no }} : {{order.name | link_to: order.customer_url | remove: "#" }}</h5>
+            <p>
+              {{ 'my_order.title.status' | t: status }} :  <span class="fulfill-status">
+                {% case order.fulfillment_status %}
+                {% when 'unfulfilled' %}
+                {% assign orderTags = order.tags | join: ', ' %}
+                {% if orderTags contains 'in_transit' %}
+                <span class="underline">{{ 'my_order.title.processing' | t: processing }}	</span>
+                {% else %}
+                <span class="underline">	{{ 'my_order.title.pending' | t: pending }}</span>
+                {% endif %}
+                {% else %}
+                {{ 'my_order.title.delivered' | t: delivered }}
+                {% endcase %}
+              </span>
+              {%if order.fulfillment_status == 'Unfulfilled'%}
+              <style>
+                span.fulfill-status {
+                text-decoration: underline;
+                }
+              </style>
+              {%endif%}
+            </p>
+          </div>
+          <div class="row row-eq-height">
+            <div class="orders-carousel">
+              {% for line_item in order.line_items %}
+              {% if order.line_items.size > 4 %}
+              <div class="col-6 col-sm-4 col-lg-cust product-columns 1">
+                <div class="order_product">
+                  <div class="product-img-container">{{ line_item.image | img_url: 'medium' | img_tag | 'product_image' }}</div>
+                  {{ line_item.title | link_to: line_item.product.url }}
+                  <p class="price">{{ line_item.line_price | money }}</p>
+                </div>
+              </div>
+              {%else%}
+              <div class="col-6 col-sm-4 col-lg-cust product-columns 2">
+                <div class="order_product">
+                  <div class="product-img-container">{{ line_item.image | img_url: 'medium' | img_tag | 'product_image' }}</div>
+                  {{ line_item.title | link_to: line_item.product.url }}
+                  <p class="price">{{ line_item.line_price | money }}</p>
+                </div>
+              </div>
+              {%endif%}
+              {%endfor%}
+              {% if order.line_items.size > 0 %}
+              <div class="col-6 col-sm-4 col-lg-cust more_overlay 3">
+                <div class="order_product">
+                  <div class="view-orders">
+                    <a href="{{order.customer_url}}">
+                      {{ 'my_order.title.view_all' | t: view_all }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {%endif%}
+          </div>
+        </div>
+        {% endunless %}{% endunless %}
+        {% endfor %}
+      </div>
+      <div id="tab-2" class="tab-content">
+        {% for order in customer.orders %}
+        {% unless order.tags contains 'gift' %}
+        {% if order.tags contains 'Microsite' or order.tags contains 'microsite'%}
+        <div class="order-container">
+          <div class="order-status">
+            <h5>{{ 'my_order.title.order_no' | t: order_no }} : {{order.name | link_to: order.customer_url | remove: "#" }}</h5>
+            <p>
+              {{ 'my_order.title.status' | t: status }} :  <span class="fulfill-status">
+                {% case order.fulfillment_status %}
+                {% when 'unfulfilled' %}
+                {% assign orderTags = order.tags | join: ', ' %}
+                {% if orderTags contains 'in_transit' %}
+                <span class="underline">	{{ 'my_order.title.processing' | t: processing }}</span>
+                {% else %}
+                <span class="underline">	{{ 'my_order.title.pending' | t: pending }}</span>
+                {% endif %}
+                {% else %}
+                {{ 'my_order.title.delivered' | t: delivered }}
+                {% endcase %}
+              </span>
+              {%if order.fulfillment_status == 'unfulfilled'%}
+              <style>
+                span.fulfill-status {
+                text-decoration: underline;
+                }
+              </style>
+              {%endif%}
+            </p>
+          </div>
+          <div class="row row-eq-height">
+            <div class="orders-carousel">
+            {% for line_item in order.line_items %}
+            {% if order.line_items.size > 4 %}
+            <div class="col-6 col-sm-4 col-lg-cust product-columns">
+              <div class="order_product">
+                {{ line_item.image | img_url: 'medium' | img_tag | 'product_image' }}
+                {{ line_item.title | link_to: line_item.product.url }}
+                <p class="price">{{ line_item.line_price | money }}</p>
+              </div>
+            </div>
+            {%else%}
+            <div class="col-6 col-sm-4 col-lg-cust product-columns">
+              <div class="order_product">
+                {{ line_item.image | img_url: 'medium' | img_tag | 'product_image' }}
+                {{ line_item.title | link_to: line_item.product.url }}
+                <p class="price">{{ line_item.line_price | money }}</p>
+              </div>
+            </div>
+            {%endif%}
+            {%endfor%}
+            {% if order.line_items.size > 0 %}
+            <div class="col-6 col-sm-4 col-lg-cust more_overlay">
+              <div class="order_product">
+                <div class="view-orders">
+                  <a href="{{order.customer_url}}"> View All </a>
+                </div>
+              </div>
+            </div>
+            {%endif%}
+           </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</main>

@@ -1,0 +1,47 @@
+<div class="faq-container">
+  <div class="faq-header">
+    <h3>{{ section.settings.page-title }}</h3>
+    <span class="arrow down"></span>
+  </div>
+  <div class="faq-content slideup">
+    {% for block in section.blocks %}
+    {% if block.type == 'block-faq-quest' %}
+    <div class="item">
+      <h6>{{ block.settings.quest-title }}</h6>
+      {{ block.settings.quest-text }}
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
+{% schema %}
+{
+"name": "MyCircle FAQ",
+"settings": [
+{
+"id": "page-title",
+"type": "text",
+"label": "Page Title",
+"default":"Συχνές Ερωτήσεις"
+}
+],
+"blocks": [{
+"type": "block-faq-quest",
+"name": "Question Section",
+"settings": [
+{
+"id": "quest-title",
+"type": "text",
+"label": "Title Of Question"
+},
+{
+"id": "quest-text",
+"type": "richtext",
+"label": "Question Text"
+}
+]
+}]
+}
+{% endschema %}

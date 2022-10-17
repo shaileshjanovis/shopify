@@ -1,0 +1,347 @@
+{% assign productd = product.description | split:'<!-- split -->' %}
+
+<div class="spin_secs m-labs-cont product-full-circle">
+  <section class="main">
+    {% if productd[5] == "" or productd[15] == "" or productd[14] == "" or productd[7] == "" or productd[16] == "" or productd[17] == "" %}
+     <h1  style="display:none;" class="sec_titl">{{ 'shop_gallery.circle_spin.the_full_circle_of' | t: the_full_circle_of }}</h1>
+    <div class="product-tab-container tab-view-test">
+
+    <div style="display:none;" class="tab">
+   {% if productd[5] == "" %} 
+      <style> div#London{
+      display:none;
+      }
+        </style>
+      {% else %}
+      <style> .tab{ display: block !important; } .sec_titl{ display: block !important; }</style>
+      <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen"> SOIL</button>
+      {% endif %}
+      
+   {% if productd[14] == "" %}
+       <style> div#Tokyo{
+      display:none;
+      }
+      </style>
+      {% else %}
+     <style> .tab{ display: block !important; } .sec_titl{ display: block !important; }</style>
+      <button class="tablinks" onclick="openCity(event, 'Tokyo')" id="defaultOpen"> EXTRACTION</button>
+      {% endif %}
+      
+   {% if productd[15] == "" %}
+      <style> div#Paris{
+      display:none;
+      }
+      
+      </style>
+      {% else %}
+    <style> .tab{ display: block !important; } .sec_titl{ display: block !important; }</style>
+      <button class="tablinks" onclick="openCity(event, 'Paris')" id="defaultOpen"> MOLECULAR</button>
+     {% endif %}
+      
+     {% if productd[7] == "" %}  
+      <style> div#Him{
+      display:none;
+      }
+      
+      </style>
+      {% else %}
+     <style> .tab{ display: block !important; } .sec_titl{ display: block !important; }</style>
+      <button class="tablinks" onclick="openCity(event, 'Him')" id="defaultOpen"> FORMULATION</button>
+      {% endif %}
+      
+      {% if productd[16] == "" %} 
+      <style> div#Utt{
+      display:none;
+      }
+      
+      </style>
+      {% else %}
+    <style> .tab{ display: block !important; } .sec_titl{ display: block !important; }</style>
+      <button class="tablinks" onclick="openCity(event, 'Utt')" id="defaultOpen"> DESIGN</button>
+      {% endif %}
+      
+      {% if productd[17] == "" %}  
+      <style> div#Mum{
+      display:none;
+      }
+      
+      </style>
+      {% else %}
+    <style> .tab{ display: block !important; } .sec_titl{ display: block !important; }</style>
+      <button class="tablinks" onclick="openCity(event, 'Mum')" id="defaultOpen"> RECYCLE</button>
+      {% endif %}
+    </div>
+    
+     <div  id="London" class="tabcontent">
+           <div class="tab-content-inner">
+               <div class="para text-container">
+                  <div class="newp inner" style="font-size:22px !important; float:left;">
+                    <span class="title headblue">Soil Lab</span><br /><br />
+                    <div class="soil_description  text">{{ productd[5] }}</div>
+                  </div>
+               </div>
+              <div class="imga img-container">
+                 {% if product.metafields.fullcircle_Soil.Soil %}
+                   <img class="newsizeof" src="{{ product.metafields.fullcircle_Soil.Soil }}" alt="" class="img-fluid" />
+                 {% endif %}
+              </div>
+          </div>
+     </div>
+       
+     <div id="Tokyo" class="tabcontent">
+        <div class="tab-content-inner">
+          <div class="para text-container">
+               <p class="newp inner">
+                   <span class="title headblue">Extraction Lab</span>
+                   <div class="extraction_description text">{{ productd[14] }}</div>
+               </p>  
+           </div>
+           <div class="imga img-container">
+            {% if product.metafields.fullcircle_ex.extraction %}
+               <img class="newsizeof" src="{{ product.metafields.fullcircle_ex.extraction }}" alt="" class="img-fluid" />
+	        {% endif %}
+           </div>
+       </div>
+   </div>
+
+     <div  id="Paris" class="tabcontent">
+         <div class="tab-content-inner">
+            <div class="para text-container">
+                <div class="newp inner">
+                    <span class="title headblue">Molecular Lab</span>
+                    <div class="molecular_description text">{{ productd[15] }}</div>
+                </div>
+             </div>
+             <div class="imga img-container">
+                {% if product.metafields.fullcircle_mol.molecular %}
+                    <img class="newsizeof" src="{{ product.metafields.fullcircle_mol.molecular }}" alt="" class="img-fluid" />
+                {% endif %}
+             </div>
+          </div>
+      </div>
+  
+    <div  id="Him" class="tabcontent">
+        <div class="tab-content-inner">
+          <div class="para text-container">
+               <div class="newp inner">
+                   <span class="title headblue">Formulation Lab</span>
+                   <div class="formulation_description text">{{ productd[7] }}</div>
+               </div>
+          </div>
+          <div class="imga img-container">
+            {% if product.metafields.fullcircle_for.formulation %}
+                <img class="newsizeof" src="{{ product.metafields.fullcircle_for.formulation }}" alt=""class="img-fluid" />
+            {% endif %}
+          </div>
+      </div>
+  </div>
+      
+   <div id="Utt" class="tabcontent">
+      <div class="tab-content-inner">
+          <div class="para text-container">
+              <div class="newp inner">
+                  <span class="title headblue">Design Lab</span>
+                  <div class="design_description text">{{ productd[16] }}</div>
+              </div>
+          </div>
+          <div class="imga img-container">
+            {% if product.metafields.fullcircle_des.design %}
+              <img class="newsizeof" src="{{ product.metafields.fullcircle_des.design }}" alt="" class="img-fluid"/>
+           {% endif %}
+          </div>
+      </div>
+   </div>
+      
+     <div id="Mum" class="tabcontent">
+         <div class="tab-content-inner">
+              <div class="para text-container">
+                   <div class="newp inner">
+                       <span class="title headblue">Recycle Lab</span>
+                       <div class="recycle_description text">{{ productd[17] }}</div>
+                   </div>
+              </div>
+              <div class="imga img-container">
+                    {% if product.metafields.fullcircle_rec.recycle %}
+                        <img class="newsizeof" src="{{ product.metafields.fullcircle_rec.recycle }}" alt="" class="img-fluid"/>
+                    {% endif %}
+              </div>
+          </div>
+      </div>
+ 
+  
+    </div>
+    {% else %}
+       <h1   class="sec_titl">{{ 'shop_gallery.circle_spin.the_full_circle_of' | t: the_full_circle_of }}</h1>
+     <div class="testin product-tab-container">
+    <div class="cover_contain">
+      <div class="arc-containe">
+        <div id="arc-wrapper" class="arc-wrapper arc-one">
+          <h1 class="soil l-click" data-show=".soil-c">1 SOIL </h1>
+          <h1 class="extraction l-click" data-show=".extraction-c">2 EXTRACTION </h1>
+          <h1 id="openFirst" class="molecular l-click text-clicked" data-show=".molecular-c">3 MOLECULAR</h1>
+          <h1 class="formulation l-click" data-show=".formulation-c">4 FORMULATION</h1>
+          <h1 class="formulation-sec l-click" data-show=".formulation-c">4 FORMULATION</h1>
+          <h1 class="design l-click" data-show=".design-c">5 DESIGN</h1>
+          <h1 class="design-sec l-click" data-show=".design-c">5 DESIGN</h1>
+          <h1 class="recycle l-click" data-show=".recycle-c">6 RECYCLE</h1> 
+        </div>
+      </div>
+
+      <div class="inner-basic division-details tabcontent">       
+        <div class="three-sec initialmsg hide tab-content-inner">
+          <div class="circle-text text-container">
+            <div class="inner">
+                <h4 class="title circle-title">1.{{ 'shop_gallery.circle_spin.soil_lab' | t: soil_lab }}</h4>
+                <div class="soil_description text">{{productd[5]}}</div>
+            </div>
+          </div>
+          <div class="circle-img img-container">
+            {% if product.metafields.fullcircle_Soil.Soil %}
+			    <img class="sizeon" src="{{ product.metafields.fullcircle_Soil.Soil }}" alt="">
+            {% endif %}
+          </div>
+        </div>
+       
+        <div class="three-sec soil-c hide tab-content-inner">
+          <div class="circle-text text-container">
+            <div class="inner">
+                <h4 class="title circle-title">1.{{ 'shop_gallery.circle_spin.soil_lab' | t: soil_lab }}</h4>
+                <div class="soil_description text">{{productd[5]}}</div>
+            </div>
+          </div>
+          <div class="circle-img img-container">
+             {% if product.metafields.fullcircle_Soil.Soil %}
+			    <img class="sizeon" src="{{ product.metafields.fullcircle_Soil.Soil }}" alt="">
+            {% endif %}
+          </div>
+        </div>
+     
+        <div class="three-sec extraction-c hide tab-content-inner">
+          <div class="circle-text text-container">
+              <div class="inner">
+                <h4 class="title circle-title">2.{{ 'shop_gallery.circle_spin.extraction_lab' | t: extraction_lab }}</h4>
+                <div class="extraction_description  text">{{productd[14]}}</div>
+             </div>
+          </div>
+          <div class="circle-img img-container">
+             {% if product.metafields.fullcircle_ex.extraction %}
+               <img class="sizeon" src="{{ product.metafields.fullcircle_ex.extraction }}" alt="">
+		    {% endif %}	
+          </div>
+        </div>
+
+        <div class="three-sec molecular-c tab-content-inner">
+          <div class="circle-text text-container">
+              <div class="inner">
+                <h4 class="title circle-title">3.{{ 'shop_gallery.circle_spin.molecular_lab' | t: molecular_lab }}</h4>
+                <div class="molecular_description  text">{{productd[15]}}</div>
+              </div>
+          </div>
+          <div class="circle-img img-container">
+             {% if product.metafields.fullcircle_mol.molecular %}
+                <img class="sizeon" src="{{ product.metafields.fullcircle_mol.molecular }}" alt="">
+		    {% endif %}	
+          </div>
+        </div>
+
+        <div class="three-sec formulation-c hide tab-content-inner">
+          <div class="circle-text text-container">
+            <div class="inner">
+                <h4 class="title circle-title">4.{{ 'shop_gallery.circle_spin.formulation_lab' | t: formulation_lab }}</h4>
+                <div class="formulation_description text">{{productd[7]}}</div>
+            </div>
+          </div>
+          <div class="circle-img img-container">
+             {% if product.metafields.fullcircle_for.formulation %}
+              <img class="sizeon" src="{{ product.metafields.fullcircle_for.formulation }}" alt="">
+		    {% endif %}	
+          </div>
+        </div>
+
+        <div class="three-sec design-c hide tab-content-inner">
+          <div class="circle-text text-container">
+            <div class="inner">
+                <h4 class="title circle-title">5.{{ 'shop_gallery.circle_spin.design_lab' | t: design_lab }}</h4>
+                <div class="design_description  text">{{productd[16]}}</div>
+            </div>
+          </div>
+          <div class="circle-img img-container">
+            {% if product.metafields.fullcircle_des.design %}
+                <img class="sizeon" src="{{ product.metafields.fullcircle_des.design }}" alt="">
+		    {% endif %}	
+          </div>
+        </div>
+
+        <div class="three-sec recycle-c hide tab-content-inner">
+          <div class="circle-text text-container">
+            <div class="inner">
+                <h4 class="title circle-title">6.{{ 'shop_gallery.circle_spin.recycle_Lab' | t: recycle_Lab }}</h4>
+                <div class="recycle_description  text">{{productd[17]}}</div>
+            </div>
+          </div>
+          <div class="circle-img img-container">
+             {% if product.metafields.fullcircle_rec.recycle %}
+              <img class="sizeon" src="{{ product.metafields.fullcircle_rec.recycle }}" alt="">
+		    {% endif %}	
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    {% endif %}
+  </section>
+</div>
+
+<script src="{{ 'jquery.arctext.js' | asset_url }}" ></script>
+<script>
+  $('.soil').arctext({
+    radius: 250
+  });
+  $('.extraction').arctext({
+    radius: 190
+  });
+  $('.molecular').arctext({
+    radius: 190
+  });
+
+  $('.formulation').arctext({
+    radius: 190
+  });
+  $('.design-sec').arctext({
+    radius: 160
+  });
+  $('.formulation-sec').arctext({
+    radius: 200
+  });
+  $('.design').arctext({
+    radius: 160
+  });
+  $('.recycle').arctext({
+    radius: 195
+  });
+</script>
+
+<script>
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+  setTimeout(function(){
+        $('.text-clicked').trigger('click'); 
+  }, 2000);
+  
+  document.getElementById("defaultOpen").click();
+  
+</script>
+
+

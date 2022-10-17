@@ -1,0 +1,236 @@
+<div class="members-section-container">
+  <h3>{{ section.settings.page-title }}</h3>
+  <div class="row no-gutters w-100">
+    {% for block in section.blocks %}
+    {% if block.type == 'block-box1' %}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="bg-img bg-img-1">
+        <img src="{{block.settings.box1-img-web | img_url: 'master'}}" class="img-fluid" />
+        <p class="w-400">{{block.settings.box1-text}}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-box2' %}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="bg-img bg-img-2">
+        <img src="{{block.settings.box2-img-web | img_url: 'master'}}" class="img-fluid" />
+        <p class="w-400">{{block.settings.box2-text}}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-box3' %}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="bg-img bg-img-3">
+        <img src="{{block.settings.box3-img-web | img_url: 'master'}}" class="img-fluid" />
+        <p>{{block.settings.box3-text}}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-box4' %}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="bg-img bg-img-4">
+        <img src="{{block.settings.box4-img-web | img_url: 'master'}}" class="img-fluid" />
+        <p class="w-400">{{block.settings.box4-text}}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-box5' %}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="bg-img bg-img-5">
+        <img src="{{block.settings.box5-img-web | img_url: 'master'}}" class="img-fluid" />
+        <p class="w-400">{{block.settings.box5-text}}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-box6' %}
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="bg-img bg-img-6">
+        <img src="{{block.settings.box6-img-web | img_url: 'master'}}" class="img-fluid" />
+        <p class="w-540">{{block.settings.box6-text}}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-box7' %}
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="bg-img bg-img-7">
+        <img src="{{block.settings.box7-img-web | img_url: 'master'}}" class="img-fluid" />
+        <p class="w-780">{{block.settings.box7-text}}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "MyCircle Members",
+"settings": [{
+"id": "page-title",
+"type": "richtext",
+"label": "Page Title"
+}
+],
+"blocks": [
+{
+"type": "block-box1",
+"name": "Box 1",
+"settings": [
+{
+"id": "box1-text",
+"type": "text",
+"label": "Box 1 Text"
+},
+{
+"id": "box1-img-web",
+"type": "image_picker",
+"label": "Box 1 Image Web"
+},
+{
+"id": "box1-img-mob",
+"type": "image_picker",
+"label": "Box 1 Image Mob"
+}
+]
+},
+{
+"type": "block-box2",
+"name": "Box 2",
+"settings": [
+{
+"id": "box2-text",
+"type": "text",
+"label": "Box 2 Text"
+},
+{
+"id": "box2-img-web",
+"type": "image_picker",
+"label": "Box 2 Image Web"
+},
+{
+"id": "box2-img-mob",
+"type": "image_picker",
+"label": "Box 2 Image Mob"
+}
+]
+},
+{
+"type": "block-box3",
+"name": "Box 3",
+"settings": [
+{
+"id": "box3-text",
+"type": "text",
+"label": "Box 3 Text"
+},
+{
+"id": "box3-img-web",
+"type": "image_picker",
+"label": "Box 3 Image Web"
+},
+{
+"id": "box3-img-mob",
+"type": "image_picker",
+"label": "Box 3 Image Mob"
+}
+]
+},
+{
+"type": "block-box4",
+"name": "Box 4",
+"settings": [
+{
+"id": "box4-text",
+"type": "text",
+"label": "Box 4 Text"
+},
+{
+"id": "box4-img-web",
+"type": "image_picker",
+"label": "Box 4 Image Web"
+},
+{
+"id": "box4-img-mob",
+"type": "image_picker",
+"label": "Box 4 Image Mob"
+}
+]
+},
+{
+"type": "block-box5",
+"name": "Box 5",
+"settings": [
+{
+"id": "box5-text",
+"type": "text",
+"label": "Box 5 Text"
+},
+{
+"id": "box5-img-web",
+"type": "image_picker",
+"label": "Box 5 Image Web"
+},
+{
+"id": "box5-img-mob",
+"type": "image_picker",
+"label": "Box 5 Image Mob"
+}
+]
+},
+{
+"type": "block-box6",
+"name": "Box 6",
+"settings": [
+{
+"id": "box6-text",
+"type": "text",
+"label": "Box 6 Text"
+},
+{
+"id": "box6-img-web",
+"type": "image_picker",
+"label": "Box 6 Image Web"
+},
+{
+"id": "box6-img-mob",
+"type": "image_picker",
+"label": "Box 6 Image Mob"
+}
+]
+},
+{
+"type": "block-box7",
+"name": "Box 7",
+"settings": [
+{
+"id": "box7-text",
+"type": "text",
+"label": "Box 7 Text"
+},
+{
+"id": "box7-img-web",
+"type": "image_picker",
+"label": "Box 7 Image Web"
+},
+{
+"id": "box7-img-mob",
+"type": "image_picker",
+"label": "Box 7 Image Mob"
+}
+]
+}
+]
+}
+{% endschema %}

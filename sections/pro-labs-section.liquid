@@ -1,0 +1,532 @@
+<style>
+  
+ .container.m-labs-cont {
+    margin-top: 120px;
+    margin-bottom: 80px;
+}
+  
+  .m-labs-cont h1 {
+    text-align: center;
+}
+  
+  .inner-basic.division-details {
+    margin-top: 45px;
+}
+  
+
+.m-labs-cont h1 span {
+    letter-spacing: 1px !important;
+        font-family: 'Roboto', sans-serif !important;
+    font-weight: 300;
+    color: #D9D6D3;
+    font-size: 30px;
+}
+  
+  h1.l-click.text-clicked:after {
+    content: '•';
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    transform: translateY(-12px);
+    text-align: center;
+    font-size: 30px;
+    height: 0;
+}
+  
+  h1.l-click.text-clicked span {
+    color:#000;
+}
+  
+  .inner-basic.division-details p {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 300;
+    text-indent: 38px;
+    width: 80%;
+    color: #000;
+        margin: 0 auto;
+        padding-bottom: 25px;
+}
+  
+  .inner-basic.division-details p.labs-author {
+    text-indent: 0px !important;
+    font-family: 'Roboto Mono', monospace !important;
+    font-size: 16px;
+}
+  
+  .m-labs-cont h1:hover span{
+  color:#000;
+    cursor:pointer;
+  }
+  
+  
+.arc-wrapper {
+    position: relative;
+    margin: 0px auto;
+    font-family: 'Montserrat', serif;
+    text-transform: uppercase;
+    width: 50%;
+    height: 560px;
+    float: left;
+}
+.arc-wrapper:before{
+	content: '';
+	position: absolute;
+	width: 340px;
+	height: 340px;
+	
+	border-radius: 50%;
+	top: 35%;
+	left: 35%;
+	margin: -180px 0 0 -180px;
+}
+  
+  .inner-basic.division-details {
+    width: 50%;
+    float: left;
+}
+  .arc-wrapper:after {
+    content: '';
+    color: #F5E9BC;
+    line-height: 210px;
+    width: 370px;
+    height: 370px;
+    background:url(https://cdn.shopify.com/s/files/1/0515/5785/9489/files/had-color.jpg?v=1612778786) repeat top left;
+    border-radius: 50%;
+    position: absolute;
+    top: 43%;
+    left: 35%;
+    margin: -155px 0 0 -120px;
+    font-family: 'Sail', serif;
+    text-transform: none;
+    font-size: 138px;
+    text-indent: -25px;
+}
+
+.arc-wrapper .molecular{
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	font-size: 22px;
+	margin-top: 16px;
+	letter-spacing: -4px;
+}
+
+.arc-wrapper .extraction{
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	font-size: 22px;
+	margin-top: 16px;
+	letter-spacing: -4px;
+}
+
+.arc-wrapper .soil{
+	position: absolute;
+	width: 100%;
+	top: 20px;
+	left: 0;
+	font-size: 22px;
+	margin-top: 16px;
+	letter-spacing: -4px;
+}
+.arc-wrapper .formulation{
+	position: absolute;
+	z-index: 10;
+	width: 100%;
+	font-size: 22px;
+	bottom: 0px;
+	color: #fff;
+}
+.arc-wrapper .design{
+	position: absolute;
+	z-index: 10;
+	width: 100%;
+	font-size: 22px;
+	bottom: 0px;
+}
+.arc-wrapper .recycle{
+	position: absolute;
+	z-index: 10;
+	width: 100%;
+	font-size: 22px;
+
+}
+.arc-wrapper h4 span{
+	background: #D26A44;
+	padding: 3px;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	margin: 0 -3px 0px -3px;
+}
+.arc-wrapper h4 span.empty{
+	background: transparent;
+	width: 4px;
+}
+
+h1.soil {
+    top: 24px !important;
+    transform: rotate( 
+4deg
+ );
+}
+
+.extraction {
+    transform: rotate( 
+57deg
+ );
+    letter-spacing: 2px !important;
+    left: 167px !important;
+    top: 115px !important;
+}
+h1.formulation {
+    transform: rotate( 
+18deg
+ );
+    right: 86px;
+    bottom: 51px !important;
+}
+
+h1.molecular {
+    transform: rotate( 
+124deg
+ );
+    letter-spacing: 2px !important;
+    left: 169px !important;
+    top: 360px !important;
+} 
+  
+h1.design {
+    top: 88px;
+    transform: rotate( 
+84deg
+ );
+    letter-spacing: 2px !important;
+    right: 450px !important;
+}
+.recycle {
+    top: 96px;
+    transform: rotate( 
+316deg
+ );
+    letter-spacing: 2px !important;
+    left: -168px !important;
+}
+  .hide {
+		  display: none;
+		}
+		.map-container {
+		  text-align: center;
+		}
+ h1.l-click:hover:after {
+    content: '•';
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    transform: translateY(-12px);
+    text-align: center;
+    font-size: 30px;
+    height: 0;
+} 
+  
+  h1.design.l-click:hover:after {
+    transform: translateY(-68px);
+}
+  
+  section.\.extraction-c .arc-wrapper:after {
+    background: url(https://cdn.shopify.com/s/files/1/0515/5785/9489/files/grey-hand.jpg?v=1612783593);
+}
+  
+  section.\.formulation-c .arc-wrapper:after {
+    background: url(https://cdn.shopify.com/s/files/1/0515/5785/9489/files/grey-hand.jpg?v=1612783593);
+}
+  
+  section.\.recycle-c .arc-wrapper:after {
+    background: url(https://cdn.shopify.com/s/files/1/0515/5785/9489/files/grey-hand.jpg?v=1612783593);
+}
+  
+  h1.formulation.l-click.text-clicked:after, h1.formulation.l-click:hover:after {
+    content: '•';
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    transform: translateY(-65px);
+    text-align: center;
+    font-size: 30px;
+    position: absolute;
+    color: #000 !Important;
+}
+  
+  h1.design.l-click.text-clicked:after {
+    transform: translateY(-68px);}
+/* 6 lab mobile version  */
+  @media (max-width: 600px) {
+  #arc-wrapper {
+      width: 100%;
+    overflow:hidden;
+  }
+
+    .container.m-labs-cont {
+   		 margin-top: 80px;
+    	margin-bottom: 30px;
+	}
+  .inner-basic.division-details {
+    margin-top :10px;
+      width: 100% !important;
+  }
+    .inner-basic.division-details p {
+		width: 100% !important;
+    }
+    .arc-wrapper:after {
+      top: 55% !important;
+      left: 50% !important;
+      width: 250px !important;
+      height: 250px !important;
+      background-size: 100% !important;
+/*       background: red !important; */
+    }
+    .m-labs-cont h1 span{
+    	font-size: 21px !important;
+    }
+    h1.soil {
+        top: 90px !important;
+        transform: rotate(0deg)!important;
+        left: 10px !important;
+    }
+    .extraction {
+      transform: rotate(52deg);
+      letter-spacing: 2px !important;
+      left: 124px !important;
+      top: 150px !important;
+    }
+    h1.molecular {
+      transform: rotate(122deg);
+      letter-spacing: 2px !important;
+      left: 130px !important;
+      top: 328px !important;
+    }
+    
+    h1.formulation {
+      transform: rotate( 16deg) !important;
+   	  right: 36px !important;
+      bottom: 121px !important;
+    }
+    h1.design {
+      top: 80px;
+      transform: rotate(85deg) !important;
+      letter-spacing: 2px !important;
+      right: 365px !important;
+    }
+
+    .recycle {
+        top: 150px;
+        transform: rotate( 315deg) !important;
+        letter-spacing: 2px !important;
+        left: -102px !important;
+    }
+}
+  
+/* 6 lab mobile version  */
+</style>
+<div class="container m-labs-cont" style="border:1px solid red;">
+			<section class="main">				
+				<div id="arc-wrapper" class="arc-wrapper">
+					<h1 class="soil l-click text-clicked" data-show=".soil-c">1.SOIL </h1>
+					<h1 class="extraction l-click" data-show=".extraction-c">2.EXTRACTION </h1>
+					<h1 class="molecular l-click" data-show=".molecular-c">3.MOLECULAR</h1>
+				<h1 class="formulation l-click" data-show=".formulation-c">4. FORMULATION</h1>
+					<h1 class="design l-click" data-show=".design-c">5. DESIGN</h1>
+					<h1 class="recycle l-click" data-show=".recycle-c">6. RECYCLE</h1> 
+				</div>
+				
+				 <div class="inner-basic division-details">
+    <div class="initialmsg">
+      <p>Ethos is the Greek word that best describes our position
+on the utilization of Greece’s soil & Nature. This lab is all about
+ethical sourcing & cooperation. We work together with more than
+30 local micro-farmers and 5 Agricultural Unions around Greece.
+We support them financially, scientifically, personally, in every
+possible aspect we can.</p>
+      <p>I meet them in person, I advise them, I listen to them,
+I hear their dreams and their problems, they are my inspiration.</p>
+      <p>Hearing their concerns, and knowing our needs, as a path
+ahead, we’ve set up an R&D system of cultivation methods aiming
+2 targets:</p>
+      <p>To promote organic farming in Greece and to conserve the
+biodiversity and the cultivation of endangered species.</p>
+
+      <p class="labs-author">Giorgos Stavropoulos, Agriculturist</p>
+    </div>
+    <div class="soil-c hide">
+      <p>I meet them in person, I advise them, I listen to them,
+I hear their dreams and their problems, they are my inspiration.</p>
+      <p>Hearing their concerns, and knowing our needs, as a path
+ahead, we’ve set up an R&D system of cultivation methods aiming
+2 targets:</p>
+      <p>Ethos is the Greek word that best describes our position
+on the utilization of Greece’s soil & Nature. This lab is all about
+ethical sourcing & cooperation. We work together with more than
+30 local micro-farmers and 5 Agricultural Unions around Greece.
+We support them financially, scientifically, personally, in every
+possible aspect we can.</p>
+      <p>To promote organic farming in Greece and to conserve the
+biodiversity and the cultivation of endangered species.</p>
+
+      <p class="labs-author">Giorgos Stavropoulos, Agriculturist</p>
+    </div>
+    <div class="extraction-c hide">
+      <p>Ethos is the Greek word that best describes our position
+on the utilization of Greece’s soil & Nature. This lab is all about
+ethical sourcing & cooperation. We work together with more than
+30 local micro-farmers and 5 Agricultural Unions around Greece.
+We support them financially, scientifically, personally, in every
+possible aspect we can.</p>
+      <p>I meet them in person, I advise them, I listen to them,
+I hear their dreams and their problems, they are my inspiration.</p>
+      <p>Hearing their concerns, and knowing our needs, as a path
+ahead, we’ve set up an R&D system of cultivation methods aiming
+2 targets:</p>
+      <p>To promote organic farming in Greece and to conserve the
+biodiversity and the cultivation of endangered species.</p>
+
+      <p class="labs-author">Giorgos Stavropoulos, Agriculturist</p>
+    </div>
+    <div class="molecular-c hide">
+      <p>I meet them in person, I advise them, I listen to them,
+I hear their dreams and their problems, they are my inspiration.</p>
+      <p>Hearing their concerns, and knowing our needs, as a path
+ahead, we’ve set up an R&D system of cultivation methods aiming
+2 targets:</p>
+      <p>Ethos is the Greek word that best describes our position
+on the utilization of Greece’s soil & Nature. This lab is all about
+ethical sourcing & cooperation. We work together with more than
+30 local micro-farmers and 5 Agricultural Unions around Greece.
+We support them financially, scientifically, personally, in every
+possible aspect we can.</p>
+      <p>To promote organic farming in Greece and to conserve the
+biodiversity and the cultivation of endangered species.</p>
+
+      <p class="labs-author">Giorgos Stavropoulos, Agriculturist</p>
+    </div>
+<div class="formulation-c hide">
+      <p>Ethos is the Greek word that best describes our position
+on the utilization of Greece’s soil & Nature. This lab is all about
+ethical sourcing & cooperation. We work together with more than
+30 local micro-farmers and 5 Agricultural Unions around Greece.
+We support them financially, scientifically, personally, in every
+possible aspect we can.</p>
+      <p>I meet them in person, I advise them, I listen to them,
+I hear their dreams and their problems, they are my inspiration.</p>
+      <p>Hearing their concerns, and knowing our needs, as a path
+ahead, we’ve set up an R&D system of cultivation methods aiming
+2 targets:</p>
+      <p>To promote organic farming in Greece and to conserve the
+biodiversity and the cultivation of endangered species.</p>
+
+      <p class="labs-author">Giorgos Stavropoulos, Agriculturist</p>
+    </div>
+    <div class="design-c hide">
+      <p>I meet them in person, I advise them, I listen to them,
+I hear their dreams and their problems, they are my inspiration.</p>
+      <p>Hearing their concerns, and knowing our needs, as a path
+ahead, we’ve set up an R&D system of cultivation methods aiming
+2 targets:</p>
+      <p>Ethos is the Greek word that best describes our position
+on the utilization of Greece’s soil & Nature. This lab is all about
+ethical sourcing & cooperation. We work together with more than
+30 local micro-farmers and 5 Agricultural Unions around Greece.
+We support them financially, scientifically, personally, in every
+possible aspect we can.</p>
+      <p>To promote organic farming in Greece and to conserve the
+biodiversity and the cultivation of endangered species.</p>
+
+      <p class="labs-author">Giorgos Stavropoulos, Agriculturist</p>
+    </div>
+    <div class="recycle-c hide">
+        <p>Ethos is the Greek word that best describes our position
+on the utilization of Greece’s soil & Nature. This lab is all about
+ethical sourcing & cooperation. We work together with more than
+30 local micro-farmers and 5 Agricultural Unions around Greece.
+We support them financially, scientifically, personally, in every
+possible aspect we can.</p>
+      <p>I meet them in person, I advise them, I listen to them,
+I hear their dreams and their problems, they are my inspiration.</p>
+      <p>Hearing their concerns, and knowing our needs, as a path
+ahead, we’ve set up an R&D system of cultivation methods aiming
+2 targets:</p>
+      <p>To promote organic farming in Greece and to conserve the
+biodiversity and the cultivation of endangered species.</p>
+
+      <p class="labs-author">Giorgos Stavropoulos, Agriculturist</p>
+    </div>
+  </div>
+			</section>
+			
+			<section>
+			 
+			</section>
+			
+        </div>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script src="{{ 'jquery.arctext.js' | asset_url }}"></script>
+
+<script>
+				
+				$('.soil').arctext({
+						radius: 250
+					});
+					$('.extraction').arctext({
+						radius: 200
+					});
+					$('.molecular').arctext({
+						radius: 220
+					});
+				
+  					$('.formulation').arctext({
+						radius: 220,
+						dir: -1
+					});
+					$('.design').arctext({
+						radius: 200,
+						dir: -1
+					});
+					$('.recycle').arctext({
+						radius: 195
+					});
+				</script>
+				
+				
+				
+				
+				<script>
+				
+				$(document).on('click', '.l-click', function() {
+		  var show = $(this).data('show');
+		  $(show).removeClass("hide").siblings().addClass("hide");
+		});
+				
+				</script>
+
+<script>
+				
+				$(document).on('click', '.l-click', function() {
+		  var show = $(this).data('show');
+		  $(this).parent().parent().removeClass().addClass(show);
+		});
+				
+				</script>
+
+
+<script>
+  
+  $(".l-click").click(function(){
+ $(this).addClass('text-clicked').siblings().removeClass('text-clicked'); //remove the class
+});
+  
+</script>

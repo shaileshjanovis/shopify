@@ -1,0 +1,44 @@
+<script>
+    (function () {
+        document.addEventListener('DOMContentLoaded', () => {
+            const apConfig = {
+                priceSelector: '{{ price_selector }}',
+                locale: 'en_US',
+                currency: 'USD',
+                afterpayLogoColor: 'color',
+                showUpperLimit: false,
+                hideInterestFree: true,
+                amount: {{ product.price | json }},
+                minMaxThreshold: {
+                    min: 100,
+                    max: 100000,
+                },
+            };
+            new presentAfterpay(apConfig).init();
+            const price = document.querySelector('#pdp-hero div.freq');
+            if (price) {
+                const config = {childList: true, subtree: true};
+                const updateOnCartMutation = function (mutations) {
+                    const purchaseType = document.querySelector('#pdp-hero form input[name="purchase_type"]');
+                    let subscription = false;
+                    if (purchaseType) subscription = purchaseType.value === "autodeliver";
+                    if (subscription) {
+                        document.querySelector('#pdp-hero .afterpay-label--mobile').style.display = 'none';
+                        document.querySelector('#pdp-hero .shopify-product-form p.afterpay-paragraph').style.display = 'none';
+                    } else {
+                        document.querySelector('#pdp-hero .afterpay-label--mobile').style.display = 'block';
+                        document.querySelector('#pdp-hero .shopify-product-form p.afterpay-paragraph').style.display = 'block';
+                    }
+                }
+                const observer = new MutationObserver(updateOnCartMutation);
+                observer.observe(price, config);
+            }
+        });
+    })();
+</script>
+<style type="text/css">
+    #pdp-hero p.afterpay-paragraph {
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+</style>

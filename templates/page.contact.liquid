@@ -1,0 +1,126 @@
+{{ 'style-footer-pages.css' | asset_url | stylesheet_tag }}
+<div class="contact_main width-1784">
+  <div class="inner">
+    {% form 'contact' %}
+
+    {% if form.posted_successfully? %}
+    	<div class="thank_section">
+      {% render 'header-hero',
+          title: page.metafields.kettle_contact_page.thank_you_title,
+      desc: page.metafields.kettle_contact_page.thank_you_message,
+      cta_btn: 'Shop',
+      cta_btn_href: shop.secure_url
+      bg_color: 'white'
+      class: 'form--success' %}
+    </div>
+    {% else %}
+
+    {% render 'header-hero', title: page.title , bg_color: 'white' %}
+
+    <main role="main" class="main-wrap main-wrap-custom contact-page with-sidebar">
+      <div class="page-main-content">
+
+        {{ form.errors | default_errors }}
+        <div class="floating-label">
+          <div class="cust-width"><label for="input-contact-name">{{ 'contact_us.field.full_name' | t: full_name }}</label></div>
+          <div class="cust-width">
+            <input id="input-contact-name"
+                   type="text"
+                   name="contact[name]"
+                   placeholder="e.g John Doe"
+                   autocomplete="name"
+                   data-rule="required"> 
+          </div>
+        </div>
+
+        <div class="floating-label">
+          <div class="cust-width"><label for="input-contact-email">{{ 'contact_us.field.email' | t: email }}</label></div>
+          <div class="cust-width">
+            <input id="input-contact-email"
+                   type="email"
+                   name="contact[email]"
+                   placeholder="e.g johndoe@gmail.com"
+                   autocomplete="email"
+                   data-rule="required|email">    
+          </div>
+        </div>
+
+        <div class="floating-label">
+          <div class="cust-width">
+            <label for="input-contact-inquiry">
+              {{ 'contact_us.field.subject' | t: subject }}
+            </label>
+          </div>
+          <div class="cust-width">
+            <select id="input-contact-inquiry" name="contact[subject]" data-rule="required" class="">
+              <option value="" disabled selected>Choose Subject</option>
+              <option value="1">{{ 'Product' }}</option>
+              <option value="2">{{ 'Orders' }}</option>
+              <option value="3">{{ 'Mycircle' }}</option>
+              <option value="4">{{ 'Other' }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="floating-label">
+          <div class="cust-width"><label for="input-contact-message">{{ 'contact_us.field.message' | t: message }}</label></div>
+          <div class="cust-width">
+            <textarea id="input-contact-message"
+                      name="contact[body]"
+                      rows="10"
+                      placeholder="{% if request.locale.iso_code == 'el' %}Μήνυμα{% else %}Message{% endif %}"
+                      data-rule="required"></textarea>   
+          </div>
+        </div>
+
+        <div class="floating-label">
+          <div class="cust-width">
+            <button class="submit-btn callAPI btn-theme-blue"  type="button" disabled='disabled'>{{ 'contact_us.field.send_message' | t: send_message }}</button>
+            <button class="submit-btn trigger_here" type="submit" disabled='disabled'>{{ 'contact_us.field.send_message' | t: send_message }}</button>
+          </div>
+        </div>
+
+        <div class="bottom-text web">
+          <p>{{ 'contact_us.field.message_call' | t: message_call }}<p/>
+          <p>{{ 'contact_us.field.message_call_3_mob' | t: message_call_3_mob }}<p/>  
+          <p>{{ page.metafields.contact_info.id38306.value }}<p/>
+        </div>
+
+        <div class="bottom-text mobile">
+          <p>{{ 'contact_us.field.message_call_1_mob' | t: message_call_1_mob }}<p/>
+          <p class="bold">{{ 'contact_us.field.message_call_2_mob' | t: message_call_2_mob }}<p/>
+          <p class="last">{{ 'contact_us.field.message_call_3_mob' | t: message_call_3_mob }}<p/>      
+          <p class="last">{{ page.metafields.contact_info.id38306.value }}<p/>
+        </div>
+
+      </div>
+    </main>  
+
+    {% endif %}
+    {% endform %}
+  </div>
+</div>
+
+<script type='text/javascript'>
+  $(document).on('click','.callAPI',function(e){
+      var fullname = $('[name="contact[name]"]').val();
+      var email = $('[name="contact[email]"]').val();
+      var subject = $('[name="contact[subject]"]').val();
+      var body = $('[name="contact[body]"]').val();
+      var url = "https://api.korresfamily.com/api/v1/Contactusbyshopify?Full_Name="+fullname+"&Email="+email+"&Subject="+subject+"&Body="+body;
+
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success:function(res){
+          console.log(res);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+      setTimeout(function(){
+        $('.trigger_here').trigger('click');
+      },2000);
+  });
+</script>

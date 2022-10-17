@@ -1,0 +1,35 @@
+{% assign recharge_url_login = shop.secure_url | append: '/tools/recurring/login' %}
+{% assign recharge_url_root = shop.secure_url | append: '/tools/recurring/portal/' | append: customer.metafields.subscriptions.customer_string %}
+
+<h2 class="account-title-greeting">Welcome, {{ customer.first_name }}!</h2>
+
+<select class="mobile-dropdown-menu" onchange="window.location.href=this.value">
+  <option value="{{ routes.account_url }}" {%- if active == 'orders' %} selected{% endif %}>My orders</option>
+  <option value="{{ recharge_url_login }}" data-tokenUrl="{{ recharge_url_root }}/subscriptions">
+    Subscriptions
+  </option>
+  <option value="{{ routes.account_addresses_url }}" {%- if active == 'addresses' %} selected{% endif %}>
+    Addresses
+  </option>
+  <option value="{{ routes.account_logout_url }}">Sign out</option>
+</select>
+
+<ul class="sidebar-menu">
+  <li><a href="{{ routes.account_url }}" class="{%- if active == 'orders' %} active{% endif %}">My orders</a></li>
+  <li>
+    <a data-tokenUrl="{{ recharge_url_root }}/subscriptions"
+       href="{{ recharge_url_login }}">Subscriptions</a>
+  </li>
+  <li><a href="{{ routes.account_addresses_url }}"
+         class="{%- if active == 'addresses' %} active{% endif %}">Addresses</a></li>
+ 
+</ul>
+<ul>
+<li class="logout-link" >
+          <a id="logout-clearr" >
+            Logout
+          </a>
+</li>
+</ul>
+    
+

@@ -1,0 +1,35 @@
+{%assign lotterydescription =   shop.metafields.Lottery.level_My_Olive_Circle | split : '|'%}
+
+<div style="text-align: center;"><img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/Group_5325_2x_2ff5f32c-b174-4190-bfc8-80ca4c96bb9a.png?v=1643115767" alt="" style="float: none;" /></div>
+<div style="text-align: center;"></div>
+<div style="font-family: Roboto, Medium; font-size: 42px; font-weight: 300; padding-left: 60px;">{{lotterydescription[0]}}</div>
+<div style="font-size: 24px; font-weight: 300; padding-left: 60px;">{{lotterydescription[1]}}</div>
+<p> </p>
+
+<div class="box {% cycle 'odd','even' %} {% if royalty &lt; gift %}not_active {% else %} active_now{% endif %} {% if flag != 0 %}unlock_now{% endif %}" data-giftvalue="{{gift}}">
+<div style="padding-left: 60px;"><button class="button button2 reedim_points"><div class="text"><span style="color: #32322d; font-size: 18px;">{{giftName}}</span> <label class="bck_point" style="color: #b3b5b6;">{{gift}} </label> {% if royalty &lt; gift %} <a class="btn_coll">{{ 'circle_page.title.locked_gift' | t: locked_gift }}</a> {% else %} {% if flag == 0 %} <a class="btn_coll">{{ 'circle_page.title.earned_gift' | t: earned_gift }}</a> {% else %} <a class="btn_coll unlock_gift" id="{{giftName | replace : ' ','_'}}" data-giftname="{{giftName}}" data-gift="{{gift}}" data-name="{{level_name | split:',' | first | append:levelName}}" data-value="{{value}}">{{ 'circle_page.title.unlocked_gift' | t: unlocked_gift }}</a> {% endif %} {% endif %}</div></button></div>
+</div> 
+<p> </p>
+<p style="font-family: Roboto-Light; font-size: 22px; padding-left: 60px;">{{lotterydescription[2]}}</p>
+<p style="font-family: Roboto-Light; font-size: 22px; padding-left: 60px;">{{lotterydescription[4]}}</p>
+<p> </p>
+<p> </p>
+<style type="text/css">
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+.button2 {
+  background-color: white; 
+  color: #050F96; 
+  border: 2px solid #050F96;
+}
+</style>

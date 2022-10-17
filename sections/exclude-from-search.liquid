@@ -1,0 +1,25 @@
+<script type="text/javascript">
+  Shopify.searchExcludeProductsIDs = [];
+  {% paginate collections[section.settings.collection_item].products by 9999 %}
+    {% for _product in collections[section.settings.collection_item].products %}
+      {% if _product != blank %}
+        Shopify.searchExcludeProductsIDs.push({{ _product.id }});
+      {% endif %}
+    {% endfor %}
+  {% endpaginate %}
+</script>
+
+{% schema %}
+{
+  "name": "Exclude from search",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection_item",
+      "label": "Collection",
+      "info": "Choose a collection with products to exclude from search results"
+    }
+  ]
+}
+{% endschema %}
+

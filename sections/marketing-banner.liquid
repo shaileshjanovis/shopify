@@ -1,0 +1,106 @@
+<div class="banner-slider-wrap"  data-section-id="{{ section.id }}">
+  <div class="banner-slider-container">
+    <div class="banner-slider-content">
+      {% for block in section.blocks %}
+
+
+      {% assign sliderType = block.settings.sliderType %}
+      <div class="slider-item image">
+        <div class="slider-content">
+          <div class="image-f">
+            {% if block.settings.sliderImgM %}
+            <img src="{{block.settings.sliderImgD | img_url: 'master'}}" class="desktop-img" />
+            <img src="{{block.settings.sliderImgM | img_url: 'master'}}" class="mobile-img" />
+            {% else %}
+            <img src="{{block.settings.sliderImgD | img_url: 'master'}}" class="all-Img" />
+            {% endif %}
+          </div>
+          <div class="caption-wrap">
+            <div class="caption-container">
+              <div class="cap-content">
+                <p class="heading futu-light">{{block.settings.cap-head}}</p>
+                <p class="sub-heading futu-med">{{block.settings.cap-subhead}}</p>
+                <p class="sub-heading futu-med">{{block.settings.cap-para}}</p>
+                <p class="btn-wrap">
+                  <a href="{{block.settings.btnUrl}}">{{block.settings.btnText}}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Banner Slider Marketing",
+    "class": "index-section",
+	"blocks": [
+		{
+          "name": "Slider Content",
+          "type": "Blocks",
+          "settings": [
+			{
+				"type": "header",
+				"content": "Image Content"
+			},
+			{
+              "type": "image_picker",
+              "id": "sliderImgD",
+              "label": "Slider Image Desktop (1400 x 500px)"	
+			},
+			{
+              "type": "image_picker",
+              "id": "sliderImgM",
+              "label": "Slider Image Mobile ((420px X 350px))"	
+			},
+			{
+              "type": "text",
+              "id": "cap-head",
+              "label": "Caption Heading",
+			  "default": "Banner Heading"
+			},
+			{
+              "type": "text",
+              "id": "cap-subhead",
+              "label": "Caption Heading",
+			  "default": "our black Friday sale is here!"
+			},
+			{
+              "type": "text",
+              "id": "cap-para",
+              "label": "Caption Heading",
+			  "default": "Get ready to go crazy!"
+			},
+			{
+              "type": "text",
+              "id": "btnText",
+              "label": "Btn Text",
+			  "default": "Shop"
+			},
+			{
+              "type": "url",
+              "id": "btnUrl",
+              "label": "Btn Url"
+			}
+
+          ]
+		}
+        
+		
+	],
+    "presets": [
+      {
+        "name": "Banner Slider Homepage",
+        "category": "Blocks"
+      }
+    ]
+  }
+{% endschema %}
+

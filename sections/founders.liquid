@@ -1,0 +1,338 @@
+<div class="container-fluid">  
+  <div class="tabs-container">
+    {% for block in section.blocks %}
+    {% if block.type == 'block-breadcrumb-section' %}
+    <a class="btn-back" href="{{ block.settings.giorgos-lena-link }}">{{ block.settings.breadcrumb-back}}</a>
+    <nav aria-label="breadcrumb" class="breadcrumb-web">     
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item first-child">
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.giorgos-lena-link }}">{{ block.settings.breadcrumb-giorgos-lena}}</a>
+        </li>
+        <li data-id="soil-lab" class="breadcrumb-item">
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.breadcrumb-giorgos-link }}">{{block.settings.breadcrumb-giorgos}}</a>
+        </li>
+        <li data-id="extraction-lab" class="breadcrumb-item">
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.breadcrumb-lena-link }}">{{block.settings.breadcrumb-lena}}</a>
+        </li>
+        <li data-id="molecular-lab" class="breadcrumb-item active show">
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.breadcrumb-our-conscience-link }}">{{block.settings.breadcrumb-following-our-conscience}}</a>
+        </li>
+      </ol>
+    </nav>
+    {% endif %}
+    {% endfor %}
+    <!--<div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 id="title" class=""></h1>
+      </div>
+    </div>-->
+    <div class="row flex-column-reverse flex-lg-row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+        <div class="tab-content">
+          {% for block in section.blocks %}
+          {% if block.type == 'page' %}
+          <div class="tab-pane fade" id="tab-{{block.id}}" role="tabpanel">
+            <!--<div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h1 id="inner-title">{{block.settings.main-title}}</h1>
+              </div>
+            </div>-->
+            <div class="section-web">
+              <div class="row">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                  <h1 id="inner-title">{{block.settings.main-title}}</h1>
+                  <div class="text">
+                    {{block.settings.section-text-1}}
+                    {{block.settings.section-text-2}}
+                    {{block.settings.section-text-3}}
+                    <div class="bottom">
+                      <p>{{block.settings.section-name}}</p>
+                      <p>{{block.settings.section-title}}</p>
+                    </div>
+                    {% if block.settings.main-img-1 != blank %}{{block.settings.section-link}}{% endif %}
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+                  {% if block.settings.main-img-1 != blank %}
+                    {% if block.settings.main-img-1-link != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-1-link}}">{% endif %}
+                      <img src="{{block.settings.main-img-1 | img_url: 'master'}}" class="img-fluid lozad" />
+                    {% if block.settings.main-img-1-link != blank %}</a>{% endif %}
+                  {% endif %}
+                  {% if block.settings.main-img-2 != blank %}
+                    {% if block.settings.main-img-2-link != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-2-link}}">{% endif %}
+                    <img src="{{block.settings.main-img-2 | img_url: 'master'}}" class="img-fluid lozad" />
+                    {% if block.settings.main-img-2-link != blank %}</a>{% endif %}
+                  {% endif %}
+                  {% if block.settings.main-img-3 != blank %}
+                  {% if block.settings.main-img-3-link != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-3-link}}">{% endif %}
+                    <img src="{{block.settings.main-img-3 | img_url: 'master'}}" class="img-fluid lozad" />
+                    {% if block.settings.main-img-3-link != blank %}</a>{% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="section-mob">
+              <div class="row ">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <h1 id="inner-title">{{block.settings.main-title}}</h1>
+                  <div class="text">
+                    {% if block.settings.main-img-1 != blank %}
+                      {% if block.settings.main-img-1-link != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-1-link}}">{% endif %}
+                        <img src="{{block.settings.main-img-1 | img_url: 'master'}}" class="img-fluid lozad" />
+                      {% if block.settings.main-img-1-link != blank %}</a>{% endif %}
+                    {% endif %}                    
+                    {{block.settings.section-text-1}}
+                    {% if block.settings.main-img-2 != blank %}
+                      {% if block.settings.main-img-2-link != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-2-link}}">{% endif %}
+                        <img src="{{block.settings.main-img-2 | img_url: 'master'}}" class="img-fluid lozad" />
+                      {% if block.settings.main-img-2-link != blank %}</a>{% endif %}
+                    {% endif %}
+                    {{block.settings.section-text-2}}
+                    {% if block.settings.main-img-3 != blank %}
+                      {% if block.settings.main-img-3-link != blank %}<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{block.settings.main-img-3-link}}">{% endif %}
+                        <img src="{{block.settings.main-img-3 | img_url: 'master'}}" class="img-fluid lozad" />
+                      {% if block.settings.main-img-3-link != blank %}</a>{% endif %}
+                    {% endif %}
+                    {{block.settings.section-text-3}}
+                    <div class="bottom">
+                      <p>{{block.settings.section-name}}</p>
+                      <p>{{block.settings.section-title}}</p>
+                    </div>
+                    {% if block.settings.section-link != blank %}{{block.settings.section-link}}{% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>        
+      </div>
+      
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 menu-tabs-web">
+        <ul class="nav nav-tabs small tab-menu" role="tablist" id="tab">
+          {% for block in section.blocks %}
+          {% if block.type == 'page' %}
+          <li class="nav-item">
+            <a class="nav-link" data-id="{{block.id}}" data-toggle="tab" href="#tab-{{block.id}}" role="tab">
+              {{block.settings.tabs-title}} <span>{{block.settings.tabs-year}}</span>
+            </a>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="row menu-tabs-mob">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div id="menu" class="menu-mob">
+          <ul class="ul_menu tab-menu">
+            <li class="parent">
+              <div class="btn-close-menu"></div>
+              <span class="our-path-menu">OUR PATH</span>
+              <ul id="sub-nav" class="sub-nav">
+                {% for block in section.blocks %}
+                <li class="nav-item">
+                  <a class="nav-link" data-id="{{block.id}}" data-toggle="tab" href="#tab-{{block.id}}" role="tab" >
+                    {{block.settings.tabs-title}} <span>{{block.settings.tabs-year}}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "Founders Block",
+"class": "home-bottom-blck",
+"blocks": [{
+"type": "block-breadcrumb-section",
+"name": "Breadcrumb Section",
+"settings": [{
+"id": "breadcrumb-back",
+"type": "text",
+"label": "Breadcrumb Back",
+"default": "Back"
+},
+{
+"type": "text",
+"id": "breadcrumb-giorgos-lena",
+"label": "Breadcrumb Giorgos Lena",
+"default": "Giorgos & Lena"
+},
+{
+"id": "giorgos-lena-link",
+"type": "text",
+"label": "Link of Giorgos & Lena Page",
+"default": "/pages/giorgos-and-lena"
+},
+{
+"id": "breadcrumb-giorgos",
+"type": "text",
+"label": "Breadcrumb Giorgos",
+"default": "Giorgos"
+},
+{
+"id": "breadcrumb-giorgos-link",
+"type": "text",
+"label": "Link of Breadcrumb Giorgos",
+"default": "/pages/giorgos"
+},
+{
+"id": "breadcrumb-lena",
+"type": "text",
+"label": "Breadcrumb Lena",
+"default": "Lena"
+},
+{
+"id": "breadcrumb-lena-link",
+"type": "text",
+"label": "Link of Breadcrumb Giorgos",
+"default": "/pages/lena"
+},
+{
+"id": "breadcrumb-following-our-conscience",
+"type": "text",
+"label": "Breadcrumb our conscience",
+"default": "Following our conscience"
+},
+{
+"id": "breadcrumb-our-conscience-link",
+"type": "text",
+"label": "Link of our conscience",
+"default": "/pages/following-our-conscience"
+}
+]
+},
+{
+"name": "Founders Block",
+"type": "page",
+"settings": [{
+"id": "main-title",
+"type": "text",
+"label": "Main Title"
+},
+{
+"id": "section-text-1",
+"type": "textarea",
+"label": "Section Text 1"
+},
+{
+"id": "section-text-2",
+"type": "textarea",
+"label": "Section Text 2"
+},
+{
+"id": "section-text-3",
+"type": "textarea",
+"label": "Section Text 3"
+},
+{
+"id": "section-link",
+"type": "richtext",
+"label": "Link"
+},
+{
+"id": "section-name",
+"type": "text",
+"label": "Section Name"
+},
+{
+"id": "section-title",
+"type": "text",
+"label": "Section Title"
+},
+{
+"id": "main-img-1-link",
+"type": "text",
+"label": "Link of Image 1"
+},
+{
+"id": "main-img-1",
+"type": "image_picker",
+"label": "Section Image 1"
+},
+{
+"id": "main-img-2-link",
+"type": "text",
+"label": "Link of Image 2"
+},
+{
+"id": "main-img-2",
+"type": "image_picker",
+"label": "Section Image 2"
+},
+{
+"id": "main-img-3-link",
+"type": "text",
+"label": "Link of Image 3"
+},
+{
+"id": "main-img-3",
+"type": "image_picker",
+"label": "Section Image 3"
+},
+{
+"id": "tabs-title",
+"type": "text",
+"label": "Tab Title"
+},
+{
+"id": "tabs-year",
+"type": "text",
+"label": "Year"
+}
+]
+}
+]
+}
+{% endschema %}
+
+<style>
+  <!--.fade:not(.show) {
+  opacity: 1 !important;
+  }-->
+</style>
+
+{% javascript %}
+$( document ).ready(function() {
+$('.tab-content .tab-pane:first').addClass('active show');
+$('.nav-tabs a:first').addClass('active show');
+//var text = $('.tab-content .tab-pane:first h1').text();
+//$('#title').html(text);
+});
+
+$('.tab-menu').on('click', 'a', function(e) {
+var dataId = $(this).attr("data-id");
+var isMobile = $(this).parent().parent().parent().parent().hasClass("ul_menu");
+$(".tab-pane").hide();
+$('#'+'tab-'+ dataId).show();
+if (isMobile) {
+$('html, body').animate({scrollTop:0}, 'slow');
+}
+$('.tab-menu li a').removeClass("active show");
+$(this).addClass("active");
+//var text2 = $('#'+'tab-'+ dataId).find('#inner-title').html();
+//$('#title').html(text2);
+e.preventDefault();
+});
+
+$('.parent').on("click",function() {
+$(this).toggleClass("active");
+$(this).closest(".menu-mob").toggleClass("active");
+$(this).find(".sub-nav").toggle();
+$(this).siblings(".nav-link").find(".sub-nav").hide();
+$("body").toggleClass("overflow-hidden");
+$("body").removeClass("scrolling-down");
+});
+
+$('.btn-close-menu').on("click",function() {
+});
+
+{% endjavascript %}

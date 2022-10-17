@@ -1,0 +1,469 @@
+{% render 'shogun-products', content: collection %}
+{{collection.metafields.shogun.above}}
+{%- assign type = collection.metafields.kettle.type -%}
+<main role="main" class="product-landing">
+  <section id="plp-hero">
+    <section class="header">
+      <h3 class="eyebrow">{{ collection.metafields.kettle.hero_eyebrow }}</h3>
+
+      <h1>
+        {%- if collection.metafields.kettle.hero_title -%}
+          {{ collection.metafields.kettle.hero_title }}
+        {%- else -%}
+          Shop {{ collection.title }}
+        {%- endif -%}
+      </h1>
+
+      <p>{{ collection.metafields.kettle.hero_subtitle }}</p>
+    </section>
+
+    {%- assign recommended_products = collection.metafields.kettle.hero_recommendation | split: '|' -%}
+    {%- assign recommended_products_size = recommended_products | size -%}
+    {%- assign featured_collections = collection.metafields.kettle.hero_featured_category | split: '|' -%}
+    {%- assign featured_collections_size = featured_collections | size -%}
+
+    {%- if recommended_products_size > 0 -%}
+      <section class="featured">
+        <h2>{{ collection.metafields.kettle.fav_header }}</h2>
+        <p>{{ collection.metafields.kettle.fav_body }}</p>
+
+        <div class="main-carousel">
+          {%- for prod in recommended_products -%}
+            {% assign product_handle = prod | split: ':' | first %}
+            {% assign variant_id = prod | split: ':' | last | plus: 0 %}
+
+            {% assign referenced_product = all_products[product_handle] %}
+            {% assign referenced_variant = referenced_product.variants | where: "id", variant_id | first %}
+
+            <div class="carousel-cell">
+              {% render 'product-grid-item', variant: referenced_variant, product: referenced_product, id_prefix: 'feat-' %}
+            </div>
+          {%- endfor -%}
+        </div>
+      </section>
+    {% elsif featured_collections_size > 0 %}
+      <section class="featured">
+        <h2>{{ collection.metafields.kettle.fav_header }}</h2>
+        <p>{{ collection.metafields.kettle.fav_body }}</p>
+
+        <div class="featured-col">
+          {%- for col in featured_collections -%}
+            {%- assign referenced_collection = collections[col] -%}
+
+            <a href="{{ referenced_collection.url }}">{{ referenced_collection.title }}</a>
+          {%- endfor -%}
+        </div>
+      </section>
+    {%- endif -%}
+  </section>
+
+  <section id="plp-grid">
+    <div class="filter-bar">
+      <p class="product-count">All Products</p>
+
+      <div class="filter button{% if collection.handle != 'all' and type != 'Primary Category' %} hidden{% endif %}">
+        Filter <span>By</span>
+      </div>
+      <div class="filter-container drop-down">
+        <div class="header">
+          <h4>Refine Results</h4>
+          <button>
+            <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.07129 7.07129L21.2134 21.2134" stroke="#444444" stroke-width="2"/>
+              <path d="M21.2139 7.07129L7.07173 21.2134" stroke="#444444" stroke-width="2"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="main">
+          <div class="need">
+            {%- assign needs = shop.metafields.kettle_filter.needs | split: '|' -%}
+            <div class="accordion-btn">
+              <h3>Needs</h3>
+              <p>All Needs</p>
+            </div>
+
+            <div class="accordion-container">
+              <div>
+                <input type="checkbox" name="needs" id="needs-all" value="All" checked>
+                <label for="needs-all">All</label>
+              </div>
+
+              {%- for need in needs -%}
+                <div>
+                  <input type="checkbox" name="needs" value="{{ need }}" id="needs-{{ need | handleize }}">
+                  <label for="needs-{{ need | handleize }}">{{ need }}</label>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="skin-type">
+            {%- assign skin_types = shop.metafields.kettle_filter.skin_types | split: '|' -%}
+            <div class="accordion-btn">
+              <h3>Skin Types</h3>
+              <p>All Concerns</p>
+            </div>
+
+            <div class="accordion-container">
+              <div>
+                <input type="checkbox" name="skin-types" id="skin-types-all" value="All" checked>
+                <label for="skin-types-all">All</label>
+              </div>
+
+              {%- for skin_type in skin_types -%}
+                <div>
+                  <input type="checkbox" name="skin-types" value="{{ skin_type }}" id="skin-types-{{ skin_type | handleize }}">
+                  <label for="skin-types-{{ skin_type | handleize }}">{{ skin_type }}</label>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="ingredient">
+            {%- assign ingredients = shop.metafields.kettle_filter.ingredients | split: '|' -%}
+            <div class="accordion-btn">
+              <h3>Ingredients</h3>
+              <p>All Ingredients</p>
+            </div>
+
+            <div class="accordion-container">
+              <div>
+                <input type="checkbox" name="ingredients" id="ingredients-all" value="All" checked>
+                <label for="ingredients-all">All</label>
+              </div>
+
+              {%- for ingredient in ingredients -%}
+                <div>
+                  <input type="checkbox" name="ingredients" value="{{ ingredient }}" id="ingredients-{{ ingredient | handleize }}">
+                  <label for="ingredients-{{ ingredient | handleize }}">{{ ingredient }}</label>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+
+          <div class="sort-options">
+            <div class="accordion-btn">
+              <h3>Sort By</h3>
+              <p>Featured</p>
+            </div>
+
+            <div class="accordion-container">
+              <div>
+                <input type="radio" name="sort-by" id="sort-featured" value="Featured" checked>
+                <label for="sort-featured">Featured</label>
+              </div>
+
+              <div>
+                <input type="radio" name="sort-by" id="sort-price-asc" value="Price Ascending">
+                <label for="sort-price-asc">Price low to high</label>
+              </div>
+
+              <div>
+                <input type="radio" name="sort-by" id="sort-price-des" value="Price Descending">
+                <label for="sort-price-des">Proce high to low</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <button class="apply">Apply</button>
+          <button class="reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="sort button">
+        <span>Sort By: Featured</span>
+        <div class="sort-container drop-down">
+          <ul>
+            <li class="active" data-id="sort-featured">Featured</li>
+            <li data-id="sort-price-asc">Price low to high</li>
+            <li data-id="sort-price-des">Price high to low</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% if collection.handle == "all" or type == "Primary Category" or type == "Sub Category" %}
+      {%- for category in collections -%}
+        {%- assign current_tag = collection.all_types | first | handleize -%}
+        {%- assign collection_handle = collection.handle %}
+        {%- assign current_type = collection.metafields.kettle.type -%}
+        {%- assign type = category.metafields.kettle.type -%}
+        {%- if type == "Primary Category" and (collection.handle == "all" or collection.handle == category.handle or current_tag == category.handle) -%}
+          <section class="category">
+            {%- if collection.handle == "all" -%}
+              <a href="{{ category.url }}" class="category-title"><h2>Shop {{ category.title }}</h2></a>
+            {%- endif -%}
+            {%- for sub_category in collections -%}
+              {%- if current_type == "Sub Category" and sub_category.handle != collection.handle -%}
+                {%- continue -%}
+              {%- endif -%}
+              {%- assign type = sub_category.metafields.kettle.type -%}
+              {%- if type == "Sub Category" and sub_category.all_types contains category.title -%}
+                {%- assign navigation_type = sub_category.metafields.kettle.navigation_type -%}
+                {%- if current_type != "Sub Category" and navigation_type != "Category" -%}
+                  {%- continue -%}
+                {%- endif -%}
+
+                <div id="{{ category.handle }}-{{ sub_category.handle }}" class="sub-category">
+                  {%- unless current_type == "Sub Category" -%}
+                    <a href="{{ sub_category.url }}"><h3>{{ sub_category.title }}</h3></a>
+                    <p>{{ sub_category.description }}</p>
+                  {%- endunless -%}
+                  {%- assign count = 1 -%}
+                  {%- assign product_limit = 9999 -%}
+
+                  {%- if current_type == "Sub Category" -%}
+                    {%- assign product_limit = 9999 -%}
+                  {%- elsif sub_category.metafields.kettle.1x1_title -%}
+                    {%- assign product_limit = 9999 -%}
+                  {%- elsif sub_category.metafields.kettle.1x2_image -%}
+                    {%- assign product_limit = 9999 -%}
+                  {%- endif -%}
+
+                  <div class="product-container">
+                    {%- for product in sub_category.products -%}
+                      {%- if product_limit > 0 and count > product_limit -%}
+                        {% break %}
+                      {%- endif -%}
+
+                      {%- for variant in product.variants -%}
+                        {%- if product_limit > 0 and count > product_limit -%}
+                          {% break %}
+                        {%- endif -%}
+                        {%- if sub_category.metafields.kettle.1x1_title and count == 4 -%}
+                          <div class="banner-1x1 grid-border">
+                            <h2>{{ sub_category.metafields.kettle.1x1_title }}</h2>
+                            <p>{{ sub_category.metafields.kettle.1x1_body }}</p>
+                              {%- unless sub_category.metafields.kettle.1x1_button_label == blank or sub_category.metafields.kettle.1x1_button_link == blank -%}
+                                <a
+                                  href="{{ sub_category.metafields.kettle.1x1_button_link }}"
+                                >
+                                  {{- sub_category.metafields.kettle.1x1_button_label -}}
+                                </a>
+                              {%- endunless -%}
+                            </div>
+                        {%- endif -%}
+
+                        {%- assign my_class = ' grid-border' -%}
+                        {%- if current_type == "Sub Category" -%}
+                          {%- assign my_class = my_class | append: ' no-top' -%}
+                        {%- endif -%}
+                        {% render 'product-grid-item', variant: variant, product: product, my_class: my_class %}
+
+                        {%- assign count = count | plus: 1 -%}
+                      {%- endfor -%}
+                    {%- endfor -%}
+                    {%- if sub_category.metafields.kettle.1x1_title and count < 5 -%}
+                      <div class="banner-1x1 grid-border">
+                        <h2>{{ sub_category.metafields.kettle.1x1_title }}</h2>
+                        <p>{{ sub_category.metafields.kettle.1x1_body }}</p>
+                        {%- unless sub_category.metafields.kettle.1x1_button_label == blank or sub_category.metafields.kettle.1x1_button_link == blank -%}
+                          <a
+                            href="{{ sub_category.metafields.kettle.1x1_button_link }}"
+                          >
+                            {{- sub_category.metafields.kettle.1x1_button_label -}}
+                          </a>
+                        {%- endunless -%}
+                      </div>
+                    {%- elsif sub_category.metafields.kettle.1x2_image -%}
+                      <div class="banner-1x2 grid-border">
+                        <figure>
+                          <img src="{{ sub_category.metafields.kettle.1x2_image }}" alt="">
+                          <figcaption>{{ sub_category.metafields.kettle.1x2_caption }}</figcaption>
+                        </figure>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </section>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      <section class="category">
+        <div id="{{ collection.handle }}-{{ collection.handle }}" class="sub-category">
+          <div class="product-container">
+            {%- for product in collection.products -%}
+              {%- for variant in product.variants -%}
+                {% render 'product-grid-item', variant: variant, product: product, my_class: ' grid-border no-top' %}
+              {%- endfor -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </section>
+    {%- endif -%}
+    <section class="category empty">
+      <div id="sort-by-price-grid" class="sub-category empty">
+        <div class="product-container"></div>
+      </div>
+    </section>
+    <section id="no-results" hidden>
+      <div class="no-results--count">0 results</div>
+      <div class="no-results--hint">Please adjust your selected filters and try again.</div>
+    </section>
+
+  </section>
+
+  <div>
+    {%- assign type = collection.metafields.kettle.type -%}
+    {% if collection.handle == "all" or type == "Primary Category" or type == "Sub Category" %}
+      {%- for category in collections -%}
+        {%- assign current_tag = collection.all_types | first | handleize -%}
+        {%- assign collection_handle = collection.handle %}
+        {%- assign current_type = collection.metafields.kettle.type -%}
+        {%- assign type = category.metafields.kettle.type -%}
+        {%- if type == "Primary Category" and (collection.handle == "all" or collection.handle == category.handle or current_tag == category.handle) -%}
+          {%- for sub_category in collections -%}
+            {%- if current_type == "Sub Category" and sub_category.handle != collection.handle -%}
+              {%- continue -%}
+            {%- endif -%}
+            {%- assign type = sub_category.metafields.kettle.type -%}
+            {%- if type == "Sub Category" and sub_category.all_types contains category.title -%}
+              {%- assign navigation_type = sub_category.metafields.kettle.navigation_type -%}
+              {%- if current_type != "Sub Category" and navigation_type != "Category" -%}
+                {%- continue -%}
+              {%- endif -%}
+
+              {%- for product in sub_category.products -%}
+                <div id="quick-view-{{ product.id }}" class="modal">
+                  {% render 'quick-view', product: product %}
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for product in collection.products -%}
+        <div id="quick-view-{{ product.id }}" class="modal">
+          {% render 'quick-view', product: product %}
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</main>
+<script>
+  var featuredProducts = [];
+  var products = [];
+  var currentCollectionType = "{{ collection.metafields.kettle.type }}";
+  var collectionBanners = [];
+  {%- assign recommended_products = collection.metafields.kettle.hero_recommendation | split: "|" -%}
+  {%- assign recommended_products_size = recommended_products | size -%}
+  {%- if recommended_products_size > 0 -%}
+    {%- for prod in recommended_products -%}
+      {% assign product_handle = prod | split: ":" | first %}
+      {% assign variant_id = prod | split: ":" | last | plus: 0 %}
+
+      {% assign referenced_product = all_products[product_handle] %}
+      {% assign referenced_variant = referenced_product.variants | where: "id", variant_id | first %}
+
+      featuredProducts.push({
+        id: "{{ referenced_variant.id }}",
+        productId: "{{ referenced_product.id }}",
+        review: {}
+      });
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- assign type = collection.metafields.kettle.type -%}
+  {% if collection.handle == "all" or type == "Primary Category" or type == "Sub Category" %}
+    {%- for category in collections -%}
+      {%- assign current_tag = collection.all_types | first | handleize -%}
+      {%- assign collection_handle = collection.handle %}
+      {%- assign current_type = collection.metafields.kettle.type -%}
+      {%- assign type = category.metafields.kettle.type -%}
+
+      {%- if type == "Primary Category" and (collection.handle == "all" or collection.handle == category.handle or current_tag == category.handle) -%}
+        {%- for sub_category in collections -%}
+          {%- if current_type == "Sub Category" and sub_category.handle != collection.handle -%}
+            {%- continue -%}
+          {%- endif -%}
+
+          {%- assign type = sub_category.metafields.kettle.type -%}
+          {%- if type == "Sub Category" and sub_category.all_types contains category.title -%}
+            {%- assign navigation_type = sub_category.metafields.kettle.navigation_type -%}
+
+            {%- if current_type != "Sub Category" and navigation_type != "Category" -%}
+              {%- continue -%}
+            {%- endif -%}
+
+            {%- for product in sub_category.products -%}
+              {%- for variant in product.variants -%}
+                products.push({
+                  category: "{{ category.handle }}",
+                  subCategory: "{{ sub_category.handle }}",
+                  productId: "{{ product.id }}",
+                  productTitle: "{{ product.title }}",
+                  ingredientSize: "{{ product.options_by_name['Ingredient'].values | size }}",
+                  colorSize: "{{ product.options_by_name['Color'].values | size }}",
+                  volumeSize: "{{ product.options_by_name['Size'].values | size }}",
+                  scentSize: "{{ product.options_by_name['Scent'].values | size }}",
+                  id: "{{ variant.id }}",
+                  isAvailable: "{{ variant.available }}",
+                  thumbnail: "{{ variant.metafields.kettle.hero_images | first }}",
+                  variantTitle: "{{ variant.title }}",
+                  comparePrice: "{{ variant.compare_at_price | money }}",
+                  price: "{{ variant.price | money }}",
+                  priceStr: "{{ variant.price }}",
+                  tag: "{{ variant.metafields.kettle.tag }}",
+                  url: "{{ variant.url }}",
+                  review: {}
+                });
+              {%- endfor -%}
+            {%- endfor -%}
+
+            {%- if sub_category.metafields.kettle.1x1_title -%}
+              collectionBanners.push({
+                id: "{{ sub_category.all_types | first | handleize }}-{{ sub_category.title | handleize }}",
+                banner_1x1: {
+                  title: "{{ sub_category.metafields.kettle.1x1_title }}",
+                  body: "{{ sub_category.metafields.kettle.1x1_body }}",
+                  button_link: "{{ sub_category.metafields.kettle.1x1_button_link }}",
+                  button_label: "{{ sub_category.metafields.kettle.1x1_button_label }}"
+                }
+              });
+            {%- elsif sub_category.metafields.kettle.1x2_image -%}
+              collectionBanners.push({
+                id: "{{ sub_category.all_types | first | handleize }}-{{ sub_category.title | handleize }}",
+                banner_1x2: {
+                  image: "{{ sub_category.metafields.kettle.1x2_image }}",
+                  caption: "{{ sub_category.metafields.kettle.1x2_caption }}"
+                }
+              });
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    {%- for product in collection.products -%}
+      {%- for variant in product.variants -%}
+          products.push({
+            category: "{{ collection.handle }}",
+            subCategory: "{{ collection.handle }}",
+            productId: "{{ product.id }}",
+            productTitle: "{{ product.title }}",
+            ingredientSize: "{{ product.options_by_name['Ingredient'].values | size }}",
+            colorSize: "{{ product.options_by_name['Color'].values | size }}",
+            volumeSize: "{{ product.options_by_name['Size'].values | size }}",
+            scentSize: "{{ product.options_by_name['Scent'].values | size }}",
+            id: "{{ variant.id }}",
+            isAvailable: "{{ variant.available }}",
+            thumbnail: "{{ variant.metafields.kettle.hero_images | first }}",
+            variantTitle: "{{ variant.title }}",
+            comparePrice: "{{ variant.compare_at_price | money }}",
+            price: "{{ variant.price | money }}",
+            priceStr: "{{ variant.price }}",
+            tag: "{{ variant.metafields.kettle.tag }}",
+            url: "{{ variant.url }}",
+            review: {}
+          });
+      {%- endfor -%}
+    {%- endfor -%}
+  {%- endif -%}
+</script>
+{{collection.metafields.shogun.below}}
+

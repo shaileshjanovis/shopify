@@ -1,0 +1,414 @@
+{% assign fullUrl = canonical_url %}
+{% assign productUri = fullUrl | split: "type=" %}
+
+{% if productUri[1] == 'product' %}
+
+    <form action="{% if request.locale.iso_code == 'el' %}/el{% endif %}/search" method="get" role="search">
+      <input  type="search" name="q" value="{{ search.terms | escape }}" type="submit" disabled>
+      <button type="submit" style="display:none">search</button>
+    </form>
+
+    <div class="container">
+      <div class="row">
+        <div class="search_term">
+          <p>{{ search.terms | escape | remove: 'title:' }}<span class="total-searched-items">0 results</span></p>
+        </div>
+
+        <div class="addedloader">
+          <div class="loader"></div>
+        </div>
+
+        <div class="search-product" style="display:none;">
+          <div class="ajax-search-products"></div>
+
+          <div class="search_not_performed">
+            <div class="no_search_wrapper">
+              <img src="{{ 'search_icon.svg' | asset_url }}" alt="">
+              {% if section.settings.search_message != blank %}
+              <h5>{% if request.locale.iso_code == 'en' %}{{ section.settings.search_message }}{% else %}{{ section.settings.search_message_gr }}{% endif %}</h5>
+              {% endif %}
+
+              {% if section.settings.search_message_2 != blank %}
+              <h6>{% if request.locale.iso_code == 'en' %}{{ section.settings.search_message_2 }}{% else %}{{ section.settings.search_message_2_gr }}{% endif %}</h6>
+              {% endif %}
+            </div>
+          </div>
+
+          <ul class="defult_pagination"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function getUrlParameterCheckout(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+
+          if (sParameterName[0] === sParam) {
+            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+          }
+        }
+        return false;
+      };
+      
+
+      var searchQuery = getUrlParameterCheckout('q');
+      var searchProduct = searchQuery.replace('title:','');
+
+      $('.addedloader').hide();
+      $('.search-product').show();
+      var pagesize = 12;
+      var language = $('html').attr('lang');
+      
+      if(searchProduct.length){
+        {% if customer %}
+        var jsonSrting = {{shop.metafields.pharmacy.poidetails}};
+        var pharm_nm = $('.customer_tage').data('phamnm');
+        var cust_tags = {{ customer.tags | json }};
+        var pharmacy_id = '';
+        var availableItems = jsonSrting.pharmacy.pharmacy_id;
+        for(var i = 0;i<availableItems.length;i++){
+          //console.log(availableItems[i].name);
+          for(var j = 0;j<cust_tags.length;j++){
+            if(cust_tags[j] == availableItems[i].id){
+
+              var pharmacy_id = availableItems[i].id
+              //var pharmacy_id = isNaN(parseInt(availableItems[i].id)) ? 0 : parseInt(availableItems[i].id);
+              //console.log(pharmacy_id);
+              }
+          }
+        }
+        {% endif %}
+
+        var url = "https://api.korresfamily.com/api/v1/MarketplaceItem/GetSearchProductnamebyshopify";
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data:{lang: language, query: searchProduct, page_no: 1,page_size: pagesize},
+          success:function(res){
+            if(res.total > 0){
+              $.each(res.results, function(key, value){
+                var proName = res.results[key].product_name;
+                var proHandle = res.results[key].handle;
+                $(".total-searched-items").text(res.total+" results");
+
+                jQuery.getJSON('/products/'+proHandle+'.js', function(product) {
+                  if(product){
+                    var pathName = window.location.pathname;
+                    var title = proName;
+                    var url = product.url;
+                    if(pathName.indexOf('el') > -1){
+                      url = '/el/products/'+proHandle;
+                    }
+                    var featured_image = product.featured_image;
+                    var id = product.variants[0].id;
+                    var opprice =  Shopify.formatMoney(product.price);
+                    var cusprice = opprice.replaceAll('$', '€')
+                    var price = cusprice.replaceAll('.', ',')
+                    {% if customer %}
+                    if(pharmacy_id != ''){
+                      $.ajax({
+                        type: 'GET', 
+                        url: 'https://api.korresfamily.com/api/v1/MarketplaceItem/GetproductPricelist?productid='+id+'&pharmecyid='+pharmacy_id,
+                        dataType: 'json', 
+                        success: function(data){
+                          if(data.data.price != undefined){
+                              var newprice = new Intl.NumberFormat('de-DE').format(data.data.price);
+                              var items = '<div class="col-md-4 col-lg-4 col-sm-1 col-xs-12 item-searchd left_grid_item"><a href="'+url+'" title="'+title+'"><img src="'+featured_image+'"></a><h5 class="product_title"><a class="product_title_0" href="'+url+'" title="'+title+'">'+title+'</a></h5><span class="price-search" data-productid="'+id+'">€'+newprice+'</span></div>';
+                          }else{
+                              var items = '<div class="col-md-4 col-lg-4 col-sm-1 col-xs-12 item-searchd left_grid_item"><a href="'+url+'" title="'+title+'"><img src="'+featured_image+'"></a><h5 class="product_title"><a class="product_title_0" href="'+url+'" title="'+title+'">'+title+'</a></h5><span class="price-search" data-productid="'+id+'">'+price+'</span></div>'; 
+                          }
+                          $(".ajax-search-products").append(items);       
+                        },
+                        error:function(error){
+                          console.log(error);
+                        }
+                      });
+                    }else{
+                      var items = '<div class="col-md-4 col-lg-4 col-sm-1 col-xs-12 item-searchd left_grid_item"><a href="'+url+'" title="'+title+'"><img src="'+featured_image+'"></a><h5 class="product_title"><a class="product_title_0" href="'+url+'" title="'+title+'">'+title+'</a></h5><span class="price-search" data-productid="'+id+'">'+price+'</span></div>'; 
+                      $(".ajax-search-products").append(items);  
+                    }
+                    {% else %}
+                    var items = '<div class="col-md-4 col-lg-4 col-sm-1 col-xs-12 item-searchd left_grid_item"><a href="'+url+'" title="'+title+'"><img src="'+featured_image+'"></a><h5 class="product_title"><a class="product_title_0" href="'+url+'" title="'+title+'">'+title+'</a></h5><span class="price-search" data-productid="'+id+'">'+price+'</span></div>'; 
+                    $(".ajax-search-products").append(items);    
+                    {% endif %}
+                  }
+                })
+
+                $(".ajax-search-products, .defult_pagination").show();
+                $(".search_not_performed").hide();
+              });
+
+              if(res.total > 12){
+                var total_pages = Math.ceil(res.total / 12);            
+                
+                for(var i = 0; i < total_pages; i++) {
+                  var addonValue = i+1;
+                  if(addonValue == 1){
+                    var activeClass = "active";
+                  } else {
+                    var activeClass = "inactive";
+                  }
+                  
+                  var pageHtm = '<li class='+activeClass+' data-page="'+addonValue+'"><a href="javascript:void(0);">'+addonValue+'</a></li>'; 
+                  $(".defult_pagination").append(pageHtm);
+
+                } 
+
+
+              } else {
+                $(".defult_pagination").hide();
+              }
+
+            } else {
+              $(".ajax-search-products, .defult_pagination").hide();
+              $(".search_not_performed").show();
+            }
+          },
+          error: function (error) {
+            $(".ajax-search-products, .defult_pagination").hide();
+            $(".search_not_performed").show();
+          }
+        });  
+      } else {
+        $(".ajax-search-products, .defult_pagination").hide();
+        $(".search_not_performed").show();
+      }
+
+      $(document).on("click",".defult_pagination li",function() {  
+
+        $('.addedloader').show();
+        $('.search-product').hide();
+        $(".defult_pagination li").removeClass('active').addClass('inactive');
+        $(this).addClass('active');
+        
+        $(".ajax-search-products").empty();
+        var currentpage = $(this).attr('data-page');
+
+        var url = "https://api.korresfamily.com/api/v1/MarketplaceItem/GetSearchProductnamebyshopify";
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {lang: language, query: searchProduct,page_no: currentpage,page_size: pagesize},
+          success:function(res){
+            $('.addedloader').hide();
+            $('.search-product').show();
+
+            if(res.total > 0){
+              $.each(res.results, function(key, value){
+                var proName = res.results[key].product_name;
+                var proHandle = res.results[key].handle;
+                $(".total-searched-items").text(res.total+" results");
+
+                jQuery.getJSON('/products/'+proHandle+'.js', function(product) {
+                  if(product){
+                    var title = proName;
+                    var url = product.url;
+                    var featured_image = product.featured_image;
+                    var id = product.id;
+                    var opprice =  Shopify.formatMoney(product.price);
+                    var cusprice = opprice.replaceAll('$', '€')
+                    var price = cusprice.replaceAll('.', ',')
+                    {% if customer %}
+                    $.ajax({
+                      type: 'GET', 
+                      url: 'https://api.korresfamily.com/api/v1/MarketplaceItem/GetproductPricelist?productid='+id+'&pharmecyid='+pharmacy_id,
+                      dataType: 'json', 
+                      success: function(data){
+                        if(data.data.price != undefined){
+                            var newprice = new Intl.NumberFormat('de-DE').format(data.data.price);
+                            var items = '<div class="col-md-4 col-lg-4 col-sm-1 col-xs-12 item-searchd left_grid_item"><a href="'+url+'" title="'+title+'"><img src="'+featured_image+'"></a><h5 class="product_title"><a class="product_title_0" href="'+url+'" title="'+title+'">'+title+'</a></h5><span class="price-search" data-productid="'+id+'">€'+newprice+'</span></div>';
+                        }else{
+                            var items = '<div class="col-md-4 col-lg-4 col-sm-1 col-xs-12 item-searchd left_grid_item"><a href="'+url+'" title="'+title+'"><img src="'+featured_image+'"></a><h5 class="product_title"><a class="product_title_0" href="'+url+'" title="'+title+'">'+title+'</a></h5><span class="price-search" data-productid="'+id+'">'+price+'</span></div>'; 
+                        }
+                        $(".ajax-search-products").append(items);       
+                      },
+                      error:function(error){
+                        console.log(error);
+                      }
+                    });
+                    {% else %}
+                    var items = '<div class="col-md-4 col-lg-4 col-sm-1 col-xs-12 item-searchd left_grid_item"><a href="'+url+'" title="'+title+'"><img src="'+featured_image+'"></a><h5 class="product_title"><a class="product_title_0" href="'+url+'" title="'+title+'">'+title+'</a></h5><span class="price-search" data-productid="'+id+'">'+price+'</span></div>'; 
+                    $(".ajax-search-products").append(items);    
+                    {% endif %}     
+                  }
+                })
+
+                $(".ajax-search-products, .defult_pagination").show();
+                $(".search_not_performed").hide();
+              });
+            }
+          },
+          error: function (error) {
+            $(".ajax-search-products, .defult_pagination").hide();
+            $(".search_not_performed").show();
+          }
+        });
+      });
+    </script>
+
+    <style>
+      .addedloader {
+        width: 100%;
+        margin: 30px 0;
+      }
+      .loader {
+        border: 2px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 2px solid #050F96;
+        width: 40px;
+        height: 40px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        margin: auto;
+      }
+
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+
+{% else %}
+
+    {% paginate search.results by 6 %}
+        <form action="{% if request.locale.iso_code == 'el' %}/el{% endif %}/search" method="get" role="search">
+          <input  type="search" name="q" value="{{ search.terms | escape }}" type="submit" disabled>
+          <button type="submit" style="display:none">search</button>
+        </form>
+        <div class="container">
+          <div class="row">
+            <div class="search_term">
+              <p>{{ search.terms | escape | remove: 'title:' }}<span>{{ search.results_count }} results</span></p>
+            </div>
+
+            <div class="search-product">
+              {% if search.performed %}
+              {% for item in search.results %}
+              {% assign grid_mod = forloop.index | modulo:3 %}
+              {% assign grd_class = '' %}
+              {% if grid_mod == 1 %}
+              {% assign grd_class = 'left_grid_item' %}
+              {% elsif grid_mod == 0%}
+              {% assign grd_class = 'right_grid_item' %}
+              {% endif%}
+              <div class="col-md-4 col-lg-4 col-sm-1 col-xs-12 item-searchd {{ grd_class }}">
+                <div class="search_wishlist_wrap">
+                  <div class="gird_tag_search">
+                    {% for tag in item.tags %}
+                    {% if tag contains 'Best seller' %}
+                    <span>best seller</span>
+                    {% elsif tag contains 'New' %}
+                    <span>new</span>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+                  {% include 'wishlist-product' %}
+                </div>
+
+                {% if item.featured_image  %}
+                <a href="{{ item.url | within: collection }}" title="{{ item.title | escape }}">
+                  <img src="{{item.featured_image | img_url: 'medium' }}"   >
+                </a>
+                {% else %}
+                <img src="{{item.image | img_url: 'medium' }}"   >
+                {% endif %}
+
+                {% if request.locale.iso_code == 'el' %}
+                {% assign prod_title = item.metafields.language.value | json %}
+                {% if item.metafields.language.value %}
+                {% assign forloop_index = forloop.index %}
+                <script>
+                  (function() {
+                    setTimeout(function(){
+                      var productLang = {{prod_title}};
+                      var product = productLang['el (Greek)'];
+                      if(product != undefined){
+                        var title = product.gr_item_full_title;
+
+                        document.getElementsByClassName('product_title_{{forloop_index}}')[0].innerHTML = title;
+                                                        }
+                                                        },2000);
+                      })();
+                </script>
+                {% endif %}
+                {% endif %}
+
+                <h5 class="product_title"><a class="product_title_{{forloop.index}}" href="{{ item.url }}" title="{{ item.title }}">{{ item.title }}</a></h5>
+                <span class="price-search">{{item.price | money}}</span>
+
+              </div>
+              {% else %}
+              <div class="search_not_performed">
+                <div class="no_search_wrapper">
+                  <img src="{{ 'search_icon.svg' | asset_url }}" alt="">
+                  {% if section.settings.search_message != blank %}
+                  <h5>{% if request.locale.iso_code == 'en' %}{{ section.settings.search_message }}{% else %}{{ section.settings.search_message_gr }}{% endif %}</h5>
+                  {% endif %}
+
+                  {% if section.settings.search_message_2 != blank %}
+                  <h6>{% if request.locale.iso_code == 'en' %}{{ section.settings.search_message_2 }}{% else %}{{ section.settings.search_message_2_gr }}{% endif %}</h6>
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+
+              {% endif %}
+            </div>
+            {%- if paginate.pages > 1 -%}
+            {% include 'pagination', paginate: paginate %}
+            {% endif %}
+          </div>
+        </div>
+    {% endpaginate %}
+
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Search page",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "search_message",
+        "label": "Search message [Eng]",
+        "default": "Oops! We looked everywhere and we couldn’t find what you were looking for."
+      },
+      {
+        "type": "textarea",
+        "id": "search_message_2",
+        "label": "Search message - Sec [Eng]",
+        "default": "138 awarded items make this hard to believe."
+      },
+      {
+        "type": "textarea",
+        "id": "search_message_gr",
+        "label": "Search message [Greek]",
+        "default": "Oops! We looked everywhere and we couldn’t find what you were looking for."
+      },
+      {
+        "type": "textarea",
+        "id": "search_message_2_gr",
+        "label": "Search message - Sec [Greek]",
+        "default": "138 awarded items make this hard to believe."
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

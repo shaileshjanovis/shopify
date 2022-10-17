@@ -1,0 +1,111 @@
+<div class="search-container-main search_form_container">
+  <div class="search-container--desktop">
+    <button type="button" class="close-drawer-btn">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line y1="-1" x2="21.7746" y2="-1" transform="matrix(0.727357 0.686259 -0.727357 0.686259 0.162109 2.05713)" stroke="#050f96" stroke-width="2"/>
+        <line y1="-1" x2="21.7746" y2="-1" transform="matrix(-0.727357 0.686259 -0.727357 -0.686259 15.8379 1)" stroke="#050f96" stroke-width="2"/>
+      </svg>
+      <span>Close</span>
+    </button>	    
+    <div class="search-field">      
+          <div class="search-bar">
+            <div class="">
+              <div class="search-wrap"  id="search-box">
+                <form class="search-form search-bar__form" action="{{ routes.search_url }}" method="get" role="search">
+					<div class="search-form__input-wrapper">
+						{% if request.locale.iso_code == 'el' %}
+						{% assign placeholder = 'Αναζήτηση προϊόντος με όνομα ή κωδικό' %}
+						{% else %}
+						{% assign placeholder = 'Search Product by name or code' %}
+						{% endif %}
+						<div class="top-search">
+							<div class="back-btn">
+								<svg xmlns="http://www.w3.org/2000/svg" width="9.063" height="16.125" viewBox="0 0 9.063 16.125">
+									<g id="Group_3798" data-name="Group 3798" transform="translate(7.649 1.414) rotate(90)">
+										<path id="Path_247" data-name="Path 247" d="M609.391,411.742l-6.649,6.649-6.649-6.649" transform="translate(-596.094 -411.742)" fill="none" stroke="#32322d" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+									</g>
+								</svg>
+							</div>
+						    <input type="text" id="input-search" name="q" placeholder="{{ placeholder }}" aria-autocomplete="list"
+							   aria-expanded="false" aria-label="Search" aria-haspopup="listbox" class="search-form_input search-bar_input" autocorrect="off"
+							   autocomplete="off" autocapitalize="off" spellcheck="false"/>
+							<button class="search-btn web" style="background-color: #050F96; color: #FFFFFF;" id="search-btn" type="submit" value="Search" disabled="">{% if request.locale.iso_code == 'el' %} Αναζήτηση {% else %} Search {% endif %}</button>
+							<input type="hidden" name="type" value="product" aria-hidden="true"/>
+                       </div>
+                    <div class="predictive-search-wrapper predictive-search-wrapper--drawer" style="display:none;">
+                        {% comment %}
+                        <div class="search_r_load" v-if="loading">Loading..</div>
+                        {% endcomment %}
+                    
+                        <div class="predictive-search">
+                          <div class="predictive-search-title">
+                            <!--<h6 id="predictive-search" class="predictive-search-title__content"> </h6>-->
+                            <span class="predictive-search-title__loading-spinner"></span>
+                          </div>
+                      
+                          <!------- Get results --------->
+                          <ul id="predictive-search-results-st" class="predictive-search__list" role="listbox"></ul>
+                          <!------- End get results --------->
+                      
+                        </div>
+                    
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <button class="clear hidden" type="button">
+            <!--<span>
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line y1="-1" x2="21.7746" y2="-1" transform="matrix(0.727357 0.686259 -0.727357 0.686259 0.162109 2.05713)" stroke="#050f96" stroke-width="2"/>
+                <line y1="-1" x2="21.7746" y2="-1" transform="matrix(-0.727357 0.686259 -0.727357 -0.686259 15.8379 1)" stroke="#050f96" stroke-width="2"/>
+              </svg>
+            </span>-->
+          </button>
+        </div>
+  	<h5 class="results-count"></h5>
+    
+    <div class="suggested hidden">
+      {%- assign suggested = shop.metafields.kettle_search.suggested | split: '|' -%}
+
+      <h5>Suggested</h5>
+      <ul>
+        {%- for item in suggested -%}
+        <li>{{ item }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    
+    <div class="result"></div>
+    
+    <div class="most-popular-main" style="display:none;">
+      <div class="most-popular">
+        <h6>Most Popular</h6>
+
+        {% for product in collections.best-seller.products limit:9 %}
+        <div class="popular-items grk_pop_itm_{{forloop.index}}">
+          <span class="popular-product"><a href="{{product.url}}">{{product.title}}</a></span>
+        </div>
+
+        {% if request.locale.iso_code == 'el' %}
+        {% assign prod_title = product.metafields.language.value | json%}
+        <script>
+          var productLang = {{prod_title}};
+          var product = productLang['el (Greek)']
+          var title = product.gr_title;
+          var fulltitle = product.gr_item_full_title;
+          var loopClass = '.most-popular .grk_pop_itm_{{forloop.index}} a'        
+          jQuery(loopClass).html(fulltitle);
+        </script>
+        {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+  
+</div>
+{{ 'style-search-drawer.css' | asset_url | stylesheet_tag }}

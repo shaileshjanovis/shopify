@@ -1,0 +1,65 @@
+<div class="top-content">
+    <div class="row no-gutters w-100">
+        <div class="col-lg-6">
+            <h1 class="mobile">{{ section.settings.page-title }}</h1>
+            <p class="mobile"><strong>{{ section.settings.page-text-bold }}</strong></p>
+            <img src="{{ section.settings.left-img | img_url: 'master' }}" class="img-fluid korres-circle" />  
+        </div>
+        <div class="col-lg-6">
+            <div class="right ">
+                <h1 class="desktop">{{ section.settings.page-title }}</h1>
+                <p class="desktop"><strong>{{ section.settings.page-text-bold }}</strong></p>
+                <p class="last">{{ section.settings.page-text }}</p>
+                <a class="btn" href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ section.settings.button-link }}">{{ section.settings.button-text }}</a>
+                <p class="info">{{ section.settings.bottom-text }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% schema %} 
+{
+"name": "MyCircle Top Content",
+"settings": [
+{
+"id": "left-img",
+"type":"image_picker",
+"label": "Left Image"
+},
+{
+"id": "page-title",
+"type": "richtext",
+"label": "Page Title"
+},
+{
+"id": "page-text-bold",
+"type": "textarea",
+"label": "Page Text Bold",
+"default": "Μπείτε στον κύκλο των δώρων και των εκπλήξεων της KORRES και κάντε τα όλα δικά σας."
+},
+{
+"id":"page-text",
+"type": "richtext",
+"label":"Page Text"
+},
+{
+"id":"button-text",
+"type": "textarea",
+"label":"Button Text",
+"default": "Εγγραφή στον Κύκλο"
+},
+{
+"id":"button-link",
+"type": "textarea",
+"label":"Button link",
+"default": "/account/register"
+},
+{
+"id":"bottom-text",
+"type": "richtext",
+"label":"Bottom Text"
+}
+]
+}
+{% endschema %}

@@ -1,0 +1,128 @@
+<div class="blog-container">
+  <div class="blog-category-tags">
+    {% for link in linklists.main-menu-new.links %}
+    {% if link.title == "Anthology" %}
+    {% if link.links != blank %}
+    <ul class="parent child tags">
+      {% for child_link in link.links %}
+      {% if child_link.object.id == blog.id %}
+      {% assign tag_class = "active" %}
+      {% else %}
+      {% assign tag_class = "inactive" %}
+      {% endif %}
+      <li class="blog-category blog-tag {{tag_class}}">
+        <a class="" >{{ child_link.title | replace: "_", " "}}</a>
+        {% if child_link.links != blank %}
+        <ul class="grandchild tags">
+          {% for grandchild_link in child_link.links %}
+          <li class="blog-tag b">
+            <a class="t" href= "{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      <ul class="blog-sub-categories">
+        {%- for tag in child_link.object.all_tags -%}
+        {% if current_tags contains tag %}
+        <li class="blog-tag active">
+          <a href="{{child_link.object.url}}/tagged/{{tag}}">{{tag | replace: "_", " "}}</a>
+        </li>
+        {% else %}
+        <li class="blog-tag">
+          <a href="{{child_link.object.url}}/tagged/{{tag}}">{{tag | replace: "_", " "}}</a>
+        </li>
+        {% endif %}
+
+        {%- endfor -%}
+      </ul>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% endif %}
+    {% endfor %}
+
+  </div>
+{% paginate blog.articles by 5 %}
+
+  <div class="section-article">
+    {% for article in blog.articles %}
+    <a href="{{ article.url }}" class="article">
+      <div class="inner">
+        <div class="article-img" data-content="Read the Article">
+          <img id="{{ img_id }}"
+               class=" lozad"
+               src="{{ article.image | img_url: '300x300' }}"
+               data-src="{{ img_url }}"
+               alt="{{ article.title }}"/>
+          <div class="read-text">
+            <span>
+              Read<br/> the Article
+            </span>
+          </div>
+        </div>
+        <div class="article-bot">
+          {% if article.excerpt.size > 0 %}
+          {{ article.excerpt }}
+          {% else %}
+          <p class="">{{ article.content | strip_html | truncatewords: 100 }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+  {% if paginate.pages > 1 %}
+  {{ paginate | default_pagination }}
+  {% endif %}
+
+  {% endpaginate %}
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+
+  $(function() {
+  $(".parent").css("height","100%");
+  var heightSubCat = $(this).next(".blog-sub-categories").outerHeight();
+  var heightParent = $(".parent").outerHeight();
+  var res =heightSubCat+heightParent;
+  $(".parent").css("height",res);
+  var isActive = $('.blog-category').hasClass('active');
+  if(isActive)
+  $(".blog-category").next(".blog-sub-categories").css("top",heightParent);
+  });
+
+
+  $(".blog-category").click(function(){
+  //debugger;
+  $(".parent").css("height","100%");
+  var heightSubCat = $(this).next(".blog-sub-categories").outerHeight();
+  var heightParent = $(".parent").outerHeight();
+  var res =heightSubCat+heightParent;
+  $(".parent").css("height",res);
+
+  $(".blog-category").removeClass("active");
+  $(".blog-sub-categories").hide();
+  $(this).addClass("active");
+  $(this).next(".blog-sub-categories").css("top",heightParent);
+  $(this).next(".blog-sub-categories").show();
+
+  });
+
+</script>
+<script>
+  $(function() {
+
+  var activeSubCat = $(".blog-category.active").next(".blog-sub-categories").show();
+
+  $(".parent").css("height","100%");
+  var heightActiveSubCat = activeSubCat.outerHeight();
+  var heightParent = $(".parent").outerHeight();
+  var res =heightActiveSubCat+heightParent;
+  $(".parent").css("height",res);
+
+  });
+</script>

@@ -1,0 +1,216 @@
+<main role="main" class="product-landing">
+    <section id="plp-hero"
+             style="position: relative"{% if collection.metafields.kettle.hero_sp_invert_color == "true" %} class="invert-color"{% endif %}>
+        {%- assign header_type = collection.metafields.kettle.hero_sp_variation | downcase -%}
+        {%- assign img_desktop = collection.metafields.kettle.hero_sp_image -%}
+        {%- assign img_tablet = collection.metafields.kettle.hero_sp_image_tablet | first -%}
+        {%- assign img_mobile = collection.metafields.kettle.hero_sp_image_mobile | first -%}
+        <section
+                class="header{% if collection.metafields.kettle.hero_sp_variation %} {{ header_type }}{% endif %}"
+                style="position: absolute; left: 0; right: 0;"
+        >
+            <h3 class="eyebrow">{{ collection.metafields.kettle.hero_sp_eyebrow }}</h3>
+            <h1>
+                {%- if collection.metafields.kettle.hero_sp_title -%}
+                    {{- collection.metafields.kettle.hero_sp_title -}}
+                {%- else -%}
+                    {{- collection.title -}}
+                {%- endif -%}
+            </h1>
+            <p>{{ collection.metafields.kettle.hero_sp_subtitle }}</p>
+            {%- if collection.metafields.kettle.hero_sp_cta_label -%}
+                <div class="cta-container">
+                    {%- for label in collection.metafields.kettle.hero_sp_cta_label -%}
+                        {%- assign index = forloop.index0 -%}
+                        <a href="{{ collection.metafields.kettle.hero_sp_cta_link[index] }}" class="primary-btn">
+                            {{- label -}}
+                        </a>
+                    {%- endfor -%}
+                </div>
+            {%- endif -%}
+        </section>
+
+        <picture>
+            <source
+                    media="(min-width: 1200px)"
+                    srcset="{{ img_desktop }}"
+            />
+            {%- unless img_tablet == blank -%}
+                <source
+                        media="(min-width: 768px)"
+                        srcset="{{ img_tablet.cloudinary_src | append: 'w_1200' }} 1x,
+                  {{ img_tablet.cloudinary_src | append: 'w_2400' }} 2x"
+                />
+            {%- endunless -%}
+            {%- unless img_mobile == blank -%}
+                <source
+                        media="(max-width: 767.98px)"
+                        srcset="{{ img_mobile.cloudinary_src | append: 'w_768' }} 1x,
+                  {{ img_mobile.cloudinary_src | append: 'w_1536' }} 2x"
+                />
+            {%- endunless -%}
+            <img src="{{ img_desktop }}" alt="{{ collection.title }}">
+        </picture>
+        {%- if collection.metafields.kettle.hero_sp_cta_label -%}
+            <div class="cta-container hide-desktop">
+                {%- for label in collection.metafields.kettle.hero_sp_cta_label -%}
+                    {%- assign index = forloop.index0 -%}
+                    <a href="{{ collection.metafields.kettle.hero_sp_cta_link[index] }}" class="primary-btn">
+                        {{- label -}}
+                    </a>
+                {%- endfor -%}
+            </div>
+        {%- endif -%}
+        {%- if header_type == "qvc" -%}
+            <div class="qvc-container">
+                <div class="events">
+                    <h4>Upcoming Showtimes</h4>
+                    <div>
+                        {%- for event in collection.metafields.kettle.hero_sp_event_title -%}
+                            {%- assign index = forloop.index0 -%}
+                            <a href="{{ collection.metafields.kettle.hero_sp_event_link[index] }}">
+                                <span>{{ collection.metafields.kettle.hero_sp_event_time[index] }}</span>
+                                <span>{{ event }}</span>
+                            </a>
+                        {%- endfor -%}
+                    </div>
+                    <a href="https://www.hsn.com/watch/program-guide/">View full schedule at HSN</a>
+                </div>
+            </div>
+        {%- endif -%}
+    </section>
+    <section id="plp-grid">
+        <section class="no-copy">
+            <div class="sub-category">
+                <div class="product-container">
+                    {% paginate collections['all'].products by 9999 %}
+                        {%- for product in collections['all'].products -%}
+                            {%- for variant in product.variants -%}
+                                {%- assign tags = variant.metafields.kettle.tag | split: '|' -%}
+                                {%- for tag in tags -%}
+                                    {%- assign handleized_tag = tag | handleize -%}
+                                    {%- if handleized_tag == collection.handle -%}
+                                        {% render 'product-grid-item', variant: variant, product: product, my_class: ' grid-border no-top' %}
+                                        {%- break -%}
+                                    {%- endif -%}
+                                {%- endfor -%}
+                            {%- endfor -%}
+                        {%- endfor -%}
+                    {% endpaginate %}
+                </div>
+            </div>
+        </section>
+    </section>
+    <section id="plp-details">
+        {%- assign img = collection.metafields.kettle.details_image -%}
+        <div{% if collection.metafields.kettle.details_invert_color == "true" %} class="invert-color"{% endif %}>
+            <h3>{{ collection.metafields.kettle.details_title }}</h3>
+            {% if collection.metafields.kettle.details_location %}
+                <div class="location">
+                    <svg width="13" height="19" viewBox="0 0 13 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.5 19c.033-.045.054-.069.071-.096 1.109-1.7 2.227-3.393 3.323-5.1.885-1.377 1.7-2.793 2.329-4.304.42-1.008.749-2.04.775-3.138a5.561 5.561 0 00-.499-2.486C11.51 1.725 9.822.393 7.423.072 4.872-.271 2.773.614 1.221 2.63.396 3.7.017 4.933.001 6.266c-.011.83.19 1.632.466 2.413.607 1.722 1.486 3.316 2.47 4.854 1.017 1.59 2.064 3.16 3.097 4.738.154.236.303.475.466.729zM3.392 6.308C3.4 4.62 4.792 3.28 6.521 3.294c1.711.013 3.081 1.365 3.074 3.034C9.587 7.979 8.194 9.33 6.5 9.326c-1.724-.003-3.116-1.355-3.108-3.018z"
+                              fill="#444"/>
+                    </svg>
+                    <p>{{ collection.metafields.kettle.details_location }}</p>
+                </div>
+            {% endif %}
+            <p>{{ collection.metafields.kettle.details_body }}</p>
+            <a href="/pages/our-process">See Our Full Circle Process</a>
+        </div>
+        <picture>
+            <source
+                    media="(min-width: 1200px)"
+                    srcset="{{ img }}"
+            />
+            <source
+                    media="(min-width: 768px)"
+                    srcset="//images.accentuate.io?c_options=w_1200&image={{ img }} 1x,
+                //images.accentuate.io?c_options=w_2400&image={{ img }} 2x,"
+
+            />
+            <source
+                    media="(max-width: 767.98px)"
+                    srcset="//images.accentuate.io?c_options=w_768&image={{ img }} 1x,
+                //images.accentuate.io?c_options=w_1536&image={{ img }} 2x"
+            />
+            <img src="{{ img }}" alt="{{ collection.title }}">
+        </picture>
+    </section>
+    <section id="plp-benefits">
+        <div class="benefits--container">
+            {%- assign default_benefits_title = collection.title | prepend: 'Benefits of ' -%}
+            <h3>{{ collection.metafields.kettle.benefit_title | default: default_benefits_title }}</h3>
+            <p>{{ collection.metafields.kettle.benefit_body }}</p>
+            {%- if collection.metafields.kettle.benefit_1 -%}
+                <div>
+                    <div class="benefit">
+                        <h6>Benefit 1</h6>
+                        <p>{{ collection.metafields.kettle.benefit_1 }}</p>
+                    </div>
+                    <div class="icon">{</div>
+                </div>
+            {%- endif -%}
+            {%- if collection.metafields.kettle.benefit_2 -%}
+                <div>
+                    <div class="benefit">
+                        <h6>Benefit 2</h6>
+                        <p>{{ collection.metafields.kettle.benefit_2 }}</p>
+                    </div>
+                    <div class="icon"></div>
+                </div>
+            {%- endif -%}
+            {%- if collection.metafields.kettle.benefit_3 -%}
+                <div>
+                    <div class="benefit">
+                        <h6>Benefit 3</h6>
+                        <p>{{ collection.metafields.kettle.benefit_3 }}</p>
+                    </div>
+                    <div class="icon">{</div>
+                </div>
+            {%- endif -%}
+        </div>
+        <div class="benefits-img--container">
+            <img src="{{ collection.metafields.kettle.benefit_image }}" alt="How to use">
+        </div>
+    </section>
+    <div>
+        {% paginate collections['all'].products by 9999 %}
+            {%- for product in collections['all'].products -%}
+                {%- for variant in product.variants -%}
+                    {%- assign tags = variant.metafields.kettle.tag | split: '|' -%}
+                    {%- for tag in tags -%}
+                        {%- assign handleized_tag = tag | handleize -%}
+                        {%- if handleized_tag == collection.handle -%}
+                            <div id="quick-view-{{ product.id }}" class="modal">
+                                {% render 'quick-view', product: product %}
+                            </div>
+                            {%- break -%}
+                        {%- endif -%}
+                    {%- endfor -%}
+                {%- endfor -%}
+            {%- endfor -%}
+        {% endpaginate %}
+    </div>
+</main>
+<script>
+    var featuredProducts = [];
+    var products = [];
+    {%- paginate collections['all'].products by 9999 -%}
+    {%- for product in collections['all'].products -%}
+    {%- for variant in product.variants -%}
+    {%- assign tags = variant.metafields.kettle.tag | split: '|' -%}
+    {%- for tag in tags -%}
+    {%- assign handleized_tag = tag | handleize -%}
+    {%- if handleized_tag == collection.handle -%}
+    products.push({
+        id: '{{ variant.id }}',
+        productId: '{{ product.id }}',
+        review: {}
+    });
+    {%- break -%}
+    {%- endif -%}
+    {%- endfor -%}
+    {%- endfor -%}
+    {%- endfor -%}
+    {%- endpaginate -%}
+</script>

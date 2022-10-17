@@ -1,0 +1,325 @@
+{% assign sec = section %}
+{% assign entries = page.metafields.kettle_faq_entry %}
+{% assign sections = entries.section | uniq %}
+{% assign section_count_0 = sections | size | minus: 1 %}
+{% assign entry_count_0 = entries.title | size | minus: 1 %}
+<div class="faq_main_cover width-1784">
+  <h3>How can we Help?</h3>
+  <div class="inner">
+    
+    <div class="tabs">
+      <ul class="tabs-nav-faq">
+        <li><a href="#tab-1">FAQ</a></li>
+        <li><a href="#tab-2">Shipping</a></li>
+        <li><a href="#tab-3">Payments</a></li>
+        <li><a href="#tab-4">Returns</a></li>
+      </ul>
+      <div class="tabs-faq">
+        <div id="tab-1" class="tab_cover">
+          {% for section_idx in (0..section_count_0) %}
+          {% assign section = sections[section_idx] %}
+          <div class="accordion-container">
+
+            {% for entry_idx in (0..entry_count_0) %}
+            {% if entries.section[entry_idx] != section %}
+            {% continue %}
+            {% endif %}
+            <div class="set">
+              <a href="#">
+                {{ entries.title[entry_idx] }}
+                <i class="fa fa-plus"></i>
+              </a>
+              <div class="content">
+                <p>{{ entries.description[entry_idx].html }}</p>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+          {% endfor %}
+        </div>
+        <div id="tab-2" class="tab_cover">
+          <h2>About Shipping</h2>
+          <p>{{ sec.settings.text1 }}</p>
+        </div>
+        <div id="tab-3" class="tab_cover">
+          <h2>About Payment</h2>
+          <p>{{ sec.settings.text2 }}</p>
+        </div>
+        <div id="tab-4" class="tab_cover">
+          <h2>About Returns</h2>
+          <p>{{ sec.settings.text3 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .faq_main_cover h3 {
+    text-align: center;
+    margin-bottom: 57px;
+    font-size:32px;
+    color:#2D2A26;
+    font-weight: 400;
+  }
+  .faq_main_cover ul.tabs-nav-faq {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom:54px;
+  }
+  .faq_main_cover ul.tabs-nav-faq li {
+    width: 100%;
+    text-align: center;
+    list-style: none;
+    font-size:25px;
+    padding: 10px 0;
+  }
+  .tab_cover h2{
+    font-size:22px;
+    color:#180E96;
+    margin-bottom:27.04px;
+    font-weight: 400;
+  }
+  .tab_cover p{
+    font-size:18px;
+    line-height:22px;
+    color:#404041;
+  }
+  .faq_main_cover ul.tabs-nav-faq .tab-active{
+   border-bottom:1px #2D2A26 solid; 
+  }
+  .faq_main_cover ul.tabs-nav-faq .tab-active a{
+    color:#2D2A26 !important;
+    opacity:1;
+  }
+  .faq_main_cover ul.tabs-nav-faq li a
+  {
+    opacity:0.5;
+    color:#2D2A26 !important;
+  }
+  .faq_main_cover ul.tabs-nav-faq li a:hover{
+   text-decoration:none; 
+  }
+  .faq_main_cover{
+    padding: 0 60px;
+    margin-top:38px;
+  }
+  .faq_main {
+    margin-top: 125px;
+    margin-bottom: 100px;
+  }
+  .faq_main_cover .inner {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+  .faq_main .content p:empty {
+    display: none;
+  }
+  .faq_main .search-input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #060E9B;
+    border-radius: 10px;
+    max-width: 100%;
+    padding-right: 24px;
+    margin-bottom:70px;
+  }
+  
+  .faq_main .search_main h3{
+    font-size:32px;
+    line-height:38px;
+    color:#2D2A26;
+    letter-spacing:0.64px;
+    font-weight: 300;
+    font-family: Roboto,sans-serif !important;
+    margin-bottom:34px;
+  }
+  .faq_main .content h4 {
+    font-size: 20px;
+    margin: 0;
+    margin-top: 12px;
+    color:#2D2A26;
+    letter-spacing:0.64px;
+    font-weight: 300;
+    font-family: Roboto,sans-serif !important;
+  }
+  .faq_main .search-input-container input {
+    border: 0;
+    background: #fff;
+    width: 100%;
+    margin: 0;
+    border-radius: 10px;
+    height: 50px;
+  }
+  .faq_main .search-input-container span svg {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+  .faq_main .accordion-container{
+    position: relative;
+    max-width: 100%;
+    display:block !important;
+  }
+  .faq_main .accordion-container > h2{
+    text-align: center;
+    color: #fff;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  .faq_main .set{
+    position: relative;
+    width: 100%;
+    height: auto;
+    display:block !important;
+  }
+  .faq_main .set > a{
+    display: block;
+    padding: 24px 0px;
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    border-bottom: 1px solid #eae9e9;
+    -webkit-transition:all 0.2s linear;
+    -moz-transition:all 0.2s linear;
+    transition:all 0.2s linear;
+    color:#404041;
+    font-size:20px;
+    line-height:26px;
+    letter-spacing:0.4px;
+    font-weight: 300;
+    font-family: Roboto,sans-serif !important;
+  }
+  .faq_main .set > a i{
+    float: left;
+    margin-top: 2px;
+    color: #001990;
+    border: 1.5px #001990 solid;
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 13px;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    line-height: 19px;
+    margin-right: 14px;
+  }
+  .faq_main .set > a.active{
+  }
+  .faq_main .content{
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    display:none;
+  }
+  .faq_main .content p{
+    padding: 24px 40px;
+    margin: 0;
+    font-size: 16px;
+    line-height: 26px;
+    color: #707071;
+    font-family: Roboto,sans-serif!important;
+    font-weight: 300;
+    
+  }
+  @media(max-width:1024px){
+    .faq_main_cover {
+      padding: 0 0px;
+    } 
+    .faq_main {
+      margin-bottom:40px;
+    }
+    .faq_main_cover .inner {
+      max-width: 100%;
+    }
+  }
+  @media(max-width:768px){
+    .faq_main .search-input-container{
+      margin-bottom:35px; 
+   }
+  }
+  @media(max-width:767px){
+    .faq_main_cover ul.tabs-nav-faq{
+      padding:0;
+      flex-direction:column;
+    }
+    .faq_main {
+      margin-top: 60px;
+    }
+    .faq_main_cover h3{
+      margin-bottom:32px; 
+    }
+    .faq_main_cover ul.tabs-nav-faq li{
+     font-size:22px; 
+    }
+  }
+  @media(max-width:600px){
+   .faq_main .set > a{
+     font-size: 14px;
+     padding: 20px 0;
+     position: relative;
+     padding-left: 32px;
+   }
+    .faq_main .set > a i {
+      padding: 2px;
+      font-size: 12px;
+      width: 20px;
+      height: 20px;
+      line-height: 14px;
+      margin-right: 8px;
+      position: absolute;
+      left: 0;
+      right: auto;
+      top: 20px;
+    }
+    .faq_main .content p {
+      padding: 20px 30px;
+      margin: 0;
+      font-size: 14px;
+      line-height: 25px;
+      color: #707071;
+      font-family: Roboto,sans-serif!important;
+      font-weight: 300;
+      padding-right: 0;
+    }
+  }
+</style>
+{% schema %}
+  {
+    "name": "faq Section",
+    "class": "faq_main",
+    "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type":"textarea",
+          "id":"text1",
+          "label": "Shipping Text"
+        },
+        {
+          "type":"textarea",
+          "id":"text2",
+          "label": "Payment Text"
+        },
+        {
+          "type":"textarea",
+          "id":"text3",
+          "label": "Returns Text"
+        }
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

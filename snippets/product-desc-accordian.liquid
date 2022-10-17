@@ -1,0 +1,43 @@
+{% assign productd = product.description | split:'<!-- split -->' %}
+{% assign productDescription = product.description | split: "<!-- split -->" %}
+{% if productd[18] != '' %}
+<h3 class="accordion">
+  <a  class="A-pluse-ac">{{ 'shop_gallery.circle_spin.how_to_use' | t: how_to_use }}
+  </a> 
+</h3>
+<div class="panel how_to_use">
+  {{productd[18]}}
+</div>
+{% endif %}
+{% if productd[19] != '' %}
+<h3 class="accordion">
+<a class="A-pluse-ac">{{ 'shop_gallery.circle_spin.visible_results' | t: visible_results }}
+</a>
+</h3>
+<div class="panel visible_results">
+  {{productd[19]}}
+</div>
+{% endif %}
+{% if productd[3] != '' %}
+<h3 class="accordion border-bot">
+<a class="A-pluse-ac">{{ 'shop_gallery.circle_spin.ingredients' | t: ingredients }}
+</a>
+</h3>
+<div class="panel ingredients">
+  {{ productDescription[3]}} 
+</div>
+{% endif %}
+<script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function() {
+      var active = document.getElementsByClassName('active');
+
+      if (active.length && active[0] !== this) {
+        active[0].classList.remove('active');
+      }
+      this.classList.toggle("active");
+    }
+  }
+</script>

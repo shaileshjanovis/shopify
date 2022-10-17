@@ -1,0 +1,629 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% unless customer %}
+	<script>window.location.replace('/account')</script>
+{% endunless %}
+
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<input type="hidden" id="customer_id" value="{{customer.id}}">
+
+<div class="custom-checkout-main">
+  <div class="checkout_outer">
+    {%- if cart.item_count > 0 -%}
+    <div class="custom-checkout-desktop">
+      <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item active">
+            <a class="breadcrumbs__link" href="javascript:;" data-href="#delivery">{{ 'Custom_Checkout.process_flow.Delivery_Method' | t: Delivery_Method }}</a>
+          </li>
+          <li class="breadcrumbs__item">
+            <a class="breadcrumbs__link" href="javascript:;" data-href="#shipping">{{ 'Custom_Checkout.process_flow.Shipping_Details' | t: Shipping_Details }}</a>
+          </li>
+          <li class="breadcrumbs__item">
+            <a class="breadcrumbs__link" href="javascript:;" data-href="#redeem">{% if request.locale.iso_code == 'el' %}Εξαργύρωση{% else %}Redeem{% endif %}</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="custom-checkout-mobile">
+      <div class="checkout-mob-step-first">
+        <div class="inner order_section check_time"> 
+          <div class="checkout-head">
+            <div class="title">
+              <h3>{% if request.locale.iso_code == 'el' %}Παραγγελία δώρου{% else %}Your Gift order{% endif %}</h3>
+            </div>
+            <div class="item-count">
+              {{ cart.item_count }} {% if request.locale.iso_code == 'el' %}είδη{% else %}items{% endif %}
+            </div>
+          </div>
+          
+          <div class="order_inner">
+            {%- for item in cart.items -%}
+            {%- assign shipping_frequency = item.properties.shipping_interval_frequency -%}
+            {%- assign shipping_unit = item.properties.shipping_interval_unit_type -%}
+            {%- assign isFreeSample = item.properties.free_sample -%}
+
+            {%- if isFreeSample -%}
+            {%- assign disableAddFreeSample = true -%}
+            {%- endif -%}
+
+            {% assign item_url = item.url %}
+
+            {% if settings.gift_link != blank and item.variant.id == gift_variant.id %}
+            {% assign item_url = settings.gift_link %}
+            {% endif %}
+
+            <div class="order_wrap {% if item.variant.id == gift_variant.id and settings.gift_link != blank %}line-item--gift line-item--gift-link {% elsif item.variant.id == gift_variant.id %}line-item--gift{% endif %}" data-qty="{{ item.quantity }}" data-id="{{ item.variant.id }}">
+              <div class="img_thumb">
+                <img src="{{ item | img_url }}" alt="{{ item.product.title }}">
+              </div>
+              <div class="detail">
+                <h2 class="pro_name">{{ item.product.title | remove: " Auto renew" }}</h2>
+                {% for option in item.product.options_with_values %}
+                <span class="pro_var">
+                  {% for value in option.values %}
+                  {%- if value == item.variant.option1 -%}
+                  {%- assign selected_value = item.variant.option1 -%}
+                  {%- elsif value == item.variant.option2 -%}
+                  {%- assign selected_value = item.variant.option2 -%}
+                  {%- elsif value == item.variant.option3 -%}
+                  {%- assign selected_value = item.variant.option3 -%}
+                  {%- endif -%}
+                  {% endfor %}
+
+                  {%- if option.name == "Ingredient" or option.name == "Color" -%}
+                  Color: {{ selected_value }}
+                  {%- elsif option.name != "Title" -%}
+                  {{ option.name }}: {{ selected_value }}
+                  {%- endif -%}
+                </span>
+                {% endfor %}
+                <label class="pro_qty">{% if request.locale.iso_code == 'el' %}Εξαργυρωμένο Δώρο{% else %}Redeemed Gift{% endif %}</label>
+              </div>
+            </div>	  
+            {% endfor %}
+          </div>
+          <div class="checkout-button">
+            <button class="btn-new" id="check-step-1">{% if request.locale.iso_code == 'el' %}Επόμενο{% else %}Next{% endif %}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-checkout-mobile">
+      <div class="checkout-mob-step-third" style="display: none;">
+        <div class="checkout-head">
+          <div class="title">
+            <h3>{% if request.locale.iso_code == 'el' %}Παραγγαλία δώρου{% else %}Your Gift order{% endif %}</h3>
+          </div>
+          <div class="item-count">
+            {{ cart.item_count }} {% if request.locale.iso_code == 'el' %}είδη{% else %}Items{% endif %}
+          </div>
+        </div>
+        <div class="inner order_section check_time">
+          <div class="order_inner">
+            {%- if cart.item_count > 0 -%}
+            {%- for item in cart.items -%}
+            {%- assign shipping_frequency = item.properties.shipping_interval_frequency -%}
+            {%- assign shipping_unit = item.properties.shipping_interval_unit_type -%}
+            {%- assign isFreeSample = item.properties.free_sample -%}
+
+            {%- if isFreeSample -%}
+            {%- assign disableAddFreeSample = true -%}
+            {%- endif -%}
+
+            {% assign item_url = item.url %}
+
+            {% if settings.gift_link != blank and item.variant.id == gift_variant.id %}
+            {% assign item_url = settings.gift_link %}
+            {% endif %}
+            <div class="order_wrap {% if item.variant.id == gift_variant.id and settings.gift_link != blank %}line-item--gift line-item--gift-link {% elsif item.variant.id == gift_variant.id %}line-item--gift{% endif %}" data-qty="{{ item.quantity }}" data-id="{{ item.variant.id }}" >
+              <div class="img_thumb">
+                <img src="{{ item | img_url }}" alt="{{ item.product.title }}">
+              </div>
+              <div class="detail">
+                <h2 class="pro_name">{{ item.product.title | remove: " Auto renew" }}</h2>
+                {% for option in item.product.options_with_values %}
+                <span class="pro_var">
+                  {% for value in option.values %}
+                  {%- if value == item.variant.option1 -%}
+                  {%- assign selected_value = item.variant.option1 -%}
+                  {%- elsif value == item.variant.option2 -%}
+                  {%- assign selected_value = item.variant.option2 -%}
+                  {%- elsif value == item.variant.option3 -%}
+                  {%- assign selected_value = item.variant.option3 -%}
+                  {%- endif -%}
+                  {% endfor %}
+
+                  {%- if option.name == "Ingredient" or option.name == "Color" -%}
+                  Color: {{ selected_value }}
+                  {%- elsif option.name != "Title" -%}
+                  {{ option.name }}: {{ selected_value }}
+                  {%- endif -%}
+                </span>
+                {% endfor %}
+                <label class="pro_qty">{% if request.locale.iso_code == 'el' %}Εξαργυρωμένο Δώρο{% else %}Redeemed Gift{% endif %}</label>
+              </div>
+            </div>	  
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="order_footer">
+            <div class="billing_detail detail-3">
+              {% assign points = 0 | plus:0 %}
+
+              {%- for item in cart.items -%}  
+              {% assign productObj = item.product %}
+              {% assign productP = productObj.description | split:'<!-- split -->' | last %}
+              {% assign prodP = productP | plus:0 %}
+              {% assign points = points | plus:prodP %}
+              {% endfor %}
+              <p><label>{{ 'Custom_Checkout.summary_box.Sub_total' | t: Sub_total }}</label><span style="color:#050F96;">Free</span></p>
+              <p><label>{% if request.locale.iso_code == 'el' %}Αποστολή{% else %}Shipping{% endif %}</label><span style="color:#050F96;">{% if request.locale.iso_code == 'el' %}Δωρεάν{% else %}Free{% endif %}</span></p>
+              <div class="pickup_store">
+                <p><label>{{ 'Custom_Checkout.summary_box.Expected' | t: Expected }}</label><span id="gsfromDateMob"></span> - <span id="gstoDateMob"></span></p>
+              </div>
+              <div class="delivery_courier">
+                <p><label>{{ 'Custom_Checkout.summary_box.Expected' | t: Expected }}</label><span id="gdelsfromDateMob"></span> - <span id="gdelstoDateMob"></span></p>
+			  </div>
+              <div class="total">
+                <div>
+                  <label>{{ 'Custom_Checkout.summary_box.Total' | t: Total }}</label>
+                </div>
+                <div class="t_price">{{ cart.currency.symbol }}{{ 0 | divided_by: 100.00 | round: 2 | replace : '.',',' }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="complete_part" id="redeem">
+            <p>{% if request.locale.iso_code == 'el' %}Επιβεβαιώνοντας την παραγγελία δώρου σας συμφωνείτε με τους Όρους & Προϋποθέσεις μας{% else %}By confirming your gift order you agree to our Terms & Conditions{% endif %}</p>
+            <button class="btn-new" id="check-step-3">{% if request.locale.iso_code == 'el' %}Ολοκλήρωση Παραγγελίας Δώρου{% else %}Complete Gift Order{% endif %}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-checkout-mobile">
+      <div class="checkout-mob-step-fourth" style="display: none;">
+        <div class="Success_section" style="display:none;">
+          <div class="message_part">
+            <h3>{{ 'Custom_Checkout.Complete_Checkout.thank_you' | t: thank_you }} {{customer.first_name}}!</h3>
+            <p>{% if request.locale.iso_code == 'el' %}Η πααραγγελία σου ολοκληρώθηκε με επιτυχία και το δώρο σου είναι καθ' οδόν.{% else %}Your redeemed bundle order has been placed successfully and your goodies are on their way.{% endif %}</p>
+
+            <div class="button_cover">
+              <a href="/pages/circle-main" class="btn-new">{{ 'Custom_Checkout.Complete_Checkout.view_my_circle_page' | t: view_my_circle_page }}</a>
+              <a href="/collections/all-products" class="btn-new no_bg">{{ 'Custom_Checkout.Complete_Checkout.back_to_shop' | t: back_to_shop }}</a>
+            </div>
+            
+          </div>
+
+          <div class="inner order_section order_box">
+            <div class="shipping_part section_div" id="shipping">
+              <div class="checkout-head view-grid">
+                <div class="title">
+                  <h3>{% if request.locale.iso_code == 'el' %}Επισκόπηση{% else %}Summary{% endif %}</h3>
+                </div>
+                <div class="item-count">
+                  {% if request.locale.iso_code == 'el' %}Αριθμός Παραγγελίας:{% else %}Gift Order No:{% endif %} <span class="order_name"> 0045227750 </span>
+                </div>
+              </div>
+
+              <div class="order_footer">
+                <div class="billing_detail detail-4">
+                  {% assign points = 0 | plus:0 %}
+
+                  {%- for item in cart.items -%}  
+                  {% assign productObj = item.product %}
+                  {% assign productP = productObj.description | split:'<!-- split -->' | last %}
+                  {% assign prodP = productP | plus:0 %}
+                  {% assign points = points | plus:prodP %}
+                  {% endfor %}
+                  <div class="billing_in bill-3 store-selection">
+                    <p><label>{% if request.locale.iso_code == 'el' %}Pick up από Κατάστημα{% else %}Pickup from store:{% endif %}</label><span class="pickuplocation"></span></p>
+                    <p><label>{% if request.locale.iso_code == 'el' %}Διεύθυνση:{% else %}Delivery Address:{% endif %}</label><span class="pickpup_add">{{ customer.address1 }}</span></p>
+                    <p><label>{% if request.locale.iso_code == 'el' %}Τ.Κ.{% else %}Postcode:{% endif %}</label><span class="postalcode 2">{{customer.zip}}</span></p>
+                    <p><label>{% if request.locale.iso_code == 'el' %}Πόλη:{% else %}City:{% endif %}</label><span class="city">{{customer.city}}</span></p>
+                    <p><label>{% if request.locale.iso_code == 'el' %}Τηλέφωνο:{% else %}Telephone:{% endif %}</label><span>{{ customer.phone }}</span></p>
+                  </div>
+                  
+                  <div class="billing_in bill-3 ship-selection">
+                    {% for address in customer.addresses %}
+                    <div class="addresses {{address.id}} {% if forloop.first == true %}active{% endif %}" {% if forloop.first == true %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                      <p><label>{% if request.locale.iso_code == 'el' %}Όνομα:{% else %}First Name:{% endif %}</label><span class="fname">{{address.first_name}}</span></p>
+                      <p><label>{% if request.locale.iso_code == 'el' %}Επίθετο:{% else %}Last Name:{% endif %}</label> <span class="lname">{{address.last_name}}</span></p>
+                      <p><label>{% if request.locale.iso_code == 'el' %}Διεύθυνση:{% else %}Delivery Address:{% endif %}</label><span class="add">{{address.address1}}</span></p>
+                      <p><label>{% if request.locale.iso_code == 'el' %}Τ.Κ.:{% else %}Postcode:{% endif %}</label> <span class="pcode">{{address.zip}}</span></p>
+                      <p><label>{% if request.locale.iso_code == 'el' %}Πόλη:{% else %}City:{% endif %}</label><span class="city">{{ address.city }}</span></p>
+                      <p><label>{% if request.locale.iso_code == 'el' %}Αναμένεται:{% else %}Expected:{% endif %}</label><span class="date1 re-joined"><span id="gdelshfromDate"></span> - <span id="gdelshtoDate"></span></span></p>
+                      <p><label>{% if request.locale.iso_code == 'el' %}Τηλέφωνο:{% else %}Telephone:{% endif %}</label><span class="tel">{{customer.phone}}</span></p>
+                    </div>
+                    {% endfor %}
+                  </div>
+
+                  <div class="billing_in bill-4">
+                    <p><label>{% if request.locale.iso_code == 'el' %}Ημερομηνία Παραγγελίας:{% else %}Date Order:{% endif %}</label><span class="pts">{{ "now" | date: "%d/%m/%Y" }}</span></p>
+                    <p><label>{% if request.locale.iso_code == 'el' %}Αριθμός Ειδών:{% else %}Number of Items:{% endif %}</label><span class="pts">{{cart.item_count}}</span></p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="inner order_section"> 
+            <h3 style="text-align: center;">{% if request.locale.iso_code == 'el' %}Your Gift order:{% else %}Your Gift order{% endif %}</h3>
+
+            <div class="order_inner order_box">
+              {%- for item in cart.items -%}
+              <div class="box" style="margin: auto;text-align: center;">
+                <div class="img_thumb">
+                  <img src="{{ item | img_url }}" alt="{{ item.product.title }}">
+                </div>
+                <h2 class="pro_name">{{ item.product.title | remove: " Auto renew" }}</h2>
+              </div>
+              {%endfor%}
+			</div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout_cover chets">
+      <div class="inner checkout-mob-step-second">
+
+        <form action="#">
+          <div class="delivery_part section_div" id="delivery">
+            <h3 class="title">1.<span>{% if request.locale.iso_code == 'el' %}Μέθοδος Παραγγελίας{% else %}Delivery Method{% endif %}</span></h3>
+            <div class="inner_wrap">
+              <div class="input_cover">
+                <input type="radio" class="ship_method from_store" value="Store" id="del1" name="radio-group_1" checked>
+                <label for="del1">{{ 'Custom_Checkout.Delivery_Method.FREE_Pickup_from_Store' | t: FREE_Pickup_from_Store }}</label>
+                <div class="thi location_pick active">
+                  <span>{% include 'location_ic' %}</span>
+                  <label class="pickuplocation"></label>
+                  <div class="info-detail-cover">
+                    <span class="info-icon"></span>
+                    <div class="info-details">
+                      <span class="info-ico"></span>
+                      <span class="info-close">{% include 'icon-close' %}</span>
+                      <p class="details">{{ section.settings.del_info }}</p>
+                    </div>
+                  </div>
+                </div>
+                <p>{{ 'Custom_Checkout.Delivery_Method.Estimated_time_of_Delivery' | t: Estimated_time_of_Delivery }}:<span id="giftfromDate"></span> - <span id="gifttoDate"></span></p>
+                {{ '//cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js' | script_tag }}
+              </div>
+
+              <div class="input_cover">
+                <input type="radio" class="ship_method from_delivery" value="{{ 'Custom_Checkout.Delivery_Method.Delivery_Courier' | t: Delivery_Courier }}" id="del2" name="radio-group_1">
+                <label for="del2">{{ 'Custom_Checkout.Delivery_Method.Delivery_Courier' | t: Delivery_Courier }}</label>
+                `<div class="cover_addresses">
+
+
+                <div class="drop-down select_cover">
+                  <div class="selected">
+                    {% include 'delivery_ic' %}
+                    {% for address in customer.addresses %}
+                    <a href="#" data-address="{{ address.id }}"><span class="update">{{ address.address1 }}<small>{{address.city}},{{address.zip}}</small></span></a>
+                    {% break %}
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <div class="options">
+                  <ul>
+                    {% for address in customer.addresses %}
+                    <li><a href="#" data-id="{{address.id}}"><span class="address_orig">{{ address.address1 }}<small>{{address.city}},{{address.zip}}</small></span></a></li>
+                    {% endfor %}
+                    <li><a href="javascript:;" class="add_new_address">+ Add a new address</a></li>
+                  </ul>
+                </div>
+                </div>
+
+                <p>{{ 'Custom_Checkout.Delivery_Method.Estimated_time_of_Delivery' | t: Estimated_time_of_Delivery }}:<span id="gdelfromDate"></span> - <span id="gdeltoDate"></span></p>
+              </div>
+            </div>
+          </div>
+          <div class="shipping_part section_div" id="shipping">
+            <h3 class="title">2.<span>Shipping Details</span></h3>
+            <div class="shipping_detail">
+              <div class="pickup_store">
+                <p class="pickup"><label>{{ 'Custom_Checkout.Shipping_Details.Pickup_Store' | t: Pickup_Store }}:</label><span>Αρναουτάκη Αρετή</span></p>
+                <p class="address"><label> {{ 'Custom_Checkout.Shipping_Details.Address' | t: Address }}:</label><span></span></p>
+                <p><label>{{ 'Custom_Checkout.Shipping_Details.Expected' | t: Expected }}:</label><span id="gshortfromDate"></span> - <span id="gshorttoDate"></span></p>
+                <p class="phone"><label>{{ 'Custom_Checkout.Shipping_Details.Telephone' | t: Telephone }}:</label><span>{{ customer.phone }}</span></p>
+              </div>
+              <div class="delivery_courier">
+                {% for address in customer.addresses %}
+                <div class="addresses {{address.id}} {% if forloop.first == true %}active{% endif %}">
+                  <p><label>{% if request.locale.iso_code == 'el' %}Όνομα:{% else %}First Name:{% endif %}</label> <span class="fname">{{address.first_name}}</span></p>
+                  <p><label>{% if request.locale.iso_code == 'el' %}Επίθετο:{% else %}Last Name:{% endif %}</label> <span class="lname">{{address.last_name}}</span></p>
+                  <p class="daddress"><label>{% if request.locale.iso_code == 'el' %}Διεύθυνση:{% else %}Delivery Address:{% endif %}</label><span class="add">{{address.address1}}</span></p>
+                  <p><label>{% if request.locale.iso_code == 'el' %}Τ.Κ.{% else %}Postcode:{% endif %}</label> <span class="pcode">{{address.zip}}</span></p>
+                  <p class="city1"><label>{% if request.locale.iso_code == 'el' %}Μέλος από:{% else %}City:{% endif %}</label><span class="cities">{{ address.city }}</span></p>
+                  <p class="country-rec" style="display:none;"><label>{% if request.locale.iso_code == 'el' %}Country:{% else %}{% endif %}</label><span class="country">{{ address.country }}</span></p>
+                  <p class="date "><label>{% if request.locale.iso_code == 'el' %}Μέλος από:{% else %}Expected:{% endif %}</label><span class="date1 re-joined"><span id="gdelshfromDate"></span> - <span id="gdelshtoDate"></span></span></p>
+                  <p class="phone"><label>{% if request.locale.iso_code == 'el' %}Μέλος από:{% else %}Telephone:{% endif %}</label><span class="tel">{{customer.phone}}</span></p>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="shipping_form" data-custoid="{{ customer.id }}" style="display:none;">
+              <div class="fields fields--2">
+                <label class="field">
+                  <span class="field__label" for="firstname">{% if request.locale.iso_code == 'el' %}Όνομα{% else %}First Name{% endif %}<b>*</b></span>
+                  <input class="field__input" type="text" id="firstname" value="{{customer.first_name}}" />
+                </label>
+                <label class="field">
+                  <span class="field__label" for="lastname">{% if request.locale.iso_code == 'el' %}Επίθετο{% else %}Last Name{% endif %}<b>*</b></span>
+                  <input class="field__input" type="text" id="lastname" value="{{customer.last_name}}" />
+                </label>
+              </div>
+              <div class="fields fields--2">
+                <label class="field">
+                  <span class="field__label" for="address">{% if request.locale.iso_code == 'el' %}Διεύθυνση{% else %}Delivery Address{% endif %}<b>*</b></span>
+                  <input class="field__input" type="text" id="address" />
+                </label>
+                <label class="field">
+                  <span class="field__label" for="zipcode">{% if request.locale.iso_code == 'el' %}Τ.Κ.{% else %}Postcode{% endif %}<b>*</b></span>
+                  <input class="field__input" type="text" id="zipcode" />
+                </label>
+              </div>
+
+              <div class="fields fields--2">
+                <label class="field">
+                  <span class="field__label" for="city">{% if request.locale.iso_code == 'el' %}Πόλη{% else %}City{% endif %}<b>*</b></span>
+                  <input class="field__input" type="text" id="city" value="" />
+                </label>
+                <label class="field">
+                  <span class="field__label" for="country">{% if request.locale.iso_code == 'el' %}Country{% else %}Country{% endif %}<b>*</b></span>
+                  <select class="field__input" id="country">
+                    <option value=""></option>
+                    <option value="Greece">Greece</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                  </select>
+                </label>
+              </div>
+              <div class="fields">
+                <label class="field">
+                  <span class="field__label" for="zipcode">{% if request.locale.iso_code == 'el' %}Τηλέφωνο{% else %}Telephone{% endif %}<b>*</b></span>
+                  <input class="field__input" type="text" id="phone" />
+                </label>
+              </div>
+              <div class="fields field">
+                <button class="button btn-new" id="add_address">{% if request.locale.iso_code == 'el' %}Πρόσθεσε νέα διεύθυνση{% else %}Save new Address{% endif %}</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="complete_part" id="redeem">
+            <h3 class="title">3.<span>{% if request.locale.iso_code == 'el' %}Εξαργύρωση{% else %}Redeem{% endif %}</span></h3>
+            <p>{% if request.locale.iso_code == 'el' %}Επιβεβαιώνοντας την παραγγελία δώρου σας συμφωνείτε με τους <a href="/pages/terms-conditions">Όρους & Προϋποθέσεις</a> μας{% else %}By confirming your gift order you agree to our <a href="/pages/terms-conditions">Terms & Conditions</a>{% endif %}</p>
+            
+            <div class="custom-checkout-mobile">
+              <a href="javascript:void(0);" class="btn-new" id="check-step-2">{% if request.locale.iso_code == 'el' %}Επόμενο{% else %}Next{% endif %}</a>
+              <button style="display:none;" type="button" id="proceed_checkout_mob" data-custEmail="{{customer.email}}" data-custId="{{customer.id}}" class="btn-new">{% if request.locale.iso_code == 'el' %}Ολοκλήρωση Παραγγελίας Δώρου{% else %}Complete Gift Order{% endif %}</button>
+            </div>
+
+            <div class="custom-checkout-desktop">
+              <button type="button" id="proceed_checkout" data-custEmail="{{customer.email}}" data-custId="{{customer.id}}" class="btn-new proceed_checkout">{% if request.locale.iso_code == 'el' %}Ολοκλήρωση Παραγγελίας Δώρου{% else %}Complete Gift Order{% endif %}</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="Success_section" style="display:none;">
+          <div class="message_part">
+            <h3>{{ 'Custom_Checkout.Complete_Checkout.thank_you' | t: thank_you }} {{customer.first_name}}!</h3>
+            <p>You have completed your <span class="circle-name">White Circle</span> and have just unlocked the Next Circle! Go to your account for more details. </p>
+            <p>{{ 'Custom_Checkout.Complete_Checkout.thank_you_confirm' | t: thank_you_confirm }}</p>
+
+            <div class="button_cover">
+              <a href="/pages/circle-main" class="btn-new">{{ 'Custom_Checkout.Complete_Checkout.view_my_circle_page' | t: view_my_circle_page }}</a>
+              <a href="/collections/all-products" class="btn-new no_bg">{{ 'Custom_Checkout.Complete_Checkout.back_to_shop' | t: back_to_shop }}</a>
+            </div>
+          </div>
+        </div>
+      </div>	
+
+      <div class="inner order_section check_time custom-checkout-desktop">
+        <div class="order_box">
+          <div class="summary">
+            <label>{% if request.locale.iso_code == 'el' %}Επισκόπηση{% else %}Summary{% endif %}</label>
+            <span class="order_date">{{ 'Custom_Checkout.summary_box.Purchased_on' | t: Purchased_on }} {{ "now" | date: "%d-%m-%Y" }}</span>
+            <span>{{cart.item_count}} {{ 'Custom_Checkout.summary_box.Items' | t: Items }}</span>
+          </div>
+          <div class="order_inner">
+            {%- if cart.item_count > 0 -%}
+            {%- for item in cart.items -%}
+            {%- assign shipping_frequency = item.properties.shipping_interval_frequency -%}
+            {%- assign shipping_unit = item.properties.shipping_interval_unit_type -%}
+            {%- assign isFreeSample = item.properties.free_sample -%}
+
+            {%- if isFreeSample -%}
+            {%- assign disableAddFreeSample = true -%}
+            {%- endif -%}
+
+            {% assign item_url = item.url %}
+
+            {% if settings.gift_link != blank and item.variant.id == gift_variant.id %}
+            {% assign item_url = settings.gift_link %}
+            {% endif %}
+            <div class="order_wrap {% if item.variant.id == gift_variant.id and settings.gift_link != blank %}line-item--gift line-item--gift-link {% elsif item.variant.id == gift_variant.id %}line-item--gift{% endif %}" data-qty="{{ item.quantity }}" data-id="{{ item.variant.id }}" >
+              <div class="img_thumb">
+                <img src="{{ item | img_url }}" alt="{{ item.product.title }}">
+              </div>
+              <div class="detail">
+                <h2 class="pro_name">{{ item.product.title | remove: " Auto renew" }}</h2>
+                {% for option in item.product.options_with_values %}
+                <span class="pro_var">
+                  {% for value in option.values %}
+                  {%- if value == item.variant.option1 -%}
+                  {%- assign selected_value = item.variant.option1 -%}
+                  {%- elsif value == item.variant.option2 -%}
+                  {%- assign selected_value = item.variant.option2 -%}
+                  {%- elsif value == item.variant.option3 -%}
+                  {%- assign selected_value = item.variant.option3 -%}
+                  {%- endif -%}
+                  {% endfor %}
+
+                  {%- if option.name == "Ingredient" or option.name == "Color" -%}
+                  Color: {{ selected_value }}
+                  {%- elsif option.name != "Title" -%}
+                  {{ option.name }}: {{ selected_value }}
+                  {%- endif -%}
+                </span>
+                {% endfor %}
+                <label class="pro_qty">{% if request.locale.iso_code == 'el' %}Εξαργυρωμένο{% else %}Redeemed Gift{% endif %}</label>
+              </div>
+            </div>	  
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="order_footer">
+            <div class="billing_detail detail-3">
+              {% assign points = 0 | plus:0 %}
+
+              {%- for item in cart.items -%}  
+              {% assign productObj = item.product %}
+              {% assign productP = productObj.description | split:'<!-- split -->' | last %}
+              {% assign prodP = productP | plus:0 %}
+              {% assign points = points | plus:prodP %}
+              {% endfor %}
+              <p><label>{{ 'Custom_Checkout.summary_box.Sub_total' | t: Sub_total }}</label><span style="color:#050F96;">Free</span></p>
+              <p><label>{% if request.locale.iso_code == 'el' %}Αποστολή{% else %}Shipping{% endif %}</label><span style="color:#050F96;">{% if request.locale.iso_code == 'el' %}Δωρεάν{% else %}Free{% endif %}</span></p>
+              <div class="pickup_store">
+                <p><label>{{ 'Custom_Checkout.summary_box.Expected' | t: Expected }}</label><span id="gsfromDate"></span> - <span id="gstoDate"></span></p>
+              </div>
+              <div class="delivery_courier">
+                <p><label>{{ 'Custom_Checkout.summary_box.Expected' | t: Expected }}</label><span id="gdelsfromDate"></span> - <span id="gdelstoDate"></span></p>
+
+              </div>
+              <div class="total">
+                <div>
+                  <label>{{ 'Custom_Checkout.summary_box.Total' | t: Total }}</label>
+                </div>
+                <div class="t_price">{{ cart.currency.symbol }}{{ 0 | divided_by: 100.00 | round: 2 | replace : '.',',' }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="inner order_section thank_you_list custom-checkout-desktop" style="display:none;">
+        <div class="order_box">
+          <div class="summary">
+            <label>{% if request.locale.iso_code == 'el' %}Επισκόπηση{% else %}Summary{% endif %}</label>
+            <label class="order_no">{% if request.locale.iso_code == 'el' %}Αριθμός Παραγγελίας:{% else %}Order No:{% endif %} <span class="order_name">0045227750</span></label>
+          </div>
+
+          <div class="order_footer">
+            <div class="billing_detail detail-4">
+              {% assign points = 0 | plus:0 %}
+
+              {%- for item in cart.items -%}  
+              {% assign productObj = item.product %}
+              {% assign productP = productObj.description | split:'<!-- split -->' | last %}
+              {% assign prodP = productP | plus:0 %}
+              {% assign points = points | plus:prodP %}
+              {% endfor %}
+              <div class="billing_in bill-3 store-selection">
+                <p><label>{% if request.locale.iso_code == 'el' %}Pick up από Κατάστημα:{% else %}Pickup from store:{% endif %}</label><span class="pickuplocation"></span></p>
+                <p><label>{% if request.locale.iso_code == 'el' %}Διεύθυνση:{% else %}Delivery Address:{% endif %}</label><span class="pickpup_add">{{ customer.address1 }}</span></p>
+                <p><label>{% if request.locale.iso_code == 'el' %}Τ.Κ.:{% else %}Postcode:{% endif %}</label><span class="postalcode 2">{{customer.zip}}</span></p>
+                <p><label>{% if request.locale.iso_code == 'el' %}Πόλη:{% else %}City:{% endif %}</label><span class="city">{{customer.city}}</span></p>
+                <p><label>{% if request.locale.iso_code == 'el' %}Τηλέφωνο:{% else %}Telephone:{% endif %}</label><span>{{ customer.phone }}</span></p>
+              </div>
+              
+              <div class="billing_in bill-3 ship-selection" style="display: none;">
+                {% for address in customer.addresses %}
+                <div class="addresses {{address.id}}" {% if forloop.first == true %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+                  <p><label>{% if request.locale.iso_code == 'el' %}Όνομα:{% else %}First Name:{% endif %}</label><span class="fname">{{address.first_name}}</span></p>
+                  <p><label>{% if request.locale.iso_code == 'el' %}Επίθετο:{% else %}Last Name:{% endif %}</label> <span class="lname">{{address.last_name}}</span></p>
+                  <p><label>{% if request.locale.iso_code == 'el' %}Διεύθυνση:{% else %}Delivery Address:{% endif %}</label><span class="add">{{address.address1}}</span></p>
+                  <p><label>{% if request.locale.iso_code == 'el' %}Τ.Κ:{% else %}Postcode:{% endif %}</label> <span class="pcode">{{address.zip}}</span></p>
+                  <p><label>{% if request.locale.iso_code == 'el' %}Πόλη:{% else %}City:{% endif %}</label><span class="cities">{{ address.city }}</span></p>
+                  <p style="display:none;"><label>Country:</label><span class="country">{{ address.country }}</span></p>
+            	  <p><label>{% if request.locale.iso_code == 'el' %}Αναμένεται:{% else %}Expected:{% endif %}</label><span class="date1 re-joined"><span id="gdelshfromDate"></span> - <span id="gdelshtoDate"></span></span></p>
+                  <p><label>{% if request.locale.iso_code == 'el' %}Τηλέφωνο:{% else %}Telephone:{% endif %}</label><span class="tel">{{customer.phone}}</span></p>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="billing_in bill-4">
+                <p><label>{% if request.locale.iso_code == 'el' %}Ημερομηνία Παραγγελίας:{% else %}Date Order:{% endif %}</label><span class="pts">{{ "now" | date: "%d/%m/%Y" }}</span></p>
+                <p><label>{% if request.locale.iso_code == 'el' %}Αριθμός Ειδών:{% else %}Number of Items:{% endif %}</label><span class="pts">{{cart.item_count}}</span></p>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="custom-checkout-desktop">
+      <div class="placed-products" style="display:none;">
+
+        <div class="order_part">
+          {% assign orderTags = order.tags | join: ', ' %}
+          <h2>{% if request.locale.iso_code == 'el' %}Παραγγαλία δώρου{% else %}Gift Order Products{% endif %}</h2>
+          <div class="order_in">
+            {%- for item in cart.items -%}
+            <div class="box">
+              <img src="{{ item | img_url }}" alt="{{ item.product.title }}">
+              <h1>{{ item.product.title | remove: " Auto renew" }}</h1>
+            </div>
+            {%endfor%}
+          </div>
+        </div>
+        <p class="help">{{ 'Custom_Checkout.Complete_Checkout.Do_you_have_any_questions' | t: Do_you_have_any_questions }} <a href="#">{{ 'Custom_Checkout.Complete_Checkout.help' | t: help }}</a> {{ 'Custom_Checkout.Complete_Checkout.to_find_answers_to_all_your_order_related_questions' | t: to_find_answers_to_all_your_order_related_questions }}</p>
+
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(".checkout-mob-step-first").show();
+    
+    $("#check-step-1").click(function(){
+      $(".checkout-mob-step-first").hide();
+      $(".checkout-mob-step-second").show();
+      $(".checkout-mob-step-third").hide();
+      $(".checkout-mob-step-fourth").hide();
+    });
+    $("#check-step-2").click(function(){
+      $(".checkout-mob-step-first").hide();
+      $(".checkout-mob-step-second").hide();
+      $(".checkout-mob-step-third").show();
+      $(".checkout-mob-step-fourth").hide();
+    });
+    
+    $("#check-step-3").click(function(){
+   		$('#proceed_checkout_mob').trigger('click');
+    });
+  });
+</script>
+
+{{ 'style-custom-checkout.css' | asset_url | stylesheet_tag }}
+
+<script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+
+
+{% schema %}
+{
+"name": "Custom Checkout",
+"settings": [
+	{
+		"type":"text",
+		"id":"del_info",
+		"label":"Pickup info"
+	}
+]
+}
+{% endschema %}

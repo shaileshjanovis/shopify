@@ -1,0 +1,347 @@
+{%- include 'country' -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign kettle_metafield = current_variant.metafields.kettle -%}
+{% assign subscription_product = product.metafields.subscriptions %}
+{% assign shipping_interval_unit_type = subscription_product.shipping_interval_unit_type | default: 'Days' %}
+{% assign shipping_interval_frequency = subscription_product.shipping_interval_frequency | split: ',' %}
+{% assign frequency_count = shipping_interval_frequency | size %}
+{% assign discount_percentage = subscription_product.discount_percentage | round: 2 %}
+{% assign discount_floor = subscription_product.discount_percentage | floor %}
+{% if discount_percentage == discount_floor %}
+  {% assign discount_percentage = discount_floor %}
+{% endif %}
+{% if frequency_count == 0 %}
+  {% assign has_ss = false %}
+{% else %}
+  {% assign has_ss = true %}
+{% endif %}
+{% if has_ss %}
+  {%- assign price_times = 100 | minus: discount_percentage -%}
+  {% assign ss_price = current_variant.price | times: price_times | divided_by: 100 | money %}
+{% endif %}
+
+<aside id="pdp-sticky-nav" class="scroll-up">
+  <div class="thumbnail">
+    <img src="{{ kettle_metafield.hero_images | first }}" alt="{{ product.title }} Thumbnail">
+  </div>
+  <div class="title">{{ product.title }}</div>
+
+  {%- unless current_variant.available -%}
+    <button class="add-to-cart btn-theme klaviyo-bis-trigger">Notify me when available</button>
+  {%- else -%}
+    <button
+      type="button"
+      class="primary add-to-cart btn-theme"
+      {% if kettle_metafield.hero_qvc_link %}data-href="{{ kettle_metafield.hero_qvc_link }}"{% endif %}
+      {% unless current_variant.available %}disabled{% endunless %}
+    >
+      {%- if kettle_metafield.hero_qvc_link -%}
+        Buy on QVC
+      {%- else -%}
+        Add To Cart -
+        {% if current_variant.compare_at_price > current_variant.price %}
+          <s>{{ current_variant.compare_at_price | money }}</s>
+        {% endif %}
+        <span class="price">{{ current_variant.price | money }}</span>
+        {% if has_ss %}
+          <span class="ss-price">{{ ss_price }}</span>
+        {% endif %}
+      {%- endif -%}
+    {%- endunless -%}
+  </button>
+</aside>
+<main role="main" class="product-detail">
+  <div class="main-product-container">
+      <div class="row">
+        <div class="col-sm-6 no-pad">
+    <section class="h-img--container">
+      {% case product.images.size %}
+						{% when 0 %}
+							<img src="{{ 'no_image.png' | asset_url }}" alt="">
+						{% when 1 %}
+							<img src="{{ product.featured_image.src | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="">
+
+						{% else %}
+
+                  <div class="swiper-container">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide">
+										<img id="primary_img_{{ section.id }}" src="{{ product.images.first | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="{{ product.images.first.alt }}">
+									</div>
+
+									{% for image in product.images offset:1 %}
+										<div class="swiper-slide">
+											<img src="{{ image.src | product_img_url: '470x509', crop: section.settings.image_alignment }}" alt="">
+										</div>
+									{% endfor %}
+								</div>
+                    <div class="swiper-pagination"></div>
+							</div>
+                  {% endcase %}
+    </section>
+</div>
+<div class="col-sm-6">
+  <section id="pdp-hero" class="product-hero-container" >
+    <section class="hero-desc--container">
+      <div class="tags">
+        {% if kettle_metafield.hero_eyebrow | strip != "" %}
+          <h6>{{ kettle_metafield.hero_eyebrow }}</h6>
+        {% else %}
+          {%- assign first_tag = product.tags | first -%}
+          <h6><a href="{{ routes.collections_url }}/{{ first_tag | handle }}">{{ first_tag }}</a></h6>
+        {% endif %}
+      </div>
+
+      <h1>{{ product.title }}</h1>
+
+      {{ product_handle }}
+
+      {%- if site_features contains 'afterpay' -%}
+        <div class="afterpay-label--mobile">
+          <div>{{ current_variant.price | money }}</div>
+        </div>
+      {%- endif -%}
+
+      {%- if kettle_metafield.hero_blurb -%}
+        <p class="m0">{{ kettle_metafield.hero_blurb }}</p>
+      {%- else -%}
+        <ol class="product-info">
+          
+            <p>{{ product.description }}</p>
+          
+        </ol>
+      {%- endif -%}
+
+     {%- render 'button-wishlist', product: product -%}
+      {% if product.price != 0 %}
+         {% form 'product', product, data-productid: product.id %}
+       <div class="qtydiv">
+          <label for="Quantity" class="quantity-selector">Quantity</label>
+          <div class="qtybox">
+            <span class="btnqty qtyminus icon icon-minus"><span>-</span></span>
+            <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector quantity-input" readonly="">
+            <span class="btnqty qtyplus icon icon-plus"><span>+</span></span>
+          </div>
+        </div>
+      
+        {% if product.available %}{% include 'subscription-product' %}{% endif %}
+                  <input type="hidden" name="quantity" value="1">
+                  <input type="hidden" name="purchase_type" value="onetime">
+                  <input type="hidden" name="" id="shipping_interval_unit_type" value="{{ shipping_interval_unit_type }}">
+                  <input type="hidden" name="" id="shipping_interval_frequency" value="">
+                  <select id="prod-selected-id" name="id" data-productid="{{ product.id }}" style="display: none">
+                    {% for variant in product.variants %}
+                      <option
+                        value="{{ variant.id }}"
+                        data-value="{{ variant.metafields.subscriptions.discount_variant_id }}"
+                        {%- if variant == current_variant %} selected="selected" {%- endif -%}
+                      >
+                        {{- variant.title -}} {% unless variant.available %} - Out of Stock{% endunless -%}
+                      </option>
+                    {% endfor %}
+                  </select>
+              {%- unless product.has_only_default_variant -%}
+                    {%- for option in product.options_with_values -%}
+                      <div
+                        class="variant-selector hide{% if option.name == 'Ingredient' or option.name == 'Color' %} color{% else %} size{% endif %}{% cycle '', ' m-left' %}">
+                        {% if option.name == 'Ingredient' or option.name == 'Color' %}
+                          <h6>Color: <span>{{ option.selected_value }}</span></h6>
+                        {% else %}
+                          <h6>{{ option.name }}</h6>
+                        {% endif %}
+
+                        {%- unless option.name == 'Ingredient' or option.name == 'Color' -%}
+                          <div class="dropdown">
+                            <div class="value">{{ option.selected_value }}</div>
+                              <svg width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M10 1.5332L5.5 6.19987L1 1.5332" stroke="#444444" stroke-width="2"/>
+                            </svg>
+                          </div>
+                        {%- endunless -%}
+
+                        <div class="options">
+                          <div class="selected-label">
+                            {% if option.name == 'Ingredient' or option.name == 'Color' %}
+                              Select a color:
+                            {% else %}
+                              Select a {{ option.name | downcase }}:
+                            {% endif %}
+
+                            <span>{{ option.selected_value }}</span>
+                          </div>
+
+                          <div class="options-container">
+                            {%- for value in option.values -%}
+                              {%- if option.name == 'Ingredient' or option.name == 'Color' -%}
+                                {%- for variant in product.variants -%}
+                                  {%- if value == variant.option1 or value == variant.option2 -%}
+                                    {%- assign option_value = variant.metafields.kettle.variant_color -%}
+                                    <div data-value="{{ value | escape }}"
+                                         style="--variantcolor: {{ option_value }}"{% if option.selected_value == value %} class="selected"{% endif %}></div>
+                                    {% break %}
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              {%- else -%}
+                                <div data-value="{{ value | escape }}"
+                                     data-hex="option_value"{% if option.selected_value == value %} class="selected"{% endif %}>
+                                  {{- value | escape -}}
+                                </div>
+                              {%- endif -%}
+                            {%- endfor -%}
+                          </div>
+                        </div>
+                      </div>
+                    {%- endfor -%}
+                  {%- endunless -%}
+                {% if has_ss %}
+                    <div class="subs-container" style="display:none">
+                      <h6>Frequency</h6>
+
+                      <div class="buttons">
+                        <div class="active once">Buy Once</div>
+                        <div class="freq">
+                          {%- capture ss_txt %}
+                            Subscribe & save
+                            {%- if discount_percentage > 0 -%}<span>Save {{ discount_percentage }}%</span>{%- endif -%}
+                          {% endcapture %}
+                          <div class="label" data-default="{{ ss_txt }}">
+                            {{ ss_txt }}
+                          </div>
+                          {% comment %} FIXME: Remove inline svg {% endcomment %}
+                          <svg width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 1.5332L5.5 6.19987L1 1.5332" stroke="#444444" stroke-width="2"/>
+                          </svg>
+
+                          <div class="frequency-options">
+                            {%- for frequency in shipping_interval_frequency -%}
+                              <div data-value="{{ frequency }}">Ships
+                                every {{ frequency }} {{ shipping_interval_unit_type }}</div>
+                            {%- endfor -%}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                <div class="product-form--submit">
+                    {%- unless product.has_only_default_variant -%}
+                      {%- for option in product.options_with_values -%}
+                        <div
+                          class="mobile-variant-selector{% if option.name == 'Ingredient' or option.name == 'Color' %} color{% else %} size{% endif %}">
+                          <div>
+                            {%- if option.name == 'Ingredient' or option.name == 'Color' -%}
+                              {%- for variant in product.variants -%}
+                                {%- if option.selected_value == variant.option1 or option.selected_value == variant.option2 -%}
+                                  {%- assign option_value = variant.metafields.kettle.variant_color -%}
+                                  <div class="value" style="--variantcolor: {{ option_value }}"></div>
+                                  {% break %}
+                                {%- endif -%}
+                              {%- endfor -%}
+                            {%- else -%}
+                              <div class="value">
+                                {{- option.selected_value -}}
+                              </div>
+                            {%- endif -%}
+
+                            <p>
+                              {%- if option.name == 'Ingredient' or option.name == 'Color' -%}
+                                Color
+                              {%- else -%}
+                                {{ option.name }}
+                              {%- endif -%}
+                            </p>
+                          </div>
+                          <svg width="11" height="8" viewBox="0 0 11 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 1.5332L5.5 6.19987L1 1.5332" stroke="#444444" stroke-width="2"/>
+                          </svg>
+                        </div>
+                      {%- endfor -%}
+                    {%- endunless -%}
+
+                    {%- unless current_variant.available -%}
+                      <button class="add-to-cart klaviyo-bis-trigger">Notify me when available</button>
+                    {%- else -%}
+                      <button
+                        type="submit"
+                        id="order-submit"
+                        name="add"
+                        data-price="{{ current_variant.price | money }}"
+                        class="add-to-cart btn-theme andri"
+                        {% if kettle_metafield.hero_qvc_link %}data-href="{{ kettle_metafield.hero_qvc_link }}"{% endif %}
+                        {% unless current_variant.available %}disabled{% endunless %}
+                      >
+                        {%- if kettle_metafield.hero_qvc_link -%}
+                          Buy On QVC
+                        {%- else -%}
+                          Add To Cart -
+                          {% if current_variant.compare_at_price > current_variant.price %}
+                            <s>{{ current_variant.compare_at_price | money }}</s>
+                          {% endif %}
+                          <span class="price">{{ current_variant.price | money }}</span>
+                          {% if has_ss %}
+                            <span class="ss-price">{{ ss_price }}</span>
+                          {% endif %}
+                        {%- endif -%}
+                      {%- endunless -%}
+                    </button>
+                  </div>
+        {% endform %}
+      {% endif %}
+    </section>
+  </section>
+     </div>
+    </div>
+  </div>
+  <div style="clear:both;"></div>
+{% include 'spin-section' %}
+  <div class="pro-accordion-section">
+  {% render 'product-desc-accordian' %}
+  </div>
+   <div style="clear:both;"></div>
+
+  {% if product.price != 0 %}
+    {%- assign ingredient_list = shop.metafields.kettle_ingredient -%}
+    {%- assign ingredients = kettle_metafield.ingredient_name -%}
+    {%- assign ingredient_size = ingredients | size -%}
+    {%- assign first_ingredient = ingredients | first -%}
+    {%- unless kettle_metafield.disable_ingredients -%}
+    {%- endunless -%}
+    {%- unless kettle_metafield.disable_benefit_module -%}
+    {%- endunless -%}
+    {%- unless kettle_metafield.disable_guide -%}
+    {%- endunless -%}
+   {% section 'recommended-products' %}
+    {%- unless kettle_metafield.disable_routine -%}
+    {%- endunless -%}
+	<section class="subscribtion">
+      <div class="inner-section-sub-pro">
+        {% form 'customer' %}
+<input id="contact_tags" name="contact[tags]" type="hidden" value="prospect,newsletter" />
+<div class="news-wrap">
+  <div class="news-container">
+    <div class="content-news">
+      <h2>Join our Circle!</h2>
+      <p>Create an Account<br> & make every purchase give You back</p>
+      <div class="footer-input">
+        <input id="contact_email" name="contact[email]" type="text" placeholder="Name@email.com" class="form-control" />
+        <input class="submit arrow" type="submit" value="&#10141;">
+    </div>
+    </div>
+</div>
+</div>
+{% endform %}
+      </div>
+  </section>
+    {%- unless kettle_metafield.disable_wyg_wydg -%}
+    {%- endunless -%}
+    {%- unless kettle_metafield.disable_reviews -%}
+    {%- endunless -%}
+  {% endif %}
+</main>
+{%- if site_features contains 'afterpay' -%}
+  {%- unless product.tags contains 'no-afterpay' or current_variant.available == false -%}
+    {% render 'afterpay-product-footer', price_selector: '#pdp-hero div.product-form--submit' %}
+    {% render 'afterpay-product-footer', price_selector: '.afterpay-label--mobile > div' %}
+  {%- endunless -%}
+{%- endif -%}
+{% include 'klaviyo-product-footer' %}
+

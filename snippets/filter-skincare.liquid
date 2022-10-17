@@ -1,0 +1,285 @@
+{% if request.locale.iso_code == 'el' %}
+<div class="filter_list cu_fll_list">
+   <ul>
+      <h3 class="filter_list hide-from-desktop">Φίλτρα</h3>
+      <h2 class="fill_head hide-from-desktop">Φίλτρα</h2>
+      <h3 class="fill_by hide-from-desktop"> Φίλτρα</h3>
+      <li class="type-filter fill_desktop by-type hide-from-mobile" data-type="by-type">
+         <h2 data-ly-mutation-count="1">Κατηγορίες Προϊόντων</h2>
+         <div class="list_inner" style="display:none;">
+            <p>
+               <input type="checkbox" id="type_1" name="radio-group0" class="hh filter-blck by_need" data-value="ΚΡΕΜΕΣ ΠΡΟΣΩΠΟΥ" value="κρεμεσ-προσωπου">
+               <label for="type_1">ΚΡΕΜΕΣ ΠΡΟΣΩΠΟΥ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_2" name="radio-group0" class="hh filter-blck by_need" data-value="SERUMS ΠΡΟΣΩΠΟΥ" value="serums-προσωπου">
+               <label for="type_2">SERUMS ΠΡΟΣΩΠΟΥ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_3" name="radio-group0" class="hh filter-blck by_need" data-value="ΚΑΘΑΡΙΣΜΟΣ &amp; ΤΟΝΩΣΗ" value="καθαρισμοσ-τονωση">
+               <label for="type_3">ΚΑΘΑΡΙΣΜΟΣ &amp; ΤΟΝΩΣΗ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_4" name="radio-group0" class="hh filter-blck by_need" data-value="ΜΑΣΚΕΣ &amp; SCRUBS ΠΡΟΣΩΠΟΥ" value="μασκες-scrubs-προσωπου">
+               <label for="type_4">ΜΑΣΚΕΣ &amp; SCRUBS ΠΡΟΣΩΠΟΥ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_5" name="radio-group0" class="hh filter-blck by_need" data-value="ΠΕΡΙΠΟΙΗΣΗ ΜΑΤΙΩΝ" value="περιποιηση-ματιων">
+               <label for="type_5">ΠΕΡΙΠΟΙΗΣΗ ΜΑΤΙΩΝ</label>
+            </p>
+             <p>
+               <input type="checkbox" id="type_6" name="radio-group0" class="hh filter-blck by_need" data-value="ΠΕΡΙΠΟΙΗΣΗ ΧΕΙΛΙΩΝ" value="περιποιηση-χειλιων">
+               <label for="type_6">ΠΕΡΙΠΟΙΗΣΗ ΧΕΙΛΙΩΝ</label>
+            </p>
+             <p>
+               <input type="checkbox" id="type_7" name="radio-group0" class="hh filter-blck by_need" data-value="ΑΝΔΡΙΚΗ ΠΕΡΙΠΟΙΗΣΗ" value="ανδρικη-περιποιηση">
+               <label for="type_7">ΑΝΔΡΙΚΗ ΠΕΡΙΠΟΙΗΣΗ</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter by-type hide-from-desktop overlay" data-type="by-type">
+         <h2 data-ly-mutation-count="1">Κατηγορίες Προϊόντων</h2>
+         <div class="list_inner" style="display:none;">
+            <p>
+               <input type="checkbox" id="type_1" name="radio-group0" class="hh filter-blck by_need" data-value="ΚΡΕΜΕΣ ΠΡΟΣΩΠΟΥ" value="κρεμεσ-προσωπου">
+               <label for="type_1">ΚΡΕΜΕΣ ΠΡΟΣΩΠΟΥ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_2" name="radio-group0" class="hh filter-blck by_need" data-value="SERUMS ΠΡΟΣΩΠΟΥ" value="serums-προσωπου">
+               <label for="type_2">SERUMS ΠΡΟΣΩΠΟΥ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_3" name="radio-group0" class="hh filter-blck by_need" data-value="ΚΑΘΑΡΙΣΜΟΣ &amp; ΤΟΝΩΣΗ" value="καθαρισμοσ-τονωση">
+               <label for="type_3">ΚΑΘΑΡΙΣΜΟΣ &amp; ΤΟΝΩΣΗ</label>
+            </p>
+          <p>
+               <input type="checkbox" id="type_4" name="radio-group0" class="hh filter-blck by_need" data-value="ΜΑΣΚΕΣ &amp; SCRUBS ΠΡΟΣΩΠΟΥ" value="μασκες-scrubs-προσωπου">
+               <label for="type_4">ΜΑΣΚΕΣ &amp; SCRUBS ΠΡΟΣΩΠΟΥ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_5" name="radio-group0" class="hh filter-blck by_need" data-value="ΠΕΡΙΠΟΙΗΣΗ ΜΑΤΙΩΝ" value="περιποιηση-ματιων">
+               <label for="type_5">ΠΕΡΙΠΟΙΗΣΗ ΜΑΤΙΩΝ</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_6" name="radio-group0" class="hh filter-blck by_need" data-value="ΠΕΡΙΠΟΙΗΣΗ ΧΕΙΛΙΩΝ" value="περιποιηση-χειλιων">
+               <label for="type_6">ΠΕΡΙΠΟΙΗΣΗ ΧΕΙΛΙΩΝ</label>
+            </p>
+             <p>
+               <input type="checkbox" id="type_7" name="radio-group0" class="hh filter-blck by_need" data-value="ΑΝΔΡΙΚΗ ΠΕΡΙΠΟΙΗΣΗ" value="ανδρικη-περιποιηση">
+               <label for="type_7">ΑΝΔΡΙΚΗ ΠΕΡΙΠΟΙΗΣΗ</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter fill_desktop by-need " data-type="by-need">
+         <h2 data-ly-mutation-count="1">Ανάγκες</h2>
+         <div class="list_inner" style="display:none;">
+            <p class="ΚΑΘΑΡΙΣΜΟΣ">
+               <input type="checkbox" id="need_1" name="radio-need" class="filter-blck by_ingredient" value="καθαρισμοσ">
+               <label for="need_1">ΚΑΘΑΡΙΣΜΟΣ</label>
+            </p>
+            <p class="ΡΥΘΜΙΣΗ ΛΙΠΑΡΟΤΗΤΑΣ">
+               <input type="checkbox" id="need_2" name="radio-need" class="filter-blck by_ingredient" value="ρυθμιση-λιπαροτητασ">
+               <label for="need_2">ΡΥΘΜΙΣΗ ΛΙΠΑΡΟΤΗΤΑΣ</label>
+            </p>
+            <p class="ΕΝΥΔΑΤΩΣΗ ΠΡΟΣΩΠΟΥ">
+               <input type="checkbox" id="need_3" name="radio-need" class="filter-blck by_ingredient" value="ενυδατωση-προσωπου">
+               <label for="need_3">ΕΝΥΔΑΤΩΣΗ ΠΡΟΣΩΠΟΥ</label>
+            </p>
+            <p class="ΛΑΜΨΗ">
+               <input type="checkbox" id="need_4" name="radio-need" class="filter-blck by_ingredient" value="λαμψη">
+               <label for="need_4">ΛΑΜΨΗ</label>
+            </p>
+            <p class="ΣΥΣΦΙΓΞΗ + LIFTING">
+               <input type="checkbox" id="need_5" name="radio-need" class="filter-blck by_ingredient" value="συσφιγξη-lifting">
+               <label for="need_5">ΣΥΣΦΙΓΞΗ + LIFTING</label>
+            </p>
+            <p class="ΜΕΤΑ ΤΗΝ ΕΜΜΗΝΟΠΑΥΣΗ">
+               <input type="checkbox" id="need_6" name="radio-need" class="filter-blck by_ingredient" value="μετα-την-εμμηνοπαυση">
+               <label for="need_6">ΜΕΤΑ ΤΗΝ ΕΜΜΗΝΟΠΑΥΣΗ</label>
+            </p>
+            <p class="ΑΝΤΙΓΗΡΑΝΣΗ">
+               <input type="checkbox" id="need_7" name="radio-need" class="filter-blck by_ingredient" value="αντιγηρανση">
+               <label for="need_7">ΑΝΤΙΓΗΡΑΝΣΗ</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter fill_desktop by-ingredient" data-type="by-ingredient">
+         <h2 data-ly-mutation-count="1">Συστατικά</h2>
+         <div class="list_inner" style="display:none;">
+            <p class="ΕΛΛΗΝΙΚΟ ΓΙΑΟΥΡΤΙ">
+               <input type="checkbox" id="ing_1" name="radio-ing" class="filter-blck by_ingredient" data-value="ΕΛΛΗΝΙΚΟ ΓΙΑΟΥΡΤΙ" value="ελληνικο-γιαουρτι">
+               <label for="ing_1">ΕΛΛΗΝΙΚΟ ΓΙΑΟΥΡΤΙ</label>
+            </p>
+            <p class="ΜΑΥΡΗ ΠΕΥΚΗ">
+               <input type="checkbox" id="ing_2" name="radio-ing" class="filter-blck by_ingredient" data-value="ΜΑΥΡΗ ΠΕΥΚΗ" value="μαυρη-πευκη">
+               <label for="ing_2">ΜΑΥΡΗ ΠΕΥΚΗ</label>
+            </p>
+            <p class="ΛΕΥΚΗ ΠΕΥΚΗ">
+               <input type="checkbox" id="ing_3" name="radio-ing" class="filter-blck by_ingredient" data-value="ΛΕΥΚΗ ΠΕΥΚΗ" value="λευκη-πευκη">
+               <label for="ing_3">ΛΕΥΚΗ ΠΕΥΚΗ</label>
+            </p>
+            <p class="ΑΓΡΙΟ ΤΡΙΑΝΤΑΦΥΛΛΟ">
+               <input type="checkbox" id="ing_4" name="radio-ing" class="filter-blck by_ingredient" data-value="ΑΓΡΙΟ ΤΡΙΑΝΤΑΦΥΛΛΟ" value="αγριο-τριανταφυλλο">
+               <label for="ing_4">ΑΓΡΙΟ ΤΡΙΑΝΤΑΦΥΛΛΟ</label>
+            </p>
+            <p class="ΧΡΥΣΟΣ ΚΡΟΚΟΣ">
+               <input type="checkbox" id="ing_5" name="radio-ing" class="filter-blck by_ingredient" data-value="ΧΡΥΣΟΣ ΚΡΟΚΟΣ" value="χρυσοσ-κροκοσ">
+               <label for="ing_5">ΧΡΥΣΟΣ ΚΡΟΚΟΣ</label>
+            </p>
+            <p class="ΡΟΔΙ">
+               <input type="checkbox" id="ing_6" name="radio-ing" class="filter-blck by_ingredient" data-value="ΡΟΔΙ" value="ροδι">
+               <label for="ing_6">ΡΟΔΙ</label>
+            </p>
+         </div>
+      </li>
+      <div class="fil_button_cover">
+         <button type="submit" class="btn-theme-blue button1 hide-from-desktop"> View
+         Products
+         </button>
+         <input type="reset" value="Reset" class="btn-theme-white button2 hide-from-desktop">
+      </div>
+   </ul>
+</div>
+{% else %}
+<div class="filter_list cu_fll_list">
+   <ul>
+      <h3 class="filter_list hide-from-desktop">Filters</h3>
+      <h2 class="fill_head hide-from-desktop">Filters</h2>
+      <h3 class="fill_by hide-from-desktop"> Filters</h3>
+      <li class="type-filter fill_desktop by-type hide-from-mobile" data-type="by-type">
+         <h2>By Type</h2>
+         <div class="list_inner" style="display:none;">
+            <p>
+               <input type="checkbox" id="type_1" name="radio-group0" class="hh filter-blck by_need" data-value="MOISTURIZERS" value="moisturizers">
+               <label for="type_1">MOISTURIZERS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_2" name="radio-group0" class="hh filter-blck by_need" data-value="SERUMS" value="serums">
+               <label for="type_2">SERUMS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_3" name="radio-group0" class="hh filter-blck by_need" data-value="CLEANSERS &amp; TONERS" value="cleansers-toners">
+               <label for="type_3">CLEANSERS &amp; TONERS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_4" name="radio-group0" class="hh filter-blck by_need" data-value="MASKS &amp; SCRUBS" value="masks-scrubs">
+               <label for="type_4">MASKS &amp; SCRUBS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_5" name="radio-group0" class="hh filter-blck by_need" data-value="EYE CARE" value="eye-care">
+               <label for="type_5">EYE CARE</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_6" name="radio-group0" class="hh filter-blck by_need" data-value="LIP CARE" value="lip-care">
+               <label for="type_6">LIP CARE</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_7" name="radio-group0" class="hh filter-blck by_need" data-value="MEN'S CARE" value="mens-care">
+               <label for="type_7">MEN'S CARE</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter by-type hide-from-desktop overlay" data-type="by-type">
+         <h2>By Type</h2>
+         <div class="list_inner" style="display:none;">
+            <p>
+               <input type="checkbox" id="type_1" name="radio-group0" class="hh filter-blck by_need" data-value="MOISTURIZERS" value="moisturizers">
+               <label for="type_1">MOISTURIZERS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_2" name="radio-group0" class="hh filter-blck by_need" data-value="SERUMS" value="serums">
+               <label for="type_2">SERUMS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_3" name="radio-group0" class="hh filter-blck by_need" data-value="CLEANSERS &amp; TONERS" value="cleansers-toners">
+               <label for="type_3">CLEANSERS &amp; TONERS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_4" name="radio-group0" class="hh filter-blck by_need" data-value="MASKS &amp; SCRUBS" value="masks-scrubs">
+               <label for="type_4">MASKS &amp; SCRUBS</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_5" name="radio-group0" class="hh filter-blck by_need" data-value="EYE CARE" value="eye-care">
+               <label for="type_5">EYE CARE</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_6" name="radio-group0" class="hh filter-blck by_need" data-value="LIP CARE" value="lip-care">
+               <label for="type_6">LIP CARE</label>
+            </p>
+            <p>
+               <input type="checkbox" id="type_7" name="radio-group0" class="hh filter-blck by_need" data-value="MEN'S CARE" value="mens-care">
+               <label for="type_7">MEN'S CARE</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter fill_desktop by-need " data-type="by-need">
+         <h2>By Need</h2>
+         <div class="list_inner" style="display:none;">
+            <p class="CLEANSING">
+               <input type="checkbox" id="need_1" name="radio-need" class="filter-blck by_ingredient" value="cleansing">
+               <label for="need_1">CLEANSING</label>
+            </p>
+            <p class="OIL &amp; PORE CONTROL">
+               <input type="checkbox" id="need_2" name="radio-need" class="filter-blck by_ingredient" value="oil-pore-control">
+               <label for="need_2">OIL &amp; PORE CONTROL</label>
+            </p>
+            <p class="FACE HYDRATION">
+               <input type="checkbox" id="need_3" name="radio-need" class="filter-blck by_ingredient" value="face-hydration">
+               <label for="need_3">FACE HYDRATION</label>
+            </p>
+            <p class="BRIGHTENING">
+               <input type="checkbox" id="need_4" name="radio-need" class="filter-blck by_ingredient" value="brightening">
+               <label for="need_4">BRIGHTENING</label>
+            </p>
+            <p class="FIRMING + LIFTING">
+               <input type="checkbox" id="need_5" name="radio-need" class="filter-blck by_ingredient" value="firming-lifting">
+               <label for="need_5">FIRMING + LIFTING</label>
+            </p>
+            <p class="POST MENOPAUSE">
+               <input type="checkbox" id="need_6" name="radio-need" class="filter-blck by_ingredient" value="post-menopause">
+               <label for="need_6">POST MENOPAUSE</label>
+            </p>
+            <p class="ANTIAGEING">
+               <input type="checkbox" id="need_7" name="radio-need" class="filter-blck by_ingredient" value="antiageing">
+               <label for="need_7">ANTIAGEING</label>
+            </p>
+         </div>
+      </li>
+      <li class="type-filter fill_desktop by-ingredient" data-type="by-ingredient">
+         <h2>By Ingredient</h2>
+         <div class="list_inner" style="display:none;">
+            <p class="GREEK YOGHURT">
+               <input type="checkbox" id="ing_1" name="radio-ing" class="filter-blck by_ingredient" data-value="GREEK YOGHURT" value="greek-yoghurt">
+               <label for="ing_1">GREEK YOGHURT</label>
+            </p>
+            <p class="BLACK PINE">
+               <input type="checkbox" id="ing_2" name="radio-ing" class="filter-blck by_ingredient" data-value="BLACK PINE" value="black-pine">
+               <label for="ing_2">BLACK PINE</label>
+            </p>
+            <p class="WHITE PINE">
+               <input type="checkbox" id="ing_3" name="radio-ing" class="filter-blck by_ingredient" data-value="WHITE PINE" value="white-pine">
+               <label for="ing_3">WHITE PINE</label>
+            </p>
+            <p class="WILD ROSE">
+               <input type="checkbox" id="ing_4" name="radio-ing" class="filter-blck by_ingredient" data-value="WILD ROSE" value="wild-rose">
+               <label for="ing_4">WILD ROSE</label>
+            </p>
+            <p class="GOLDEN KROCUS">
+               <input type="checkbox" id="ing_5" name="radio-ing" class="filter-blck by_ingredient" data-value="GOLDEN KROCUS" value="golden-krocus">
+               <label for="ing_5">GOLDEN KROCUS</label>
+            </p>
+            <p class="POMEGRANATE">
+               <input type="checkbox" id="ing_6" name="radio-ing" class="filter-blck by_ingredient" data-value="POMEGRANATE" value="pomegranate">
+               <label for="ing_6">POMEGRANATE</label>
+            </p>
+         </div>
+      </li>
+      <div class="fil_button_cover">
+         <button type="submit" class="btn-theme-blue button1 hide-from-desktop"> View
+         Products
+         </button>
+         <input type="reset" value="Reset" class="btn-theme-white button2 hide-from-desktop">
+      </div>
+   </ul>
+</div>
+{% endif %}

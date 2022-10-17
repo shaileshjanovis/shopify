@@ -1,0 +1,46 @@
+<div class="container" id="recycle">
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+      <img src="{{section.settings.author-image | img_url:'medium'}}" class="author-image">
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 align-self-center">
+      {{section.settings.blog-heading}}
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      {{section.settings.description}}
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Agriculture section 4",
+"class": "section-margin",
+    "settings": [
+		{
+	"type": "image_picker",
+    "id"  : "author-image",
+	"label": "Author image"
+	},
+	{
+	"type": "html",
+    "id"  : "blog-heading",
+	"label": "Heading"
+	},
+	{
+	"type": "html",
+    "id"  : "description",
+	"label": "Description"
+	}
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,32 @@
+<div class="row no-gutters">
+  <div class="col-12">
+      <div class="privacy-policy-top">
+        <h1 class="title">{{section.settings.privacy-title}}</h1>
+        <p>{{section.settings.title_description}}</p>
+      </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Privacy Title",
+    "settings": [
+{
+	"type": "text",
+   "id"  : "privacy-title",
+	"label": "Heading"
+	},
+{
+	"type": "richtext",
+   "id"  : "title_description",
+	"label": "Description"
+	}
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

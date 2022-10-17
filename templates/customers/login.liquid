@@ -1,0 +1,301 @@
+<div class="poup-login-destop js-poup-login-destop">
+  <div class="form-message form-message--success reset-success success" style="display:none;" id="ResetSuccess" tabindex="-1">
+    {% include 'tick' %}
+    <h2>{{ 'Login.Success.Title' | t: Title }}</h2>
+    <p>{{ 'Login.Success.sub_title' | t: sub_title }}</p>
+    <span class="btn-new okay_now">{{ 'Login.Success.Button' | t: Button }}</span>
+  </div>
+  
+  <div id="CustomerLoginForm" class="login-card form-vertical">
+    {% form 'customer_login', return_to: routes.root_url %}
+    <div class="head_login">
+      <h1 class="login-heading">{{ 'Login.Title.title' | t: title }}</h1>
+      <h3 class="login-heading">{{ 'Login.Title.subtext_html' | t: subtext_html }}</h3>
+    </div>
+    <div class="floating-label"> 
+      <label for="login_email">{{ 'Login.Fields.email' | t: email }}</label>
+      <input
+             id="login_email"
+             type="email"
+             name="customer[email]"
+             placeholder="e.g maria@gmail.com"
+             data-rule="required|email"
+             {%- if form.errors contains 'form' -%}
+             class="input--error"
+             aria-invalid="true"
+             {%- endif -%}
+             />
+      {%- if form.errors contains 'form' -%}
+      <div class="errors">
+        <ul>
+          <li>
+          {% if request.locale.iso_code == 'el' %}
+          	Ο κωδικός πρόσβασης ή το όνομα χρήστη δεν ταιριάζει με τις πληροφορίες που έχετε δώσει. Παρακαλώ προαπσθήστε ξανά.
+          {% else %}
+          	Password or username does not match the information you have given. Please try again.
+          {% endif %}
+          </li>
+        </ul>
+      </div>
+      {%- endif -%}
+	</div>
+    <div class="floating-label">
+      <label for="login_password">{{ 'Login.Fields.password' | t: password }}</label>
+      <div class="input_cover">
+        <input
+               id="login_password"
+               type="password"
+               name="customer[password]"
+               {%- if form.errors contains 'form' -%}
+               class="input--error"
+               {%- endif -%}
+               placeholder="{{ 'Login.Password_placeholder.placeholder' | t: placeholder }}"
+               data-rule="required"
+               -="" if="" form.errors="" contains="" 'form' -=''
+               aria-invalid="true"
+               -="" endif="" -=""%}
+               />
+        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+      </div>
+      {%- if form.errors contains 'form' -%}
+      <div class="errors">
+        <ul>
+          <li>
+          {% if request.locale.iso_code == 'el' %}
+          	Ο κωδικός πρόσβασης ή το όνομα χρήστη δεν ταιριάζει με τις πληροφορίες που έχετε δώσει. Παρακαλώ προαπσθήστε ξανά.
+          {% else %}
+          	Password or username does not match the information you have given. Please try again.
+          {% endif %}
+          </li>
+        </ul>
+      </div>
+      {%- endif -%}
+    </div>
+    <div class="error-container desk-btn">
+      <button class="forgot-pwd" type="button">
+        <a href="#recover" id="RecoverPassword" data-image-link rel="modal:open"><span>{{ 'Login.Links.forgot' | t: forgot }}</span></a>
+      </button>
+    </div>
+    <div class="error-container mob-btn">
+      {{ form.errors | default_errors }}
+      <div class="login_state">
+        <button class="forgot-pwd" type="button">
+          <a href="#recover" id="RecoverPassword" data-image-link rel="modal:open"><span>{{ 'Login.Links.forgot' | t: forgot }}</span></a>
+        </button>
+        <div class="check-row check-row-signed red">
+          <label class="customcheck rounded">
+            <input type="checkbox"/>
+            <span class="checkmark"></span>
+          </label>
+          <span class="bold"> {{ 'Login.Links.keep_signed' | t: keep_signed }}</span>
+        </div>
+      </div>
+    </div>
+    <div name="hiko-container"></div>
+    <div class=" social_button desk-btn">
+      <a href="javascript:;" id="googlesignupbutton">
+        <img class="lozad" data-src="{{ 'google-icon.png' | asset_url }}"> Sign in with Google
+      </a>
+      <span class="or_text">Or</span>
+      <a href="javascript:;" onclick="fb_login_one();" class="facebook bt" data-image-link="" rel="modal:open">
+        <img class="lozad" data-src="{{ 'facebook-icon.png' | asset_url }}"> Sign in with Facebook
+      </a>
+    </div>
+
+    <div class="social_button mob-btn">
+      <a href="javascript:;" onclick="fb_login_one();" class="facebook bt" data-image-link="" rel="modal:open"><img class="lozad" data-src="{{ 'facebook-icon.png' | asset_url }}"></a>
+      <span class="or_text">
+        {{ 'Login.Title.continue_with_text' | t: continue_with_text }}<!--Or Continue with-->
+      </span> <!--{% include 'or-ic' %}-->
+      <a href="javascript:;" class="google bt" id="googlesignupbuttonmobile"><img class="lozad" data-src="{{ 'google-icon.png' | asset_url }}"></a>
+    </div>
+    
+    {% include 'facebook_popup' %}
+    <div class="login_state desk-btn">
+      <div class="check-row check-row-signed">
+        <label class="customcheck rounded">
+          <input type="checkbox"/>
+          <span class="checkmark"></span>
+        </label>
+        <span class="bold"> {{ 'Login.Links.keep_signed' | t: keep_signed }}</span>
+      </div>
+      <div class="sign-up-text">
+        {{ 'Login.Links.signup' | t: signup }} <a href="{% if request.locale.iso_code == 'en' %}/account/register{% else %}/el/account/register{% endif %}"> {{ 'Login.Links.signup_link' | t: signup_link }}</a>
+      </div>
+    </div>
+    <input id="cartid" class="jfds btn-rounded-blue btn-login" type="submit" value="{{ 'Login.Buttons.sign_in' | t: sign_in }}" />
+    <div class="sign-up-text mob-btn">
+      {{ 'Login.Links.signup' | t: signup }} <a href="{% if request.locale.iso_code == 'en' %}/account/register{% else %}/el/account/register{% endif %}"> {{ 'Login.Links.signup_link' | t: signup_link }}</a>
+    </div>
+    {% endform %}
+  </div>
+  
+  <div id="RecoverPasswordForm" class="hide recover_form">
+    <div class="text-center heading">
+      <h2 id="RecoverHeading">{{ 'Login.Reset_Passoword.Title' | t: Title }}</h2>
+      <p>{{ 'Login.Reset_Passoword.sub_title' | t: sub_title }}</p>
+    </div>
+    <div class="form-vertical">
+      {% form 'recover_customer_password', id:"resetPassword" %}
+      {{ form.errors | default_errors }}
+      {% if form.posted_successfully? %}
+      	{% assign reset_success = true %}
+      {% endif %}
+      <div class="rec_cover">
+        <label for="RecoverEmail">Email</label>
+        <input
+               type="email"
+               value=""
+               name="email"
+               id="RecoverEmail"
+               class="input-full{% if form.errors %} input--error{% endif %}"
+               autocorrect="off"
+               autocapitalize="off"
+               {% if form.errors %}
+               aria-invalid="true"
+               aria-describedby="RecoverEmail-email-error"
+               {%- endif -%}
+               >
+      	<span id="RecoverEmail-email-error" class="input-error-message" style="display:none;">
+          <span>Email User was not found in our database. Please try again!</span>
+        </span>
+      </div>
+      <div class="text-center">
+        <a href="javascript:void(0);" class="btn btn-new disabled">{{ 'Login.Reset_Passoword.Reset_Password' | t: Reset_Password }}</a>
+        <input type="submit" style="display:none;" value="submit">
+        <a href="#LoginHeading" id="HideRecoverPasswordLink" class="cancle">{{ 'Login.Reset_Passoword.Never_Mind' | t: Never_Mind }}</a>
+      </div>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% comment %}Start Google{% endcomment %} 
+<style>
+  #google-button {
+    margin: 20px;
+    margin-top: 25px;
+  }
+
+  .container {
+    margin: 20px;
+    background-color: rgba(66, 133, 244, 0.15);
+    padding: 10px;
+    border-radius: 10px;
+    width: 450px;
+    margin-top: 25px;
+    display: none;
+  }
+
+  img {
+    width: 56px;
+    border-radius: 50%;
+  }
+
+  .id,
+  .email,
+  .name {
+    display: inline-block;
+    font-family: 'Verdana';
+  }
+
+  .name {
+    font-size: 30px;
+    position: relative;
+    top: -16px;
+    margin-left: 5px;
+  }
+
+  lable {
+    font-family: 'Arial Black';
+  }
+
+  button {
+    display: block;
+    background-color: #4285F4;
+    border: 0px;
+    padding: 8px 20px;
+    color: white;
+    margin-top: 15px;
+    cursor: pointer;
+    outline: none;
+  }
+</style>   
+{% comment %}End Google{% endcomment %} 
+
+{% comment %}Start facebook{% endcomment %} 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+<script id="facebook-jssdk" type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+  function statusChangeCallback(response) { 
+  console.log('statusChangeCallback');
+  //console.log(response);                   
+  if (response.status === 'connected') {   
+    testAPI();  
+  } else {                                 
+    document.getElementById('status').innerHTML = 'Please log ' +
+      'into this webpage.';
+  }
+}
+
+  function checkLoginState() {               
+    FB.getLoginStatus(function(response) {  
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '542692260810703',
+      cookie     : true,                     // Enable cookies to allow the server to access the session.
+      xfbml      : true,                     // Parse social plugins on this webpage.
+      version    : 'v14.0'           // Use this Graph API version for this call.
+    });
+  };
+ 
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', {fields: 'id,name,first_name,last_name,email,picture'}, function(response) {
+        var email = response.email;
+        $.get('https://api.korresfamily.com/api/v1/LoginShopifySocialmedia?email='+email,function(data){
+          window.location.replace('/account/login/multipass/'+data.token+'/?return_url=/');
+        })  
+      
+        $("#logout_facebook").click(function() {
+          logout();
+        });
+    });
+  }
+  
+  function logout() {
+    var func = function(){
+      document.location.reload();
+    }
+
+    FB.logout(func);
+  }
+  
+  function fb_login_one(){
+    FB.login(function(response) {
+
+      if (response.authResponse) {
+        console.log('Welcome!  Fetching your information.... ');
+        //console.log(response); // dump complete info
+        access_token = response.authResponse.accessToken; //get access token
+        user_id = response.authResponse.userID; //get FB UID
+
+        testAPI();
+
+      } else {
+        console.log('User cancelled login or did not fully authorize.');
+      }
+    }, {
+      scope: 'public_profile,email'
+    });
+  }
+</script>
+
+{% comment %}End facebook{% endcomment %} 
+<div id="slideshow-info" class="visually-hidden" aria-hidden="true">
+  {{- 'sections.slideshow.navigation_instructions' | t -}}
+</div>

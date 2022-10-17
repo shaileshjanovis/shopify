@@ -1,0 +1,52 @@
+<div class="search-bar">
+  <div class="">
+    <div class="search-wrap"  id="search-box">
+      <form class="search-form search-bar__form" action="{{ routes.search_url }}" method="get" role="search">
+        <div class="search-form__input-wrapper">
+          <div>
+            {% if request.locale.iso_code == 'el' %}
+            {% assign placeholder = 'Αναζήτηση προϊόντος με όνομα ή κωδικό' %}
+            {% else %}
+            {% assign placeholder = 'Search Product by name or code' %}
+            {% endif %}
+          <input type="text" id="input-search" name="q" placeholder="{{ placeholder }}" role="combobox" aria-autocomplete="list" 
+          aria-owns="predictive-search-results" aria-expanded="false" aria-label="Search" 
+          aria-haspopup="listbox" class="search-form_input search-bar_input" autocorrect="off" 
+          autocomplete="off" autocapitalize="off" spellcheck="false" aria-activedescendant="" 
+          v-model="searchTerm" @keyup="search(searchTerm);">
+          <button class="search-btn" style="background-color: #050F96; color: #FFFFFF;" id="search-btn" type="submit" value="Search" disabled>Search</button>
+          <input type="hidden" name="type" value="product" aria-hidden="true">
+          </div>
+          <div class="predictive-search-wrapper predictive-search-wrapper--drawer">
+            <div v-if="lastSearch !=''">
+              <div class="predictive-search" v-else-if="items.length > 0">
+                <div class="predictive-search-title">
+                  {% if request.locale.iso_code == 'el' %}
+                  <h6 id="predictive-search" class="predictive-search-title__content" v-text="items.length+' αποτελέσματα'"> </h6>
+                  {% else %}
+                  <h6 id="predictive-search" class="predictive-search-title__content" v-text="items.length+' results'"> </h6>
+                  {% endif %}
+                  <span class="predictive-search-title__loading-spinner"></span>
+                </div>
+                <ul id="predictive-search-results" class="predictive-search__list" role="listbox" aria-labelledby="predictive-search" >
+                  <li id="search-result-0" class="predictive-search-item" role="option" data-search-result="" v-for="item in items">
+                    <a class="predictive-search-item__link" :href="item.url" tabindex="-1">
+                      <div class="predictive-search_column predictive-search_column--image" data-image-with-placeholder-wrapper="">
+                        <div class="placeholder-background placeholder-background--animation hide" data-image-placeholder="" aria-hidden="true"></div>
+                      </div>
+                      <div class="predictive-search_column predictive-searchcolumn--content predictive-searchcolumn--center"><span class="predictive-search-itemtitle"><span class="predictive-search-item_title-text" v-html="item.title"></span></span></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="search_results" v-else>
+                <div class="search_r_null">No product Found</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

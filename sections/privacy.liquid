@@ -1,0 +1,31 @@
+<div class="container1">
+  <div class="row">
+    <div class="col-md-offset-2 col-md-10 col-lg-offset-2 col-lg-10 terms-box">
+<h1 class="terms-title" style="font-weight: 300; font-size: 32px; padding-top: 30px">{{section.settings.privacy}}</h1>
+<p style="font-size: 20px;">{{section.settings.title_description}}</p>
+</div>
+</div>
+</div>
+{% schema %}
+  {
+    "name": "Privacy Title",
+    "settings": [
+{
+	"type": "text",
+    "id"  : "privacy",
+	"label": "Heading"
+	},
+{
+	"type": "text",
+    "id"  : "title_description",
+	"label": "Description"
+	}
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

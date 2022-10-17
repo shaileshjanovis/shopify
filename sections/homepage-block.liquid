@@ -1,0 +1,91 @@
+<div class="homeBlock-wrap">
+    <div class="homeBlock-container container">
+        <div class="homeBlock-content">
+          {% for block in section.blocks %}
+          <div class="block-single">
+                <div class="block-content">
+                    <div class="image-div"> 
+                      <picture class="lozad" style="display: block; min-height: 1rem" data-iesrc="{{block.settings.logo_image | img_url: 'master'}}" data-alt="">
+                        <source srcset="{{block.settings.logo_image | img_url: 'master'}}" media="(min-width:1024px)">
+                        <source srcset="{{block.settings.logo_image | img_url: '385x'}}" media="(max-width: 420px)">
+                        <source srcset="{{block.settings.logo_image | img_url: '730x'}}" media="(max-width: 767px)">
+                        <source srcset="{{block.settings.logo_image | img_url: '480x'}}" media="(max-width: 1024px)">
+                      </picture>
+                    </div>
+                    <div class="block-text-wrap">
+                        <div class="block-text-content">
+                            <div class="text-content">
+                                <p class="block-heading">{{block.settings.logo_heading}}</p>
+                                <p class="block-para">{{block.settings.logo_subhead}}</p>
+                                <p class="block-btn"> <a href="{{block.settings.btnUrl}}">{{'homepage.title.read_more' | t: read_more}}</a> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          	{% endfor %}
+      	</div>
+    </div>
+</div>
+<script>
+  dataLayer.push({
+    'ecommerce': {
+    'promoView': {
+    'promotions': [
+      {% for block in section.blocks %}
+      {
+      'id': 'black_pine_mar{{forloop.index}}',
+      'name': 'black_pine_mar{{forloop.index}}',
+      'creative': '{{block.settings.logo_image | img_url: 'master'}}',
+        'position': 'banner{{ forloop.index }}'
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+    }
+    },
+    'event': 'promotionView'
+    });
+</script>
+{% schema %}
+  {  
+     "name":"Homepage Block",
+     "blocks":[  
+        {  
+           "name":"Homepage Block",
+           "type": "collection",
+           "settings":[  
+              {  
+                 "id":"logo_image",
+                 "type":"image_picker",
+                 "label":"Block Image"
+              },
+              {  
+                 "id":"logo_heading",
+                 "type":"text",
+                 "label":"Block heading",
+				"default": "Block Heading"
+              },
+              {  
+                 "id":"logo_subhead",
+                 "type":"text",
+                 "label":"Block Subheading",
+				"default": "Block Paragraph"
+              },
+			  {  
+                 "id":"btnUrl",
+                 "type":"url",
+                 "label":"Block Btn Url"
+              }
+			  
+	
+           ]
+        }
+     ],
+     "presets":[  
+        {  
+           "name":"Homepage Block",
+           "category":"collection"
+        }
+     ]
+  }
+{% endschema %}

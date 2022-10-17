@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+    <h2>{{section.settings.title}}</h2>
+    </div>
+    <div class="col-md-3 col-lg-3 col-sm-12">
+      <div class="album-image">
+        <img src="{{section.settings.album-image1 | img_url:'large'}}">
+        <h4>{{section.settings.album-image-title1}}</h4>
+      </div>
+    </div>
+    <div class="col-md-3 col-lg-3 col-sm-12">
+      <div class="album-image">
+        <img src="{{section.settings.album-image2 | img_url:'large'}}">
+        <h4>{{section.settings.album-image-title2}}</h4>
+      </div>
+    </div>
+    <div class="col-md-3 col-lg-3 col-sm-12">
+      <div class="album-image">
+        <img src="{{section.settings.album-image3 | img_url:'large'}}">
+        <h4>{{section.settings.album-image-title3}}</h4>
+      </div>
+    </div>
+    <div class="col-md-3 col-lg-3 col-sm-12">
+      <div class="album-image">
+        <img src="{{section.settings.album-image4 | img_url:'large'}}">
+        <h4>{{section.settings.album-image-title4}}</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Marketing Album",
+	"class": "section-margin",
+    "settings": [
+	{
+	"type": "text",
+    "id"  : "title",
+	"label": "Section Title"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "album-image1",
+	"label": "Album Image 1"
+	},
+	{
+	"type": "text",
+    "id"  : "album-image-title1",
+	"label": "Title"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "album-image2",
+	"label": "Album Image 2"
+	},
+	{
+	"type": "text",
+    "id"  : "album-image-title2",
+	"label": "Title"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "album-image3",
+	"label": "Album Image 3"
+	},
+	{
+	"type": "text",
+    "id"  : "album-image-title3",
+	"label": "Title"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "album-image4",
+	"label": "Album Image 4"
+	},
+	{
+	"type": "text",
+    "id"  : "album-image-title4",
+	"label": "Title"
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

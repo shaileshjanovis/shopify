@@ -1,0 +1,29 @@
+<h1>{{ section.settings.page-title | newline_to_br }} </h1>
+<div class="grey-text">{{ section.settings.page-text-grey }}</div>
+{{ section.settings.page-text }}
+
+
+{% schema %}
+{
+"name": "Page Left Content",
+"settings": [
+{
+"id": "page-title",
+"type": "textarea",
+"label": "Page Title",
+"default": "THE 6 LABS SUSTAINABILITY CIRCLE"
+},
+{
+"id":"page-text-grey",
+"type": "richtext",
+"label":"Page Text Grey"
+},
+{
+"id":"page-text", 
+"type": "richtext",
+"label":"Page Text"
+}
+]
+}
+{% endschema %}
+

@@ -1,0 +1,599 @@
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<input type="hidden" id="customer_id" value="{{customer.id}}">
+{% assign first_order = customer.metafields.customer.first_order %}
+{% assign royalty = customer.metafields.points.loyalty | split : '|' | last | plus:0 %}
+{% assign product_id = '' %}
+
+{% for order in customer.orders %}
+	{% for item in order.line_items %}
+		{% unless product_id contains item.product_id %}
+			{% assign product_id = product_id | append:',' | append:item.product_id %}
+		{% endunless %}
+	{% endfor %}
+{% endfor %}
+
+{% assign circles = shop.metafields.circle %}
+{% assign circleValue = '' %}
+{% for circle in circles %}
+	{% if circle[0] contains 'My_' %}
+		{% unless circle[0] contains 'level_' %}
+			{% assign circleValue = circleValue | append:'::' | append:shop.metafields.circle[circle[0]] %}
+		{% endunless %}
+	{% endif %}
+{% endfor %}
+<input type="hidden" value="{{circleValue}}" id="circles">
+
+<script>
+  (function(){    
+    var min = new Array();
+    var circleOrder = new Array();
+    var circles = $('#circles').val();
+    var values = circles.split('::');
+    var len = values.length;
+
+    $.each(values,function(index,value){
+      var v = value.split('|');
+      if(v[1] != undefined){
+        min.push(parseInt(v[1]));
+      }
+      if(index == len - 1){
+        min.sort(function(a,b){
+          if(a > b){ return 1}
+          if(a < b){ return -1}
+          return 0;
+        });
+        $.each(min,function(i,v){
+          var str = '|'+v+'|';
+          $.each(values,function(index,value){
+            if(value.indexOf(str) > -1){
+              circleOrder.push(value);
+            }
+          });
+        })
+      }
+    });
+
+    setTimeout(function(){
+      $.each(circleOrder,function(index,value){
+        var splitdata = value.split('|');
+        var rpoints = '{{royalty}}';
+        rpoints = parseInt(rpoints);
+        var classname = 'tab-link';
+        if(rpoints > splitdata[2] && rpoints > splitdata[1]){
+          classname = classname+' active';
+        }else if(rpoints >= splitdata[1] && rpoints <= splitdata[2]){
+          classname = classname+' current active';
+        }
+        var html = '<li class="'+classname+'" data-tab="'+splitdata[0]+'" data-min="'+splitdata[1]+'" data-max="'+splitdata[2]+'">'+splitdata[0].replaceAll('My_','').replaceAll('_',' ')+'</li>'
+        $('.tabs').append(html);
+      });
+
+      if ($(".tab-link").hasClass("current")) {
+        console.log('cool');
+      } else {
+        $('.tab-link:last-child').trigger('click');
+      }
+
+    },1000);
+
+  })()
+</script>
+
+<div class="circle_carousel gift_main d-block d-sm-none mobile-secs">
+  {% assign circleValue1 = ''%}
+  {% for circle in circles %}
+  	{% if circle[0] contains 'My_' %}
+  		{% unless circle[0] contains 'level_' %}
+  			{% assign levelName =  shop.metafields.circle[circle[0]] | split:'|' | first | prepend:'level_' %}
+  			{% assign points =  shop.metafields.circle[levelName] %}
+  			{% assign maxP =  shop.metafields.circle[circle[0]] | split:'|' %}
+            {% assign maxPoint = maxP[2] | plus:0 %}
+            {% assign minPoint = maxP[1] | plus:0 %}
+            {% assign stro = royalty | times:237 | divided_by:maxPoint %}
+            {% assign deg = royalty | times:340 | divided_by:maxPoint  %}
+  			{% comment %}Start of 11th May changes by madhav {% endcomment %}
+            {% assign circleValue1 = shop.metafields.circle[circle[0]] | split:'|' | last  %}
+            {% comment %}End of 11th May changes by madhav {% endcomment %}
+
+  			{% if royalty >= maxPoint %}
+  				{% assign stro = 237 %}
+  			{% elsif royalty <= 100  %}
+  				{% assign stro = stro | plus:8 %}
+  			{% endif %}
+  
+            <div class="carousel-cell" data-sort="{{circleValue1}}">
+              <div id="{{shop.metafields.circle[circle[0]] | split:'|' | first}}" data-points="{{ maxPoint }}" class="sdhajd gift_inner_cover tab-content olive_theme {% if royalty >= minPoint and royalty <= maxPoint %} current {% endif %} {% if royalty < minPoint %} locked {% endif %} {% if royalty >= maxPoint %}complete {% endif %}">
+                {% assign redeem_lock0 = shop.metafields.circle[levelName] | split : '|' %}
+                {% assign gift_lock0 = shop.metafields.circle[levelName] | split : '|' %}
+                {% assign left_p = maxPoint | minus:royalty %}
+                {% assign redeem1 = redeem_lock0[1] | times:320 | divided_by:maxPoint %}
+                {% assign redeem2 = redeem_lock0[4] | times:320 | divided_by:maxPoint %}
+                {% assign redeem3 = redeem_lock0[7] | times:320 | divided_by:maxPoint %}
+                {% assign gift1 = gift_lock0[1] | plus:0 %}
+                {% assign gift2 = gift_lock0[4] | plus:0 %}
+                {% assign gift3 = gift_lock0[7] | plus:0 %}
+
+                <div class="gift_in mt-3">
+                  <h3 style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' | remove: "My" }}</h3> 
+				  <div class="joined-date">{% if request.locale.iso_code == 'el' %}Μέλος από:{% else %}Joined:{% endif %}<span>5/6/21</span></div>
+
+                  <div class="cover">
+                    <div class="inner">
+                      <div class="cssprogresscontainer">
+                       {% comment %}Start of 11th May changes by madhav {% endcomment %}
+              <div class="pie_main"  data-count="{{royalty}}">
+
+              <svg id="animated" viewbox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="transparent"/>
+                {% unless royalty < minPoint %}
+                <path id="progress" stroke-linecap="round" stroke-width="4" stroke-dasharray= "{{stro}} 237"; stroke="{{shop.metafields.circle[circle[0]] | split:'|' | last}}" fill="none"
+                      d="M50 10
+                         a 40 40 0 0 1 0 80
+                         a 40 40 0 0 1 0 -80">
+                  {% endunless %}
+                </path>
+              </svg>
+              {% unless royalty < minPoint %}
+              <div class="degree" style="transform: translateY(-50%)rotate({{deg}}deg);">
+                <img src="{{ 'dot_one.svg' | asset_url }}">
+              </div>
+              {% assign lvl_nme = levelName | split:'level_' | last | replace:'_',' ' | replace:'My','' | strip %}
+              <div class="start tick">
+                {% if lvl_nme == 'Olive Circle' %}
+                  {% include 'olive_tick_new' %}
+<!--                 <img src="{{'Olive_tick_new.png' |asset_url}}"> -->
+                {% else %}
+                {% include 'tick' %}
+                {% endif %}
+                <style>
+                  {% assign clr = section.settings.t_color %}
+                  #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .tick svg .a {
+                    fill: {{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                  }
+                </style>
+              </div>
+              {% endunless %}
+              {% if royalty < minPoint %}
+              <div class="points_re locing">
+                <div class="points_inner complete_points">
+<!--                   {% include 'lock' %} -->
+                  <img src="{{ 'lock_image.png' | asset_url }}">
+                  <style>
+                    {% assign clr = section.settings.t_color %}
+                    #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .complete_points svg .a {
+                      fill:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                    }
+                  </style>
+                  <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">Circle Locked</span>
+                  <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' | replace:'My',''}} - {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                </div>
+              </div>
+              {% else %}
+              {% assign in = 1 %}
+              {% for lock in redeem_lock0 %}
+              {% assign lockdata = lock | plus:0 %}
+              {% if lockdata > 0%}
+              {% assign deg = lockdata | times:320 | divided_by:maxPoint %}
+              {% assign i = forloop.index0 | minus:1 %}
+              {% assign lvl_nme = levelName | split:'level_' | last | replace:'_',' ' | replace:'My','' | strip %}
+              <div class="lock step{{forloop.index}}" data-circlenm="{{ lvl_nme }}" data-point="{{ lockdata }}" style="transform: translateY(-50%)rotate({{deg}}deg);">
+				{% if lvl_nme == 'Olive Circle' %}
+                  {% if lockdata == 1000 %}
+                	<img class="content" src="{{ 'Component_lock2.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+                  {% else %}
+                	<img class="nocontent" src="{{ 'lock.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+				  {% endif %}
+                {% else %}
+                	<img class="nocontent" src="{{ 'lock.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+                {% endif %}
+                <span class="outer_content" style="display:none;"><span class="circle_nm" style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ lvl_nme }}</span><span class="circle_point" style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ lockdata | append : ' pts'}}</span></span>
+                
+                <style>
+                  #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .ui-tooltip{
+                    color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                  }
+                  .lock.step5 .upgrae{
+                    transform: rotate(-16deg);
+                    position: absolute;
+                    top: auto;
+                    bottom: -35px;
+                    left: -6px;
+                    right: auto;
+                    padding: 0 15px;
+                    background: #83937b;
+                    border-radius: 11px;
+                    color: #fff;
+                    z-index: -1;
+                    display:none;
+                    transition-duration:0.4s;
+                  }
+                  .lock.step5:hover .upgrae{
+                    display:block;
+                    transition-duration:0.4s;
+                  }
+                </style>
+              </div>
+              {% endif %}
+              {% endfor %}
+              <div class="points_re">
+                <div class="points_inner incomplete_points">
+                  <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{royalty}}</span>
+                  <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.out_of' | t: out_of }} {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                </div>
+                <div class="points_inner complete_points" style="display:none;">
+                  {% include 'tick' %}
+                  <style>
+                    {% assign clr = section.settings.t_color %}
+                    #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .complete_points svg .a {
+                      fill:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                    }
+                  </style>
+                  <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.completed' | t: completed }}</span>
+                  <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' | replace:'My',''}} - {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                </div>
+              </div>
+              {% endif %}
+              <style>
+                #tab-0 .pie_main:after{
+                  border-color:{{shop.metafields.circle[circle[0]] | split:'|' | last}}; 
+                }
+              </style>
+            </div>
+				{% comment %}End of 11th May changes by madhav {% endcomment %}
+
+                      </div>
+                    </div>
+                    <div class="inner text_part">
+                      <div class="text_inner">
+                        <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/all-products" class="btn-theme-white btn-back">{{ 'circle_page.title.back_to_shop' | t: back_to_shop }}</a>
+
+                        <a href="javascript:;" class="btn_link incom hover_here_plz" data-points={{royalty}}><b><span class="left_points">{{left_p}} </span> {{ 'circle_page.title.more_points' | t: more_points }}</b><span> {{ 'circle_page.title.till_your_next_gift' | t: till_your_next_gift }}</span></a>
+                        <a href="javascript:;" class="btn_link com" style="display:none;color:{{shop.metafields.circle[circle[0]] | split:'|' | last}} !important;"><b>{{ 'circle_page.title.congratulations_level_up' | t: congratulations_level_up }}</b></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {% assign circleMeta = shop.metafields.circle[levelName] | split:'|' %}
+                
+                <div class="gift_in collection_gift" id="col-scroll">
+
+                  <div class="top_label">
+                    <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.unlock_your_gift_collection' | t: unlock_your_gift_collection }}</label>
+                    <p>{{ 'circle_page.title.discover_more_gifts_by_earning_points' | t: discover_more_gifts_by_earning_points }}</p>
+                  </div>
+                  <div class="top_label_complete" style="display:none;">
+                    <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.gift_collection_has_been_unlocked' | t: gift_collection_has_been_unlocked }}</label>
+                  </div>
+                  <div class="expand_view">
+                    <img src="{{'expand_btn.svg' | asset_url}}" class="exp">
+                    <img src="{{'back_sh.svg' | asset_url}}" class="shp">
+                  </div>
+                  <div class="collection_in dragscroll" data-levelname="{{levelName}}">
+                    {% assign index = 1 %}
+                    {% for meta in circleMeta %}
+                    {% assign poi = meta | plus:0 %}
+                    {% if poi > 0 %}
+                    {% assign gift = poi %}
+                    {% assign i = forloop.index0 | minus:1 %}
+                    {% assign giftName = circleMeta[i] %}
+                    {% endif %}
+                    {% if meta contains 'CollectionName_' %}
+                    {% assign level_name = meta | replace:'CollectionName','' | replace:' ','_' | prepend:'level' %}
+                    {% for collectionname in shop.metafields.Collection %}
+                    {% assign lev_name = level_name | split:',' | first %}
+                    {% if lev_name == collectionname[0] %}
+                    {% assign value = collectionname[1] %}
+                    {% break %}
+                    {% endif %}
+                    {% endfor %}
+                    {% assign flag = 1 %}
+                    {% for order in customer.orders %}
+                    {% if order.total_price == 0 %}
+                    {% assign orderTags = order.tags | join:',' %}
+                    {% if orderTags contains gift %}
+                    {% for item in order.line_items %}
+                    {% if value contains item.product_id %}
+                    {% assign flag = 0 %}
+                    {% break %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if flag == 1 %}
+                    {% assign vs = value | split:'|' %}
+                    {% for v in vs %}
+                    {% for order in customer.orders %}
+                    {% if order.total_price == 0 %}
+                    {% assign orderTags = order.tags | join:',' %}
+                    {% if orderTags contains gift %}
+                    {% for item in order.line_items %}
+                    {% assign id = item.product_id | strip  %}
+                    {% if id == v %}
+                    {% assign flag = 0 %}
+                    {% break %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="box {% cycle 'odd','even' %} {% if royalty < gift %}not_active {% else %} active_now{% endif %} {% if flag != 0 %}unlock_now{% endif %}" data-giftvalue="{{gift}}">
+                      <div class="img_cv lozad" data-background-image='{{level_name | split:',' | last}}'>
+                      </div>
+                      <div class="text">
+                        <span>{{giftName}}</span>
+                        <label class="bck_point" style="color:#B3B5B6">{{gift}} <span>{{ 'circle_page.title.points' | t: points }}</span></label>
+
+                        {% if first_order %}
+                            {% if royalty < gift %}
+                                <a href="javascript:;" class="btn_coll btn-gift btn-locked-gift" data-gift="{{gift}}" data-case="locked" data-giftName="{{giftName}}">{{ 'circle_page.title.locked_gift' | t: locked_gift }}</a>
+                            {% else %}
+                                {% assign str = 'Level_' | append: gift  %}
+                                {% if customer.metafields.Level contains str  %}
+                                    <a href="javascript:;" class="btn_coll btn-gift btn-earned-gift" data-gift="{{gift}}" data-case="earned" data-giftName="{{giftName}}">{{ 'circle_page.title.earned_gift' | t: earned_gift }}</a>
+                                {% else %}
+                                    <a href="javascript:;" class="btn_coll unlock_gift btn-gift btn-unlock-gift" data-case="unlock" data-giftName="{{giftName}}" id="{{giftName | replace : ' ','_'}}" data-gift="{{gift}}" data-name="{{level_name | split:',' | first | append:levelName}}" data-value="{{value}}">{{ 'circle_page.title.unlocked_gift' | t: unlocked_gift }}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            <a href="javascript:;" class="btn_coll btn-gift btn-locked-gift" data-gift="{{gift}}" data-case="locked" data-giftName="{{giftName}}">{{ 'circle_page.title.locked_gift' | t: locked_gift }}</a>
+                        {% endif %}
+
+
+
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+
+              </div>
+			</div>
+   
+  		{% endunless %}
+  	{% endif %}
+  {% endfor %}
+  
+</div>
+  
+<script type="text/javascript">
+  $(document).on('click','.mobile-secs #Lottery',function(){
+  		var originalText = $(".slick-active .gift_inner_cover").attr('id');
+    	var giftRec = $(this).data('gift');
+        window.location.href = "{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/lottery?q="+originalText+"&type=label_"+giftRec;
+  });  
+  
+  $(document).on('click','.mobile-secs #Welcome_Gift',function(){
+  		var dataName = $(this).data('name');
+    	localStorage.setItem('activeCircle', dataName);
+    	location.href = "{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/welcome-gift-page/";
+  });
+  
+  $(document).on('click','.mobile-secs #Gift',function(){
+    var dataName = $(this).data('name');
+    var originalText = $(".slick-active .gift_inner_cover").attr('id');
+    var giftRec = $(this).data('gift');
+    localStorage.setItem('activegift', giftRec);
+
+    window.location.href = "{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/circle-gifts?q="+originalText+"&type="+dataName;
+  });
+  
+  $(document).on('click','.mobile-secs #Event',function(){
+    var originalText = $(".slick-active .gift_inner_cover").attr('id');
+    var giftRec = $(this).data('gift');
+        
+	window.location.href = "{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/event-gift?q="+originalText+"&type=label_"+giftRec;
+  });
+</script>
+
+
+<script>
+  {% comment %}Start of 11th May changes by madhav {% endcomment %}
+  $(document).ready(function(){
+
+    var result = $('.carousel-cell').sort(function (a, b) {
+      var contentA = parseInt( $(a).data('sort'));
+      var contentB = parseInt( $(b).data('sort'));
+      console.log(contentA +' madhav '+contentB);
+      return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
+    });
+    $('.circle_carousel').html(result);
+
+    setTimeout(function(){  
+      $('.circle_carousel').slick({
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        adaptiveHeight: true,
+        responsive: [
+
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              arrows: true,
+              autoplay:false
+
+            }
+          }
+        ]
+      });
+    },500);
+  });
+  {% comment %}End of 11th May changes by madhav {% endcomment %}
+</script>
+
+{% schema %}
+{
+"name": "Gift Section",
+"class": "gift_section",
+"settings": [
+{
+"type": "color",
+"id":"t_color",
+"label": "theme color"
+},
+{
+"type": "color",
+"id":"l_color",
+"label": "theme color Light"
+},
+{
+"type": "color",
+"id":"s_color",
+"label": "Stroke color"
+},
+{
+"type": "text",
+"id" : "title",
+"label" : "Title"
+},
+{
+"type": "text",
+"id" : "points",
+"label" : "Out of Points"
+},
+{
+"type": "text",
+"id" : "btn_text",
+"label" : "Button text"
+},
+{
+"type": "text",
+"id" : "btn_text1",
+"label" : "Button text back"
+},
+
+{
+"type": "color",
+"id":"t_color1",
+"label": "theme color"
+},
+{
+"type": "color",
+"id":"l_color1",
+"label": "theme color Light"
+},
+{
+"type": "color",
+"id":"s_color1",
+"label": "Stroke color"
+},
+{
+"type": "text",
+"id" : "title1",
+"label" : "Title"
+},
+{
+"type": "text",
+"id" : "points1",
+"label" : "Out of Points"
+},
+{
+"type": "text",
+"id" : "btn_textone",
+"label" : "Button text"
+},
+{
+"type": "text",
+"id" : "btn_text11",
+"label" : "Button text back"
+},
+
+{
+"type": "color",
+"id":"t_color2",
+"label": "theme color"
+},
+{
+"type": "color",
+"id":"l_color2",
+"label": "theme color Light"
+},
+{
+"type": "color",
+"id":"s_color2",
+"label": "Stroke color"
+},
+{
+"type": "text",
+"id" : "title2",
+"label" : "Title"
+},
+{
+"type": "text",
+"id" : "points2",
+"label" : "Out of Points"
+},
+{
+"type": "text",
+"id" : "btn_texttwo",
+"label" : "Button text"
+},
+{
+"type": "text",
+"id" : "btn_text12",
+"label" : "Button text back"
+},
+
+{
+"type": "color",
+"id":"t_color3",
+"label": "theme color"
+},
+{
+"type": "color",
+"id":"l_color3",
+"label": "theme color Light"
+},
+{
+"type": "color",
+"id":"s_color3",
+"label": "Stroke color"
+},
+{
+"type": "text",
+"id" : "title3",
+"label" : "Title"
+},
+{
+"type": "text",
+"id" : "points3",
+"label" : "Out of Points"
+},
+{
+"type": "text",
+"id" : "btn_textthree",
+"label" : "Button text"
+},
+{
+"type": "text",
+"id" : "btn_text13",
+"label" : "Button text back"
+}
+],
+"blocks": [
+{
+"type": "image",
+"name": "circle",
+"settings": [
+
+
+]
+}
+] 
+}
+{% endschema %}
+
+

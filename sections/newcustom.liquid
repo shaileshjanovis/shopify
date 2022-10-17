@@ -1,0 +1,64 @@
+<div class="homeBlock-wrap">
+  <div class="homeBlock-container container">
+    <div class="homeBlock-content">
+      {% for block in section.blocks %}
+      <div class="block-single">
+        <div class="block-content">
+          <div class="image-div">
+            <img src="{{block.settings.main-img | img_url: 'master'}}" />
+          </div>
+          <div class="block-text-wrap">
+            <div class="block-text-content">
+            <div class="text-content">
+              <p class="block-heading">{{block.settings.main-title}}</p>
+             
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {  
+     "name":"New Block",
+     "blocks":[  
+        {  
+           "name":"Homepage Block",
+           "type": "collection",
+           "settings":[  
+              {  
+                 "id":"main-img",
+                 "type":"image_picker",
+                 "label":"Block Image"
+              },
+              {  
+                 "id":"main-title",
+                 "type":"text",
+                 "label":"Block heading",
+				"default": "Block Heading"
+              }
+              
+			  
+	
+           ]
+        }
+     ],
+     "presets":[  
+        {  
+           "name":"New-custom",
+           "category":"collection"
+        }
+     ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,323 @@
+<div class="blog-container">
+
+
+
+  <div class="blog-category-tags">
+
+
+
+    {% for link in linklists.main-menu-new.links %}
+
+    {% if link.title == "Anthology" %}
+
+    {% if link.links != blank %}
+
+    <ul class="parent child tags">
+
+      {% for child_link in link.links %}
+
+      <li class="blog-category blog-tag">
+
+        <a class="a" >{{ child_link.title | replace: "_", " "}}</a>
+
+        <!--<a class="a" href= "{{ child_link.url }}">{{ child_link.title }}</a>-->
+
+
+
+        <!--<ul>
+
+              {%- for tag in child_link.object.all_tags -%}
+
+              <li class="blog-tag  current">{{ tag | link_to_tag: tag }}</li>
+
+              {%- endfor -%} 
+
+            </ul>-->
+
+
+
+
+
+        {% if child_link.links != blank %}
+
+        <ul class="grandchild tags">
+
+          {% for grandchild_link in child_link.links %}
+
+          <li class="blog-tag b">
+
+            <a class="t" href= "{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+
+          </li>
+
+          {% endfor %}
+
+        </ul>
+
+        {% endif %}
+
+      </li>
+
+      <ul class="blog-sub-categories">
+
+        {%- for tag in child_link.object.all_tags -%}
+
+        <!--<li class="blog-tag  current">{{ tag | link_to_tag: tag }}</li>-->
+
+        <li class="blog-tag  current">
+
+          <a href="{{child_link.object.url}}/tagged/{{tag}}">{{tag | replace: "_", " "}}</a>
+
+        </li>
+
+        {%- endfor -%}
+
+      </ul>
+
+      {% endfor %}
+
+    </ul>
+
+    {% endif %}
+
+
+
+    {% endif %}
+
+    {% endfor %}
+
+
+
+  </div>
+
+
+
+  <div class="section-article">
+
+
+
+    {% assign featuredBlogs = 'greece,happening-now' | split:',' %}
+
+
+
+    {% comment %}
+
+    Set the featuredArticles variable to false by default.
+
+    {% endcomment %}
+
+    {% assign featuredArticles = false %}
+
+
+
+    {% comment %}
+
+    Grab the last 50 (default) articles from each Blog. Add the articles to the featureArticles variable.
+
+    {% endcomment %}
+
+    {% for featuredBlog in featuredBlogs %}
+
+    {% if blogs[featuredBlog].articles %}
+
+    {% if featuredArticles %}
+
+    {% assign featuredArticles = featuredArticles | concat:blogs[featuredBlog].articles %}
+
+    {% else %}
+
+    {% assign featuredArticles = blogs[featuredBlog].articles %}
+
+    {% endif %}
+
+    {% endif %}
+
+    {% endfor %}
+
+
+
+    {% comment %}
+
+    If featuredArticles is not false we should have articles to show - so let's do it!
+
+    {% endcomment %}
+
+    {% if featuredArticles %}
+
+    {% assign featuredArticles = featuredArticles | sort:'published_at' | reverse %}
+
+
+
+    {% comment %}
+
+    Now a quick example of showing the latest 10 articles from our master article list
+
+    {% endcomment %}
+
+
+
+    {% for article in featuredArticles limit:8 %}
+
+    <a href="{{ article.url }}" class="article">
+
+      <div class="inner">
+
+        <!--<b>{{ article.title }} </b>
+
+          <p>{{ article.published_at }}</p>-->
+
+        <!--<img id="{{ img_id }}"
+
+             class="article__grid-image lazyload"
+
+             src="{{ article.image | img_url: '300x300' }}"
+
+             data-src="{{ img_url }}"
+
+             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+
+             data-aspectratio="{{ article.image.aspect_ratio }}"
+
+             data-sizes="auto"
+
+             alt=""/>-->
+
+        <!--<h2>{{ article.title }}</h2>-->
+
+        <div class="article-img" data-content="Read the Article">
+
+          <img id="{{ img_id }}"
+
+           class=" lozad"
+
+           src="{{ article.image | img_url: '1024x1024' }}"
+
+           data-src="{{ img_url }}"
+
+           data-sizes="auto"
+
+           alt="{{ article.title }}"/>
+
+
+
+          <div class="read-text">
+
+            <span>
+
+              Read<br/> the Article
+
+            </span>
+
+          </div>
+
+          <!--<img id="{{ img_id }}"
+
+             class="article__grid-image lozad"
+
+             src="{{ article.image | img_url: '300x300' }}"
+
+             data-src="{{ img_url }}"
+
+             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+
+             data-aspectratio="{{ article.image.aspect_ratio }}"
+
+             data-sizes="auto"
+
+             alt=""/>-->
+
+
+
+        </div>
+
+        <div class="article-bot">
+
+          {% if article.excerpt.size > 0 %}
+
+          {{ article.excerpt }}
+
+          {% else %}
+
+          <p class="">{{ article.content | strip_html | truncatewords: 100 }}</p>
+
+          {% endif %}
+
+        </div>
+
+      </div>
+
+    </a>
+
+    {% endfor %}
+
+
+
+    {% endif %}
+
+  </div>
+
+
+
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script>
+
+
+
+  $(".blog-category").click(function(){
+
+  $(".parent").css("height","100%");
+
+  var heightSubCat = $(this).next(".blog-sub-categories").outerHeight();
+
+  var heightParent = $(".parent").outerHeight();
+
+  var res =heightSubCat+heightParent;
+
+  $(".parent").css("height",res);
+
+
+
+  $(".blog-category").removeClass("active");
+
+  $(".blog-sub-categories").hide();
+
+  $(this).addClass("active");
+
+  $(this).next(".blog-sub-categories").css("top",heightParent);
+
+  $(this).next(".blog-sub-categories").show();
+
+
+
+  });
+
+
+
+  $(window).on('resize', function(){
+
+
+
+  var isActive = $('.blog-category').hasClass('active');
+
+  var heightSubCat = $(isActive).next(".blog-sub-categories").outerHeight();
+
+  var heightParent = $(".parent").outerHeight();
+
+  var res =heightSubCat+heightParent;
+
+  $(".parent").css("height",res);
+
+  
+
+  if(isActive)
+
+  $(".blog-category").next(".blog-sub-categories").css("top",heightParent);
+
+  });
+
+
+
+</script>

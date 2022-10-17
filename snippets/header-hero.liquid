@@ -1,0 +1,27 @@
+{% assign ext_cls = ' bg-color-' |  append: bg_color | default: 'beige' %}
+
+<div class="header-hero {{- ext_cls }} {{ class }}">
+  <div class="inner">
+	  <div class="row no-gutters">
+			<div class="col-12 col-lg-6 img-top-container">
+				<img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/cantact-thank-you-page.png?v=1652434808" class="img-fluid" />
+			</div>
+			<div class="col-12 col-lg-6 text-container">                                                      
+				{% if sub_title %}
+				  <h2 class="header-sub-title">sub_title</h2>
+				{% endif %}
+				<h1 class="header-title">{{ title }}</h1>
+				<p class="sub-title">or find your answer in our <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/faq">FAQ page</a></p>
+				{% if desc %}
+				  <p class="header-desc">{{ desc }}</p>
+				{% endif %}
+				{% if cta_btn %}
+					<div class="thank-btn-box">
+						<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/index" class="back-to-btn btn-theme-blue">{{ 'contact_us.field.btn_back_to_home' | t: btn_back_to_home }}</a>   
+						<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/all-products" class="btn-discover-more btn-theme-transparent">{{ 'contact_us.field.btn_discover_more' | t: btn_discover_more }}</a>  				     
+				   </div>                                             
+				 {% endif %}                                                                                                       
+			</div> 
+		</div> 
+	</div>
+</div>                                        

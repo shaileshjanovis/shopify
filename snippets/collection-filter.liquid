@@ -1,0 +1,36 @@
+{% if request.path contains 'collections/skincare' %}
+   {% include 'filter-skincare' %}
+{% endif %}
+{% if request.path contains 'collections/suncare' %}
+   {% include 'filter-suncare' %}
+{% endif %}
+{% if request.path contains 'collections/body-care' %}
+   {% include 'filter-body-care' %}
+{% endif %}
+{% if request.path contains 'collections/hair' %}
+   {% include 'filter-hair' %}
+{% endif %}
+{% if request.path contains 'collections/makeup' %}
+   {% include 'filter-makeup' %}
+{% endif %}
+{% if request.path contains 'collections/fragrance' %}
+   {% include 'filter-fragrance' %}
+{% endif %}
+{% if request.path contains 'collections/apothecary' %}
+   {% include 'filter-apothecary' %}
+{% endif %}
+{% if request.path contains 'collections/baby-care' %}
+   {% include 'filter-baby-care' %}
+{% endif %}
+{% if request.path contains 'collections/kids-care' %}
+   {% include 'filter-kids-care' %}
+{% endif %}
+{% if request.path contains 'collections/new' %}
+   {% include 'filter-new' %}
+{% endif %}
+{% if request.path contains 'collections/best-seller' %}
+   {% include 'filter-best-seller' %}
+{% endif %}
+{% if request.path contains 'collections/promos' %}
+   {% include 'filter-promos' %}
+{% endif %}

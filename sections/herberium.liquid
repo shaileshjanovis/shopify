@@ -1,0 +1,120 @@
+<div class="greece-external-container">
+  <div class="greece-map-intro">
+  <h1>{{ section.settings.intro-title }}</h1>
+  <p>{{ section.settings.intro-description }}</p>
+</div>
+
+<div class="herberium-container">
+  <figure style="text-align:center;">
+  	{% for block in section.blocks %}
+    <a href="javascript://" class="loc-pins" style="top: {{ block.settings.top }}%; left: {{ block.settings.left }}%;">
+    <div class="loaction-title">
+    	<div class="places">{{ block.settings.place }}</div>
+    	<div class="farmers">{{ block.settings.farmer }}e</div>
+      	<div class="herbs">{{ block.settings.herb }}</div>
+    </div>
+    <div class="herberium-pins">
+      <div class="herberium-content" onclick="location.href='{{ block.settings.link }}';">
+    	<div class="map-places">{{ block.settings.place }}</div>
+    	<div class="map-farmers">{{ block.settings.farmer }}</div>
+      	<div class="map-herbs">{{ block.settings.herb }}</div>
+      
+      </div>
+      <div class="herberium-image">
+        <img src="{{ block.settings.loaction-image | img_url: 'master' }}">
+      </div>
+    </div>
+  </a>
+    <div class="herberium-content outer-herberium-mob" onclick="location.href='{{ block.settings.link }}';">
+   
+    	<div class="map-places">{{ block.settings.place }}</div>
+    	<div class="map-farmers">{{ block.settings.farmer }}</div>
+      	<div class="map-herbs">{{ block.settings.herb }}</div>
+    
+      </div>
+  {% endfor %}
+  <img usemap="#continents_map" src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/map_greece.jpg?v=1626440706" width="600" />
+  
+</figure>
+</div>
+
+<div class="map-category">
+	<ul class="map-nav">
+      <li><a id="place-view" href="javascript://">places</a></li>
+      <li><a href="javascript://" id="farmers-view">Farmers</a></li>
+      <li><a href="javascript://" id="herbs-view">herbs</a></li>
+	</ul>
+</div>
+</div>
+{% schema %}
+  {
+    "name": "Herberium",
+    "blocks": [
+              {
+              	"type": "add_section",
+                "name": "Locations",
+                "settings": [
+                            {
+                            "id": "place",
+                            "type": "text",
+                            "label": "Add Place"
+                          	},
+							{
+                            "id": "farmer",
+                            "type": "text",
+                            "label": "Add Farmer"
+                          	},
+							{
+                            "id": "herb",
+                            "type": "text",
+                            "label": "Add Herb"
+                          	},
+							{
+                               "type": "header",
+                               "content": "Add Pin Location"
+                            },
+							{
+                            "id": "top",
+                            "type": "text",
+                            "label": "Pin from top"
+                          	},
+							{
+                            "id": "left",
+                            "type": "text",
+                            "label": "Pin from left"
+                          	},
+							{
+                              "type": "image_picker",
+                              "id": "loaction-image",
+                              "label": "Select Image"
+                            },
+							{
+                              "id": "link",
+                              "type": "url",
+                              "label": "Herberium Page link"
+                            }
+
+                  			]
+                }
+    			],
+	"settings": [
+				{
+                            "id": "intro-title",
+                            "type": "richtext",
+                            "label": "Greece Intro Title"
+                          	},
+							{
+                            "id": "intro-description",
+                            "type": "richtext",
+                            "label": "Intro Description"
+                          	}
+				]
+
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

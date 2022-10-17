@@ -1,0 +1,48 @@
+<main role="main" class="main-wrap with-sidebar no-header">
+  <div class="page-sidebar">
+    {% render 'customers-sidebar', active: 'addresses' %}
+  </div>
+  <div class="page-main-content">
+    <div class="section-wrap section-profile">
+      <a href="{{ routes.account_addresses_url }}" class="general-link go-back">
+        <i class="icon ki-caret-left"></i>&nbsp;<span class="text">Back to my addresses</span>
+      </a>
+
+      <h1 class="section-title">Addresses</h1>
+
+      <div class="form-wrap" data-form="new">
+        <h2 class="section-sub-title">Add a New Address</h2>
+        {% form 'customer_address', customer.new_address %}
+        {% render 'form-address', form: customer.new_address %}
+        {% endform %}
+      </div>
+      {% for address in customer.addresses %}
+        <div class="form-wrap" data-form="{{ address.id }}">
+          {% form 'customer_address', address %}
+            <h2 class="section-sub-title">Edit Address</h2>
+          {% render 'form-address', form: address %}
+          {% endform %}
+        </div>
+      {% endfor %}
+
+      <div class="address-list">
+        {% for address in customer.addresses %}
+          <div class="address-container" {% if address == customer.default_address %}data-default{% endif %}>
+            <div class="address-inner">
+              {{ address | format_address }}
+              <div class="actions-wrap">
+                <a href="#" class="address-edit-link general-link" data-form-id="{{ address.id }}">Edit</a>
+                <a href="#" class="address-delete-link general-link" data-address-url="{{ address.url }}">Delete</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <button type="button" class="primary-btn address-edit-link new-address-btn" data-form-id="new">
+        Add A New Address
+      </button>
+
+    </div>
+  </div>
+</main>

@@ -1,0 +1,15 @@
+{%- comment -%}
+  {% if shop.customer_accounts_enabled %}
+    {% if customer %}
+      <a href="/account">account</a>
+      {{ 'log out' | customer_logout_link }}
+    {% else %}
+      {{ 'log in ' | customer_login_link }}
+      {{ 'register' | customer_register_link }}
+    {% endif %}
+  {% endif %}
+{%- endcomment -%}
+
+<svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M15.9 6c0 2.8-2.2 5-5 5s-5-2.2-5-5 2.2-5 5-5c2.7 0 5 2.2 5 5zM10.9 11C5.4 11 1 16 1 22.2c0 0 1.5 1.6 9.9 1.6s9.9-1.6 9.9-1.6C20.7 16 16.3 11 10.9 11z" stroke="#444" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

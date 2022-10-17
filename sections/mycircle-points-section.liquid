@@ -1,0 +1,706 @@
+<div class="korres-points-container">
+  <h3>
+    {{ section.settings.page-title }}
+  </h3>
+  <ul class="tabs-nav">
+    <li class="tab-active">
+      <a class="desktop" href="#tab-1" rel="nofollow">{{ section.settings.olive-tab }}</a>
+      <a class="mobile" href="#tab-1" rel="nofollow">{{ section.settings.olive-tab-mob }}</a>
+    </li>
+    <li>
+      <a class="desktop" href="#tab-2" rel="nofollow">{{ section.settings.brown-tab }}</a>
+      <a class="mobile" href="#tab-2" rel="nofollow">{{ section.settings.brown-tab-mob }}</a>
+    </li>
+    <li>
+      <a class="desktop" href="#tab-3" rel="nofollow">{{ section.settings.white-tab }}</a>
+      <a class="mobile" href="#tab-3" rel="nofollow">{{ section.settings.white-tab-mob }}</a>
+    </li>
+    <li>
+      <a class="desktop" href="#tab-4" rel="nofollow">{{ section.settings.blue-tab }}</a>
+      <a class="mobile" href="#tab-4" rel="nofollow">{{ section.settings.blue-tab-mob }}</a>
+    </li>
+  </ul>
+  <div class="tabs-stage">
+    {% for block in section.blocks %}
+    {% if block.type == 'block-olive-circle' %}
+    <div id="tab-1" class="tab-container">
+      <div class="korres-circe olive-circle">
+        <img src="{{block.settings.olive-circle-img | img_url: 'master'}}" class="circle-img img-fluid"/>
+        <h2>{{block.settings.olive-title}}</h2>
+        <div class="bg-box">
+          {{block.settings.olive-points}}
+        </div>
+        <div class="boxes-container">
+          <div class="row no-gutters w-100">
+            <div class="col-6 col-md-3 col-lg-3">
+              <div class="box">
+                <h6>{{block.settings.olive-box1-points}}</h6>
+                <p>{{block.settings.olive-box1-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-3">
+              <div class="box">
+                <h6>{{block.settings.olive-box2-points}}</h6>
+                <p class="w-100">{{block.settings.olive-box2-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-3">
+              <div class="box">
+                <h6>{{block.settings.olive-box3-points}}</h6>
+                <p class="w-160">{{block.settings.olive-box3-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-3">
+              <div class="box">
+                <h6>{{block.settings.olive-box4-points}}</h6>
+                <p class="w-160">{{block.settings.olive-box4-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-3">
+              <div class="box">
+                <h6>{{block.settings.olive-box5-points}}</h6>
+                <p>{{block.settings.olive-box5-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-3">
+              <div class="box">
+                <h6>{{block.settings.olive-box6-points}}</h6>
+                <p>{{block.settings.olive-box6-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-3">
+              <div class="box">
+                <h6>{{block.settings.olive-box7-points}}</h6>
+                <p>{{block.settings.olive-box7-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 col-lg-3">
+              <div class="box">
+                <h6>{{block.settings.olive-box8-points}}</h6>
+                <p class="w-146">{{block.settings.olive-box8-text}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-brown-circle' %}
+    <div id="tab-2" class="tab-container">
+      <div class="korres-circe brown-circle">
+        <img src="{{block.settings.brown-circle-img | img_url: 'master'}}" class="circle-img img-fluid" />
+        <h2>{{block.settings.brown-title}}</h2>
+        <div class="bg-box">
+          {{block.settings.brown-points}}
+        </div>
+        <div class="boxes-container">
+          <div class="row no-gutters w-100">
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.brown-box1-points}}</h6>
+                <p>{{block.settings.brown-box1-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.brown-box2-points}}</h6>
+                <p>{{block.settings.brown-box2-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.brown-box3-points}}</h6>
+                <p>{{block.settings.brown-box3-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.brown-box4-points}}</h6>
+                <p>{{block.settings.brown-box4-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.brown-box5-points}}</h6>
+                <p>{{block.settings.brown-box5-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.brown-box6-points}}</h6>
+                <p class="w-146">{{block.settings.brown-box6-text}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-white-circle' %}
+    <div id="tab-3" class="tab-container">
+      <div class="korres-circe white-circle">
+        <img src="{{block.settings.white-circle-img | img_url: 'master'}}" class="circle-img img-fluid" />
+        <h2>{{block.settings.white-title}}</h2>
+        <div class="bg-box">
+          {{block.settings.white-points}}
+        </div>
+        <div class="boxes-container">
+          <div class="row no-gutters w-100">
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.white-box1-points}}</h6>
+                <p>{{block.settings.white-box1-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.white-box2-points}}</h6>
+                <p>{{block.settings.white-box2-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.white-box3-points}}</h6>
+                <p>{{block.settings.white-box3-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.white-box4-points}}</h6>
+                <p>{{block.settings.white-box4-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.white-box5-points}}</h6>
+                <p>{{block.settings.white-box5-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.white-box6-points}}</h6>
+                <p class="w-146">{{block.settings.white-box6-text}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'block-blue-circle' %}
+    <div id="tab-4" class="tab-container">
+      <div class="korres-circe blue-circle">
+        <img src="{{block.settings.blue-circle-img | img_url: 'master'}}" class="circle-img img-fluid" />
+        <h2>{{block.settings.blue-title}}</h2>
+        <div class="bg-box">
+          {{block.settings.blue-points}}
+        </div>
+        <div class="boxes-container">
+          <div class="row no-gutters w-100">
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.blue-box1-points}}</h6>
+                <p>{{block.settings.blue-box1-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.blue-box2-points}}</h6>
+                <p>{{block.settings.blue-box2-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.blue-box3-points}}</h6>
+                <p>{{block.settings.blue-box3-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.blue-box4-points}}</h6>
+                <p>{{block.settings.blue-box4-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.blue-box5-points}}</h6>
+                <p>{{block.settings.blue-box5-text}}</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-4">
+              <div class="box">
+                <h6>{{block.settings.blue-box6-points}}</h6>
+                <p class="w-146">{{block.settings.blue-box6-text}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "MyCircle Extra Points",
+"settings": [{
+"id": "page-title",
+"type": "richtext",
+"label": "Page Title"
+},
+{
+"id": "olive-tab",
+"type": "text",
+"label": "Olive Tab Title Web",
+"default": "Olive Circle"
+},
+{
+"id": "olive-tab-mob",
+"type": "text",
+"label": "Olive Tab Title Mobile",
+"default": "Olive"
+},
+{
+"id": "brown-tab",
+"type": "text",
+"label": "Brown Tab Title Web",
+"default": "Brown Circle"
+},
+{
+"id": "brown-tab-mob",
+"type": "text",
+"label": "Brown Tab Title Mobile",
+"default": "Brown"
+},
+{
+"id": "white-tab",
+"type": "text",
+"label": "White Tab Title Web",
+"default": "White Circle"
+},
+{
+"id": "white-tab-mob",
+"type": "text",
+"label": "White Tab Title Mobile",
+"default": "White"
+},
+{
+"id": "blue-tab",
+"type": "text",
+"label": "Blue Tab Title Web",
+"default": "Blue Circle"
+},
+{
+"id": "blue-tab-mob",
+"type": "text",
+"label": "Blue Tab Title Mobile",
+"default": "Blue"
+}
+],
+"blocks": [{
+"type": "block-olive-circle",
+"name": "Olive Circle",
+"settings": [{
+"id": "olive-circle-img",
+"type": "image_picker",
+"label": "Image"
+},
+{
+"id": "olive-title",
+"type": "text",
+"label": "Olive Title",
+"default": "My Olive Circle"
+},
+{
+"id": "olive-points",
+"type": "richtext",
+"label": "Sum Olive Points"
+},
+{
+"id": "olive-box1-points",
+"type": "text",
+"label": "Points Box 1",
+"default": "+15"
+},
+{
+"id": "olive-box1-text",
+"type": "text",
+"label": "Text Box 1",
+"default": "Εγγραφή στο KORRES Circle"
+},
+{
+"id": "olive-box2-points",
+"type": "text",
+"label": "Points Box 2",
+"default": "+15"
+},
+{
+"id": "olive-box2-text",
+"type": "text",
+"label": "Text Box 2",
+"default": "Επιλογή αγαπημένου σημείου πώλησης"
+},
+{
+"id": "olive-box3-points",
+"type": "text",
+"label": "Points Box 3",
+"default": "+25"
+},
+{
+"id": "olive-box3-text",
+"type": "text",
+"label": "Text Box 3",
+"default": "Εγγραφή με SMS επικοινωνία"
+},
+{
+"id": "olive-box4-points",
+"type": "text",
+"label": "Points Box 4",
+"default": "+25"
+},
+{
+"id": "olive-box4-text",
+"type": "text",
+"label": "Text Box 4",
+"default": "Εγγραφή στο KORRES Newsletter"
+},
+{
+"id": "olive-box5-points",
+"type": "text",
+"label": "Points Box 5",
+"default": "Gift"
+},
+{
+"id": "olive-box5-text",
+"type": "text",
+"label": "Text Box 5",
+"default": "Εορτασμός Γενεθλίων"
+},
+{
+"id": "olive-box6-points",
+"type": "text",
+"label": "Points Box 6",
+"default": "+10"
+},
+{
+"id": "olive-box6-text",
+"type": "text",
+"label": "Text Box 6",
+"default": "Παραλαβή από το κατάστημα"
+},
+{
+"id": "olive-box7-points",
+"type": "text",
+"label": "Points Box 7",
+"default": "215"
+},
+{
+"id": "olive-box7-text",
+"type": "text",
+"label": "Text Box 7",
+"default": "Παραγγελία ανω των 50€"
+},
+{
+"id": "olive-box8-points",
+"type": "text",
+"label": "Points Box 8",
+"default": "+25"
+},
+{
+"id": "olive-box8-text",
+"type": "text",
+"label": "Text Box 8",
+"default": "Παραγγελία άνω 3 τεμαχίων"
+}
+]
+},
+{
+"type": "block-brown-circle",
+"name": "Brown Circle",
+"settings": [{
+"id": "brown-circle-img",
+"type": "image_picker",
+"label": "Image"
+},
+{
+"id": "brown-title",
+"type": "text",
+"label": "Brown Title",
+"default": "My Brown Circle"
+},
+{
+"id": "brown-points",
+"type": "richtext",
+"label": "Sum Brown Points"
+},
+{
+"id": "brown-box1-points",
+"type": "text",
+"label": "Points Box 1",
+"default": "Gift"
+},
+{
+"id": "brown-box1-text",
+"type": "text",
+"label": "Text Box 1",
+"default": "Εορτασμός Γενεθλίων"
+},
+{
+"id": "brown-box2-points",
+"type": "text",
+"label": "Points Box 2",
+"default": "+10"
+},
+{
+"id": "brown-box2-text",
+"type": "text",
+"label": "Text Box 2",
+"default": "Παραλαβή από το κατάστημα"
+},
+{
+"id": "brown-box3-points",
+"type": "text",
+"label": "Points Box 3",
+"default": "+25"
+},
+{
+"id": "brown-box3-text",
+"type": "text",
+"label": "Text Box 3",
+"default": "Upgrade στον Brown Circle"
+},
+{
+"id": "brown-box4-points",
+"type": "text",
+"label": "Points Box 4",
+"default": "+25"
+},
+{
+"id": "brown-box4-text",
+"type": "text",
+"label": "Text Box 4",
+"default": "Πρώτη παραγγελία"
+},
+{
+"id": "brown-box5-points",
+"type": "text",
+"label": "Points Box 5",
+"default": "+50"
+},
+{
+"id": "brown-box5-text",
+"type": "text",
+"label": "Text Box 5",
+"default": "Παραγγελία ανω των 50€"
+},
+{
+"id": "brown-box6-points",
+"type": "text",
+"label": "Points Box 6",
+"default": "+50"
+},
+{
+"id": "brown-box6-text",
+"type": "text",
+"label": "Text Box 6",
+"default": "Παραγγελία άνω 3 τεμαχίων"
+}
+]
+},
+{
+"type": "block-white-circle",
+"name": "White Circle",
+"settings": [{
+"id": "white-circle-img",
+"type": "image_picker",
+"label": "Image"
+},
+{
+"id": "white-title",
+"type": "text",
+"label": "White Title",
+"default": "My White Circle"
+},
+{
+"id": "white-points",
+"type": "richtext",
+"label": "Sum White Points"
+},
+{
+"id": "white-box1-points",
+"type": "text",
+"label": "Points Box 1",
+"default": "Gift"
+},
+{
+"id": "white-box1-text",
+"type": "text",
+"label": "Text Box 1",
+"default": "Εορτασμός Γενεθλίων"
+},
+{
+"id": "white-box2-points",
+"type": "text",
+"label": "Points Box 2",
+"default": "+10"
+},
+{
+"id": "white-box2-text",
+"type": "text",
+"label": "Text Box 2",
+"default": "Παραλαβή από το κατάστημα"
+},
+{
+"id": "white-box3-points",
+"type": "text",
+"label": "Points Box 3",
+"default": "+100"
+},
+{
+"id": "white-box3-text",
+"type": "text",
+"label": "Text Box 3",
+"default": "Upgrade στον White Circle"
+},
+{
+"id": "white-box4-points",
+"type": "text",
+"label": "Points Box 4",
+"default": "+100"
+},
+{
+"id": "white-box4-text",
+"type": "text",
+"label": "Text Box 4",
+"default": "Πρώτη παραγγελία"
+},
+{
+"id": "white-box5-points",
+"type": "text",
+"label": "Points Box 5",
+"default": "+75"
+},
+{
+"id": "white-box5-text",
+"type": "text",
+"label": "Text Box 5",
+"default": "Παραγγελία ανω των 50€"
+},
+{
+"id": "white-box6-points",
+"type": "text",
+"label": "Points Box 6",
+"default": "+75"
+},
+{
+"id": "white-box6-text",
+"type": "text",
+"label": "Text Box 6",
+"default": "Παραγγελία άνω 3 τεμαχίων"
+}
+]
+},
+{
+"type": "block-blue-circle",
+"name": "Blue Circle",
+"settings": [{
+"id": "blue-circle-img",
+"type": "image_picker",
+"label": "Image"
+},
+{
+"id": "blue-title",
+"type": "text",
+"label": "Blue Title",
+"default": "My Blue Circle"
+},
+{
+"id": "blue-points",
+"type": "richtext",
+"label": "Sum Blue Points"
+},
+{
+"id": "blue-box1-points",
+"type": "text",
+"label": "Points Box 1",
+"default": "Gift"
+},
+{
+"id": "blue-box1-text",
+"type": "text",
+"label": "Text Box 1",
+"default": "Εορτασμός Γενεθλίων"
+},
+{
+"id": "blue-box2-points",
+"type": "text",
+"label": "Points Box 2",
+"default": "+10"
+},
+{
+"id": "blue-box2-text",
+"type": "text",
+"label": "Text Box 2",
+"default": "Παραλαβή από το κατάστημα"
+},
+{
+"id": "blue-box3-points",
+"type": "text",
+"label": "Points Box 3",
+"default": "+100"
+},
+{
+"id": "blue-box3-text",
+"type": "text",
+"label": "Text Box 3",
+"default": "Upgrade στον Blue Circle"
+},
+{
+"id": "blue-box4-points",
+"type": "text",
+"label": "Points Box 4",
+"default": "+100"
+},
+{
+"id": "blue-box4-text",
+"type": "text",
+"label": "Text Box 4",
+"default": "Πρώτη παραγγελία"
+},
+{
+"id": "blue-box5-points",
+"type": "text",
+"label": "Points Box 5",
+"default": "+100"
+},
+{
+"id": "blue-box5-text",
+"type": "text",
+"label": "Text Box 5",
+"default": "Παραγγελία ανω των 50€"
+},
+{
+"id": "blue-box6-points",
+"type": "text",
+"label": "Points Box 6",
+"default": "+100"
+},
+{
+"id": "blue-box6-text",
+"type": "text",
+"label": "Text Box 6",
+"default": "Παραγγελία άνω 3 τεμαχίων"
+}
+]
+}
+]
+}
+{% endschema %}

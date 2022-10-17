@@ -1,0 +1,581 @@
+<input type="hidden" id="customer_id" value="{{customer.id}}">
+
+{% assign first_order = customer.metafields.customer.first_order %}
+{% assign royalty = customer.metafields.points.loyalty | split : '|' | last | plus:0 %}
+{% assign product_id = '' %}
+
+{% for order in customer.orders %}
+  {% for item in order.line_items %}
+    {% unless product_id contains item.product_id %}
+      {% assign product_id = product_id | append:',' | append:item.product_id %}
+    {% endunless %}
+  {% endfor %}
+{% endfor %}
+
+{% assign circles = shop.metafields.circle %}
+
+{% assign circleValue = '' %}
+{% for circle in circles %}
+  {% if circle[0] contains 'My_' %}
+    {% unless circle[0] contains 'level_' %}
+      {% assign circleValue = circleValue | append:'::' | append:shop.metafields.circle[circle[0]] %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+<input type="hidden" value="{{circleValue}}" id="circles">
+
+<div class="gift_main d-none d-sm-block desktop-secs {% if request.locale.iso_code == 'el' %}greek-text-control{% endif %}">
+  <ul class="tabs"></ul>
+  {% for circle in circles %}
+    {% if circle[0] contains 'My_' %}
+      {% unless circle[0] contains 'level_' %}
+      {% assign levelName =  shop.metafields.circle[circle[0]] | split:'|' | first | prepend:'level_' %}
+      
+      {% assign points =  shop.metafields.circle[levelName] %}
+      {% assign maxP =  shop.metafields.circle[circle[0]] | split:'|' %}
+      {% assign maxPoint = maxP[2] | plus:0 %}
+      {% assign minPoint = maxP[1] | plus:0 %}
+      {% assign stro = royalty | times:237 | divided_by:maxPoint %}
+      {% assign deg = royalty | times:340 | divided_by:maxPoint  %}
+  
+      {% if royalty >= maxPoint %}
+        {% assign stro = 237 %}
+      {% elsif royalty <= 100  %}
+        {% assign stro = stro | plus:8 %}
+      {% endif %}
+  
+      <div id="{{shop.metafields.circle[circle[0]] | split:'|' | first}}" data-points="{{ maxPoint }}" class="sdhajd gift_inner_cover tab-content olive_theme {% if royalty >= minPoint and royalty <= maxPoint %} current {% endif %} {% if royalty < minPoint %} locked {% endif %} {% if royalty >= maxPoint %}complete {% endif %}">
+        {% assign redeem_lock0 = shop.metafields.circle[levelName] | split : '|' %}
+        {% assign gift_lock0 = shop.metafields.circle[levelName] | split : '|' %}
+        {% assign left_p = maxPoint | minus:royalty %}
+        {% assign redeem1 = redeem_lock0[1] | times:320 | divided_by:maxPoint %}
+        {% assign redeem2 = redeem_lock0[4] | times:320 | divided_by:maxPoint %}
+        {% assign redeem3 = redeem_lock0[7] | times:320 | divided_by:maxPoint %}
+
+        {% assign gift1 = gift_lock0[1] | plus:0 %}
+        {% assign gift2 = gift_lock0[4] | plus:0 %}
+        {% assign gift3 = gift_lock0[7] | plus:0 %}
+
+        <div class="hjsdk gift_in mt-3">
+          <div class="cover">
+            <div class="inner">
+              <div class="cssprogresscontainer">
+                <div class="pie_main"  data-count="{{royalty}}">
+
+                  <svg id="animated" viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="transparent"/>
+                    {% unless royalty < minPoint %}
+                    <path id="progress" stroke-linecap="round" stroke-width="4" stroke-dasharray= "{{stro}} 237"; stroke="{{shop.metafields.circle[circle[0]] | split:'|' | last}}" fill="none"
+                          d="M50 10
+                             a 40 40 0 0 1 0 80
+                             a 40 40 0 0 1 0 -80">
+                      {% endunless %}
+                    </path>
+                  </svg>
+                  
+                  {% unless royalty < minPoint %}
+                    <div class="degree" style="transform: translateY(-50%)rotate({{deg}}deg);">
+                      <img class="lozad" data-src="{{ 'dot_one.svg' | asset_url }}">
+                    </div>
+                  	
+					{% assign lvl_nme = levelName | split:'level_' | last | replace:'_',' ' | replace:'My','' | strip %}
+
+                    <div class="start tick">
+                      {% if lvl_nme == 'Olive Circle' %}
+                          {% include 'olive_tick_new' %}
+                      {% else %}
+                          {% include 'tick' %}
+                      {% endif %}
+
+                      <style>
+                        {% assign clr = section.settings.t_color %}
+                        #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .tick svg .a {
+                          fill: {{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                        }
+                      </style>
+                    </div>
+                  {% endunless %}
+                  
+                  {% if royalty < minPoint %}
+                    <div class="points_re">
+                      <div class="points_inner complete_points">
+                        <img class="lozad" data-src="{{ 'lock_image.png' | asset_url }}">
+                        <style>
+                          {% assign clr = section.settings.t_color %}
+                          #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .complete_points svg .a {
+                            fill:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                          }
+                        </style>
+                        <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">Circle Locked</span>
+                        <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' | replace:'My',''}} - {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                      </div>
+                    </div>
+                  {% else %}
+                  {% assign in = 1 %}
+                  {% for lock in redeem_lock0 %}
+                  {% assign lockdata = lock | plus:0 %}
+                  {% if lockdata > 0%}
+                  {% assign deg = lockdata | times:320 | divided_by:maxPoint %}
+                  {% assign i = forloop.index0 | minus:1 %}
+                  {% assign lvl_nme = levelName | split:'level_' | last | replace:'_',' ' | replace:'My','' | strip %}
+                  <div class="lock step{{forloop.index}}" data-circlenm="{{ lvl_nme }}" data-point="{{ lockdata }}" style="transform: translateY(-50%)rotate({{deg}}deg);">
+                    {% if lvl_nme == 'Olive Circle' %}
+                      {% if lockdata == 1000 %}
+                        <img class="content lozad" data-src="{{ 'Component_lock2.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+                      {% else %}
+                        <img class="nocontent lozad" data-src="{{ 'lock.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+                      {% endif %}
+                    {% else %}
+                        <img class="nocontent lozad" data-src="{{ 'lock.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+                    {% endif %}
+                    <span class="outer_content" style="display:none;"><span class="circle_nm" style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ lvl_nme }}</span><span class="circle_point" style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ lockdata | append : ' pts'}}</span></span>
+
+                    <style>
+                      #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .ui-tooltip{
+                        color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                      }
+                      .lock.step5 .upgrae{
+                        transform: rotate(-16deg);
+                        position: absolute;
+                        top: auto;
+                        bottom: -35px;
+                        left: -6px;
+                        right: auto;
+                        padding: 0 15px;
+                        background: #83937b;
+                        border-radius: 11px;
+                        color: #fff;
+                        z-index: -1;
+                        display:none;
+                        transition-duration:0.4s;
+                      }
+                      .lock.step5:hover .upgrae{
+                        display:block;
+                        transition-duration:0.4s;
+                      }
+                    </style>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                  <div class="points_re">
+                    <div class="points_inner incomplete_points">
+                      <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{royalty}}</span>
+                      <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.out_of' | t: out_of }} {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                    </div>
+                    <div class="points_inner complete_points" style="display:none;">
+                      {% include 'tick' %}
+                      <style>
+                        {% assign clr = section.settings.t_color %}
+                        #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .complete_points svg .a {
+                          fill:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                        }
+                      </style>
+                      <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.completed' | t: completed }}</span>
+                      <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' | replace:'My',''}} - {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <style>
+                    #tab-0 .pie_main:after{
+                      border-color:{{shop.metafields.circle[circle[0]] | split:'|' | last}}; 
+                    }
+                  </style>
+                </div>
+
+              </div>
+            </div>
+            <h1 id="Atcustomeremail" style="display:none;">{{ customer.email }}</h1>
+             <h1 style="display:none;" id="CircleNameAt">My Olive Circle</h1>
+            <div class="inner text_part">
+              <div class="text_inner">
+                <h3 style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' }}</h3>
+                <div class="joined-date">{% if request.locale.iso_code == 'el' %}Μέλος από:{% else %}Joined:{% endif %}<span>5/6/21</span></div>
+                {% unless royalty < minPoint %}
+                <a href="javascript:;" class="btn_link incom hover_here_plz" data-points={{royalty}}><b><p class="left_points">{{left_p}}</p> {{ 'circle_page.title.more_points' | t: more_points }}</b><span style="display:inline-block; padding-left:3px;">{{ 'circle_page.title.till_your_next_gift' | t: till_your_next_gift }}</span></a>
+                <a href="javascript:;" class="btn_link com" style="display:none;"><b>{{ 'circle_page.title.congratulations_level_up' | t: congratulations_level_up }}</b></a>
+                {% else %}
+                <a href="javascript:;" class="btn_link com"><b>You haven’t unlocked this level yet!</b></a>
+                {% endunless %}
+                <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/collections/all-products" class="btn-theme-white btn-back">{{ 'circle_page.title.back_to_shop' | t: back_to_shop }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% assign circleMeta = shop.metafields.circle[levelName] | split:'|' %}
+        
+        <div class="gift_in collection_gift" id="col-scroll">
+          <div class="top">
+          <div class="top_label">
+            <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.unlock_your_gift_collection' | t: unlock_your_gift_collection }}</label>
+            <p>{{ 'circle_page.title.discover_more_gifts_by_earning_points' | t: discover_more_gifts_by_earning_points }}</p>
+          </div>
+          <div class="top_label_complete" style="display:none;">
+            <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.gift_collection_has_been_unlocked' | t: gift_collection_has_been_unlocked }}</label>
+          </div>
+          <div class="expand_view">
+                <div class="exp">
+                    <span>{{ 'circle_page.title.expand_gifts_points' | t: expand_gifts_points }}</span>
+                    <img class="lozad" data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/expand-icon.png?v=1648557090" /> 
+                </div>
+                <div class="shp">
+                    <img class="lozad" data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/back-to-expand.png?v=1648557090" />
+                    <span>{{ 'circle_page.title.back_to_mycircle' | t: back_to_mycircle }} </span>                 
+                </div>
+          </div>
+          </div>
+          <div class="collection_in dragscroll" data-levelname="{{levelName}}">
+            {% assign index = 1 %}
+            {% assign forindex = 0 %}
+            {% for meta in circleMeta %}
+
+            {% assign poi = meta | plus:0 %}
+
+            {% if poi > 0 %}
+            {% if poi == 1 %}
+            {% assign gift = poi | minus:1 %}
+            {% else %}
+            {% assign gift = poi %}
+            {% endif %}
+            {% assign i = forloop.index0 | minus:1 %}
+            {% if forindex != 0 %}
+            {% assign forindex = forindex | minus:1 %}
+            {% assign giftName = circleMeta[forindex] %}
+            {% else %}
+            {% assign giftName = circleMeta[i] %}
+            {% endif %}
+            {% endif %}
+            {% if meta contains 'CollectionName_' %}
+            {% assign level_name = meta | replace:'CollectionName','' | replace:' ','_' | prepend:'level' %}
+            {% for collectionname in shop.metafields.Collection %}
+            {% assign lev_name = level_name | split:',' | first %}
+            {% if lev_name == collectionname[0] %}
+            {% assign value = collectionname[1] %}
+            {% break %}
+            {% endif %}
+            {% endfor %}
+
+            {% assign flag = 1 %}
+            {% for order in customer.orders %}
+            {% if order.total_price == 0 %}
+            {% assign orderTags = order.tags | join:',' %}
+            {% if gift == 0 %}
+            {% assign welcomgift = '0' %}
+            {% for tag in order.tags %}
+            {% if tag == welcomgift %}
+            {% for item in order.line_items %}
+            {% if value contains item.product_id %}
+            {% assign flag = 0 %}
+            {% break %}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% if orderTags contains gift %}
+            {% for item in order.line_items %}
+            {% if value contains item.product_id %}
+            {% assign flag = 0 %}
+            {% break %}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+            {% if flag == 1 %}
+            {% assign vs = value | split:'|' %}
+            {% for v in vs %}
+            {% for order in customer.orders %}
+            {% if order.total_price == 0 %}
+            {% assign orderTags = order.tags | join:',' %}
+            {% if gift == 0 %}
+            {% assign welcomgift = '0' %}
+            {% for tag in order.tags %}
+            {% if tag == welcomgift %}
+            {% for item in order.line_items %}
+            {% assign id = item.product_id | strip  %}
+            {% if id == v %}
+            {% assign flag = 0 %}
+            {% break %}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% if orderTags contains gift %}
+            {% for item in order.line_items %}
+            {% assign id = item.product_id | strip  %}
+            {% if id == v %}
+            {% assign flag = 0 %}
+            {% break %}
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+			<div class="box {% cycle 'odd','even' %} {% if first_order == null %}not_active {% elsif royalty < gift %}not_active {% else %}active_now {% endif %} {% if flag != 0 %}unlock_now{% endif %}" data-giftvalue="{{gift}}">
+              <a href="javascript:;" class="btn_coll" id="{{giftName | replace : ' ','_'}}" data-giftName="{{giftName}}" data-gift="{{gift}}" data-name="{{level_name | split:',' | first | append:levelName}}" data-value="{{value}}">
+              <div class="img_cv" style="background: url('{{level_name | split:',' | last}}');"></div>
+              <div class="text">
+                <span>{{giftName}}</span>
+                <label class="bck_point">{{gift}} <span>{{ 'circle_page.title.points' | t: points }}</span></label>
+                {% if first_order %}
+                    {% if royalty < gift %}
+                        <a href="javascript:;" data-case="locked" class="btn_coll unlock_gift btn-gift btn-locked-gift" id="{{giftName | replace : ' ','_'}}" data-giftName="{{giftName}}" data-gift="{{gift}}" data-name="{{level_name | split:',' | first | append:levelName}}" data-value="{{value}}">{{ 'circle_page.title.locked_gift' | t: locked_gift }}</a>
+                    {% else %}
+                        {% assign str = 'Level_' | append: gift  %}
+                        {% if customer.metafields.Level contains str  %}
+                            <a href="javascript:;" data-case="earned" class="btn_coll unlock_gift btn-gift btn-earned-gift" id="{{giftName | replace : ' ','_'}}" data-giftName="{{giftName}}" data-gift="{{gift}}" data-name="{{level_name | split:',' | first | append:levelName}}" data-value="{{value}}">Earned Gift</a>
+                        {% else %}
+                            <a href="javascript:;" data-case="unlock" class="btn_coll unlock_gift btn-gift  btn-unlock-gift" id="{{giftName | replace : ' ','_'}}" data-giftName="{{giftName}}" data-gift="{{gift}}" data-name="{{level_name | split:',' | first | append:levelName}}" data-value="{{value}}">{{ 'circle_page.title.unlocked_gift' | t: unlocked_gift }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <a href="javascript:;" data-case="locked" class="btn_coll btn-gift unlock_gift btn-locked-gift" id="{{giftName | replace : ' ','_'}}" data-giftName="{{giftName}}" data-gift="{{gift}}" data-name="{{level_name | split:',' | first | append:levelName}}" data-value="{{value}}">Locked Gift</a>
+                {% endif %}
+
+              </div>
+              </a>            
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+
+  <script type="text/javascript">
+    $(document).on('click','.desktop-secs #Lottery',function(){
+      	var dataName = $(this).data('name');
+        var originalText = $("ul.tabs li.current").data('tab');
+        var giftRec = $(this).data('gift');
+      	window.location.href = "{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/lottery?q="+originalText+"&type=label_"+giftRec;
+    });
+    
+    $(document).on('click','.desktop-secs #Gift',function(){
+      	var dataName = $(this).data('name');
+        var originalText = $("ul.tabs li.current").data('tab');
+        var giftRec = $(this).data('gift');
+        localStorage.setItem('activegift', giftRec);
+      
+      window.location.href = "{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/circle-gifts?q="+originalText+"&type="+dataName;
+    });
+
+    $(document).on('click','.desktop-secs #Event',function(){
+      	var dataName = $(this).data('name');
+        var originalText = $("ul.tabs li.current").data('tab');
+        var giftRec = $(this).data('gift');
+      	window.location.href = "{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/event-gift?q="+originalText+"&type=label_"+giftRec;
+    });    
+
+    $(document).on('click','.desktop-secs #Welcome_Gift',function(){
+      	window.location.href = "{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/welcome-gift-page";
+    });
+  </script>
+</div>
+<style>
+  .olive_theme .unlock svg .b{
+    stroke: {{section.settings.s_color}}; 
+  }
+  .brown_theme .unlock svg .b{
+    stroke: {{section.settings.s_color1}}; 
+  }
+  .white_theme .unlock svg .b{
+    stroke: {{section.settings.s_color3}}; 
+  }
+  .blue_theme .unlock svg .b{
+    stroke: {{section.settings.s_color3}}; 
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "Gift Section",
+  "class": "gift_section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "back_img",
+      "label": "welcome banner"
+    },
+    {
+      "type": "textarea",
+      "id": "detail",
+      "label": "welcome gift detail"
+    },
+    {
+      "type": "image_picker",
+      "id": "back_img_trip",
+      "label": "trip banner"
+    },
+    {
+      "type": "textarea",
+      "id": "detail_trip",
+      "label": "Trip detail"
+    },
+    {
+      "type": "color",
+      "id":"t_color",
+      "label": "theme color"
+    },
+    {
+      "type": "color",
+      "id":"l_color",
+      "label": "theme color Light"
+    },
+    {
+      "type": "color",
+      "id":"s_color",
+      "label": "Stroke color"
+    },
+    {
+      "type": "text",
+      "id" : "title",
+      "label" : "Title"
+    },
+    {
+      "type": "text",
+      "id" : "points",
+      "label" : "Out of Points"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text",
+      "label" : "Button text"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text1",
+      "label" : "Button text back"
+    },
+
+    {
+      "type": "color",
+      "id":"t_color1",
+      "label": "theme color"
+    },
+    {
+      "type": "color",
+      "id":"l_color1",
+      "label": "theme color Light"
+    },
+    {
+      "type": "color",
+      "id":"s_color1",
+      "label": "Stroke color"
+    },
+    {
+      "type": "text",
+      "id" : "title1",
+      "label" : "Title"
+    },
+    {
+      "type": "text",
+      "id" : "points1",
+      "label" : "Out of Points"
+    },
+    {
+      "type": "text",
+      "id" : "btn_textone",
+      "label" : "Button text"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text11",
+      "label" : "Button text back"
+    },
+
+    {
+      "type": "color",
+      "id":"t_color2",
+      "label": "theme color"
+    },
+    {
+      "type": "color",
+      "id":"l_color2",
+      "label": "theme color Light"
+    },
+    {
+      "type": "color",
+      "id":"s_color2",
+      "label": "Stroke color"
+    },
+    {
+      "type": "text",
+      "id" : "title2",
+      "label" : "Title"
+    },
+    {
+      "type": "text",
+      "id" : "points2",
+      "label" : "Out of Points"
+    },
+    {
+      "type": "text",
+      "id" : "btn_texttwo",
+      "label" : "Button text"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text12",
+      "label" : "Button text back"
+    },
+
+    {
+      "type": "color",
+      "id":"t_color3",
+      "label": "theme color"
+    },
+    {
+      "type": "color",
+      "id":"l_color3",
+      "label": "theme color Light"
+    },
+    {
+      "type": "color",
+      "id":"s_color3",
+      "label": "Stroke color"
+    },
+    {
+      "type": "text",
+      "id" : "title3",
+      "label" : "Title"
+    },
+    {
+      "type": "text",
+      "id" : "points3",
+      "label" : "Out of Points"
+    },
+    {
+      "type": "text",
+      "id" : "btn_textthree",
+      "label" : "Button text"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text13",
+      "label" : "Button text back"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "circle",
+      "settings": [
+
+
+      ]
+    }
+  ] 
+}
+{% endschema %}

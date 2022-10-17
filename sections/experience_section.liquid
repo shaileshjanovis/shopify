@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+      <div class="banner-experience">
+        <img src="{{section.settings.banner-image | img_url:'large'}}">
+        <div class="banner-experience-content">
+        <h2>{{section.settings.title}}</h2>
+        <p>{{section.settings.subtitle}}</p>
+        </div>
+      </div>
+      <div class="circle-description">
+        <p>{{section.settings.description}}</p>
+      </div>
+      <button class="get_link_btn">{{section.settings.btn-text}}</button>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "My circle experience",
+    "settings": [
+	{
+	"type": "image_picker",
+    "id"  : "banner-image",
+	"label": "Banner image"
+	},
+	{
+	"type": "text",
+    "id"  : "title",
+	"label": "Title"
+	},
+	{
+	"type": "text",
+    "id"  : "subtitle",
+	"label": "Subtitle"
+	},
+	{
+	"type": "text",
+    "id"  : "description",
+	"label": "Description"
+	},
+	{
+	"type": "text",
+    "id"  : "btn-text",
+	"label": "Button Label"
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

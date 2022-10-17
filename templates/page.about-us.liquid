@@ -1,0 +1,364 @@
+{%- assign metafield = page.metafields.kettle_about_us -%}
+
+
+
+<main role="main" class="about-us">
+
+  <section class="about hero">
+
+    <div class="absolute copy">
+
+      <h1>{{ page.metafields.kettle.hero_header }}</h1>
+
+      <p>{{ page.metafields.kettle.hero_body }}</p>
+
+    </div>
+
+
+
+    <div>
+
+      <picture>
+
+        <source
+
+          media="(min-width: 1200px)"
+
+          srcset="{{ page.metafields.kettle.hero_desktop_image }}"
+
+        />
+
+        <source
+
+          media="(min-width: 768px)"
+
+          srcset="//images.accentuate.io?c_options=w_1200&image={{ page.metafields.kettle.hero_tablet_image }} 1x,
+
+                  //images.accentuate.io?c_options=w_2400&image={{ page.metafields.kettle.hero_tablet_image }} 2x"
+
+        />
+
+        <source
+
+          media="(max-width: 767.98px)"
+
+          srcset="//images.accentuate.io?c_options=w_768&image={{ page.metafields.kettle.hero_mobile_image }} 1x,
+
+                  //images.accentuate.io?c_options=w_1536&image={{ page.metafields.kettle.hero_mobile_image }} 2x"
+
+        />
+
+
+
+        <img src="{{ page.metafields.kettle.hero_desktop_image }}" alt="About Us">
+
+      </picture>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="commitment">
+
+    <h2>The KORRES commitment</h2>
+
+
+
+    <div class="icons-container">
+
+      <div>
+
+        {% render 'icon-about-clean' %}
+
+        <h3>The cleanest, most natural ingredients.</h3>
+
+      </div>
+
+
+
+      <div>
+
+        {% render 'icon-about-protect' %}
+
+        <h3>We protect your skin and the planet.</h3>
+
+      </div>
+
+      
+
+      <div>
+
+        {% render 'icon-about-greece' %}
+
+        <h3>Made in Greece. From seed to skin.</h3>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="founders">
+
+    <div>
+
+      <h6>Our Founders</h6>
+
+
+
+      <div>
+
+        <h2>{{ metafield.founder_title }}</h2>
+
+        <p>{{ metafield.founder_quote }}</p>
+
+      </div>
+
+    </div>
+
+
+
+    <div>
+
+      <picture>
+
+        <source
+
+          media="(min-width: 1200px)"
+
+          srcset="{{ metafield.founder_image }}"
+
+        />
+
+        <source
+
+          media="(min-width: 768px)"
+
+          srcset="//images.accentuate.io?c_options=w_1200&image={{ metafield.founder_image }} 1x,
+
+                  //images.accentuate.io?c_options=w_2400&image={{ metafield.founder_image }} 2x"
+
+        />
+
+        <source
+
+          media="(max-width: 767.98px)"
+
+          srcset="//images.accentuate.io?c_options=w_708&image={{ metafield.founder_image }} 1x,
+
+                  //images.accentuate.io?c_options=w_1416&image={{ metafield.founder_image }} 2x"
+
+        />
+
+
+
+        <img src="{{ metafield.founder_image }}" alt="Founder">
+
+      </picture>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="timeline">
+
+    <h2>How it all began</h2>
+
+
+
+    {%- for year in metafield.timeline_year -%}
+
+      {%- assign index = forloop.index0 -%}
+
+
+
+      <div id="timeline-{{ index }}"{% cycle '', ' class="reverse"' %}>
+
+        <div class="image">
+
+          <picture>
+
+            <source
+
+              media="(min-width: 1200px)"
+
+              srcset="{{ metafield.timeline_desktop_image[index] }}"
+
+            />
+
+            <source
+
+              media="(min-width: 768px)"
+
+              srcset="//images.accentuate.io?c_options=w_1200&image={{ metafield.timeline_tablet_image[index] }} 1x,
+
+                      //images.accentuate.io?c_options=w_2400&image={{ metafield.timeline_tablet_image[index] }} 2x"
+
+            />
+
+            <source
+
+              media="(max-width: 767.98px)"
+
+              srcset="//images.accentuate.io?c_options=w_768&image={{ metafield.timeline_mobile_image[index] }} 1x,
+
+                      //images.accentuate.io?c_options=w_1536&image={{ metafield.timeline_mobile_image[index] }} 2x"
+
+            />
+
+
+
+            <img src="{{ metafield.timeline_desktop_image[index] }}" alt="{{ year }}"{% unless metafield.timeline_image_crop[index] == blank %} style="object-fit: {{ metafield.timeline_image_crop[index] | downcase }}"{% endunless %}>
+
+          </picture>
+
+
+
+          {%- if metafield.timeline_parallax_image[index] != empty -%}
+
+            <div class="parallax" data-parallax-speed="2" data-parallax-direction="up">
+
+              <img src="{{ metafield.timeline_parallax_image[index] }}" alt="{{ year }} Parallax">
+
+            </div>
+
+          {%- endif -%}
+
+        </div>
+
+
+
+        <div class="year-select">
+
+          <button type="button" class="select">
+
+            <h6>{{ year }}</h6>
+
+            {% render 'icon-chevron' %}
+
+          </button>
+
+
+
+          {% if metafield.timeline_circle[index] == "true" %}
+
+            <svg width="288" height="168" viewBox="0 0 288 168" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+              <path d="M119.31 11.136c29.395-6.153 59.692-8.227 89.475-3.884 14.854 2.214 29.62 6.042 43.409 12.807 6.869 3.396 13.475 7.586 19.303 12.946 5.779 5.373 10.818 12.013 13.714 19.864 2.945 7.823 3.459 16.607 2.005 24.847-1.454 8.283-4.838 15.995-9.175 22.816-4.337 6.848-9.64 12.876-15.343 18.277-5.729 5.401-11.921 10.148-18.364 14.407-12.911 8.505-26.8 15.006-41.014 20.226-14.24 5.179-28.906 8.881-43.735 11.29-14.829 2.394-29.833 3.535-44.837 3.215-14.992-.334-29.997-2.06-44.65-5.777-14.616-3.73-29.018-9.312-41.88-18.138-6.392-4.44-12.371-9.744-17.273-16.203-4.888-6.417-8.611-14.101-10.128-22.425-1.554-8.31-.84-17.066 1.705-25.015C5.054 72.413 9.14 65.16 14.017 58.785c4.876-6.403 10.504-12.041 16.508-17.08 6.004-5.04 12.385-9.48 18.99-13.447 13.212-7.934 27.277-14.004 41.667-18.64C105.584 4.97 120.363 1.866 135.23 0l.012.167c-14.841 2.074-29.52 5.512-43.847 10.245-14.302 4.761-28.266 10.928-41.34 18.932-6.531 4.009-12.836 8.463-18.74 13.502-5.904 5.04-11.42 10.65-16.17 16.983-4.739 6.32-8.75 13.377-11.182 21.117-2.456 7.712-3.133 16.12-1.617 24.11 1.467 8.004 5.052 15.409 9.803 21.66 4.776 6.264 10.604 11.484 16.872 15.869 12.623 8.741 26.875 14.337 41.365 18.096 14.54 3.716 29.445 5.624 44.362 6.055 14.929.432 29.895-.557 44.699-2.854 14.804-2.31 29.445-5.916 43.685-10.997 14.239-5.053 28.04-11.72 40.851-20.281 6.393-4.288 12.523-9.062 18.176-14.463 5.641-5.401 10.855-11.415 15.092-18.208 4.249-6.751 7.508-14.352 8.887-22.44 1.379-8.045.828-16.55-2.056-24.095-2.832-7.587-7.771-14.004-13.45-19.238-5.715-5.248-12.184-9.438-18.965-12.834-13.6-6.78-28.266-10.691-43.033-12.974-14.791-2.269-29.783-2.881-44.724-2.269-14.942.599-29.846 2.367-44.587 5.22l-.013-.167z" fill="#111E90"/>
+
+            </svg>
+
+          {% endif %}
+
+        </div>
+
+
+
+        <div class="drop-down" data-index="{{ index }}">
+
+          <ul>
+
+            {%- for li in metafield.timeline_year -%}
+
+              {% assign j = forloop.index0 %}
+
+              <li data-jumpto="timeline-{{ j }}"{% if index == j %} class="active"{% endif %}>
+
+                {{- li -}}
+
+                {%- if index == j -%}
+
+                  {% render 'icon-chevron' %}
+
+                {%- endif -%}
+
+              </li>
+
+            {%- endfor -%}
+
+          </ul>
+
+        </div>
+
+
+
+        <div class="copy">
+
+          <h2>{{ metafield.timeline_title[index] }}</h2>
+
+          {{ metafield.timeline_rich_body[index] }}
+
+        </div>
+
+      </div>
+
+    {%- endfor -%}
+
+  </section>
+
+
+
+  <section class="about footer-hero">
+
+    <div class="absolute copy">
+
+      <h2>{{ page.metafields.kettle.cta_banner_header }}</h2>
+
+      <p>{{ page.metafields.kettle.cta_banner_body }}</p>
+
+      <a href="/pages/our-people" class="button-cta">Meet The Team</a>
+
+    </div>
+
+
+
+    <div>
+
+      <picture>
+
+        <source
+
+          media="(min-width: 1200px)"
+
+          srcset="{{ page.metafields.kettle.cta_banner_desktop_image }}"
+
+        />
+
+        <source
+
+          media="(min-width: 768px)"
+
+          srcset="//images.accentuate.io?c_options=w_1200&image={{ page.metafields.kettle.cta_banner_tablet_image }} 1x,
+
+                  //images.accentuate.io?c_options=w_2400&image={{ page.metafields.kettle.cta_banner_tablet_image }} 2x"
+
+        />
+
+        <source
+
+          media="(max-width: 767.98px)"
+
+          srcset="//images.accentuate.io?c_options=w_768&image={{ page.metafields.kettle.cta_banner_mobile_image }} 1x,
+
+                  //images.accentuate.io?c_options=w_1536&image={{ page.metafields.kettle.cta_banner_mobile_image }} 2x"
+
+        />
+
+
+
+        <img src="{{ page.metafields.kettle.cta_banner_desktop_image }}" alt="Team">
+
+      </picture>
+
+    </div>
+
+  </section>
+
+</main>
+

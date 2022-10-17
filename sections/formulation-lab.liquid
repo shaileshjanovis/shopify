@@ -1,0 +1,65 @@
+<div class="container" id="formulationn">
+ <div class="row first-image">
+   <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 pd-xs-0">
+	<img src="{{section.settings.section-image| img_url:'large'}}">
+   </div>
+   <div class="col-md-7 col-lg-7 col-sm-6 col-xs-12 pd-xs-0">
+     <img src="{{section.settings.formulation-lab-image-1 | img_url:'large'}}">
+   </div>
+   <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 blossom-text">
+     {{section.settings.formulation-lab-text-1}}
+   </div>
+ </div>
+  
+  
+  
+</div>
+{% schema %}
+  {
+    "name": "Formulation Lab Section",
+	"class":"section-margin",
+    "settings": [
+		{
+	"type": "html",
+    "id"  : "heading",
+	"label": "Heading"
+	},
+			{
+	"type": "text",
+    "id"  : "sec-heading",
+	"label": "Mobile Section Heading"
+	},
+	{
+	"type": "text",
+    "id"  : "farmer",
+	"label": "Farmer"
+	},
+	{
+	"type": "text",
+    "id"  : "place",
+	"label": "Place"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "section-image",
+	"label": "Section Image"
+	},
+	{
+	"type": "image_picker",
+    "id"  : "formulation-lab-image-1",
+	"label": "Formulation Lab Image 1"
+	},
+	{
+	"type": "html",
+    "id"  : "formulation-lab-text-1",
+	"label": "Formulation Lab Text 1"
+	}
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

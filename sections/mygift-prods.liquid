@@ -1,0 +1,96 @@
+<div class="my-gift-inner">
+  <div class="header_ti">
+    <h3 class="shead">{{ 'header.title.my_gifts' | t: my_gifts }}</h3>
+  </div>
+  <div class="container">
+	{% assign flag = 0 %}
+    <ul class="list_prod">
+      {% for order in customer.orders %}
+      {% if order.tags contains 'gift' %}
+      
+      {% assign flag = 1 %}      
+      {% endif %}
+      {% endfor %}
+      
+      {% for order in customer.orders %}
+      {% if order.tags contains 'gift' %}
+      {% assign total = order.line_items_subtotal_price %}
+
+      {% for line_item in order.line_items %}
+      
+      <li class="single-prod">
+        <div class="cover-prod">
+          <div class="image_cover">
+            <img class="prd_img" src="{{ line_item.image | img_url: 'medium' }}"/>
+          </div>
+          <div class="text_prds">
+            <div class="order-nos d-block d-sm-none">
+            <p class="prod_ss">Order No:<span class="ord_no">{{order.name | link_to: order.customer_url | remove: "#" }}</span></p>
+          </div>
+          <div class="product-flex-row product-name-gift">
+              <h4 class="hed-prd">{{ line_item.title }}</h4>
+              <p class="subhed">
+                <span class="d-block d-sm-none">(</span>Item Gift<span class="d-block d-sm-none">)</span>
+              </p>
+          </div>
+          <div class="product-flex-row">
+            <div class="order-las d-block d-sm-none">
+              <p><span class="day">{{ order.created_at | date: "%A" }} </span>
+              <span class="date1">{{ order.created_at | date:  "%d/%m/%y" }}</span>
+              </p>
+            </div>
+            <div class="status-container">
+              {% case order.fulfillment_status_label %}
+              {% when 'Unfulfilled' %}
+              	  <span class="d-block d-sm-none">(</span><span class="status">{% if request.locale.iso_code == 'el' %}Καθ’ οδόν{% else %}On the way{% endif %}</span><span class="d-block d-sm-none">)</span>
+              {% when 'Σε επεξεργασία' %}
+                  <span class="d-block d-sm-none">(</span><span class="status">{% if request.locale.iso_code == 'el' %}Καθ’ οδόν{% else %}On the way{% endif %}</span><span class="d-block d-sm-none">)</span>
+              {% else %}
+                  <div class="d-block d-sm-none">(</div><span class="status">{% if request.locale.iso_code == 'el' %}Παραδόθηκε{% else %}Delivered{% endif %}</span><span class="d-block d-sm-none">)</span>
+              {% endcase %}
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="order-nos d-none d-sm-block">
+          <p class="prod_ss">Order No:<span class="ord_no">{{order.name | link_to: order.customer_url | remove: "#" }}</span></p>
+        </div>
+        <div class="order-las d-none d-sm-block"><p><span class="day">{{ order.created_at | date: "%A" }} </span><span class="date1">{{ order.created_at | date:  "%d/%m/%y" }}</span></p></div>
+        <a class="right_arrow" href="{{ order.customer_url }}"></a>
+      </li>
+      
+      {% endfor %}
+      
+      {% endif %}
+      {% endfor %}
+      {% if flag == 2 %}
+      <a class="show-more d-none d-sm-block" id="show_more" href="javascript:;">{{ 'my_gift.title.show_more' | t: show_more }}</a>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "mygift products",
+	"class":"mygift-prods",
+    "settings": [
+	  {
+		"type":"text",
+		"id":"head_s",
+		"label":"Section heading"
+	  },
+	  {
+		"type":"collection",
+	    "id":"colecion",
+		"label":"Select collection"
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

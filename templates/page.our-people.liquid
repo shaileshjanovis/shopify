@@ -1,0 +1,176 @@
+{%- assign metafield = page.metafields.kettle_our_people -%}
+
+<main role="main" class="our-people">
+  <section class="about hero">
+    <div class="absolute copy">
+      <h1>{{ page.metafields.kettle.hero_header }}</h1>
+      <p>{{ page.metafields.kettle.hero_body }}</p>
+    </div>
+
+    <div>
+      <picture>
+        <source
+          media="(min-width: 1200px)"
+          srcset="{{ page.metafields.kettle.hero_desktop_image }}"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcset="//images.accentuate.io?c_options=w_1200&image={{ page.metafields.kettle.hero_tablet_image }} 1x,
+                  //images.accentuate.io?c_options=w_2400&image={{ page.metafields.kettle.hero_tablet_image }} 2x"
+        />
+        <source
+          media="(max-width: 767.98px)"
+          srcset="//images.accentuate.io?c_options=w_768&image={{ page.metafields.kettle.hero_mobile_image }} 1x,
+                  //images.accentuate.io?c_options=w_1536&image={{ page.metafields.kettle.hero_mobile_image }} 2x"
+        />
+
+        <img src="{{ page.metafields.kettle.hero_desktop_image }}" alt="{{ Our People }}">
+      </picture>
+    </div>
+  </section>
+
+  <section class="our-people-founder">
+    <h6>Our Founders</h6>
+
+    {% for founder in metafield.founder_name %}
+      {%- assign index = forloop.index0 -%}
+
+      <div{% cycle ' class="reverse"', '' %}>
+        <picture>
+          <source
+            media="(min-width: 768px)"
+            srcset="{{ metafield.founder_image[index] }}"
+          />
+          <source
+            media="(max-width: 767.98px)"
+            srcset="//images.accentuate.io?c_options=w_708&image={{ metafield.founder_image[index] }} 1x,
+                    //images.accentuate.io?c_options=w_1416&image={{ metafield.founder_image[index] }} 2x"
+          />
+
+          <img src="{{ metafield.founder_image[index] }}" alt="{{ Our People }}">
+        </picture>
+
+        <div class="copy">
+          <h2>{{ founder }}</h2>
+          <p>{{ metafield.founder_bio[index] }}</p>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="btn">
+      <a href="/pages/about-us" class="button-cta">View Our Story</a>
+    </div>
+  </section>
+
+  <section class="our-people-rnd">
+    <div class="copy">
+      <h2>Our women-led R&D team</h2>
+      <p>Behind every formula, is a personal story from one of the scientists on our team.</p>
+    </div>
+
+    <div class="carousel main-carousel carousel-custom new-people">
+      <div class="slide-container three-item">
+      {%- for name in metafield.rnd_name -%}
+        {%- assign index = forloop.index0 -%}
+        <div class="slide carousel-cell">
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcset="{{ metafield.rnd_image[index] }}"
+            />
+            <source
+              media="(max-width: 767.98px)"
+              srcset="//images.accentuate.io?c_options=w_708&image={{ metafield.rnd_image[index] }} 1x,
+                      //images.accentuate.io?c_options=w_1416&image={{ metafield.rnd_image[index] }} 2x"
+            />
+
+            <img src="{{ metafield.rnd_image[index] }}" alt="{{ Our People }}">
+          </picture>
+
+          <h3>{{ name }}</h3>
+          <h4>{{ metafield.rnd_title[index] }}</h4>
+
+          {{ metafield.rnd_quote[index] }}
+        </div>
+         
+      {%- endfor -%}
+          {% if metafield.rnd_name.size > 1 %}
+          <div class="arrow back back-button" data-arrow="backward"><</div>
+          <div class="arrow forward forward-button"  data-arrow="forward">></div>
+        {% endif %}
+         </div>
+   
+    </div>
+  </section>
+
+  <section class="our-people-brand">
+    <div class="copy">
+      <h2>{{ metafield.brand_header }}</h2>
+      <p>{{ metafield.brand_body }}</p>     
+    </div>
+
+    <div class="carousel main-carousel carousel-custom">
+            <div class="slide-container ">
+      {%- for img in metafield.brand_images_desktop -%}
+        {%- assign index = forloop.index0 -%}
+        
+        <div class="slide carousel-cell">
+          <picture>
+            <source
+              media="(min-width: 1200px)"
+              srcset="{{ img }}"
+            />
+            <source
+              media="(min-width: 768px)"
+              srcset="//images.accentuate.io?c_options=w_1200&image={{ metafield.brand_images_tablet[index] }} 1x,
+                      //images.accentuate.io?c_options=w_2400&image={{ metafield.brand_images_tablet[index] }} 2x"
+            />
+            <source
+              media="(max-width: 767.98px)"
+              srcset="//images.accentuate.io?c_options=w_768&image={{ metafield.brand_images_mobile[index] }} 1x,
+                      //images.accentuate.io?c_options=w_1536&image={{ metafield.brand_images_mobile[index] }} 2x"
+            />
+
+            <img src="{{ img }}" alt="{{ Our People }}">
+          </picture>
+        </div>
+      {%- endfor -%}
+              
+                   {% if metafield.brand_images_desktop.size > 1 %}
+          <div class="arrow back back-button" data-arrow="backward"><</div>
+          <div class="arrow forward forward-button"  data-arrow="forward">></div>
+        {% endif %}
+              </div>
+      
+    </div>
+  </section>
+
+  <section class="about footer-hero">
+    <div class="absolute copy">
+      <h2>{{ page.metafields.kettle.cta_banner_header }}</h2>
+      <p>{{ page.metafields.kettle.cta_banner_body }}</p>
+      <a href="/pages/our-process" class="button-cta">See Our Full Circle Process</a>
+    </div>
+
+    <div>
+      <picture>
+        <source
+          media="(min-width: 1200px)"
+          srcset="{{ page.metafields.kettle.cta_banner_desktop_image }}"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcset="//images.accentuate.io?c_options=w_1200&image={{ page.metafields.kettle.cta_banner_tablet_image }} 1x,
+                  //images.accentuate.io?c_options=w_2400&image={{ page.metafields.kettle.cta_banner_tablet_image }} 2x"
+        />
+        <source
+          media="(max-width: 767.98px)"
+          srcset="//images.accentuate.io?c_options=w_768&image={{ page.metafields.kettle.cta_banner_mobile_image }} 1x,
+                  //images.accentuate.io?c_options=w_1536&image={{ page.metafields.kettle.cta_banner_mobile_image }} 2x"
+        />
+
+        <img src="{{ page.metafields.kettle.cta_banner_desktop_image }}" alt="{{ Our People }}">
+      </picture>
+    </div>
+  </section>
+</main>

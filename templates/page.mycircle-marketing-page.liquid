@@ -1,0 +1,44 @@
+{% render 'shogun-products', content: page %}
+{{ 'style-mycircle.css' | asset_url | stylesheet_tag }}
+<div class="container-fluid px-0">
+    <div class="mycircle-marketing-page-container">
+        {% section 'mycircle-top-content' %}
+        <hr />
+        {% section 'mycircle-5-steps-container' %}
+        <hr />
+        {% section 'mycircle-points-section' %}
+        <hr />
+        {% section 'mycircle-members-section' %}
+        <hr />        
+        {% section 'mycircle-search-store' %}
+        <hr />
+        {% section 'mycircle-korres-gifts' %}
+        {% section 'mycircle-download-korres-app' %}
+        {% section 'mycircle-faq-section' %}
+    </div>
+</div>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>
+$('.tabs-nav a').on('click', function (event) {
+    event.preventDefault();    
+    $('.tab-active').removeClass('tab-active');
+    $(this).parent().addClass('tab-active');
+    $('.tabs-stage .tab-container').hide();
+    $($(this).attr('href')).show();
+});
+$('.tabs-nav a:first').trigger('click');
+$(".faq-header").click(function () {
+    $(".faq-content").toggleClass("slidedown slideup");
+
+    if ($(".faq-content").hasClass("slidedown")) {
+        $(".faq-header").addClass("active");
+        $(".arrow").addClass("up blue").removeClass("down black");
+    }
+    else {
+        $(".faq-header").removeClass("active");
+        $(".arrow").addClass("down black").removeClass("up blue");
+    }
+});
+</script>

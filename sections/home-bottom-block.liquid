@@ -1,0 +1,56 @@
+
+<div class="home-bot-block">
+{% for block in section.blocks %}
+	<div class="bg-image" style="background-image: url('{{block.settings.main-imgg | img_url: 'master'}}');">
+      <div class="block-heading"><span>{{ 'homepage.title.community' | t: community }}</span></div>
+      <div class="text">      		
+        <p class="block-text">{{block.settings.main-text}}</p>
+        <a class="btn-theme" href="{{block.settings.btnUrl}}">{{ 'homepage.title.discover' | t: discover }}</a>
+      </div>
+      
+    </div>
+{% endfor %}
+</div>
+
+{% schema %}
+  {  
+     "name":"Home Bottom Block",
+	"class":"home-bottom-blck",
+     "blocks":[  
+        {  
+           "name":"Home Bottom Block",
+           "type": "collection",
+           "settings":[  
+              {  
+                 "id":"main-imgg",
+                 "type":"image_picker",
+                 "label":"Block Image"
+              },
+			  {  
+                 "id":"main-text",
+                 "type":"text",
+                 "label":"Block Subheading",
+				"default": "Block Paragraph"
+              },
+			  {  
+                 "id":"btnUrl",
+                 "type":"url",
+                 "label":"Block Btn Url"
+              }              
+           ]
+        }
+     ],
+     "presets":[  
+        {  
+           "name":"Home Bottom Block",
+           "category":"collection"
+        }
+     ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

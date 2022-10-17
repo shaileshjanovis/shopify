@@ -1,0 +1,91 @@
+<div class="korres-gifts-container">
+  <h3>
+    {{ section.settings.page-title }}
+  </h3>
+  <div class="main-carousel" data-flickity='{ "imagesLoaded": true, "cellAlign": "center", "prevNextButtons": false, "pageDots": false, "autoPlay": false, "groupCells": "100%", "wrapAround":false }'>
+    {% for block in section.blocks %}
+    {% if block.type == 'type-block1' %}
+    <div class="gift-item">
+      <div class="inner">
+        <img src="{{block.settings.image1 | img_url: 'master'}}"  class="img-fluid" />
+        <div class="text">
+          <p>
+            {{block.settings.image-text-left}}<img src="{{block.settings.image-arrow | img_url: 'master'}}" />{{block.settings.image-text-right}}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+    {% if block.type == 'type-block2' %}
+    <div class="gift-item">
+      <div class="inner">
+        <img src="{{block.settings.image2 | img_url: 'master'}}"  class="img-fluid" />
+        <div class="text">
+          <p>{{block.settings.image-text2}}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "MyCircle Gifts",
+"settings": [{
+"id": "page-title",
+"type": "richtext",
+"label": "Page Title"
+}
+],
+"blocks": [
+{
+"type": "type-block1",
+"name": "Image with Arrow",
+"settings": [
+{
+"id": "image-text-left",
+"type": "text",
+"label": "Image Text Left",
+"default":"1€"
+},
+{
+"id": "image-text-right",
+"type": "text",
+"label": "Image Text Right",
+"default":"25 πόντοι"
+},
+{
+"id": "image1",
+"type": "image_picker",
+"label": "Image"
+},
+{
+"id": "image-arrow",
+"type": "image_picker",
+"label": "Arrow"
+}
+]
+},
+{
+"type": "type-block2",
+"name": "Image",
+"settings": [
+{
+"id": "image-text2",
+"type": "text",
+"label": "Image Text"
+},
+{
+"id": "image2",
+"type": "image_picker",
+"label": "Image"
+}
+]
+}
+]
+}
+{% endschema %}

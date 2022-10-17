@@ -1,0 +1,144 @@
+{% assign giftFullUrl = canonical_url %}
+{% assign productUri = giftFullUrl | split: "type=" %}
+{% assign first_order = customer.metafields.customer.first_order %}
+{% assign royalty = customer.metafields.points.loyalty | split : '|' | last | plus:0 %}
+
+{% for meta in circleMeta %}
+  {% assign poi = meta | plus:0 %}
+  {% if poi > 0 %}
+    {% if poi == 1 %}
+        {% assign gift = poi | minus:1 %}
+    {% else %}
+        {% assign gift = poi %}
+    {% endif %}
+  {% endif %}
+
+  {% if meta contains 'CollectionName' %}
+    {% assign levelName = meta | replace:'CollectionName','' | replace:' ','_' | prepend:'level' %}
+    {% for collectionname in shop.metafields.Collection %}
+        
+        {% assign lev_name = levelName | split:',' | first %}
+        {% if lev_name == collectionname[0] %}
+            {% assign labelAsId = levelName | split:',' | first | append:name%}
+            {% assign labelAsIdDonwcase = labelAsId | downcase %}
+            {% assign str = 'Level_' | append: gift  %}
+          
+			{% assign earnedGiftIdval = 'null' %}
+			{% assign scgift = 'GiftId_' | append: gift  %}
+			{% assign earnedGiftId = customer.metafields.Earned_GiftId[scgift] %}
+            {% if earnedGiftId %}
+              {% assign earnedGiftIdval = earnedGiftId %}
+            {% endif %}
+              
+            {% if royalty < gift %}
+                {% assign Acls = 'locked-gift'  %}
+            {% else %}
+                {% assign str = 'Level_' | append: gift  %}
+                {% if customer.metafields.Level contains str  %}
+                    {% assign Acls = 'earned-gift'  %}
+                {% else %}
+                    {% assign Acls = 'unlocked-gift'  %}
+                {% endif %}
+            {% endif %}
+              <div id="{{ labelAsId }}" class="class_{{levelName | split:',' | first | append:name}} gift_product_data gift-collection-page {{ Acls }}" data-circle="{{name | split:'level_' | last | replace:'_',' ' | replace:'My',''}}" data-giftpoint="{{ gift }}" style="{% if labelAsIdDonwcase == productUri[1] %}display: block;{% else %}display: none;{% endif %}">
+                <div class="container-fluid">
+                  <div class="gift-col-title">
+                    <h2>{{levelName | split:'level_' | last | replace:'_',' ' | split:',' | first}}</h2>
+                    <h6 class="choice-single-gift" style="display:none;">{% if request.locale.iso_code == 'el' %}Επίλεξε το παρακάτω δώρο{% else %}Select the following gift{% endif %}</h6>
+                    <h6 class="choice-multi-gift">{% if request.locale.iso_code == 'el' %}Επίλεξε ένα από τα παρακάτω δώρα{% else %}Select one from following gifts{% endif %}</h6>
+                    
+                    {% if first_order %}
+                        {% if royalty < gift %}
+                            <span class="product-info-locked"> {% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %} </span>
+                        {% else %}
+                            {% assign str = 'Level_' | append: gift  %}
+                            {% if customer.metafields.Level contains str  %}
+                                <span class="product-info-earned"> {% if request.locale.iso_code == 'el' %}Εξαργυρωμένο{% else %}Earned Gift{% endif %} </span>
+                            {% else %}
+                                <span class="product-info-unlocked">{% if request.locale.iso_code == 'el' %}Ξεκλείδωτο Δώρο{% else %}Unlocked Gift{% endif %} </span>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                        <span class="product-info-locked"> {% if request.locale.iso_code == 'el' %}Κλειδωμένο Δώρο{% else %}Locked Gift{% endif %} </span>
+                    {% endif %}
+                  </div>
+
+                  <div class="row gift_collection">
+                    <button class="surbtn hide">Clickme</button>
+                    {% assign values = collectionname[1] | split:'|' %}
+                    {% assign index = 1 %}
+                    {% for value in values %}
+                        {% if value > '0' %}
+                    
+                            {% assign mode = forloop.index0 | modulo:3 %}
+                            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 product_here" id="proid_{{value}}" data-product="{{value}}" style="display: none;">
+                                <script>
+                                  (function(){
+                                    var giftIdcheck = {{earnedGiftIdval}};
+                                    if(giftIdcheck != null){
+                                      var giftId = giftIdcheck;
+                                    } else {
+                                      var giftId = "";
+                                    }
+                                    
+                                    var proId = {{value}};
+									
+                                    
+                                    var lang = $('html').attr('lang');
+                                    var lang_cr = '';
+                                    var lang_gt = "";
+                                    if(lang == 'el'){
+                                      lang_cr = '/el';
+                                      lang_gt = "el";
+                                    } else {
+                                      lang_cr = ''
+                                      lang_gt = "eng";
+                                    }
+
+                                    $.get('https://api.korresfamily.com/api/v1/MarketplaceItem/Getproductdetailsbyshopify?product='+proId+'&language='+lang_gt+'',function(product){
+                                      if (product.results) {
+
+                                        if(product.results.image){
+                                          var image = '<img src="'+product.results.image+'">';                           
+                                        } else {
+                                          var image = '<img src="https://cdn.shopify.com/shopifycloud/shopify/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c.gif">';
+                                        }
+                                        
+										var cleargift = '';
+                                        if(proId == giftId){
+                                          var cleargift = 'earned_gift';                           
+                                        }
+                                        var html = `<div class="gift_product"> `+image+` <a href='javascript:;' data-href="`+lang_cr+`/products/`+product.results.handle+`/" class="clickherewithdata"><p class="gift-prod-title">`+product.results.product_name+`</p></a></div>`;
+                                        $('.product_here[data-product="'+product.results.id+'"]').html(html);
+                                      	$("#proid_"+proId).addClass(cleargift).show();
+                                      } else {
+                                        $("#proid_"+proId).hide();
+                                      }
+                                    },'json')
+                                  })()
+                                </script>
+                              </div>
+                            {% assign index = index | plus:1 %}
+                            
+                        {% endif %}
+                    {% endfor %}
+                  </div>
+                  
+                </div>
+              </div>
+            {% break %}
+        {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+<script>
+  (function(){
+    $(document).on('click','.clickherewithdata',function(){
+      var redirectUrl = $(this).data('href');
+      var circlename = $(this).parents('.gift_product_data').data('circle')
+      var gift_point = $(this).parents('.gift_product_data').attr('data-giftpoint')
+      window.location.href = redirectUrl+"?view=gift&circle="+circlename+"&giftpoint="+gift_point;
+    });
+  })()
+</script>

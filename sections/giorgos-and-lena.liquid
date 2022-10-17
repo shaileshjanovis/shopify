@@ -1,0 +1,75 @@
+{% for block in section.blocks %}
+        {% if block.type == 'block-circle' %}
+			<div class="col-12 col-lg-4">
+				<a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.text-link }}" class="circle-block">
+					<div class="box-wrap">
+						<div class="box">
+							<div class="img">
+								<img src="{{block.settings.img-circle | img_url: 'master'}}" alt="{{ block.settings.title }}">
+								<img src="{{block.settings.img-circle-hover | img_url: 'master'}}" alt="{{ block.settings.title }}">
+							</div>
+							<p>{{ block.settings.title | newline_to_br }}</p>
+						</div>
+					</div>
+				</a>
+			</div>
+		{% endif %}
+{% endfor %}
+
+{% schema %}
+{
+	"name": "Giorgos & Lena Page",
+	"class": "circle-content",
+	"blocks": [{
+			"type": "block-circle",
+			"name": "Circle Section",
+			"settings": [{
+					"id": "title",
+					"type": "textarea",
+					"label": "Title",
+					"default": "Giorgos"
+				},
+				{
+					"id": "text-link",
+					"type": "text",
+					"label": "Link Of Circle",
+					"default": "/pages/giorgos"
+				},
+				{
+					"id": "img-circle",
+					"type": "image_picker",
+					"label": "Img Circle"
+				},
+				{
+					"id": "img-circle-hover",
+					"type": "image_picker",
+					"label": "Img Circle Hover"
+				}
+
+			]
+		}
+
+	]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+
+
+{% endstylesheet %}
+
+
+{% javascript %}
+$(".box").on({
+	mouseover:function(){
+		$(this).find("img:nth-child(1)").stop().animate({opacity:0},600);
+		$(this).find("img:nth-child(2)").stop().animate({opacity:1},600);
+		$(this).find("p").css("color", "white");
+	}, mouseout:function(){
+		$(this).find("img:nth-child(1)").stop().animate({opacity:1},600);
+		$(this).find("img:nth-child(2)").stop().animate({opacity:0},600);
+		$(this).find("p").css("color", "#050F96");    
+	} 
+});
+{% endjavascript %}

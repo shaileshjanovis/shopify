@@ -1,0 +1,735 @@
+﻿//Colors
+$blue: #050F96;
+$theme-black: #32322D;
+$black: #32322D;
+$white: #ffffff;
+$pink: #F5E6E6;
+$svg: #2E2A25;
+$grey1: #F0F0F0;
+$grey2: #E6E6E6;
+$grey3: #DCDCDC;
+$grey4: #B9B9B9;
+
+
+.page-full-circle {
+    margin: 120px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: $grey1;
+
+    .inner {
+        position: relative;
+        max-width: 846px;
+        margin: 0 auto;
+        width: 50vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .left-img {
+            position: absolute;
+            top: 12%;
+            left: -19%;
+            background-image: url('https://cdn.shopify.com/s/files/1/0515/5785/9489/files/1973-korres.png?v=1619103629');
+            background-repeat: no-repeat;
+            width: 344px;
+            height: 445px;
+            z-index: 10;
+        }
+
+        .right-img {
+            position: absolute;
+            right: -25%;
+            bottom: 28%;
+            background-image: url('https://cdn.shopify.com/s/files/1/0515/5785/9489/files/chemistry_container.jpg?v=1619168206');
+            background-repeat: no-repeat;
+            width: 344px;
+            height: 445px;
+            z-index: 10;
+        }
+    }
+
+    .big-circle {
+        /*-webkit-box-shadow: 0px 12px 10px -6px $grey4;
+        -moz-box-shadow: 0px 12px 10px -6px $grey4;
+        box-shadow: 0px 12px 10px -6px $grey4;
+        border: 1px solid $blue;
+        border-radius: 50%;
+        width: 50vw;
+        max-width: 800px;
+        height: 66vh;
+        max-height: 800px;
+        display: flex;
+        background: $white;
+        position: relative;
+        margin: 0 auto;
+        z-index: 1000;*/
+        //min-width: 50vw;
+        //min-width: 844px;
+        position: relative;
+        margin: 0 auto;
+        z-index: 1000;
+
+        &:before {
+            border-radius: 50%;
+            /* = 15%, almost gives us viewport width unit (15vw) */
+            width: 100%;
+            padding-bottom: 100%;
+            /* this way we should have 1px gap between circles */
+            margin: 15px .5px;
+            background: $white;
+            content: '';
+            display: inline-block;
+            /* circle to the middle, so that... [1] */
+            vertical-align: middle;
+            /* to use viewport based units we can safely override the old units in this way */
+            padding-bottom: 0vw;
+            width: 50vw;
+            height: 50vw;
+            max-width: 844px;
+            max-height: 844px;
+        }
+
+        .small-circle {
+            &.our-story {
+                //transform: rotate(0deg) translate(100px);
+                left: 2%;
+                top: 30%;
+                cursor: pointer;
+            }
+
+            &.our-labs {
+                //transform: rotate( 0deg ) translate(17.5vw);
+                right: 1%;
+                top: 52%;
+            }
+        }
+    }
+
+    .small-circle {
+        border: 2px solid $blue;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        color: $blue;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+
+.second-step-our-story, .second-step-our-6-labs {
+    .small-circle {
+        &.our-story {
+            top: 50%;
+            left: -34%;
+            -webkit-transform: translate(-50%,-34%);
+            -moz-transform: translate(-50%,-34%);
+            -ms-transform: translate(-50%,-34%);
+            -o-transform: translate(-50%,-34%);
+            transform: translate(-50%,-34%);
+        }
+
+        &.our-labs {
+            top: 50%;
+            left: -34%;
+            -webkit-transform: translate(-50%,-34%);
+            -moz-transform: translate(-50%,-34%);
+            -ms-transform: translate(-50%,-34%);
+            -o-transform: translate(-50%,-34%);
+            transform: translate(-50%,-34%);
+        }
+    }
+}
+
+
+.inner-big-circle {
+    //padding: 50px;
+    min-width: 40vw;
+    //min-width: 844px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    margin: 0 auto;
+    z-index: 1000;
+
+    &:before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%,-50%);
+        -moz-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        border: 10px solid $grey1;
+        border-radius: 50%;
+        /* = 15%, almost gives us viewport width unit (15vw) */
+        width: 100%;
+        padding-bottom: 100%;
+        /* this way we should have 1px gap between circles */
+        margin: 0;
+        background: $white;
+        content: '';
+        display: inline-block;
+        /* circle to the middle, so that... [1] */
+        vertical-align: middle;
+        /* to use viewport based units we can safely override the old units in this way */
+        padding-bottom: 0vw;
+        width: 40vw;
+        height: 40vw;
+        max-width: 650px;
+        max-height: 650px;
+    }
+
+    .help {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        position: relative;
+        /*width: 40vw;
+        height: 40vw;*/
+        width: 40vw;
+        height: 40vw;
+        transform: rotate(265deg);
+    }
+
+    .section {
+        /*position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%,-50%);
+        -moz-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);*/
+        position: absolute;
+        width: 0;
+        height: 100%;
+        margin: 0 50%;
+        cursor: auto;
+
+
+        div {
+            position: absolute;
+            left: 50%;
+            bottom: 75%;
+            margin-left: -5px;
+            /*width: 10px;
+            height: 10px;*/
+            /*border-radius: 50%;*/
+            /*background-color: #fff;
+            border: 2px solid #333;*/
+            display: flex;
+
+            img {
+                /*transition: all 0.2s;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                height: auto;
+                float: left;
+                filter: grayscale(100%);
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);*/
+                filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                -ms-filter: grayscale(100%);
+                filter: grayscale(100%);
+                filter: gray; /* IE 6-9 */
+                /*filter: url(filters.svg#grayscale); 
+                filter: gray; 
+                -webkit-filter: grayscale(1); 
+                -webkit-transition: all .5s ease-in-out;*/
+                &:hover {
+                    /*filter: grayscale(0%);
+                    -webkit-filter: grayscale(0%);
+                    -moz-filter: grayscale(0%);
+                    transform: scale(1.1);
+                    -webkit-transform: scale(1.1);
+                    -moz-transform: scale(1.1);*/
+                    -webkit-filter: none;
+                    -moz-filter: none;
+                    -ms-filter: none;
+                    filter: none;
+                    /*filter: none;
+                      -webkit-filter: grayscale(0);
+                      -webkit-transform: scale(1.1);*/
+                }
+            }
+        }
+
+        span, a {
+            color: $blue;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 0 0;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+    }
+
+    .section-1 {
+        transform: rotate(0deg);
+        /*background-image: url('https://cdn.shopify.com/s/files/1/0515/5785/9489/files/test-img-full-circle.jpg?v=1619180379');
+        background-repeat: no-repeat;
+        width: 344px;
+        height: 445px;*/
+        div {
+            transform: rotate(-268deg);
+            flex-direction: column;
+            justify-content: right;
+            align-items: flex-end;
+
+            img {
+                width: 280px;
+            }
+        }
+    }
+
+    .section-2 {
+        transform: rotate(38deg);
+
+        div {
+            transform: rotate(54deg);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 298px;
+            }
+        }
+    }
+
+    .section-3 {
+        transform: rotate(102deg);
+
+        div {
+            //transform: rotate(-401deg);
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 426px;
+            }
+        }
+    }
+
+    .section-4 {
+        transform: rotate(156deg);
+
+        div {
+            transform: rotate(-422deg);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 200px;
+            }
+        }
+    }
+
+    .section-5 {
+        transform: rotate(184deg);
+
+        div {
+            transform: rotate(-90deg);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                margin-left: 152px;
+                width: 198px;
+            }
+        }
+    }
+
+
+    .section-6 {
+        transform: rotate(270deg);
+
+        div {
+            transform: rotate(189deg);
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+
+            img {
+                width: 192px;
+            }
+        }
+    }
+    //6 labs
+    .section-1-labs {
+        transform: rotate(1deg);
+        /*background-image: url('https://cdn.shopify.com/s/files/1/0515/5785/9489/files/test-img-full-circle.jpg?v=1619180379');
+        background-repeat: no-repeat;
+        width: 344px;
+        height: 445px;*/
+        div {
+            transform: rotate(-202deg);
+            flex-direction: column;
+            justify-content: right;
+            align-items: flex-end;
+
+            img {
+                width: 280px;
+            }
+        }
+    }
+
+    .section-2-labs {
+        transform: rotate(48deg);
+
+        div {
+            transform: rotate(112deg);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 216px;
+            }
+        }
+    }
+
+    .section-3-labs {
+        transform: rotate(96deg);
+
+        div {
+            transform: rotate(68deg);
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 128px;
+            }
+        }
+    }
+
+    .section-4-labs {
+        transform: rotate(167deg);
+
+        div {
+            transform: rotate(0deg);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width: 146px;
+            }
+        }
+    }
+
+    .section-5-labs {
+        transform: rotate( 224deg );
+        left: 20px;
+
+        div {
+            transform: rotate( -56deg );
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                //margin-left: 152px;
+                width: 204px;
+            }
+        }
+    }
+
+
+    .section-6-labs {
+        transform: rotate(265deg);
+
+        div {
+            transform: rotate(110deg);
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+
+            img {
+                width: 302px;
+            }
+        }
+    }
+}
+
+
+
+.wslot-container {
+    .wslot-item {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        color: $blue;
+        font-size: 26px;
+        font-weight: 300;
+        height: 40px !important;
+        margin-bottom: 10px !important;
+
+        &.wslot-item-selected {
+            font-weight: 700;
+            border-top: 1px solid $blue;
+            border-bottom: 1px solid $blue;
+        }
+    }
+}
+
+.wrapper {
+    margin: 150px auto;
+    max-width: 640px;
+}
+
+.year-counter {
+    position: absolute;
+    right: -34%;
+}
+
+.container-year {
+    width: 90px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.container-year > div {
+    font-size: 14pt;
+}
+
+.date-picker {
+    width: 300px;
+    height: 100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.date-picker-display {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+
+.month {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+.day {
+    height: 100%;
+    width: 20%;
+    float: left;
+}
+
+.year {
+    height: 100%;
+    width: 30%;
+    float: left;
+}
+
+.read-full-story {
+    color: $blue;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    z-index: 1000;
+
+    &:hover {
+        color: $blue;
+        text-decoration: none;
+    }
+}
+
+
+.center-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+
+.full-circle-content {
+    margin: 0 auto;
+
+    &.full-circle-content-1973 {
+        padding: 8vh 0 2vh 0;
+        max-width: 1600px;
+    }
+
+    &.full-circle-content-1988 {
+        padding: 4vh 0 0 0;
+        max-width: 1600px;
+    }
+    //left
+    .small-circle {
+        position: static;
+        margin: 0 auto;
+
+        .our-labs {
+        }
+    }
+    //middle
+    .text {
+        font-weight: 600;
+        font-size: 20px;
+
+        &.text-1973 {
+            margin: 60px 0 0 0;
+            max-width: 56%;
+        }
+
+        &.text-1988 {
+            margin: 2rem 0 12rem 0;
+            max-width: 78%;
+        }
+
+        &.text-1996 {
+            //margin: 2rem 0 12rem 0;
+            max-width: 78%;
+            margin-bottom: 1rem;
+
+            &:last-child {
+                margin-top: 1rem;
+            }
+        }
+    }
+    //1973
+    .middle-content-1973 {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        //align-items: flex-end;
+        img {
+            max-width: 54%;
+            margin-left: auto;
+            margin-top: 14px;
+        }
+    }
+    //1988
+    .left-content-1988 {
+        flex-direction: column;
+
+        img {
+            max-width: 58%;
+        }
+    }
+
+    .right-content-1988 {
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+        margin-left: -44px;
+    }
+    //1996
+    .left-content-1996 {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .right-content-1996 {
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+    }
+    //right
+    .year-counter {
+        position: static;
+        right: auto;
+
+        .wrapper {
+            margin: 0 auto;
+        }
+    }
+    //1999
+    .top-content-1999 {
+        display: flex;
+        justify-content: flex-end;
+        padding: 3rem 0 2rem 0;
+
+        img {
+            max-width: 200px;
+        }
+    }
+
+    .left-content-1999 {
+        .text {
+            max-width: 410px;
+        }
+    }
+
+    .right-content-1999 {
+        display: flex;
+        justify-content: center;
+
+        img {
+            width: 80%;
+        }
+    }
+
+    .bottom-content-1999 {
+        padding: 0 0 6rem 0;
+        display: flex;
+        justify-content: flex-end;
+
+        img {
+            max-width: 689px;
+        }
+    }
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+    .full-circle-content {
+        .year-counter {
+            position: fixed;
+            bottom: 0;
+            background: white;
+            width: 100%;
+            z-index: 999999;
+            left: 0;
+        }
+    }
+
+    .container-year {
+        width: 100%;
+        height: 204px;
+    }
+
+    .wslot-container {
+        .wslot-item {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            color: #050f96;
+            font-size: 26px;
+            font-weight: 300;
+            height: 40px !important;
+            margin-bottom: 5px !important;
+        }
+    }
+}

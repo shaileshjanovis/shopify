@@ -1,0 +1,436 @@
+{{'new-register.css' | asset_url | stylesheet_tag}}
+{{'signup-map.css' | asset_url | stylesheet_tag}}
+
+<div class="width-1784 register">
+  {% form 'create_customer' %}
+  <input type="hidden" name="return_to" value="/{% if request.locale.iso_code == 'el' %}el{% endif %}" />
+  <input type="hidden" name="return_to_url_lang" value="{% if request.locale.iso_code == 'en' %}english{% else %}greek{% endif %}" />
+
+  {{ form_errors | default_errors }}
+    {% if form.errors %}
+      	{% for field in form.errors %}
+          {% if form.errors.messages[field] contains "has already been taken" %}
+              Show something else...
+          {% endif %}
+    	{% endfor %}
+    {% endif %}
+
+  <div class="register_cover">
+    <div class="row" id="step1">
+      <div class="col-md-6 register-left">
+        <img src="{{ 'signup-cover.png' | asset_url }}" alt=""/>
+      </div>
+
+      <div class="col-md-6 register-right">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h1 class="register-heading">{{ 'Register.Title.title' | t: title }}</h1>
+            <h3 class="register-heading">{{ 'Register.Title.subtext_html' | t: subtext_html }}</h3>
+            <div class="register_form_wrap">
+              <div class="row register-form">
+                <div class="form-group email-group  social_text">
+                  <label for="register_email">
+                    {{ 'Register.Fields.email' | t: email }}<b>*</b>
+                  </label>
+                  <input id="register_email" type="email" autocomplete="nope" name="customer[email]" placeholder="eg maria@gmail.com" data-rule="required|email" class="focus-visible" data-toggle="validator" />
+                  <p  data-error="{{ 'Register.validation.email_id_already_exist' | t: email_id_already_exist }}" class="error_email c-error">Please enter a valid email address.</p>
+                  {{ form.errors | default_errors }}
+                </div>
+
+                <div class="form-row pass-match  social_text">
+                  <div class="form-group col-xs-12 col-md-6 show-pass">
+                    <label for="register_password">
+                      {{ 'Register.Fields.password' | t: password }}<b>*</b>
+                    </label>
+                    <div class="input_cover  social_text">
+                      <input id="register_password" class="show-pass" type="password" name="customer[password]" autocomplete="off" placeholder="12345678" data-rule="required-8|minlength-8" focus-visible="" />
+                      <p class="error_pass c-error">The password must contain at least 8 characters, 1 uppercase, 1 lowercase, number and 1 special character.</p>
+                      <p class="error_naming_match c-error">{% if request.locale.iso_code == 'en' %}The username and password cannot be the same.{% else %}Το όνομα χρήστη και ο κωδικός πρόσβασης δεν μπορεί να είναι ίδια.{% endif %}</p>
+                      <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    </div>
+                    <input hidden="" id="register_key" type="text" name="customer[note][key]" placeholder="Password" data-rule="required-8|minlength-8" focus-visible="" />
+                  </div>
+
+                  <div class="form-group col-xs-12 col-md-6 show-re-pass  social_text">
+                    <label for="password_confirm">
+                      {{ 'Register.Fields.Retype_Password' | t: Retype_Password }}<b>*</b>
+                    </label>
+                    <div class="input_cover">
+                      <input type="password" value="" placeholder="12345678" name="customer[password_confirmation]" autocomplete="off" id="password_confirm" />
+                      <p class="error_repass c-error">Please enter the same value again.</p>
+                      <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row  social_text">
+                  <div class="form-group f_name col-xs-12 col-md-6">
+                    <label for="first_name">
+                      {{ 'Register.Fields.Name' | t: Name }} <span class="optional"> {{ 'Register.Fields.optional' | t: optional }}</span>
+                    </label>
+                    <input id="first_name" type="text" autocomplete="nope" name="customer[first_name]" placeholder="John" />
+                  </div>
+                  <div class="form-group l_name col-xs-12 col-md-6">
+                    <label for="last_name">
+                      {{ 'Register.Fields.Surname' | t: Surname }} <span class="optional"> {{ 'Register.Fields.optional' | t: optional }}</span>
+                    </label>
+                    <input id="last_name" type="text" autocomplete="nope" name="customer[last_name]" placeholder="Doe" />
+                  </div>
+                </div>
+                <div class="form-group mobile-number  social_text">
+                  <label for="mobile_number">
+                    {{ 'Register.Fields.Mobile_Number' | t: Mobile_Number }}<span class="optional"> {{ 'Register.Fields.optional' | t: optional }}</span><span class="points">
+                    +25 <span>Points</span>
+                    </span>
+                  </label>
+                  <input id="mobile_number" type="text" autocomplete="nope" oninput="this.value = this.value.replace(/[^0-9.+]/g, '').replace(/(\..*)\./g, '$1');" name="customer[phone]" onfocus="myphonesuggest()" onclick="myphonesuggest()" maxlength="13" placeholder="Mobile Phone +30" />
+                  <p data-error="{{ 'Register.validation.mobile_number_already_exist' | t: mobile_number_already_exist }}" class="error_phone c-error"></p>
+                  <div name="hiko-container"></div>
+                </div>
+                <div class="social_button desk-btn">
+                  <a href="javascript:;" id="googlesignupbutton">
+                    <img class="lozad" data-src="{{ 'google-icon.png' | asset_url }}"> Sign up with Google
+                  </a>
+                
+                  <!--{% include 'or-ic' %}-->
+                  <span class="or_text">Or</span>
+                  <a href="javascript:;" onclick="fb_login();" class="facebook bt" data-image-link="" rel="modal:open">
+                    <img class="lozad" data-src="{{ 'facebook-icon.png' | asset_url }}"> Sign up with Facebook
+                  </a>
+                </div>
+                <div class="social_button mob-btn">
+                  <a href="javascript:;" onclick="fb_login();" class="facebook bt" data-image-link="" rel="modal:open">
+                    <img class="lozad" data-src="{{ 'facebook-icon.png' | asset_url }}">
+                  </a>
+                  <span class="or_text">Or continue with</span>
+                  <a href="javascript:;" class="google bt" id="googlesignupbuttonmobile">
+                    <img class="lozad" data-src="{{ 'google-icon.png' | asset_url }}">
+                  </a>
+                </div>
+                {% include 'facebook_popup' %}
+                <div class="form-group">
+                  <p class="signup-checkbox">
+                    <input style="float:none; vertical-align: middle;" type="radio" name="terms"  id="agree" />
+                    <label for="agree">
+                      {{ 'Register.Links.agree' | t: agree }} <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/terms-conditions">{{ 'Register.Links.Service' | t: Service }}</a> <span>&</span> <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}/pages/privacy-policy">{{ 'Register.Links.policy' | t: policy }}</a> <span class="radio-req"> *Required</span>
+                    </label>
+                  </p>
+                </div>
+                <div class="form-group">
+                  <p class="signup-checkbox">
+                    <input style="float:none; vertical-align: middle;" type="checkbox" name="customer[accepts_marketing]" id="agree2" value="off" />
+                    <label for="agree2">
+                      {{ 'Register.Links.Subscribe' | t: Subscribe }} <a href="#">{{ 'Register.Links.news_link' | t: news_link }}</a>.<span class="radio-req"> *Required</span><span class="extra-points">
+                      +25  <span>points</span>
+                      </span>
+                    </label>
+                  </p>
+                </div>
+                <p class="error_term c-error">{{ 'Register.validation.please_confirm_you_accept' | t: please_confirm_you_accept }}</p>
+                <input type="button"  value="{{ 'Register.Button.Next' | t: Next }}" disabled="" class="next-btn1 btnRegister nxt">
+              </div>
+            </div>
+            <p class="already-account-text">
+              {{ 'Register.Links.Account' | t: Account }} <a href=" {% if request.locale.iso_code == 'en' %}/account/login?return_url=%2Faccount{% else %}/el/account/login?return_url=%2Fel%2Faccount{% endif %}">{{ 'Register.Links.Sign_in' | t: Sign_in }}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row tab-pane register_cover" id="step3" style="display:none">
+    <div class="col-md-6 col-lg-6 store_selection_pop">
+      <div class="left_detail">
+        <h3 class="desk-btn">{{ 'Register.Select_store.title' | t: title }}</h3>
+        <p class="desk-btn-subtext">{{ 'Register.Select_store.subtext_html' | t: subtext_html }}</p>
+        <div class="desk-btn desk_map_selection">
+          <div class="pharm-selection">
+            <div class="overlay">
+              <div class="ui-widget" id="browserWrap">
+                <select name="browser" id="browser" placeholder="Store Name, Area, Postcode">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="defau-selection">
+            <div class="floating-label deafult-pharma">
+            </div>
+          </div>
+        </div>
+        <div class="pharmacy-msg">{{ 'Register.Select_store.pharmacy_msg' | t: pharmacy_msg }}</div>
+        <div class="small-map-text map-panel-1">
+          <h1>{{ 'Register.Select_store.Select_circle' | t: Select_circle }}</h1>
+          <span class="sub-heading">{{ 'Register.Select_store.Select_circle_new' | t: Select_circle_new }}</span>
+          <h2>
+            <span class="map-icons">
+              <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/price_icon.svg?v=1628771299" class="unlock-img lozad" />
+            </span>{{ 'Register.Select_store.Unlock_prices' | t: Unlock_prices }}
+          </h2>
+          <h2>
+            <span class="map-icons">
+              <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/small-truck.png?v=1645092907" class="free-shipping-img lozad" />
+            </span>{{ 'Register.Select_store.Get_free_shipping' | t: Get_free_shipping }}
+          </h2>
+          <h2>
+            <span class="map-icons">
+              <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/map_svg.svg?v=1628771299" class="points-img lozad" />
+            </span>
+            {% if request.locale.iso_code == 'el' %}
+            Συλλέξεις πόντους
+            {% else %}
+            {{ 'Register.Select_store.Collect_points' | t: Collect_points }}
+            {% endif %}
+          </h2>
+          <h2>
+            <span class="map-icons">
+              <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/present-box_png.png?v=1645103826" class="gifts-img lozad" />
+            </span>{{ 'Register.Select_store.Pickup_your_Gifts' | t: Pickup_your_Gifts }}
+          </h2>
+        </div>
+        <div class="mob-btn">
+          <a herf="#" class="great_btn">Great!</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <div class="left_detail">
+        <h3 class="mob-btn">{{ 'Register.Select_store.title' | t: title }} <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/info-icon-sm.png?v=1645093008" class="info-icon-sm lozad" />
+        </h3>
+        <p class="mob-btn">{{ 'Register.Select_store.subtext_html' | t: subtext_html }}</p>
+        <div class="mob-btn mob_map_selection">
+          <div class="pharm-selection">
+            <div class="overlay">
+              <div class="ui-widget" id="browserWrap">
+                <select name="browser" id="browser" placeholder="Store Name, Area, Postcode">
+                </select>
+              </div>
+            </div>
+          </div>
+          <input name="customer[note][default_pharmacy]" hidden="" value="" id="filter_pharamcy_name">
+          <input type="hidden" id="customer_tags" name="customer[tags]" value="" >
+          <div class="defau-selection">
+            <div class="floating-label deafult-pharma"></div>
+          </div>
+        </div>
+        <div class="pharmacy-msg-mob mobile">{{ 'Register.Select_store.pharmacy_msg' | t: pharmacy_msg }}</div>
+        <div class="small-map-text map-panel-1 hide">
+          <h1>{{ 'Register.Select_store.Select_circle' | t: Select_circle }}:</h1>
+          <h2>
+            <span class="map-icons">
+              <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/price_icon.svg?v=1628771299" class="unlock-img lozad" />
+            </span>{{ 'Register.Select_store.Unlock_prices' | t: Unlock_prices }}
+          </h2>
+          <h2>
+            <span class="map-icons">
+              <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/small-truck.png?v=1645092907" class="free-shipping-img lozad" />
+            </span>{{ 'Register.Select_store.Get_free_shipping' | t: Get_free_shipping }}
+          </h2>
+          <h2>
+            <span class="map-icons">
+              <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/map_svg.svg?v=1628771299" class="points-img lozad" />
+            </span>{{ 'Register.Select_store.Collect_points' | t: Collect_points }}
+          </h2>
+          <h2>
+            <span class="hh map-icons">
+              <img data-src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/present-box_png.png?v=1645103826" class="gifts-img lozad" />
+            </span>{{ 'Register.Select_store.Pickup_your_Gifts' | t: Pickup_your_Gifts }}
+          </h2>
+        </div>
+        <div class="mob-btn hide">
+          <a href="#" class="great_btn">Great</a>
+        </div>
+      </div>
+      <div class="tab-pane" id="step3" style="display:block;">
+        <div class="modal" id="divMapModal" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                <!--{% include 'cross-ic' %}-->
+              </a>
+              <h4>{{ 'Register.Select_store.Selected_Pickup_location' | t: Selected_Pickup_location }}</h4>
+              <p class="modal-shopping">{{ 'Register.Select_store.sub_text1' | t: sub_text1 }}</p>
+              <p class="modal-shopping">{{ 'Register.Select_store.sub_text2' | t: sub_text2 }}</p>
+              <hr/>
+              <p class="location-name">
+                <span id="locationName"></span>
+              </p>
+              <input type="hidden" id="pharmacy_id_as_tag" value="">
+              <button type="button"  class="btn btn-primary addBtn btn-select" onclick="saveLocation()">{{ 'Register.Select_Buton.Select' | t: Select }}</button>
+            </div>
+          </div>
+        </div>
+        <div id="map_canvas" class="map-can"></div>
+        <input type="hidden" name="return_to" value="/pages/hurray" />
+        {% if form.errors %}
+        <input type="hidden" name="return_to" value="/account/register" />
+        {%endif%}
+      </div>
+    </div>
+  </div>
+  <div id="loading-section" class="row" style="display:none">
+    <div class="col-xs-12">
+    	<div  class="loading-section">
+            <div class="loader">
+                {% render 'icon-korres' %}
+                <div class="inner">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <h1>Almost Done!</h1>
+            <p>One moment, we are making sure your KORRES Circle experience matches your vibe!</p>
+            <h6>LOADING…</h6>
+      </div>
+    </div>
+  </div>
+  <div class="checkuser">
+    <div id="checkuserModal" class="checkuser-modal" style="display: none;">
+      <div class="checkuser-items">
+        <div class="alert-icon">
+          <img src="{{ 'alert.png' | asset_url }}">
+          <h1>Important!</h1>
+        </div>
+        <div class="content">
+          <p class="getDidata">It seems you have already deleted your Korres Circle account, please contact contact@korres.com or 2130188800 for further information.</p>
+          <div class="button">
+            <a id="checkuserclose" onclick="closeUsrFunction()"> I Understand </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {%endform%}
+</div>
+
+<script id="facebook-jssdk" type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response);                   // The current login status of the person.
+    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+      testAPI();  
+    } else {                                 // Not logged into your webpage or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this webpage.';
+    }
+  }
+
+
+  function checkLoginState() {               // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
+
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '542692260810703',
+      cookie     : true,                     // Enable cookies to allow the server to access the session.
+      xfbml      : true,                     // Parse social plugins on this webpage.
+      version    : 'v14.0'            // Use this Graph API version for this call.
+    });
+
+//    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+//       statusChangeCallback(response);        // Returns the login status.
+//     });
+  };
+ 
+  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', {fields: 'id,name,first_name,last_name,email,picture'}, function(response) {
+      console.log('Successful login for: ' + response.name);
+      /*document.getElementById('status').innerHTML =
+        'Thanks for Successful logging in, ' + response.id + ',' + response.name + ',' + response.first_name + ',' + response.last_name + ',' + response.email + '!';
+      */
+      //
+        $("#fb-profile-picture").append('<img src="' + response.picture.data.url + '"> ');
+        $("#user-id").append(response.id);
+        $("#name").append(response.name);
+        $("#first_name").append(response.first_name);
+        $("#last_name").append(response.last_name);
+        $("#email").append(response.email);
+        
+        var first_name = response.first_name;
+        var last_name = response.last_name;
+        var email = response.email;
+     
+        document.getElementById('first_name').value = first_name;
+        document.getElementById('first_name').setAttribute('readonly', true);
+      
+        document.getElementById('last_name').value = last_name;
+        document.getElementById('last_name').setAttribute('readonly', true);  
+      
+        document.getElementById('register_email').value = email;
+        document.getElementById('register_email').setAttribute('readonly', true);
+        
+        var chars = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz","0123456789", "!$%&*"];
+        var randPwd = "Vitor@71s";
+        
+        document.getElementById('register_password').value = randPwd;
+        //document.getElementById('register_password').setAttribute('readonly', true);
+        
+        document.getElementById('password_confirm').value = randPwd;
+      
+        $(".social_text").css({display:"none"});
+        document.getElementById("agree").checked = false;
+      
+        $('.btnRegister').removeAttr("disabled");
+        
+        
+      
+        //setTimeout(function() { 
+          //$(".next-btn1").trigger('click');
+        //}, 1000);
+      
+        var element = document.getElementById("create_customer");
+		element.classList.add("customer_social");
+        //document.getElementById("agree").checked = true;
+        //console.log(email);
+        var content="ID: $id <br>".replace("$id", response.id);
+        content +="Name: $name <br>".replace("$name", response.name);
+        content +="first name: $first_name <br>".replace("$first_name", response.first_name);
+        content +="last name: $last_name <br>".replace("$last_name", response.last_name);
+        content +="Email: $email <br>".replace("$email", response.email);
+        content +="Photos: <img src='$picture'><br>".replace("$picture", response.picture.data.url);
+        content +="<button id='logout_facebook'> logout </button>";
+        console.log(content);
+
+        $("#content").html(content);
+      
+        $("#logout_facebook").click(function() {
+          logout();
+        });
+    });
+  }
+  function logout() {
+
+    var func = function(){
+      document.location.reload();
+    }
+
+    FB.logout(func);
+  }
+  function fb_login(){
+    FB.login(function(response) {
+
+      if (response.authResponse) {
+        console.log('Welcome!  Fetching your information.... ');
+        //console.log(response); // dump complete info
+        access_token = response.authResponse.accessToken; //get access token
+        user_id = response.authResponse.userID; //get FB UID
+
+        testAPI();
+
+      } else {
+        //user hit cancel button
+        console.log('User cancelled login or did not fully authorize.');
+
+      }
+    }, {
+      scope: 'public_profile,email'
+    });
+  }
+</script>
+
+<script src="{{ 'jquery.validate.js' | asset_url }}"></script>
+<script src="{{ 'register.js' | asset_url }}"></script>

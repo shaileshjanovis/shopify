@@ -1,0 +1,51 @@
+<div class="terms-bottom condition_table">
+{% for block in section.blocks %}
+  <div class="row">  
+	  <div class="col-2 index_col">
+		<h6>{{block.settings.index_no}}</h6>
+	  </div>	 
+	  <div class="col-10 description_col">
+        <div class="inner-right">
+		    <h5>{{block.settings.condition_title}}</h5>
+		    <p>{{block.settings.condition_description}}</p>
+        </div>
+	  </div>
+   </div>
+ {%endfor%}
+</div>
+
+{% schema %}
+{
+  "name": "Conditions",
+  "class": "slideshow",
+  "blocks": [
+     {
+       "name": "Condition blocks",
+       "type": "text",
+       "settings": [
+         {
+           "type": "text",
+           "id": "index_no",
+           "label": "Index No"
+         },
+		{
+           "type": "text",
+           "id": "condition_title",
+           "label": "Condition Title"
+         },
+		{
+           "type": "html",
+           "id": "condition_description",
+           "label": "Condition Description"
+         }
+       ]
+     }
+   ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

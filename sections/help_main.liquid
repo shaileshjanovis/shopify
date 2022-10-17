@@ -1,0 +1,137 @@
+{%- assign faqs = shop.metafields.FAQ -%}
+{% assign key = 'level_2'%}
+{% assign Q2 = 'level_3' %}
+{% assign Q3 = 'level_4' %}
+{% assign Q3 = 'level_5' %}
+{% assign Q3 = 'level_6' %}
+
+{% if page.url contains '/el/' %}
+  <div class="faq_main_cover width-1784">
+    <h3>Πώς μπορούμε να βοηθήσουμε?</h3>
+
+    <div class="inner">
+      <div class="tabs">
+        <ul class="tabs-nav-faq">
+          <li><a href="#tab-1">FAQ</a></li>
+          <li><a href="#tab-2">Shipping</a></li>
+          <li><a href="#tab-3">Payments</a></li>
+          <li><a href="#tab-4">Returns</a></li>
+        </ul>
+      
+        <div class="tabs-faq">
+          <div id="tab-1" class="tab_cover">
+            <div class="accordion-container">
+              {%- for faqItem in faqs -%}
+                    {% assign item = faqItem[1] | split: "|" %}
+                    <div class="set">
+                        <a href="javascript:void(0)">
+                          <i class="fa fa-plus"></i>
+                          {{ item[2] }}
+                        </a>
+                        <div class="content">
+                          <p> {{ item[3] }}</p>
+                        </div>
+                    </div>
+              {%- endfor -%}
+            </div>
+          </div>
+      
+          <div id="tab-2" class="tab_cover">
+            <!--<h2>About Shipping</h2>-->
+            <p>{{ section.settings.text1 }}</p>
+          </div>
+      
+          <div id="tab-3" class="tab_cover">
+            <h2>About Payment</h2>
+            <p>{{ section.settings.text2 }}</p> 
+          </div>
+      
+          <div id="tab-4" class="tab_cover">
+            <h2>About Returns</h2>
+            <p>{{ section.settings.text3 }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="faq_main_cover width-1784">
+      <h3>How can we Help?</h3>
+      <div class="inner">
+  
+        <div class="tabs">
+          <ul class="tabs-nav-faq">
+            <li><a href="#tab-1">FAQ</a></li>
+            <li><a href="#tab-2">Shipping</a></li>
+            <li><a href="#tab-3">Payments</a></li>
+            <li><a href="#tab-4">Returns</a></li>
+          </ul>
+
+          <div class="tabs-faq">
+            <div id="tab-1" class="tab_cover">
+    
+            <div class="accordion-container">
+              {%- for faqItem in faqs -%}
+                    {% assign item = faqItem[1] | split: "|" %}
+                    <div class="set">
+                        <a href="javascript:void(0)">
+                          <i class="fa fa-plus"></i>
+                          {{ item[0] }}
+                        </a>
+                        <div class="content">
+                          <p> {{ item[1] }}</p>
+                        </div>
+                    </div>
+              {%- endfor -%}
+            </div>
+       
+          </div>
+
+          <div id="tab-2" class="tab_cover">
+            <!--<h2>About Shipping</h2>-->
+            <p>{{ section.settings.text1 }}</p>
+          </div>
+
+          <div id="tab-3" class="tab_cover">
+            <h2>About Payment</h2>
+            <p>{{ section.settings.text2 }}</p> 
+          </div>
+
+          <div id="tab-4" class="tab_cover">
+            <h2>About Returns</h2>
+            <p>{{ section.settings.text3 }}</p>
+          </div>
+      </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "faq Section",
+  "class": "faq_main",
+  "settings": [
+      {
+        "type":"textarea",
+        "id":"text1",
+        "label": "Shipping Text"
+      },
+      {
+        "type":"textarea",
+        "id":"text2",
+        "label": "Payment Text"
+      },
+      {
+        "type":"textarea",
+        "id":"text3",
+        "label": "Returns Text"
+      }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

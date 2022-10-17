@@ -1,0 +1,128 @@
+{% assign color_op = section.settings.opacity | divided_by: 100.00 %}
+{% assign overlay_color = section.settings.banner_ov | color_modify: 'alpha', color_op  %}
+<div class="gift-banner_in">
+  <div class="image_text_con">
+    <div class="image_cover {{ color_op }}">
+      <img class="ban_image desktop" src="{{ section.settings.banner_img | img_url : 'master' }}"/>
+      <img class="ban_image mobile" src="{{ section.settings.mobile_ban | img_url : 'master' }}"/>
+    </div>
+    <div class="text_div">
+      <h3 class="head" style="color:{{ section.settings.text_color }};">{{ section.settings.head_tx }}</h3>
+      <p class="sunheading" style="color:{{ section.settings.text_color }};">{{ section.settings.subhead_tx }}</p>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="container">
+      <div class="content">
+        <P class="page_content">{{ section.settings.content }}</P>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .my-gift-banner{
+  	width:100%;
+  }
+  .my-gift-banner .gift-banner_in .image_cover{
+    width:100%;
+    height:368px;
+    max-height:368px;
+    position:relative;
+    margin-bottom: 63px;
+  }
+  .my-gift-banner .gift-banner_in .image_cover .ban_image {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+  }
+  .my-gift-banner .gift-banner_in .page-content{
+  	font-family: 'Roboto Mono', monospace;
+    font-size:22px;
+  }
+  .my-gift-banner .gift-banner_in .image_cover.desktop{
+  	display:block;
+  }
+  .my-gift-banner .gift-banner_in .image_cover.mobile{
+  	display:none;
+  }
+  @media(max-width:768px){
+    .my-gift-banner .gift-banner_in .image_cover.desktop{
+    	display:none;
+    }
+    .my-gift-banner .gift-banner_in .image_cover.mobile{
+      display:block;
+    }
+  }
+  .my-gift-banner .gift-banner_in .image_cover:before{
+  	position:absolute;
+    content:'';
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:{{ overlay_color }};
+  }
+</style>
+{% schema %}
+  {
+    "name": "my-gift banner",
+	"class":"my-gift-banner",
+    "settings": [
+	  {
+		"type":"image_picker",
+		"id":"banner_img",
+		"label":"Banner Image for desktop"
+	  },
+	  {
+		"type":"image_picker",
+		"id":"mobile_ban",
+		"label":"Banner image for mobile"
+	  },
+	  {
+		"type":"color",
+		"id":"banner_ov",
+		"label":"Banner overlay color"
+	  },
+	  {
+        "type": "range",
+        "id": "opacity",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "label": "Opacity",
+        "default": 16
+      },
+	  {
+		"type":"text",
+		"id":"head_tx",
+		"label":"Heading text"
+	  },
+	  {
+		"type":"text",
+		"id":"subhead_tx",
+		"label":"subheading text"
+	  },
+	  {
+		"type":"color",
+		"id":"text_color",
+		"label":"Select text color"
+	  },
+	  {
+		"type":"textarea",
+		"id":"content",
+		"label":"page content"
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

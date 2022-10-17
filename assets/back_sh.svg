@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="172" height="55" viewBox="0 0 172 55">
+  <defs>
+    <filter id="Rectangle_788" x="0" y="0" width="172" height="55" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Component_38_1" data-name="Component 38 – 1" transform="translate(9 9)">
+    <g id="Group_4185" data-name="Group 4185" transform="translate(0.026)">
+      <g id="Group_4186" data-name="Group 4186">
+        <g transform="matrix(1, 0, 0, 1, -9.03, -9)" filter="url(#Rectangle_788)">
+          <rect id="Rectangle_788-2" data-name="Rectangle 788" width="154" height="37" rx="18.5" transform="translate(9 9)" fill="#fff"/>
+        </g>
+      </g>
+      <text id="Back_to_MyCircle" data-name="Back to MyCircle" transform="translate(37.474 22.736)" fill="#32322d" font-size="14" font-family="Roboto-Light, Roboto" font-weight="300"><tspan x="0" y="0">Back to MyCircle</tspan></text>
+    </g>
+    <g id="Group_4188" data-name="Group 4188" transform="translate(15.172 14.021)">
+      <line id="Line_253" data-name="Line 253" x1="12.899" y2="0.013" transform="translate(-2 4.467)" fill="none" stroke="#2c3149" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_340" data-name="Path 340" d="M368.651,2054.038l-4.479,4.479,4.479,4.479" transform="translate(-366.172 -2054.038)" fill="none" stroke="#2c3149" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,1317 @@
+<div class="page-full-circle-content">
+  <div class="tab-content clearfix">
+    <div class="tab-pane fade" id="tab-molecular-lab">
+      <div class="tab-pane-inner">
+
+        {% for block in section.blocks %}
+        {% if block.type == 'block-breadcrumb-section' %}
+        <nav aria-label="breadcrumb" class="breadcrumb-web">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item first-child">
+              <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.full-circle-link }}">{{ block.settings.breadcrumb-full-circle }}</a>
+            </li>
+            <li data-id="soil-lab" class="breadcrumb-item breadcrumb-soil-lab">
+              <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.soil-link }}">{{block.settings.breadcrumb-item-1}}</a>
+            </li>
+            <li data-id="extraction-lab" class="breadcrumb-item breadcrumb-extraction-lab">
+              <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.extraction-link }}">{{block.settings.breadcrumb-item-2}}</a>
+            </li>
+            <li data-id="molecular-lab" class="breadcrumb-item breadcrumb-molecular-lab active show">
+              <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.molecular-link }}">{{block.settings.breadcrumb-item-3}}</a>
+            </li>
+            <li data-id="formulation-lab" class="breadcrumb-item breadcrumb-formulation-lab">
+              <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.formulation-link }}">{{block.settings.breadcrumb-item-4}}</a>
+            </li>
+            <li data-id="design-lab" class="breadcrumb-item breadcrumb-design-lab">
+              <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.design-link }}">{{block.settings.breadcrumb-item-5}}</a>
+            </li>
+            <li data-id="recycle-lab" class="breadcrumb-item breadcrumb-recycle-lab">
+              <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.recycle-link }}">{{block.settings.breadcrumb-item-6}}</a>
+            </li>
+          </ol>
+        </nav>
+        {% endif %}
+        {% endfor %}
+
+        {% for block in section.blocks %}
+        {% if block.type == 'block-top-section' %}
+        <div class="block-top-section-web">
+          <div class="row no-gutters">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 ordering-3">
+              <div class="left-text">
+                {% if block.settings.main-text1 != blank %}{{block.settings.main-text1}}{% endif %}
+                {% if block.settings.main-text2 != blank %}{{block.settings.main-text2}}{% endif %}
+                {% if block.settings.main-text3 != blank %}{{block.settings.main-text3}}{% endif %}
+                {% if block.settings.main-text4 != blank %}{{block.settings.main-text4}}{% endif %}
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 ordering-2">
+              <div class="middle-content">
+                {% if block.settings.main-img-1 != blank %}<img src="{{block.settings.main-img-1 | img_url: 'master'}}" class="img-fluid" />{% endif %}
+                {% if block.settings.main-img-2 != blank %}<img data-src="{{block.settings.main-img-2 | img_url: 'master'}}" class="img-fluid lozad" />{% endif %}
+                {% if block.settings.main-img-3 != blank %}<img data-src="{{block.settings.main-img-3 | img_url: 'master'}}" class="img-fluid lozad" />{% endif %}
+                {% if block.settings.main-img-4 != blank %}<img data-src="{{block.settings.main-img-4 | img_url: 'master'}}" class="img-fluid lozad" />{% endif %}
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4 ordering-1">
+              <div class="category-item-container">
+                <div class="category-item">
+                  <div class="inner">
+                    <span>
+                      {{block.settings.category | newline_to_br}}
+                    </span>
+                    <span class="num">{{block.settings.category-num}}</span>
+                  </div>
+                </div>
+                <nav aria-label="breadcrumb" class="breadcrumb-mobile back-to-circle">
+                  <ol class="breadcrumb mobile">
+                    <li>
+                      <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.full-circle-link }}">{{block.settings.back-to-circle}}</a>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% for block in section.blocks %}
+        {% if block.type == 'block-top-section' %}
+        <div class="block-top-section-mob">
+          <div class="row no-gutters">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="category-item-container">
+                <div class="category-item">
+                  <div class="inner">
+                    <span>
+                      {{block.settings.category | newline_to_br}}
+                    </span>
+                    <span class="num">{{block.settings.category-num}}</span>
+                  </div>
+                </div>
+
+                <nav aria-label="breadcrumb" class="breadcrumb-mobile back-to-circle">
+                  <ol class="breadcrumb mobile">
+                    <li>
+                      <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.full-circle-link }}">{{block.settings.back-to-circle}}</a>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="middle-content">
+                {% if block.settings.main-img-1 != blank %}<img data-src="{{block.settings.main-img-1 | img_url: 'master'}}" class="img-fluid lozad" />{% endif %}
+              </div>
+              <div class="left-text">
+                {{block.settings.main-text1}}
+              </div>
+              <div class="middle-content">
+                {% if block.settings.main-img-2 != blank %}<img data-src="{{block.settings.main-img-2 | img_url: 'master'}}" class="img-fluid lozad" />{% endif %}
+              </div>
+              <div class="left-text">
+                {{block.settings.main-text2}}
+              </div>
+              <div class="middle-content">
+                {% if block.settings.main-img-3 != blank %}<img data-src="{{block.settings.main-img-3 | img_url: 'master'}}" class="img-fluid lozad" />{% endif %}
+              </div>
+              <div class="middle-content">
+                {% if block.settings.main-img-4 != blank %}<img data-src="{{block.settings.main-img-4 | img_url: 'master'}}" class="img-fluid lozad" />{% endif %}
+              </div>
+              <div class="left-text">
+                {{block.settings.main-text3}}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% for block in section.blocks %}
+        {% if block.type == 'block-cooperations' %}
+        <div class="cooperations-section">
+          <h1>{{ block.settings.cooperations-title }}</h1>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-kozani-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-kozani-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-kozani-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-kozani-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-kozani-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-crete-1-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-crete-1-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-crete-1-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-crete-1-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-crete-1-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-naxos-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-naxos-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-naxos-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-naxos-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-naxos-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-santorini-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-santorini-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-santorini-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-santorini-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-santorini-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-pindos-1-link }}"  class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-pindos-1-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-pindos-1-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-pindos-1-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-pindos-1-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-pindos-2-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-pindos-2-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-pindos-2-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-pindos-2-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-pindos-2-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-arcadia-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-arcadia-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-arcadia-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-arcadia-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-arcadia-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-rodopi-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-rodopi-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-rodopi-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-rodopi-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-rodopi-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-olympus-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-olympus-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-olympus-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-olympus-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-olympus-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-larissa-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-larissa-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-larissa-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-larissa-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-larissa-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-thesprotia-1-link }}" class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-thesprotia-1-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-thesprotia-1-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-thesprotia-1-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-thesprotia-1-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-evros-link }}"  class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-evros-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-evros-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-evros-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-evros-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-kilkis-link }}"  class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-kilkis-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-kilkis-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-kilkis-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-kilkis-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-crete-2-link }}"  class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-crete-2-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-crete-2-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-crete-2-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-crete-2-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-thesprotia-2-link }}"  class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-thesprotia-2-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-thesprotia-2-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-thesprotia-2-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-thesprotia-2-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-crete-3-link }}"  class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-crete-3-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-crete-3-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-crete-3-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-crete-3-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-crete-4-link }}"  class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-crete-4-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-crete-4-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-crete-4-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-crete-4-herb }}</span>
+            </div>
+          </a>
+          <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.pin-crete-5-link }}"  class="row no-gutters" >
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 border-right">
+              <span class="region">
+                {{ block.settings.pin-crete-5-region }}<span></span>
+              </span>
+              <span class="ingredient">{{ block.settings.pin-crete-5-herb-mobile }}</span>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 border-right">
+              <span class="name">{{ block.settings.pin-crete-5-producer }}</span>
+              <div class="read-more-container">
+                <span class="text">{{ block.settings.cooperations-read-more }}</span>
+                <span class="long-arrow-right"></span>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+              <span class="ingredient">{{ block.settings.pin-crete-5-herb }}</span>
+            </div>
+          </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+
+        {% for block in section.blocks %}
+        {% if block.type == 'block-carousel-text' %}
+        <div id="{{block.id}}" class="row no-gutters">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="carousel-section">
+              <h1>
+                {{block.settings.carousel-title | newline_to_br}}
+              </h1>
+              <h5>
+                {{block.settings.carousel-name-of-person}}
+              </h5>
+              {% if block.settings.carousel-img-of-person != blank %}
+              <div class="img-of-person">
+                <img data-src="{{block.settings.carousel-img-of-person | img_url: 'master'}}" class="img-fluid lozad" />
+              </div>
+              {% endif %}
+              <p>
+                {{block.settings.carousel-text}}
+              </p>
+              <h6>
+                {{block.settings.carousel-what-i-love}}
+              </h6>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% if block.type == 'block-carousel' %}
+        <div id="{{block.id}}" class="section-carousel">
+          <div class="row no-gutters">
+            {% if block.settings.main-img-slide-1 != blank %}
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="slide slide-of-person">
+                <img data-src="{{block.settings.main-img-slide-1 | img_url: 'master'}}" class="img-fluid lozad" />
+              </div>
+            </div>
+            {% endif %}
+            {% if block.settings.main-img-slide-2 != blank %}
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="slide">
+                {% if block.settings.main-img-link-2 != blank %}<a href="{{block.settings.main-img-link-2}}">
+                  {% endif %}
+                  <img data-src="{{block.settings.main-img-slide-2 | img_url: 'master'}}" class="img-fluid lozad" />
+                  {% if block.settings.main-img-link-2 != blank %}
+                </a>{% endif %}
+              </div>
+            </div>
+            {% endif %}
+            {% if block.settings.main-img-slide-3 != blank %}
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="slide">
+                {% if block.settings.main-img-link-2 != blank %}<a href="{{block.settings.main-img-link-3}}">
+                  {% endif %}
+                  <img data-src="{{block.settings.main-img-slide-3 | img_url: 'master'}}" class="img-fluid lozad" />
+                  {% if block.settings.main-img-link-2 != blank %}
+                </a>{% endif %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "Molecular Lab",
+"class": "home-bottom-blck",
+"settings": [],
+
+"blocks": [{
+"type": "block-breadcrumb-section",
+"name": "Breadcrumb Section",
+"settings": [{
+"type": "text",
+"id": "breadcrumb-full-circle",
+"label": "Breadcrumb First Item",
+"default": "The Sustainability Circle"
+},
+{
+"id": "full-circle-link",
+"type": "text",
+"label": "Link Full Circle Page",
+"default": "/pages/full-circle"
+},
+{
+"id": "breadcrumb-item-1",
+"type": "text",
+"label": "Breadcrumb Item 1 Title",
+"default": "Soil Lab"
+},
+{
+"id": "soil-link",
+"type": "text",
+"label": "Link Soil Page",
+"default": "/pages/full-circle-soil-lab"
+},
+{
+"id": "breadcrumb-item-2",
+"type": "text",
+"label": "Breadcrumb Item 2 Title",
+"default": "Extraction Lab"
+},
+{
+"id": "extraction-link",
+"type": "text",
+"label": "Link Extraction Page",
+"default": "/pages/full-circle-extraction-lab"
+},
+{
+"id": "breadcrumb-item-3",
+"type": "text",
+"label": "Breadcrumb Item 3 Title",
+"default": "Molecular Lab"
+},
+{
+"id": "molecular-link",
+"type": "text",
+"label": "Link Molecular Page",
+"default": "/pages/full-circle-molecular-lab"
+},
+{
+"id": "breadcrumb-item-4",
+"type": "text",
+"label": "Breadcrumb Item 4 Title",
+"default": "Formulation Lab"
+},
+{
+"id": "formulation-link",
+"type": "text",
+"label": "Link Formulation Page",
+"default": "/pages/full-circle-formulation-lab"
+},
+{
+"id": "breadcrumb-item-5",
+"type": "text",
+"label": "Breadcrumb Item 5 Title",
+"default": "Design Lab"
+},
+{
+"id": "design-link",
+"type": "text",
+"label": "Link Design Page",
+"default": "/pages/full-circle-design-lab"
+},
+{
+"id": "breadcrumb-item-6",
+"type": "text",
+"label": "Breadcrumb Item 6 Title",
+"default": "Recycle Lab"
+},
+{
+"id": "recycle-link",
+"type": "text",
+"label": "Link Recycle Page",
+"default": "/pages/full-circle-recycle-lab"
+}
+]
+},
+{
+"type": "block-top-section",
+"name": "Block Top Section",
+"settings": [{
+"id": "main-img-1",
+"type": "image_picker",
+"label": "Section Image 1"
+},
+{
+"id": "main-text1",
+"type": "richtext",
+"label": "Text 1"
+},
+{
+"id": "main-img-2",
+"type": "image_picker",
+"label": "Section Image 2"
+},
+{
+"id": "main-text2",
+"type": "richtext",
+"label": "Text 2"
+},
+{
+"id": "main-img-3",
+"type": "image_picker",
+"label": "Section Image 3"
+},
+{
+"id": "main-img-4",
+"type": "image_picker",
+"label": "Section Image 4"
+},
+{
+"id": "main-text3",
+"type": "richtext",
+"label": "Text 3"
+},
+{
+"id": "category",
+"type": "textarea",
+"label": "Category Text",
+"default": "MOLECULAR LAB"
+},
+{
+"id": "category-num",
+"type": "text",
+"label": "Category Number",
+"default": "3"
+},
+{
+"id": "back-to-circle",
+"type": "text",
+"label": "Back Text",
+"default": "Back to Full Circle"
+},
+{
+"id": "full-circle-link",
+"type": "text",
+"label": "Link Full Circle Page",
+"default": "/pages/full-circle"
+}
+]
+},
+{
+"type": "block-cooperations",
+"name": "Block Cooperations",
+"settings": [{
+"id": "cooperations-title",
+"type": "text",
+"label": "Cooperations Title",
+"default": "The Cooperations"
+},
+{
+"id": "cooperations-read-more",
+"type": "text",
+"label": "Cooperations Read More",
+"default": "Read More"
+},
+{
+"id": "pin-evros-region",
+"type": "text",
+"label": "Region Evros",
+"default": "ORESTIADA"
+},
+{
+"id": "pin-evros-herb",
+"type": "text",
+"label": "Herb Evros",
+"default": "Sunflower / Helianthus Annuus"
+},
+{
+"id": "pin-evros-herb-mobile",
+"type": "text",
+"label": "Herb Evros Mobile",
+"default": "Sunflower / Helianthus Annuus"
+},
+{
+"id": "pin-evros-producer",
+"type": "text",
+"label": "Name of Producer Evros",
+"default": "Argiri Ntintoudi"
+},
+{
+"id": "pin-evros-link",
+"type": "text",
+"label": "Link of Evros Herb Page",
+"default": "/pages/herb-sunflower"
+},
+{
+"id": "pin-rodopi-region",
+"type": "text",
+"label": "Region Rodopi",
+"default": "KOMOTINI"
+},
+{
+"id": "pin-rodopi-herb",
+"type": "text",
+"label": "Herb Rodopi",
+"default": "Calendula / Calendula Officinalis"
+},
+{
+"id": "pin-rodopi-herb-mobile",
+"type": "text",
+"label": "Herb Rodopi Mobile",
+"default": "Calendula / Calendula Officinalis"
+},
+{
+"id": "pin-rodopi-producer",
+"type": "text",
+"label": "Name of Producer Rodopi",
+"default": "Giorgos Ereliadis"
+},
+{
+"id": "pin-rodopi-link",
+"type": "text",
+"label": "Link of Rodopi Herb Page",
+"default": "/pages/herb-calendula"
+},
+{
+"id": "pin-kilkis-region",
+"type": "text",
+"label": "Region Kilkis",
+"default": "KILKIS"
+},
+{
+"id": "pin-kilkis-herb",
+"type": "text",
+"label": "Herb Kilkis",
+"default": "Wild Rose / Rosa Canina"
+},
+{
+"id": "pin-kilkis-herb-mobile",
+"type": "text",
+"label": "Herb kilkis Mobile",
+"default": "Wild Rose / Rosa Canina"
+},
+{
+"id": "pin-kilkis-producer",
+"type": "text",
+"label": "Name of Producer Kilkis",
+"default": "Balkan Botanic Garden of Kroussia"
+},
+{
+"id": "pin-kilkis-link",
+"type": "text",
+"label": "Link of Kilkis Herb Page",
+"default": "/pages/wild-rose-sunflower"
+},
+{
+"id": "pin-kozani-region",
+"type": "text",
+"label": "Region Kozani",
+"default": "KOZANI"
+},
+{
+"id": "pin-kozani-herb",
+"type": "text",
+"label": "Herb Kozani",
+"default": "Krocus Kozanis / Crocus sativus"
+},
+{
+"id": "pin-kozani-herb-mobile",
+"type": "text",
+"label": "Herb Kozani Mobile",
+"default": "Crocus Sativus"
+},
+{
+"id": "pin-kozani-producer",
+"type": "text",
+"label": "Name of Producer Kozani",
+"default": "Kozani Saffron Producers Cooperative"
+},
+{
+"id": "pin-kozani-link",
+"type": "text",
+"label": "Link of Kozani Herb Page",
+"default": "/pages/herb-krocus-kozanis"
+},
+{
+"id": "pin-olympus-region",
+"type": "text",
+"label": "Region Olympus",
+"default": "OLYMPUS MOUNTAIN"
+},
+{
+"id": "pin-olympus-herb",
+"type": "text",
+"label": "Herb Olympus",
+"default": "Olympus Tea / Sideritis Scardica"
+},
+{
+"id": "pin-olympus-herb-mobile",
+"type": "text",
+"label": "Herb Olympus Mobile",
+"default": "Olympus Tea / Sideritis Scardica"
+},
+{
+"id": "pin-olympus-producer",
+"type": "text",
+"label": "Name of Producer Olympus",
+"default": "Vassilis + Dimitris Chalkias"
+},
+{
+"id": "pin-olympus-link",
+"type": "text",
+"label": "Link of Olympus Herb Page",
+"default": "/pages/herb-olympus-tea"
+},
+{
+"id": "pin-larissa-region",
+"type": "text",
+"label": "Region Larissa",
+"default": "LARISSA"
+},
+{
+"id": "pin-larissa-herb",
+"type": "text",
+"label": "Herb Larissa",
+"default": "Almond Tree / Prunus Dulcis"
+},
+{
+"id": "pin-larissa-herb-mobile",
+"type": "text",
+"label": "Herb Larissa Mobile",
+"default": "Almond Tree / Prunus Dulcis"
+},
+{
+"id": "pin-larissa-producer",
+"type": "text",
+"label": "Name of Producer Larissa",
+"default": "Nikos Perifanos"
+},
+{
+"id": "pin-larissa-link",
+"type": "text",
+"label": "Link of Larissa Herb Page",
+"default": "/pages/herb-almond-tree"
+},
+{
+"id": "pin-pindos-1-region",
+"type": "text",
+"label": "Region Pindos 1",
+"default": "PINDUS"
+},
+{
+"id": "pin-pindos-1-herb",
+"type": "text",
+"label": "Herb Pindos 1",
+"default": "Black Pine / Pinus Nigra"
+},
+{
+"id": "pin-pindos-1-herb-mobile",
+"type": "text",
+"label": "Herb Pindos 1 Mobile",
+"default": "Black Pine / Pinus Nigra"
+},
+{
+"id": "pin-pindos-1-producer",
+"type": "text",
+"label": "Name of Producer Pindos 1",
+"default": "Michalis Chliapas / In cooperation with the Directorate of Forests of Grevena"
+},
+{
+"id": "pin-pindos-1-link",
+"type": "text",
+"label": "Link of Pindos 1 Herb Page",
+"default": "/pages/herb-white-pine"
+},
+{
+"id": "pin-pindos-2-region",
+"type": "text",
+"label": "Region Pindos 2",
+"default": "PINDUS"
+},
+{
+"id": "pin-pindos-2-herb",
+"type": "text",
+"label": "Herb Pindos 2",
+"default": "White Pine / Pinus Heldreichii"
+},
+{
+"id": "pin-pindos-2-herb-mobile",
+"type": "text",
+"label": "Herb Pindos-2 Mobile",
+"default": "White Pine / Pinus Heldreichii"
+},
+{
+"id": "pin-pindos-2-producer",
+"type": "text",
+"label": "Name of Producer Pindos 2",
+"default": "Michalis Chliapas / In cooperation with the Directorate of Forests of Grevena"
+},
+{
+"id": "pin-pindos-2-link",
+"type": "text",
+"label": "Link of Pindos 2 Herb Page",
+"default": "/pages/herb-black-pine"
+},
+{
+"id": "pin-thesprotia-1-region",
+"type": "text",
+"label": "Region Thesprotia 1",
+"default": "THESPROTIA"
+},
+{
+"id": "pin-thesprotia-1-herb",
+"type": "text",
+"label": "Herb Thesprotia 1",
+"default": "Hypericum Perforatum"
+},
+{
+"id": "pin-thesprotia-1-herb-mobile",
+"type": "text",
+"label": "Herb Thesprotia Mobile",
+"default": "Hypericum Perforatum"
+},
+{
+"id": "pin-thesprotia-1-producer",
+"type": "text",
+"label": "Name of Producer Thesprotia 1",
+"default": "Argiri Arvaniti"
+},
+{
+"id": "pin-thesprotia-1-link",
+"type": "text",
+"label": "Link of Thesprotia 1 Herb Page",
+"default": "/pages/herb-balsam"
+},
+{
+"id": "pin-thesprotia-2-region",
+"type": "text",
+"label": "Region Thesprotia 2",
+"default": "THESPROTIA / MARGARITI"
+},
+{
+"id": "pin-thesprotia-2-herb",
+"type": "text",
+"label": "Herb Thesprotia 2",
+"default": "Balsam / Hypericum Perforatum"
+},
+{
+"id": "pin-thesprotia-herb-mobile",
+"type": "text",
+"label": "Herb Thesprotia Mobile",
+"default": "Balsam / Hypericum Perforatum"
+},
+{
+"id": "pin-thesprotia-2-producer",
+"type": "text",
+"label": "Name of Producer Thesprotia 2",
+"default": "Maria Komini"
+},
+{
+"id": "pin-thesprotia-2-link",
+"type": "text",
+"label": "Link of Thesprotia 2 Herb Page",
+"default": "/pages/herb-sage"
+},
+{
+"id": "pin-arcadia-region",
+"type": "text",
+"label": "Region Arcadia",
+"default": "ARCADIA"
+},
+{
+"id": "pin-arcadia-herb",
+"type": "text",
+"label": "Herb Arcadia",
+"default": "Castanea Arcadia / Castanea Sativa"
+},
+{
+"id": "pin-arcadia-herb-mobile",
+"type": "text",
+"label": "Herb Arcadia Mobile",
+"default": "Castanea Arcadia / Castanea Sativa"
+},
+{
+"id": "pin-arcadia-producer",
+"type": "text",
+"label": "Name of Producer Arcadia",
+"default": "Dimitris Maniatis"
+},
+{
+"id": "pin-arcadia-link",
+"type": "text",
+"label": "Link of Arcadia Herb Page",
+"default": "/pages/castania-arcadia"
+},
+{
+"id": "pin-naxos-region",
+"type": "text",
+"label": "Region Naxos",
+"default": "NAXOS"
+},
+{
+"id": "pin-naxos-herb",
+"type": "text",
+"label": "Herb Naxos",
+"default": "Thyme / Thymus Vulgaris"
+},
+{
+"id": "pin-naxos-herb-mobile",
+"type": "text",
+"label": "Herb Naxos Mobile",
+"default": "Thymus Vulgaris"
+},
+{
+"id": "pin-naxos-producer",
+"type": "text",
+"label": "Name of Producer Naxos",
+"default": "Nikos Chatziandreou"
+},
+{
+"id": "pin-naxos-link",
+"type": "text",
+"label": "Link of Naxos Herb Page",
+"default": "/pages/herb-thyme"
+},
+{
+"id": "pin-santorini-region",
+"type": "text",
+"label": "Region Santorini",
+"default": "SANTORINI"
+},
+{
+"id": "pin-santorini-herb",
+"type": "text",
+"label": "Herb Santorini",
+"default": "Santorini Grape / Vitis Venifera"
+},
+{
+"id": "pin-santorini-herb-mobile",
+"type": "text",
+"label": "Herb Santorini Mobile",
+"default": "Santorini Grape / Vitis Venifera"
+},
+{
+"id": "pin-santorini-producer",
+"type": "text",
+"label": "Name of Producer Santorini",
+"default": "Union of Santorini Cooperatives / Santowine"
+},
+{
+"id": "pin-santorini-link",
+"type": "text",
+"label": "Link of Santorini Herb Page",
+"default": "/pages/herb-santorini-grape"
+},
+{
+"id": "pin-crete-1-region",
+"type": "text",
+"label": "Region Crete 1",
+"default": "CRETE / ZOUNAKI"
+},
+{
+"id": "pin-crete-1-herb",
+"type": "text",
+"label": "Herb Crete 1",
+"default": "Olive Tree / Olea europea"
+},
+{
+"id": "pin-crete-1-herb-mobile",
+"type": "text",
+"label": "Herb Crete 1 Mobile",
+"default": "Olive Tree / Olea europea"
+},
+{
+"id": "pin-crete-1-producer",
+"type": "text",
+"label": "Name of Producer Crete 1",
+"default": "Athanasia Papadantonaki"
+},
+{
+"id": "pin-crete-1-link",
+"type": "text",
+"label": "Link of Crete 1 Herb Page",
+"default": "/pages/herb-olive-tree"
+},
+{
+"id": "pin-crete-2-region",
+"type": "text",
+"label": "Region Crete 2",
+"default": "CRETE / MESSARA"
+},
+{
+"id": "pin-crete-2-herb",
+"type": "text",
+"label": "Herb Crete 2",
+"default": "Olive Tree / Olea Europea"
+},
+{
+"id": "pin-crete-2-herb-mobile",
+"type": "text",
+"label": "Herb Crete 2 Mobile",
+"default": "Olive Tree / Olea Europea"
+},
+{
+"id": "pin-crete-2-producer",
+"type": "text",
+"label": "Name of Producer Crete 2",
+"default": "Organic Farmers Cooperative of Messara"
+},
+{
+"id": "pin-crete-2-link",
+"type": "text",
+"label": "Link of Crete 2 Herb Page",
+"default": "/pages/herb-malotira"
+},
+{
+"id": "pin-crete-3-region",
+"type": "text",
+"label": "Region Crete 3",
+"default": "CRETE / ARKALOCHORI"
+},
+{
+"id": "pin-crete-3-herb",
+"type": "text",
+"label": "Herb Crete 3",
+"default": "Dittany / Origanum Dictamnus"
+},
+{
+"id": "pin-crete-3-herb-mobile",
+"type": "text",
+"label": "Herb Crete 3 Mobile",
+"default": "Dittany / Origanum Dictamnus"
+},
+{
+"id": "pin-crete-3-producer",
+"type": "text",
+"label": "Name of Producer Crete 3",
+"default": "Local Farmers"
+},
+{
+"id": "pin-crete-3-link",
+"type": "text",
+"label": "Link of Crete 3 Herb Page",
+"default": "/pages/herb-olive-tree"
+},
+{
+"id": "pin-crete-4-region",
+"type": "text",
+"label": "Region Crete 4",
+"default": "CRETE / ARKALOCHORI"
+},
+{
+"id": "pin-crete-4-herb",
+"type": "text",
+"label": "Herb Crete 4",
+"default": "Marjoram/ Origanum Majorana"
+},
+{
+"id": "pin-crete-4-herb-mobile",
+"type": "text",
+"label": "Herb Crete 4 Mobile",
+"default": "Marjoram/ Origanum Majorana"
+},
+{
+"id": "pin-crete-4-producer",
+"type": "text",
+"label": "Name of Producer Crete 4",
+"default": "Local Farmers"
+},
+{
+"id": "pin-crete-4-link",
+"type": "text",
+"label": "Link of Crete 4 Herb Page",
+"default": "/pages/herb-marjoram"
+},
+{
+"id": "pin-crete-5-region",
+"type": "text",
+"label": "Region Crete 5",
+"default": "CRETE"
+},
+{
+"id": "pin-crete-5-herb",
+"type": "text",
+"label": "Herb Crete 5",
+"default": "Malotira / Sideritis Syriaca"
+},
+{
+"id": "pin-crete-5-herb-mobile",
+"type": "text",
+"label": "Herb Crete 5 Mobile",
+"default": "Malotira / Sideritis Syriaca"
+},
+{
+"id": "pin-crete-5-producer",
+"type": "text",
+"label": "Name of Producer Crete 5",
+"default": "Local Farmers"
+},
+{
+"id": "pin-crete-5-link",
+"type": "text",
+"label": "Link of Crete 5 Herb Page",
+"default": "/pages/herb-dittany"
+}
+]
+},
+{
+"type": "block-carousel-text",
+"name": "Block Carousel Text",
+"settings": [{
+"id": "carousel-title",
+"type": "textarea",
+"label": "Carousel Title"
+},
+{
+"id": "carousel-name-of-person",
+"type": "text",
+"label": "Carousel Name of Person"
+},
+{
+"id": "carousel-img-of-person",
+"type": "image_picker",
+"label": "Upload Face Photo"
+},
+{
+"id": "carousel-text",
+"type": "richtext",
+"label": "Carousel Text"
+},
+{
+"id": "carousel-what-i-love",
+"type": "text",
+"label": "Carousel What I Love",
+"default": "What I love:"
+}
+]
+},
+{
+"type": "block-carousel",
+"name": "Block Carousel",
+"settings": [{
+"id": "main-img-slide-1",
+"type": "image_picker",
+"label": "Upload Image 1"
+},
+{
+"id": "main-img-slide-2",
+"type": "image_picker",
+"label": "Upload Image 2"
+},
+{
+"id": "main-img-link-2",
+"type": "text",
+"label": "Link Of Image 2"
+},
+{
+"id": "main-img-slide-3",
+"type": "image_picker",
+"label": "Upload Image 3"
+},
+{
+"id": "main-img-link-3",
+"type": "text",
+"label": "Link Of Image 3"
+}
+]
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,804 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Themekit template theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https:\/\/github.com\/Shopify\/themekit",
+    "theme_support_url": "https:\/\/github.com\/Shopify\/themekit\/issues"
+  },
+  {
+    "name": "Mini Cart Upsell",
+    "settings": [
+      {
+        "type": "text",
+        "id": "mini_upsell_text",
+        "label": "Text"
+      },
+      {
+        "type": "color",
+        "id": "mini_upsell_color",
+        "label": "Color",
+        "default": "#444444"
+      },
+      {
+        "type": "select",
+        "id": "mini_upsell_font",
+        "label": "Font",
+        "options": [
+          {
+            "value": "'Graphik', sans-serif",
+            "label": "Graphik"
+          },
+          {
+            "value": "'Italian Typewriter', serif",
+            "label": "Italian Typewriter"
+          }
+        ],
+        "default": "'Graphik', sans-serif"
+      }
+    ]
+  },
+  {
+    "name": "Cart Links",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_cart_links",
+        "label": "Enable links for products in cart\/mini-cart",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon Icon",
+        "info": "Favicon Icon"
+      }
+    ]
+  },
+  {
+    "name": "Gift",
+    "settings": [
+      {
+        "type": "text",
+        "id": "min_price",
+        "label": "Add min price for a gift"
+      },
+      {
+        "type": "text",
+        "id": "gift_promo",
+        "label": "Promo code to add gift",
+        "info": "Overrides the min price field above."
+      },
+      {
+        "type": "product",
+        "id": "gift_product",
+        "label": "Select gift product"
+      },
+      {
+        "type": "url",
+        "id": "gift_link",
+        "label": "Link"
+      },
+      {
+        "type": "textarea",
+        "id": "gift_message",
+        "label": "Gift product message"
+      }
+    ]
+  },
+  {
+    "name": "Mini Cart Buttons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Desktop"
+      },
+      {
+        "type": "header",
+        "content": "Button 1"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_bg",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "mini_btn_text",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_color",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "mini_btn_url",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "mini_is_checkout",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Button 2"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_bg_2",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "mini_btn_text_2",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_color_2",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "mini_btn_url_2",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "mini_is_checkout_2",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Button 3"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_bg_3",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "mini_btn_text_3",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_color_3",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "mini_btn_url_3",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "mini_is_checkout_3",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Mobile"
+      },
+      {
+        "type": "header",
+        "content": "Button 1"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_mobile_bg",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "mini_btn_mobile_text",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_mobile_color",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "mini_btn_mobile_url",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "mini_is_checkout_mobile",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Button 2"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_mobile_bg_2",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "mini_btn_mobile_text_2",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_mobile_color_2",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "mini_btn_mobile_url_2",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "mini_is_checkout_mobile_2",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Button 3"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_mobile_bg_3",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "mini_btn_mobile_text_3",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "mini_btn_mobile_color_3",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "mini_btn_mobile_url_3",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "mini_is_checkout_mobile_3",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      }
+    ]
+  },
+  {
+    "name": "Cart Buttons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Desktop"
+      },
+      {
+        "type": "header",
+        "content": "Button 1"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_bg",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "cart_btn_text",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_color",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "cart_btn_url",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_is_checkout",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Button 2"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_bg_2",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "cart_btn_text_2",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_color_2",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "cart_btn_url_2",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_is_checkout_2",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Button 3"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_bg_3",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "cart_btn_text_3",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_color_3",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "cart_btn_url_3",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_is_checkout_3",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Mobile"
+      },
+      {
+        "type": "header",
+        "content": "Button 1"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_mobile_bg",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "cart_btn_mobile_text",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_mobile_color",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "cart_btn_mobile_url",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_is_checkout_mobile",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Button 2"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_mobile_bg_2",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "cart_btn_mobile_text_2",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_mobile_color_2",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "cart_btn_mobile_url_2",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_is_checkout_mobile_2",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      },
+      {
+        "type": "header",
+        "content": "Button 3"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_mobile_bg_3",
+        "label": "Button Background Color",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "cart_btn_mobile_text_3",
+        "label": "Button Text"
+      },
+      {
+        "type": "color",
+        "id": "cart_btn_mobile_color_3",
+        "label": "Button Text Color",
+        "default": "#fff"
+      },
+      {
+        "type": "url",
+        "id": "cart_btn_mobile_url_3",
+        "label": "Button Url"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_is_checkout_mobile_3",
+        "label": "Is Checkout Button",
+        "default": false,
+        "info": "Activate only if It's checkout button"
+      }
+    ]
+  },
+  {
+    "name": "Socials Link",
+    "settings": [
+      {
+        "id": "social_facebook",
+        "type": "url",
+        "label": "Facebook link"
+      },
+      {
+        "id": "social_instagram",
+        "type": "url",
+        "label": "Instagram link"
+      },
+      {
+        "id": "social_youtube",
+        "type": "url",
+        "label": "Youtube link"
+      },
+      {
+        "id": "social_twitter",
+        "type": "url",
+        "label": "Twitter link"
+      }
+    ]
+  },
+  {
+    "name": "Contact Information",
+    "settings": [
+      {
+        "id": "contact_email_general",
+        "type": "text",
+        "label": "General Email",
+        "default": "contactus@korres.com"
+      },
+      {
+        "id": "contact_wh_general",
+        "type": "text",
+        "label": "Sales Working Hours",
+        "default": "M-F, 9am-5pm EST"
+      },
+      {
+        "id": "contact_email_sales",
+        "type": "text",
+        "label": "Sales Email",
+        "default": "salesus@korres.com"
+      },
+      {
+        "id": "contact_wh_sales",
+        "type": "text",
+        "label": "Sales Working Hours",
+        "default": "M-F, 9am-5pm EST"
+      },
+      {
+        "id": "contact_phone",
+        "type": "text",
+        "label": "Contact phone",
+        "default": "(855) 956-7737"
+      }
+    ]
+  },
+  {
+    "name": "Klaviyo",
+    "settings": [
+      {
+        "id": "klaviyo_key",
+        "type": "text",
+        "label": "Klaviyo Public Key"
+      },
+      {
+        "id": "klaviyo_list_id",
+        "type": "text",
+        "label": "Klaviyo List ID"
+      }
+    ]
+  },
+  {
+    "name": "Yotpo",
+    "settings": [
+      {
+        "id": "yotpo_key",
+        "type": "text",
+        "label": "Yotpo API Key"
+      }
+    ]
+  },
+  {
+    "name": "Translation Lab",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Language Switcher"
+      },
+      {
+        "type": "checkbox",
+        "id": "language_switcher_enabled",
+        "label": "Enable language switcher",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Position"
+      },
+      {
+        "type": "select",
+        "id": "language_switcher_position",
+        "label": "Position",
+        "options": [
+          {
+            "value": "top-right",
+            "label": "Top right"
+          },
+          {
+            "value": "top-left",
+            "label": "Top left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "Bottom right"
+          },
+          {
+            "value": "bottom-left",
+            "label": "Bottom left"
+          }
+        ],
+        "default": "top-right"
+      },
+      {
+        "type": "text",
+        "id": "language_switcher_spacing_top",
+        "default": "55",
+        "label": "Top"
+      },
+      {
+        "type": "text",
+        "id": "language_switcher_spacing_right",
+        "default": "20",
+        "label": "Right"
+      },
+      {
+        "type": "text",
+        "id": "language_switcher_spacing_bottom",
+        "default": "20",
+        "label": "Bottom"
+      },
+      {
+        "type": "text",
+        "id": "language_switcher_spacing_left",
+        "default": "20",
+        "label": "Left"
+      },
+      {
+        "type": "header",
+        "content": "Flags"
+      },
+      {
+        "type": "checkbox",
+        "id": "language_switcher_flags",
+        "label": "Show flags",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Labels"
+      },
+      {
+        "type": "select",
+        "id": "language_switcher_label",
+        "options": [
+          {
+            "value": "language-name",
+            "label": "Language name"
+          },
+          {
+            "value": "language-code",
+            "label": "Language code"
+          }
+        ],
+        "default": "language-name"
+      },
+      {
+        "type": "header",
+        "content": "Font"
+      },
+      {
+        "type": "select",
+        "id": "language_switcher_font_size",
+        "label": "Font size",
+        "options": [
+          {
+            "value": "8px"
+          },
+          {
+            "value": "9px"
+          },
+          {
+            "value": "10px"
+          },
+          {
+            "value": "11px"
+          },
+          {
+            "value": "12px"
+          },
+          {
+            "value": "13px"
+          },
+          {
+            "value": "14px"
+          },
+          {
+            "value": "15px"
+          },
+          {
+            "value": "16px"
+          },
+          {
+            "value": "17px"
+          },
+          {
+            "value": "18px"
+          }
+        ],
+        "default": "14px"
+      },
+      {
+        "type": "select",
+        "id": "language_switcher_font_weight",
+        "label": "Font weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "bold",
+            "label": "Bold"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "header",
+        "content": "Border"
+      },
+      {
+        "type": "range",
+        "id": "language_switcher_border_width",
+        "min": 0,
+        "max": 4,
+        "step": 1,
+        "unit": "px",
+        "label": "Border width",
+        "default": 1
+      },
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "language_switcher_text_color",
+        "label": "Text color",
+        "default": "#5c5c5c"
+      },
+      {
+        "type": "color",
+        "id": "language_switcher_background_color",
+        "label": "Background color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "language_switcher_border_color",
+        "label": "Border color",
+        "default": "#000000"
+      },
+      {
+        "type": "header",
+        "content": "Custom CSS"
+      },
+      {
+        "type": "textarea",
+        "id": "language_switcher_custom_css",
+        "default": "@media screen and (max-width: 768px) {}"
+      }
+    ]
+  }
+]

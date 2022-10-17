@@ -1,0 +1,136 @@
+{%- assign metafield = page.metafields.kettle_ingredients -%}
+<main role="main" class="our-ingredients">
+  <section class="about hero">
+    <div class="absolute copy">
+      <h1>{{ page.metafields.kettle.hero_header }}</h1>
+      <p>{{ page.metafields.kettle.hero_body }}</p>
+    </div>
+    <div>
+      <picture>
+        <source
+          media="(min-width: 1200px)"
+          srcset="{{ page.metafields.kettle.hero_desktop_image }}"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcset="//images.accentuate.io?c_options=w_1200&image={{ page.metafields.kettle.hero_tablet_image }} 1x,
+                  //images.accentuate.io?c_options=w_2400&image={{ page.metafields.kettle.hero_tablet_image }} 2x"
+        />
+        <source
+          media="(max-width: 767.98px)"
+          srcset="//images.accentuate.io?c_options=w_768&image={{ page.metafields.kettle.hero_mobile_image }} 1x,
+                  //images.accentuate.io?c_options=w_1536&image={{ page.metafields.kettle.hero_mobile_image }} 2x"
+        />
+        <img src="{{ page.metafields.kettle.hero_desktop_image }}" alt="{{ Our Ingredients }}">
+      </picture>
+    </div>
+  </section>
+
+  <section class="our-ingredients-featured">
+    {%- for name in metafield.feat_ing_name -%}
+      {%- assign index = forloop.index0 -%}
+      <div>
+        <a href="{{ metafield.feat_ing_link[index] }}"><img src="{{ metafield.feat_ing_image[index] }}" alt="{{ name }}"></a>
+        <h2><a href="{{ metafield.feat_ing_link[index] }}">{{ name }}</a></h2>
+
+        <p>{{ metafield.feat_ing_detail[index] }}</p>
+
+        <a href="{{ metafield.feat_ing_link[index] }}">
+
+          <button type="button">Shop {{ name }}</button>
+
+        </a>
+      </div>
+
+    {%- endfor -%}
+
+  </section>
+  <section class="our-ingredients-avoid">
+    <h2>
+      <div>
+        <svg width="221" height="91" viewBox="0 0 221 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M91.554 6.032C114.11 2.7 137.36 1.576 160.213 3.928c11.399 1.2 22.73 3.273 33.31 6.937 5.272 1.84 10.341 4.11 14.814 7.013 4.434 2.91 8.301 6.507 10.523 10.76 2.26 4.237 2.654 8.995 1.539 13.458-1.116 4.487-3.713 8.664-7.041 12.359-3.329 3.71-7.397 6.974-11.774 9.9-4.396 2.925-9.147 5.496-14.092 7.804-9.907 4.607-20.565 8.128-31.472 10.956-10.927 2.805-22.181 4.81-33.561 6.115-11.379 1.296-22.892 1.915-34.406 1.741-11.504-.18-23.018-1.116-34.262-3.129-11.216-2.02-22.268-5.044-32.137-9.825-4.906-2.405-9.494-5.278-13.255-8.776-3.751-3.476-6.608-7.638-7.772-12.147-1.193-4.502-.644-9.245 1.308-13.55 1.943-4.32 5.079-8.249 8.82-11.702 3.742-3.469 8.061-6.522 12.669-9.252 4.607-2.73 9.503-5.135 14.572-7.284C48.135 11.01 58.926 7.721 69.97 5.21 81.021 2.692 92.362 1.01 103.77 0l.01.09a261.28 261.28 0 00-33.647 5.55c-10.975 2.579-21.69 5.919-31.723 10.255-5.011 2.171-9.85 4.584-14.38 7.313-4.53 2.73-8.763 5.769-12.409 9.2-3.635 3.423-6.714 7.245-8.58 11.438-1.885 4.177-2.404 8.731-1.24 13.06 1.125 4.335 3.876 8.346 7.522 11.732 3.664 3.393 8.137 6.22 12.947 8.595C31.956 81.97 42.892 85 54.011 87.035c11.158 2.014 22.594 3.047 34.04 3.28a265.697 265.697 0 0034.302-1.545c11.359-1.252 22.594-3.205 33.521-5.957 10.927-2.737 21.518-6.349 31.348-10.986 4.906-2.322 9.609-4.909 13.947-7.834 4.329-2.926 8.33-6.183 11.582-9.863 3.26-3.657 5.761-7.773 6.819-12.154 1.058-4.358.635-8.965-1.577-13.052-2.174-4.11-5.964-7.585-10.321-10.42-4.386-2.843-9.35-5.113-14.553-6.953-10.437-3.672-21.691-5.79-33.022-7.027-11.35-1.229-22.854-1.56-34.32-1.229a319.614 319.614 0 00-34.214 2.828l-.01-.09z" fill="#111E90"/>
+        </svg>
+        We avoid
+      </div>
+      over 2000+ toxic ingredients
+    </h2>
+    <p>It’s not just what goes into our products, it’s mostly about 
+
+    what we leave out. There are hundreds, if not thousands of 
+
+    harmful ingredients we refuse to use that are floating around 
+
+    most beauty products.</p>
+    {%- assign toxics = metafield.avoided_ingredients | split: '|' -%}
+
+    <div class="grid">
+
+      {%- for ingredient in toxics -%}
+
+        <div>
+
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <path d="M1 1l12 12M13 1L1 13" stroke="#444" stroke-width="2"/>
+
+          </svg>
+          {{ ingredient }}
+
+        </div>
+
+      {%- endfor -%}
+
+    </div>
+
+  </section>
+  <section class="about footer-hero">
+
+    <div class="absolute copy">
+
+      <h2>{{ page.metafields.kettle.cta_banner_header }}</h2>
+
+      <p>{{ page.metafields.kettle.cta_banner_body }}</p>
+
+      <a href="/pages/our-process" class="button-cta">Our Full Circle Process</a>
+
+    </div>
+    <div>
+
+      <picture>
+
+        <source
+
+          media="(min-width: 1200px)"
+
+          srcset="{{ page.metafields.kettle.cta_banner_desktop_image }}"
+
+        />
+
+        <source
+
+          media="(min-width: 768px)"
+
+          srcset="//images.accentuate.io?c_options=w_1200&image={{ page.metafields.kettle.cta_banner_tablet_image }} 1x,
+
+                  //images.accentuate.io?c_options=w_2400&image={{ page.metafields.kettle.cta_banner_tablet_image }} 2x"
+
+        />
+        <source
+
+          media="(max-width: 767.98px)"
+
+          srcset="//images.accentuate.io?c_options=w_768&image={{ page.metafields.kettle.cta_banner_mobile_image }} 1x,
+
+                  //images.accentuate.io?c_options=w_1536&image={{ page.metafields.kettle.cta_banner_mobile_image }} 2x"
+
+        />
+        <img src="{{ page.metafields.kettle.cta_banner_desktop_image }}" alt="{{ Our People }}">
+
+      </picture>
+
+    </div>
+
+  </section>
+
+</main>

@@ -1,0 +1,418 @@
+{% for block in section.blocks %}
+{% if block.type == 'block-top-content' %}
+<div class="breadcrumb">
+    <a href="{% if request.locale.iso_code == 'el' %}/el{% endif %}{{ block.settings.map-link }}" class="back-to-map">
+      < {{ block.settings.map-text }}</a>
+    <div class="breadcrumb-col place-col">
+      <span>{{ block.settings.breadcrumb-place-text }}:</span>
+      <span>{{ block.settings.breadcrumb-place-calendula }}</span>
+    </div>
+    <div class="breadcrumb-col">
+      <span>{{ block.settings.breadcrumb-farmer-text }}:</span>
+      <span>{{ block.settings.breadcrumb-farmer-calendula }}</span>
+    </div>
+  </div>
+  <h1 class="herb-title">{{ block.settings.herb-title-calendula }}</h1>
+  <div class="row no-gutters top-img">
+    <div class="col-xs-12 col-xs-12 col-md-6 col-lg-6">
+      <img src="{{block.settings.top-img-1-calendula | img_url: 'master'}}" class="img-fluid" alt="" />
+    </div>
+    <div class="col-xs-12 col-xs-12 col-md-6 col-lg-6">
+      <img src="{{block.settings.top-img-2-calendula | img_url: 'master'}}" class="img-fluid" alt="" />
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-xs-12 col-xs-12 col-md-12 col-lg-12">
+      <div class="top-text">
+        <p>
+          {{ block.settings.top-text-calendula }}
+        </p>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endfor %}
+
+{% for block in section.blocks %}
+{% if block.type == 'block-soil-lab-sect' %}
+<div id="{{block.id}}" class="lab-section soil-lab-section">
+  <div class="w-1784-web">
+    <div class="row no-gutters">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+        <div class="category-item">
+          <div class="inner">
+            <span>
+              {{block.settings.title-soil-lab | newline_to_br}}
+            </span>
+            <span class="num">{{ block.settings.num-soil-lab }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-xs-12 col-md-6 col-lg-6">
+        <img data-src="{{block.settings.soil-img-1-calendula | img_url: 'master'}}" class="img-fluid lozad" alt="" />
+        <img data-src="{{block.settings.soil-img-2-calendula | img_url: 'master'}}" class="img-fluid lozad" alt="" />
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+        <div class="text">
+          {{ block.settings.soil-text-calendula }}
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-xs-12 col-xs-12 col-md-12 col-lg-12 ">
+      <img data-src="{{block.settings.soil-img-3-calendula | img_url: 'master'}}" class="img-fluid bottom-img-left lozad" alt="" />
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+{% for block in section.blocks %}
+{% if block.type == 'block-extraction-lab-sect' %}
+<div class="lab-section extraction-lab-section">
+  <div class="w-1784-web">
+    <div class="row no-gutters">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+        <div class="category-item">
+          <div class="inner">
+            <span>
+              {{block.settings.title-extraction-lab | newline_to_br}}
+            </span>
+            <span class="num">{{ block.settings.num-extraction-lab }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-xs-12 col-md-6 col-lg-6">
+        <img data-src="{{block.settings.extraction-img-1-calendula | img_url: 'master'}}" class="img-fluid lozad" alt="" />
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+        <div class="text">
+          {{ block.settings.extraction-top-text-calendula }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-1784-web">
+    <div class="row no-gutters">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+
+      </div>
+      <div class="col-xs-12 col-xs-12 col-md-6 col-lg-6">
+        <img data-src="{{block.settings.extraction-img-2-calendula | img_url: 'master'}}" class="img-fluid lozad" alt="" />
+
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+        <div class="text">
+          <h6>{{ block.settings.extraction-bottom-text-title-calendula }} </h6>
+          {{ block.settings.extraction-bottom-text-calendula }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-1784-web">
+    <div class="row no-gutters">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+
+      </div>
+      <div class="col-xs-12 col-xs-12 col-md-6 col-lg-6">
+        <img data-src="{{block.settings.extraction-img-3-calendula | img_url: 'master'}}" class="img-fluid  bottom-img-right lozad" alt="" />
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% for block in section.blocks %}
+{% if block.type == 'block-formulation-sect' %}
+<div class="lab-section formulation-lab-section ">
+  <div class="w-1784-web">
+    <div class="row no-gutters">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+        <div class="category-item">
+          <div class="inner">
+            <span>
+              {{block.settings.title-formulation-lab | newline_to_br}}
+            </span>
+            <span class="num">{{ block.settings.num-formulation-lab }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-xs-12 col-md-6 col-lg-6"> 
+        <img data-src="{{block.settings.formulation-img-1-calendula | img_url: 'master'}}" class="img-fluid lozad" alt="" />
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 ">
+        <div class="text">
+          <h2>{{ block.settings.formulation-title-text-calendula | newline_to_br}} </h2>
+          {{ block.settings.formulation-text-calendula }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% for block in section.blocks %}
+  {% if block.type == 'block-carousel-section' %}
+    <div class="main-carousel pages-carousel carousel-custom">
+      <div class="slide-container three-item">
+      {%- assign mycollection = collections[block.settings.collection] -%}
+      {% for product in mycollection.products %}
+            <a class="slide"  href="{{ product.url | within: collection }}" 
+              class="carousel-cell"
+              data-productid="{{ product.id }}"
+              data-id="{{ first_variant.id }}"
+              data-handle="{{ product_handle }}"
+            >
+            <div class="img-container">
+              <img 
+                data-src="{{  product.featured_image | img_url: 'master' | format: 'jpg' }}"
+                alt="{{ block.settings.slide_heading }}" class="img-fluid lozad"/>
+            </div>
+            <div class="product-item--review empty"></div>
+            <h6 class="product-name">{{ product.title }}</h6>
+            {%if customer%}
+              <div class="product-price">
+                {{ product.price | money }}
+              </div>
+            {%endif%}
+          </a>
+      {% endfor %}
+       {% if mycollection.products.size > 1 %}
+          <div class="arrow back back-button" data-arrow="backward"><</div>
+          <div class="arrow forward forward-button"  data-arrow="forward">></div>
+        {% endif %}
+       </div>
+    </div>
+  {% endif %}
+{% endfor %}
+
+
+
+
+{% schema %}
+{
+"name":"Calendula Content",
+"class":"home-bottom-block",
+"blocks": [
+{
+"type": "block-top-content",
+"name": "Herb Top Content",
+"settings": [
+{
+"id": "map-link",
+"type": "text",
+"label": "Map link",
+"default": "/pages/greece"
+},
+{
+"id": "map-text",
+"type": "text",
+"label": "Map Text",
+"default": "map"
+},
+{
+"id":"breadcrumb-place-text",
+"type": "text",
+"label": "Place Text",
+"default": "Place"
+},
+{
+"id":"breadcrumb-place-calendula",
+"type": "text",
+"label": "Place",
+"default": "Kozani"
+},
+{
+"id":"breadcrumb-farmer-text",
+"type": "text",
+"label": "Farmer Text",
+"default": "Farmer"
+},
+{
+"id":"breadcrumb-farmer-calendula",
+"type": "text",
+"label": "Farmer",
+"default": "Kozani Saffron Producers Cooperative"
+},
+{
+"id":"herb-title-calendula",
+"type": "text",
+"label": "Herb Title",
+"default": "Herb: Krocus Kozanis / Crocus sativus"
+},
+{
+"id":"top-img-1-calendula",
+"type":"image_picker",
+"label":"Top Image Left"
+},
+{
+"id":"top-img-2-calendula",
+"type":"image_picker",
+"label":"Top Image Right"
+},
+{
+"id":"top-text-calendula",
+"type": "textarea",
+"label": "Top Text"
+}
+]
+},
+{
+"type": "block-soil-lab-sect",
+"name": "Soil Lab Section",
+"settings": [
+{
+"id":"title-soil-lab",
+"type":"textarea",
+"label":"Soil Lab Title",
+"default":"SOIL LAB"
+},
+{
+"id":"num-soil-lab",
+"type":"text",
+"label":"Soil Lab Number",
+"default":"1"
+},
+{
+"id":"soil-img-1-calendula",
+"type":"image_picker",
+"label":"Top Image"
+},
+{
+"id":"soil-img-2-calendula",
+"type":"image_picker",
+"label":"Bottom Image"
+},
+{
+"id":"soil-text-calendula",
+"type":"richtext",
+"label":"Text"
+},
+{
+"id":"soil-img-3-calendula",
+"type":"image_picker",
+"label":"Last Image"
+}
+]
+},
+{
+"type": "block-extraction-lab-sect",
+"name": "Extraction Lab Section",
+"settings": [
+{
+"id":"title-extraction-lab",
+"type":"textarea",
+"label":"Extraction Lab Title",
+"default":"EXTRACTION LAB"
+},
+{
+"id":"num-extraction-lab",
+"type":"text",
+"label":"Extraction Lab Number",
+"default":"2"
+},
+{
+"id":"extraction-img-1-calendula",
+"type":"image_picker",
+"label":"Top Image"
+},
+{
+"id":"extraction-top-text-calendula",
+"type":"richtext",
+"label":"Top Image Text"
+},
+{
+"id":"extraction-img-2-calendula",
+"type":"image_picker",
+"label":"Bottom Image"
+},
+{
+"id":"extraction-bottom-text-title-calendula",
+"type":"text",
+"label":"Bottom Image Title",
+"default":"Technical Data"
+},
+{
+"id":"extraction-bottom-text-calendula",
+"type":"richtext",
+"label":"Bottom Image Text"
+},
+{
+"id":"extraction-img-3-calendula",
+"type":"image_picker",
+"label":"Last Image"
+}
+]
+},
+{
+"type": "block-formulation-sect",
+"name": "Formulation Lab Section",
+"settings": [
+{
+"id":"title-formulation-lab",
+"type":"textarea",
+"label":"Formulation Lab Title",
+"default":"FORMULATION LAB"
+},
+{
+"id":"num-formulation-lab",
+"type":"text",
+"label":"Formulation Lab Number",
+"default":"1"
+},
+{
+"id":"formulation-img-1-calendula",
+"type":"image_picker",
+"label":"Top Image"
+},
+{
+"id":"formulation-title-text-calendula",
+"type":"textarea",
+"label":"Title",
+"default":"The Products"
+},
+{
+"id":"formulation-text-calendula",
+"type":"richtext",
+"label":"Text"
+}
+]
+},
+{
+"type": "block-carousel-section",
+"name": "Herb Product Slider",
+"settings": [{
+"id": "collection",
+"type": "collection",
+"label": {
+"cs": "Kolekce",
+"da": "Kollektion",
+"de": "Kategorie",
+"en": "Collection",
+"es": "Colección",
+"fi": "Kokoelma",
+"fr": "Collection",
+"it": "Collezione",
+"ja": "コレクション",
+"ko": "컬렉션",
+"nb": "Samling",
+"nl": "Collectie",
+"pl": "Kolekcja",
+"pt-BR": "Coleção",
+"pt-PT": "Coleção",
+"sv": "Produktserie",
+"th": "คอลเลกชัน",
+"tr": "Koleksiyon",
+"vi": "Bộ sưu tập",
+"zh-CN": "收藏",
+"zh-TW": "商品系列"
+}
+}]
+}]
+}
+{% endschema %}

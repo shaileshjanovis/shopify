@@ -1,0 +1,10 @@
+
+<div id="logout" class="logout_pop" style="display:none;">
+  {% include 'back' %}
+  <h3>{{ 'logout_popup.title.are_you_sure' | t: are_you_sure }}</h3>
+  <p>{{ 'logout_popup.title.subtitle' | t: subtitle }}</p>
+  <div class="button_cover">
+    <a href="#logout" onclick="deleteAllCookies();" id="logout-clear" class="btn-theme-blue btn-logout">{{ 'logout_popup.title.logout' | t: logout }}</a>
+    <a  href="#close-modal" rel="modal:close" class="btn-theme-white btn-stay">{{ 'logout_popup.title.stay' | t: stay }}</a>
+  </div>
+</div>    

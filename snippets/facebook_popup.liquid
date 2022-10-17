@@ -1,0 +1,116 @@
+<div id="facebook_p" class="facebook_pop" style="display:none;">
+  {% include 'warning-ic' %}
+  <h3>{{ 'Login.Facebook_popup.Title' | t: Title }}</h3>
+  <p>{{ 'Login.Facebook_popup.sub_title' | t: sub_title }}</p>
+  <div class="button_cover">
+    <a href="javascript:;" class="btn-new continue" rel="modal:close">{{ 'Login.Facebook_popup.Continue' | t: Continue }}</a>
+    <a href="#close-modal"  rel="modal:close" class="btn-new border">{{ 'Login.Facebook_popup.Oh_no' | t: Oh_no }}</a>
+  </div>
+</div>
+<style>
+  .facebook_pop{
+    position: relative;
+    height: auto !important;
+    width: 100%;
+    margin: auto;
+    background-color: #fff;
+    box-shadow: none;
+    position: relative;
+    max-width: 90%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 35px !important;
+    -webkit-box-shadow: 0px 12px 10px -6px #b9b9b9 !important;
+    -moz-box-shadow: 0px 12px 10px -6px #B9B9B9 !important;
+    box-shadow: 0px 12px 10px -6px #b9b9b9 !important;
+    border: 1px solid #F0F0F0;
+    height: max-content;
+    padding: 30px;
+    max-width: 733px;
+    padding: 60px 40px !important;
+    z-index: 0;
+    display: block;
+  }
+  .facebook_pop .close-modal {
+    display: none !important;
+  }
+  .blocker{
+    background:rgba(255,255,255,0.8) !important; 
+  }
+  .facebook_pop svg {
+    width: 32px;
+    height: auto;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .facebook_pop h3{
+    font-size: 28pt;
+    color: #05119B;
+    text-align: center;
+    margin: 0;
+    margin: 0 auto;
+    font-family: 'Roboto' !important;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .facebook_pop .button_cover .btn-new{
+    font-size: 18pt;
+    font-family: 'Roboto' !important;
+    font-weight: 400;
+    padding: 6px 0;
+  }
+  .facebook_pop p{
+    font-size:18px;
+    color:#ABABAB;
+    line-height:24px;
+    text-align:center;
+    max-width: 300px;
+    margin:23px auto;
+    margin-bottom:30px;
+  }
+  .button_cover{
+    display:flex; 
+  }
+  .button_cover a{
+    margin:0 8.5px ;
+  }
+  .button_cover a:hover{
+    text-decoration:none; 
+  }
+  @media all and (max-width:767px){
+     .btn-new {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: .5rem;
+    padding: 12px 0;
+    margin-bottom: 8px;
+    color: #fff!important;
+    font-weight: 600;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    background: #050f96!important;
+} 
+     .button_cover a{
+    margin:0 auto; 
+       margin-bottom: 10px
+  }
+    .facebook_pop h3 {
+      font-size: 20pt;
+      color: #05119B;
+      line-height: 26px;
+      text-align: center;
+      margin: 0;
+      margin: 0 auto;
+      font-family: 'Roboto' !important;
+      font-weight:300;
+      line-height: 1;
+    }
+    .button_cover {
+    display: grid;
+}
+  }
+</style>

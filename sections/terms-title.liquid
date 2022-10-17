@@ -1,0 +1,31 @@
+<div class="terms-top">
+  <div class="row">
+    <div class="terms-box">
+      <h1 class="terms-title">{{section.settings.terms_title}}</h1>
+      <p>{{section.settings.title_description}}</p>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Terms Title",
+    "settings": [
+{
+	"type": "text",
+    "id"  : "terms_title",
+	"label": "Heading"
+	},
+{
+	"type": "text",
+    "id"  : "title_description",
+	"label": "Description"
+	}
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

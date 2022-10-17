@@ -1,0 +1,91 @@
+<div class="page_main">
+  <div class="inner">
+    
+    <div class="header-hero bg-color-white">
+  		<h1 class="header-title">{{ page.title }}</h1>
+    	<p class="sub-title">Συνεργαζόμενα Καταστήματα</p>
+  	</div>
+    
+    <div class="circle-info-main-set">
+      	<div class="circle-info-main">
+          <table class="table">
+            <tbody id="browser">
+              <tr>
+                <td>ΚΟΡΡΕΣ ΑΠΟΣΤΟΛΗΣ</td>
+                <td>Λεωφ. Καλαμακίου 29</td>
+                <td>Άλιμος</td>
+                <td>174 55</td>
+                <td>2109810945</td>
+                <td>ΑΦΜ: 035700458</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  
+  </div>
+</div>
+
+<script>
+      var jsonSrting = {{shop.metafields.pharmacy.poidetails | json}};
+      var jsonObj = JSON.parse(jsonSrting);
+      var availableItems = jsonObj.pharmacy.pharmacy_id;
+      
+      availableItems.sort(function(a, b) {
+        var nameA = a.description.toUpperCase(); // ignore upper and lowercase
+        var nameB = b.description.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+
+      var htmlData = "";
+      for (let i = 0; i < availableItems.length; i++) {
+        if(availableItems[i].name != 'BINARY TREE'){
+            htmlData += `<tr><td>${availableItems[i].description}</td><td>${availableItems[i].location}</td><td>${availableItems[i].postcode}</td><td>${availableItems[i].person_phone}</td><td width="15%;">ΑΦΜ: ${availableItems[i].vat_number}</td></tr>`;
+        }
+      }
+      $("#browser").html(htmlData);
+</script>
+
+<style>
+  .page_main .header-hero .header-title {
+    color: #2D2A26;
+    font-size: 32px;
+  }
+  .page_main .header-hero .sub-title {
+    font-size: 18px;
+  }
+  .page_main {
+    padding: 0px 20px;
+  }
+  .circle-info-main h2 {
+    font-weight: 300;
+    font-size: 20px;
+    padding: 10px 0;
+  }
+  .circle-info-main .table {
+    color: #2D2A26;
+    font-size: 14px;
+    font-weight: 300;
+  }
+  .circle-info-main table tr:nth-child(even) {
+    background: #fff;
+  }
+  .circle-info-main table tr:nth-child(odd) {
+    background: #eee;
+  }
+  .circle-info-main table td {
+  	border: none;
+  }
+  @media only screen and (max-width: 768px) {
+    .circle-info-main .table {
+      overflow: scroll;
+      display: block;
+    }
+  }
+</style>

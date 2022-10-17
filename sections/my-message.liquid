@@ -1,0 +1,392 @@
+<div class="my-gift-inner">
+  <div class="header_ti">
+    <h3 class="shead">{{ 'header.title.my_messages' | t: my_messages }}</h3>
+    <p class="subhead">{{ 'my_message.title.you_have_uread' | t: you_have_uread }}</p>
+  </div>
+  <div class="container">
+    <ul class="list_prod">
+      <li class="single-prod active_msg">
+        <div class="sigle_prod_cover">
+          <div class="cover-prod">
+            <div class="image_cover">
+              <img class="prd_img" src="{{ 'card.gift-card.jpg' | asset_url }}"/>
+            </div>
+
+            <div class="text_prds">
+              <h4 class="hed-prd">Arnaoutaki Aggeliki</h4>
+            </div>
+</div>
+          <div class="order-nos">
+            <p class="prod_ss">Pharmacy</p>
+</div>
+          <div class="order-las"><p><span class="day">Friday </span><span class="date">20/4/21</span></p></div>
+          <a class="down_arrow" href="javascript:;"></a>
+        </div>
+        <div class="message" style="display:none;">
+          <span>09:36 AM</span>
+          <p>Did you know that an average adult’s attention span amounts to only 8 seconds? That makes it difficult to grab your recipients’ attention and keep them engaged, especially if they are not too keen on reading. Luckily, there’s a variety of clever workarounds, such as focusing on enticing email visuals. 
+            <br><br>Just like strategy and copy, email design too can help you extend your brand and connect with your audience in a meaningful and relevant way. And even though the same rules are not applicable to every brand, certain design trends will help you stand out and astonish your audience.</p>
+        </div>
+      </li>
+      <li class="single-prod">
+        <div class="sigle_prod_cover">
+          <div class="cover-prod">
+            <div class="image_cover">
+              <img class="prd_img" src="{{ 'card.gift-card.jpg' | asset_url }}"/>
+            </div>
+
+            <div class="text_prds">
+              <h4 class="hed-prd">Arnaoutaki Aggeliki</h4>
+            </div>
+          </div>
+          <div class="order-nos">
+            <p class="prod_ss">Pharmacy</p>
+          </div>
+          <div class="order-las"><p><span class="day">Friday </span><span class="date">20/4/21</span></p></div>
+          <a class="down_arrow" href="javascript:;"></a>
+        </div>
+        <div class="message" style="display:none;">
+          <span>09:36 AM</span>
+          <p>Did you know that an average adult’s attention span amounts to only 8 seconds? That makes it difficult to grab your recipients’ attention and keep them engaged, especially if they are not too keen on reading. Luckily, there’s a variety of clever workarounds, such as focusing on enticing email visuals. 
+            <br><br>Just like strategy and copy, email design too can help you extend your brand and connect with your audience in a meaningful and relevant way. And even though the same rules are not applicable to every brand, certain design trends will help you stand out and astonish your audience.</p>
+        </div>
+      </li>
+      <li class="single-prod">
+        <div class="sigle_prod_cover">
+          <div class="cover-prod">
+            <div class="image_cover">
+              <img class="prd_img" src="{{ 'card.gift-card.jpg' | asset_url }}"/>
+            </div>
+
+            <div class="text_prds">
+              <h4 class="hed-prd">Arnaoutaki Aggeliki</h4>
+            </div>
+          </div>
+          <div class="order-nos">
+            <p class="prod_ss">Pharmacy</p>
+          </div>
+          <div class="order-las"><p><span class="day">Friday </span><span class="date">20/4/21</span></p></div>
+          <a class="down_arrow" href="javascript:;"></a>
+        </div>
+        <div class="message" style="display:none;">
+          <span>09:36 AM</span>
+          <p>Did you know that an average adult’s attention span amounts to only 8 seconds? That makes it difficult to grab your recipients’ attention and keep them engaged, especially if they are not too keen on reading. Luckily, there’s a variety of clever workarounds, such as focusing on enticing email visuals. 
+            <br><br>Just like strategy and copy, email design too can help you extend your brand and connect with your audience in a meaningful and relevant way. And even though the same rules are not applicable to every brand, certain design trends will help you stand out and astonish your audience.</p>
+        </div>
+      </li>
+      <li class="single-prod">
+        <div class="sigle_prod_cover">
+          <div class="cover-prod">
+            <div class="image_cover">
+              <img class="prd_img" src="{{ 'card.gift-card.jpg' | asset_url }}"/>
+            </div>
+
+            <div class="text_prds">
+              <h4 class="hed-prd">Arnaoutaki Aggeliki</h4>
+            </div>
+          </div>
+          <div class="order-nos">
+            <p class="prod_ss">Pharmacy</p>
+          </div>
+          <div class="order-las"><p><span class="day">Friday </span><span class="date">20/4/21</span></p></div>
+          <a class="down_arrow" href="javascript:;"></a>
+        </div>
+        <div class="message" style="display:none;">
+          <span>09:36 AM</span>
+          <p>Did you know that an average adult’s attention span amounts to only 8 seconds? That makes it difficult to grab your recipients’ attention and keep them engaged, especially if they are not too keen on reading. Luckily, there’s a variety of clever workarounds, such as focusing on enticing email visuals. 
+            <br><br>Just like strategy and copy, email design too can help you extend your brand and connect with your audience in a meaningful and relevant way. And even though the same rules are not applicable to every brand, certain design trends will help you stand out and astonish your audience.</p>
+        </div>
+      </li>
+      
+      <a class="old-message" id="show_more" href="javascript:;">{{ 'my_message.title.load_older_messages' | t: load_older_messages }}</a>
+    </ul>
+  </div>
+</div>
+
+<script>    
+  
+</script>
+
+<style>
+  .message {
+    margin-top: 63.72px;
+  }
+  .message span{
+    font-size:20px;
+    color:#404041;
+    display:block;
+    margin-bottom:20px;
+  }
+  .message p{
+    font-size:22px;
+    line-height:35px;
+  }
+  .page-my-message {
+    width: 100%;
+    padding-top: 105px;
+  }
+  .sigle_prod_cover.collapsed+.message {
+    display: block !important;
+  }
+
+.page-my-message .my-gift-banner .gift-banner_in .image_text_con{
+  position: relative;
+}
+.page-my-message .my-gift-banner .gift-banner_in .image_text_con .text_div{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+}
+.page-my-message .my-gift-banner .gift-banner_in .image_text_con .text_div .head{
+  font-family: 'Roboto Mono', monospace;
+  font-size:64px;
+  font-weight:300;
+  margin-bottom:16px;
+}
+.page-my-message .my-gift-banner .gift-banner_in .page-content .page_content{
+  font-family: 'Roboto',monospace;
+  font-size: 22px;
+  font-weight: 300;
+  margin-bottom: 0;
+  letter-spacing: 0;
+  text-align: center;
+}
+.page-my-message .my-gift-banner .gift-banner_in .image_text_con .text_div .sunheading{
+  font-family: 'Roboto Mono', monospace;
+  font-size:32px;
+  font-weight:300;
+  margin-bottom:0px;
+}
+  
+  .my-message .my-gift-inner .header_ti .shead{
+    text-align: center;
+    margin-bottom: 0;
+    font-family: 'Roboto Mono', monospace !important;
+    font-size: 42px;
+    font-weight: 300;
+    margin-bottom:20.18px;
+  }
+  .my-message .my-gift-inner .header_ti .subhead{
+  	text-align: center;
+    margin-bottom: 0;
+    font-family: 'Roboto Mono', monospace !important;
+    font-weight: 300;
+    font-size: 20px;
+  }
+  .my-message .my-gift-inner .header_ti{
+    padding-top:65px;
+    padding-bottom:30px;
+  }
+  .my-message .my-gift-inner .header_ti .subhead{
+  	
+  }
+  .my-message .my-gift-inner .container .list_prod{
+    position:relative;
+    margin-bottom:0;
+    padding-bottom:86px;
+    padding-left:0px;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod{
+    padding: 35px 0;
+    border-bottom: 1px solid #B9B9B9;
+    position:relative;
+    padding-left:50px;
+    list-style:none;
+  }
+  .sigle_prod_cover {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position:relative;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod.active_msg .sigle_prod_cover:after{
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #050F96;
+    position: absolute;
+    left: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+
+  .my-message .my-gift-inner .container .list_prod .single-prod:first-child{
+    border-top: 1px solid #B9B9B9;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod .image_cover{
+    max-width: 73px;
+    height: 73px;
+    border-radius: 50%;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod .image_cover img{
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    height: 100%;
+    border-radius: 50%;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod{
+    display:flex;
+    align-items:center;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod .text_prds .hed-prd{
+    font-family: 'Roboto',monospace !important;
+    font-size:22px;
+    margin-bottom:2px;
+    color:#32322D;
+    max-width: 315px;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod .text_prds .subhed{
+    font-family: 'Roboto',monospace;
+    font-size:24px;
+    margin-bottom:8px;
+    color:#32322D;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod .text_prds .status{
+  	font-family: 'Roboto',monospace;
+    color:#B9B9B9;
+    font-size:18px;
+    margin-bottom:0;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod .text_prds{
+    margin-left:30px;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .order-nos .prod_ss{
+    font-family: 'Roboto',monospace;
+    color:#404041;
+    font-size:24px;
+    margin-bottom:0;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .order-las p{
+    font-family: 'Roboto',monospace;
+    margin-bottom:0;
+    color:#404041;
+    font-size:22px;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .down_arrow{
+    width: 38px;
+    height: 38px;
+    border-radius:50%;
+    box-shadow: 0px 0px 6px #00000029;
+    position:relative;
+  }
+  .my-message .my-gift-inner .container .list_prod .single-prod .down_arrow:after{
+    content: '';
+    display: block;
+    border-right: 1px solid #06119B;
+    border-bottom: 1px solid #06119B;
+    width: 6px;
+    height: 6px;
+    position: absolute;
+    top: 33%;
+    left: 50%;
+    transform: translate(-50%,50%) rotate( 
+      43deg);
+  }
+  .my-message .my-gift-inner .container .list_prod .old-message{
+    font-family: 'Roboto',monospace;
+    color: #050F96;
+    font-size: 22px;
+    width: 218px;
+    height: 30px;
+    background: #fff;
+    position: absolute;
+    text-decoration: none;
+    text-align: center;
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .my-message .my-gift-inner .container .list_prod .old-message:hover{
+    text-decoration:none;
+  }
+  @media(max-width:768px){
+    .page-my-message{
+      padding-top: 75px;
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod{
+      margin-bottom:20px;
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod .order-nos{
+      margin-bottom:12px;
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod .order-las{
+      margin-bottom:20px;
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod{
+      flex-flow:column;
+      padding:25px 0;
+      padding-left: 35px;
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod:last-child{
+      padding-bottom:0;
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod.active_msg:after{
+      width: 10px;
+      height: 10px;
+    }
+    .my-message .my-gift-inner .container .list_prod{
+      padding-left:0;
+    }
+    .my-message .my-gift-inner .header_ti{
+      padding-top: 40px;
+      padding-bottom: 50px;
+    }
+    .my-message .my-gift-inner .header_ti .shead{
+      font-size:35px;
+      margin-bottom:10px;
+    }
+    .my-message .my-gift-inner .header_ti .subhead{
+      font-size:20px;
+      padding:0 20px;
+    }
+    .sigle_prod_cover{
+      flex-direction:column; 
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod .cover-prod .text_prds .hed-prd,
+    .my-message .my-gift-inner .container .list_prod .single-prod .order-nos .prod_ss,
+    .my-message .my-gift-inner .container .list_prod .single-prod .order-las p,
+    .message span,
+    .message p{
+     font-size:18px; 
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod.active_msg .sigle_prod_cover:after{
+     left:0; 
+    }
+    .my-message .my-gift-inner .container .list_prod .single-prod{
+     padding-left:0; 
+    }
+    .message {
+      margin-top: 23.72px;
+    }
+  }
+</style>
+{% schema %}
+  {
+    "name": "My message",
+	"class":"my-message mygift-prods",
+    "settings": [
+	  {
+		"type":"text",
+		"id":"head_s",
+		"label":"Section heading"
+	  },
+	  {
+		"type":"text",
+		"id":"sub_head",
+		"label":"Section subheading"
+	  }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

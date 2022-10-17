@@ -1,0 +1,24 @@
+
+<div class="top-margin" style="margin-top:180px">
+  
+</div>
+
+{%assign collection = collections['skincare']%}
+
+<div class="container">
+  <div class="gift-col-title">
+    <h2>Oliver Circle <br> Gift Collection</h2>
+    <h6>Select one from following gifts</h6>
+  </div>
+  <div class="row gift_collection">
+    {%for product in collection.products%}
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
+      <div class="gift_product">
+        <img src="{{product.featured_image | img_url:'medium'}}">
+        <p class="gift-prod-title">{{product.title}}</p>
+        <img src="https://cdn.shopify.com/s/files/1/0515/5785/9489/files/Group_4054.svg?v=1633091440" class="lock-gift active">
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</div>

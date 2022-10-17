@@ -1,0 +1,1667 @@
+{% unless customer %}
+<script>window.location.replace('/account/login/?return_url=/')</script>
+{% endunless %}
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/asvd/dragscroll/master/dragscroll.js"></script>
+
+<input type="hidden" id="customer_id" value="{{customer.id}}">
+{% assign royalty = customer.metafields.points.loyalty | split : '|' | last | plus:0 %}
+{% assign product_id = '' %}
+{% for order in customer.orders %}
+{% for item in order.line_items %}
+{% unless product_id contains item.product_id %}
+{% assign product_id = product_id | append:',' | append:item.product_id %}
+{% endunless %}
+{% endfor %}
+{% endfor %}
+
+{% assign circles = shop.metafields.circle %}
+
+{% assign circleValue = '' %}
+{% for circle in circles %}
+{% if circle[0] contains 'My_' %}
+{% unless circle[0] contains 'level_' %}
+{% assign circleValue = circleValue | append:'::' | append:shop.metafields.circle[circle[0]] %}
+{% endunless %}
+{% endif %}
+{% endfor %}
+
+<input type="hidden" value="{{circleValue}}" id="circles">
+
+<script>
+  $( document ).tooltip({
+    position: {
+      my: "right-15",
+      at: "center",
+      using: function( position, feedback ) {
+        $( this ).css( position );
+        $( "<div>" )
+        .addClass( "arrow" )
+        .addClass( feedback.vertical )
+        .addClass( feedback.horizontal )
+        .appendTo( this );
+      }
+    }
+  });
+  (function(){    
+    var min = new Array();
+    var circleOrder = new Array();
+    var circles = $('#circles').val();
+    var values = circles.split('::');
+    var len = values.length;
+    $.each(values,function(index,value){
+      var v = value.split('|');
+      if(v[1] != undefined){
+        min.push(parseInt(v[1]));
+      }
+      if(index == len - 1){
+        min.sort(function(a,b){
+          if(a > b){ return 1}
+          if(a < b){ return -1}
+          return 0;
+        });
+        $.each(min,function(i,v){
+          var str = '|'+v+'|';
+          $.each(values,function(index,value){
+            if(value.indexOf(str) > -1){
+              circleOrder.push(value);
+            }
+          });
+        })
+      }
+    })
+    setTimeout(function(){
+      $.each(circleOrder,function(index,value){
+        var splitdata = value.split('|');
+        var rpoints = '{{royalty}}';
+        rpoints = parseInt(rpoints);
+        var classname = 'tab-link';
+        if(rpoints > splitdata[2] && rpoints > splitdata[1]){
+          classname = classname+' active';
+        }else if(rpoints >= splitdata[1] && rpoints <= splitdata[2]){
+          classname = classname+' current active';
+        }
+        if(rpoints < splitdata[1]){
+          var html = '<li class="'+classname+' locked" data-tab="'+splitdata[0]+'" data-min="'+splitdata[1]+'" data-max="'+splitdata[2]+'">'+splitdata[0].replaceAll('My_','').replaceAll('_',' ')+'</li>'
+        }else{
+          var html = '<li class="'+classname+'" data-tab="'+splitdata[0]+'" data-min="'+splitdata[1]+'" data-max="'+splitdata[2]+'">'+splitdata[0].replaceAll('My_','').replaceAll('_',' ')+'</li>'
+        }
+        $('.tabs').append(html);
+      });
+    },1000);
+
+
+  })()
+</script>
+<div class="gift_main d-none d-sm-block">
+  <ul class="tabs">
+  </ul>
+  
+  
+
+  {% for circle in circles %}
+  {% if circle[0] contains 'My_' %}
+  {% unless circle[0] contains 'level_' %}
+  {% assign levelName =  shop.metafields.circle[circle[0]] | split:'|' | first | prepend:'level_' %}
+  {% assign points =  shop.metafields.circle[levelName] %}
+  {% assign maxP =  shop.metafields.circle[circle[0]] | split:'|' %}
+  {% assign maxPoint = maxP[2] | plus:0 %}
+  {% assign minPoint = maxP[1] | plus:0 %}
+  {% assign stro = royalty | times:237 | divided_by:maxPoint %}
+  {% assign deg = royalty | times:340 | divided_by:maxPoint  %}
+  {% if royalty >= maxPoint %}
+  {% assign stro = 237 %}
+  {% elsif royalty <= 100  %}
+  {% assign stro = stro | plus:8 %}
+  {% endif %}
+  <div class="sdhajd gift_inner_cover tab-content olive_theme {% if royalty >= minPoint and royalty <= maxPoint %} current {% endif %} {% if royalty < minPoint %} locked {% endif %} {% if royalty >= maxPoint %}complete {% endif %}" id="{{shop.metafields.circle[circle[0]] | split:'|' | first}}">
+    {% assign redeem_lock0 = shop.metafields.circle[levelName] | split : '|' %}
+    {% assign gift_lock0 = shop.metafields.circle[levelName] | split : '|' %}
+    {% assign left_p = maxPoint | minus:royalty %}
+    {% assign redeem1 = redeem_lock0[1] | times:320 | divided_by:maxPoint %}
+    {% assign redeem2 = redeem_lock0[4] | times:320 | divided_by:maxPoint %}
+    {% assign redeem3 = redeem_lock0[7] | times:320 | divided_by:maxPoint %}
+
+    {% assign gift1 = gift_lock0[1] | plus:0 %}
+    {% assign gift2 = gift_lock0[4] | plus:0 %}
+    {% assign gift3 = gift_lock0[7] | plus:0 %}
+    <div class="gift_in mt-3">
+      <div class="cover">
+        <div class="inner">
+          <div class="cssprogresscontainer">
+            <div class="pie_main"  data-count="{{royalty}}">
+
+              <svg id="animated" viewbox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="transparent"/>
+                {% unless royalty < minPoint %}
+                <path id="progress" stroke-linecap="round" stroke-width="4" stroke-dasharray= "{{stro}} 237"; stroke="{{shop.metafields.circle[circle[0]] | split:'|' | last}}" fill="none"
+                      d="M50 10
+                         a 40 40 0 0 1 0 80
+                         a 40 40 0 0 1 0 -80">
+                  {% endunless %}
+                </path>
+              </svg>
+              {% unless royalty < minPoint %}
+              <div class="degree" style="transform: translateY(-50%)rotate({{deg}}deg);">
+                <img src="{{ 'dot_one.svg' | asset_url }}">
+              </div>
+              {% assign lvl_nme = levelName | split:'level_' | last | replace:'_',' ' | replace:'My','' | strip %}
+              <div class="start tick">
+                {% if lvl_nme == 'Olive Circle' %}
+                  {% include 'olive_tick' %}
+                {% else %}
+                {% include 'tick' %}
+                {% endif %}
+                <style>
+                  {% assign clr = section.settings.t_color %}
+                  #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .tick svg .a {
+                    fill: {{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                  }
+                </style>
+              </div>
+              {% endunless %}
+              {% if royalty < minPoint %}
+              <div class="points_re">
+                <div class="points_inner complete_points">
+                  {% include 'lock' %}
+                  <style>
+                    {% assign clr = section.settings.t_color %}
+                    #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .complete_points svg .a {
+                      fill:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                    }
+                  </style>
+                  <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">Circle Locked</span>
+                  <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' | replace:'My',''}} - {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                </div>
+              </div>
+              {% else %}
+              {% assign in = 1 %}
+              {% for lock in redeem_lock0 %}
+              {% assign lockdata = lock | plus:0 %}
+              {% if lockdata > 0%}
+              {% assign deg = lockdata | times:320 | divided_by:maxPoint %}
+              {% assign i = forloop.index0 | minus:1 %}
+              {% assign lvl_nme = levelName | split:'level_' | last | replace:'_',' ' | replace:'My','' | strip %}
+              <div class="lock step{{forloop.index}}" data-circlenm="{{ lvl_nme }}" data-point="{{ lockdata }}" style="transform: translateY(-50%)rotate({{deg}}deg);">
+                {% if lvl_nme == 'Olive Circle' %}
+                  {% if lockdata == 1000 %}
+                	<img class="content" src="{{ 'Component_lock2.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+                  {% else %}
+                	<img class="nocontent" src="{{ 'lock.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+				  {% endif %}
+                {% else %}
+                	<img class="nocontent" src="{{ 'lock.svg' | asset_url }}" {% if royalty >= lockdata %}title=""{% elsif forloop.first %}title="" {%else %}title="Upgrade"{% endif %} style="transform:rotate(-{{deg}}deg);">
+                {% endif %}
+                <span class="outer_content" style="display:none;"><span class="circle_nm" style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ lvl_nme }}</span><span class="circle_point" style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ lockdata | append : ' pts'}}</span></span>
+                
+                <style>
+                  #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .ui-tooltip{
+                    color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                  }
+                  .lock.step5 .upgrae{
+                    transform: rotate(-16deg);
+                    position: absolute;
+                    top: auto;
+                    bottom: -35px;
+                    left: -6px;
+                    right: auto;
+                    padding: 0 15px;
+                    background: #83937b;
+                    border-radius: 11px;
+                    color: #fff;
+                    z-index: -1;
+                    display:none;
+                    transition-duration:0.4s;
+                  }
+                  .lock.step5:hover .upgrae{
+                    display:block;
+                    transition-duration:0.4s;
+                  }
+                </style>
+              </div>
+              {% endif %}
+              {% endfor %}
+              <div class="points_re">
+                <div class="points_inner incomplete_points">
+                  <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{royalty}}</span>
+                  <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.out_of' | t: out_of }} {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                </div>
+                <div class="points_inner complete_points" style="display:none;">
+                  {% include 'tick' %}
+                  <style>
+                    {% assign clr = section.settings.t_color %}
+                    #{{shop.metafields.circle[circle[0]] | split:'|' | first}} .complete_points svg .a {
+                      fill:{{shop.metafields.circle[circle[0]] | split:'|' | last}};
+                    }
+                  </style>
+                  <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.completed' | t: completed }}</span>
+                  <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' | replace:'My',''}} - {{maxPoint}} {{ 'circle_page.title.points' | t: points }}</label>
+                </div>
+              </div>
+              {% endif %}
+              <style>
+                #tab-0 .pie_main:after{
+                  border-color:{{shop.metafields.circle[circle[0]] | split:'|' | last}}; 
+                }
+              </style>
+            </div>
+
+          </div>
+        </div>
+        <div class="inner text_part">
+          <div class="text_inner">
+            <h3 style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{levelName | split:'level_' | last | replace:'_',' ' }}</h3>
+            <span class="date"><span>{{ 'circle_page.title.joined' | t: joined }}</span> 5/6/21</span>
+            {% unless royalty < minPoint %}
+            <a href="javascript:;" class="btn_link incom hover_here_plz" data-points={{royalty}}><b><p class="left_points">{{left_p}}</p> {{ 'circle_page.title.more_points' | t: more_points }}</b><span style="display:inline-block; padding-left:3px;">{{ 'circle_page.title.till_your_next_gift' | t: till_your_next_gift }}</span></a>
+            <a href="javascript:;" class="btn_link com" style="display:none;color:{{shop.metafields.circle[circle[0]] | split:'|' | last}} !important;"><b>{{ 'circle_page.title.congratulations_level_up' | t: congratulations_level_up }}</b></a>
+            {% else %}
+            <a href="javascript:;" class="btn_link com"><b>You haven’t unlocked this level yet!</b></a>
+            {% endunless %}
+            <a href="/collections/all-products" class="btn-new border">{{ 'circle_page.title.back_to_shop' | t: back_to_shop }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% assign circleMeta = shop.metafields.circle[levelName] | split:'|' %}
+
+    {% render 'product_info', circleMeta:circleMeta, name:levelName  %}
+
+
+    <div class="gift_in collection_gift" id="col-scroll">
+      <div class="top_label">
+        <label style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.unlock_your_gift_collection' | t: unlock_your_gift_collection }}</label>
+        <p style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{ 'circle_page.title.discover_more_gifts_by_earning_points' | t: discover_more_gifts_by_earning_points }}</p>
+      </div>
+      <div class="top_label_complete" style="display:none;">
+        <label>{{ 'circle_page.title.gift_collection_has_been_unlocked' | t: gift_collection_has_been_unlocked }}</label>
+      </div>
+      <div class="expand_view">
+        {% if request.locale.iso_code == 'el' %}
+        	<img src="{{ 'back_sh_gr.png' | asset_url }}" class="shp"/>
+        	<img src="{{ 'expand_btn_gr.png' | asset_url }}" class="exp"/>
+        {% else %}
+          <img src="{{'expand_btn.svg' | asset_url}}" class="exp">
+          <img src="{{'back_sh.svg' | asset_url}}" class="shp">
+        {% endif %}
+      </div>
+      <div class="collection_in dragscroll" data-levelname="{{levelName}}">
+        {% assign index = 1 %}
+        {% assign forindex = 0 %}
+        {% for meta in circleMeta %}
+        
+        {% assign poi = meta | plus:0 %}
+        
+        {% if poi > 0 %}
+        {% if poi == 1 %}
+        {% assign gift = poi | minus:1 %}
+        {% else %}
+        {% assign gift = poi %}
+        {% endif %}
+        {% assign i = forloop.index0 | minus:1 %}
+        {% if forindex != 0 %}
+        {% assign forindex = forindex | minus:1 %}
+        {% assign giftName = circleMeta[forindex] %}
+        {% else %}
+        {% assign giftName = circleMeta[i] %}
+        {% endif %}
+        {% endif %}
+        {% if meta contains 'CollectionName_' %}
+        {% assign level_name = meta | replace:'CollectionName','' | replace:' ','_' | prepend:'level' %}
+        {% for collectionname in shop.metafields.Collection %}
+        {% assign lev_name = level_name | split:',' | first %}
+        {% if lev_name == collectionname[0] %}
+        {% assign value = collectionname[1] %}
+        {% break %}
+        {% endif %}
+        {% endfor %}
+        
+        {% assign flag = 1 %}
+        {% for order in customer.orders %}
+        {% if order.total_price == 0 %}
+        {% assign orderTags = order.tags | join:',' %}
+        {% if gift == 0 %}
+        {% assign welcomgift = '0' %}
+        {% for tag in order.tags %}
+        {% if tag == welcomgift %}
+        {% for item in order.line_items %}
+        {% if value contains item.product_id %}
+        {% assign flag = 0 %}
+        {% break %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        {% if orderTags contains gift %}
+        {% for item in order.line_items %}
+        {% if value contains item.product_id %}
+        {% assign flag = 0 %}
+        {% break %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+		
+        {% if flag == 1 %}
+        {% assign vs = value | split:'|' %}
+        {% for v in vs %}
+        {% for order in customer.orders %}
+        {% if order.total_price == 0 %}
+        {% assign orderTags = order.tags | join:',' %}
+        {% if gift == 0 %}
+        {% assign welcomgift = '0' %}
+        {% for tag in order.tags %}
+        {% if tag == welcomgift %}
+        {% for item in order.line_items %}
+        {% assign id = item.product_id | strip  %}
+        {% if id == v %}
+        {% assign flag = 0 %}
+        {% break %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        {% if orderTags contains gift %}
+        {% for item in order.line_items %}
+        {% assign id = item.product_id | strip  %}
+        {% if id == v %}
+        {% assign flag = 0 %}
+        {% break %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        {% endif %}
+
+        <div class="box {% cycle 'odd','even' %} {% if royalty < gift %}not_active {% else %} active_now{% endif %} {% if flag != 0 %}unlock_now{% endif %}" data-giftvalue="{{gift}}">
+          <div class="img_cv">
+            <img src="{{level_name | split:',' | last}}" alt="">
+          </div>
+          <div class="text">
+            <span style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{giftName}}</span>
+            <label class="bck_point" style="color:{{shop.metafields.circle[circle[0]] | split:'|' | last}};">{{gift}} <span>{{ 'circle_page.title.points' | t: points }}</span></label>
+            {% if royalty < gift %}
+            <a href="javascript:;" class="btn_coll">{{ 'circle_page.title.locked_gift' | t: locked_gift }}</a>
+            {% else %}
+            {% if flag == 0 %}
+            <a href="javascript:;" class="btn_coll">{{ 'circle_page.title.earned_gift' | t: earned_gift }}</a>
+            {% else %}
+            <a href="javascript:;" class="btn_coll unlock_gift" data-giftName="{{giftName}}" data-gift="{{gift}}" data-name="{{level_name | split:',' | first | append:levelName}}" data-value="{{value}}">{{ 'circle_page.title.unlocked_gift' | t: unlocked_gift }}</a>
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endunless %}
+  {% endif %}
+  {% endfor %}
+  
+  <div class="welcome_gift_main" style="display:none;">
+    <div class="welcome_banner" style="background-image:url({{ section.settings.back_img | img_url:'master' }});">
+      <div class="text_cover">
+        <h3>Welcome Gift</h3>
+        <p>KORRES Beauty Pouch</p>
+      </div>
+    </div>
+    <div class="gift_detail">
+      <p>{{ section.settings.detail}}</p>
+      <a href="javascript:;" class="hidethisone btn-new border">Locked Item</a>
+    </div>
+  </div>
+  {% assign lottery = shop.metafields.Lottery | split : '|' %}
+  <div class="trip_main" style="display:none;">
+    <div class="welcome_banner" style="background-image:url({{ lottery[5] | split : '=>' | last | split:',' | last }});">
+      <div class="text_cover">
+        
+        
+        <h3>{{ lottery[0] | split : '=>' | last | replace : '"',''}}</h3>
+        <p>{{ lottery[1] | split : '=>' | last }}</p>
+      </div>
+    </div>
+    <div class="gift_detail">
+      <p>{{ lottery[5] | split : '=>' | last | split:',http' | first}}</p>
+      {% assign circle_nm = lottery | first | split : '"=>"' | first | replace : '{','' | replace : '"','' | replace : 'level_My_','' | replace : '_',' ' | strip %}
+      <a href="javascript:;" data-circle="{{ circle_nm }}" data-lotterynm="{{ lottery[0] | split : '=>' | last | replace : '"',''}}" data-username="{{ customer.name }}" data-userphone="{{ customer.phone }}" data-useremain="{{ customer.email }}" class="hidethisone trip_gift_main btn-new border">Check my Gift List</a>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .hidethisone{
+    margin: 55px auto 0;
+  }
+  .welcome_gift_main,.trip_main{
+    padding-bottom:232px;
+    position:fixed;
+    top:96px;
+    background:#fff;
+    left:0;
+    right:0;
+    width:100%;
+    max-height:calc(100vh - 96px);
+    overflow-y: auto;
+    z-index: 9999;
+  }
+</style>
+<script>
+  $('.circle_carousel').slick({
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    responsive: [
+
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: true,
+          autoplay:false
+        }
+      }
+    ]
+  });
+</script>
+
+<style>
+  .welcome_banner{
+    background-size:cover;
+    background-position:center;
+    position:relative;
+  }
+  .welcome_banner:after{
+    content:'';
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background:rgba(50,50,45,0.74);
+  }
+  .trip_main .welcome_banner:after{
+   display:none; 
+  }
+  .welcome_banner .text_cover {
+    padding: 121px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .welcome_banner h3 {
+    font-size: 64px;
+    line-height: 77px;
+    letter-spacing: 1.28px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 16px;
+    text-shadow: 0px 3px 6px #00000029;
+  }
+  .welcome_banner p{
+    font-size:32px;
+    line-height:32px;
+    color:#fff;
+    text-shadow: 0px 3px 6px #00000029;
+    margin:0;
+    text-align:center;
+    
+  }
+  .gift_detail p{
+    font-size: 22px;
+    line-height: 35px;
+    color: #231F20;
+    text-align: center;
+    max-width: 1186px;
+    margin: 0 auto;
+  }
+  .gift_detail {
+    margin-top: 63.5px;
+  }
+  .gift_inner_cover .gift_in.collection_gift label.bck_point{
+    display: flex;
+  }
+  .gift_inner_cover .gift_in.collection_gift label.bck_point span{
+    padding-left:3px;
+  }
+  .inner.text_part span.date{
+    display:flex;
+  }
+  img.shp{
+    display:none; 
+  }
+  .width_full .exp{
+    display:none;
+  }
+  .width_full .shp{
+    display:block; 
+  }
+  p.left_points {
+    display: inline;
+    margin: 0;
+  }
+  #My_White_Circle .text_inner h3 {
+    color: #B4BCD3 !important;
+  }
+  #My_White_Circle .points_inner span,#My_White_Circle .points_inner label,
+  #My_White_Circle .gift_in label, #My_White_Circle .gift_in p,
+  #My_White_Circle .coll_cover .text span,#My_White_Circle .coll_cover .text lebel
+  {
+    color:#32322D !important;
+  }
+
+  /*   complete style */
+  .gift_inner_cover.complete .top_label{
+    display:none; 
+  }
+  .width_full .top_label label{
+  text-align:center !important;
+  width:100%;
+}
+.width_full .top_label{
+   width:100% !important;
+}
+  .width_full .top_label_complete{
+    text-align:center;
+  }
+  .gift_inner_cover.complete .top_label_complete{
+    display:block !important;
+    position: relative;
+    top: -6px;
+    
+  }
+  .gift_inner_cover.complete .expand_view{
+    top:-16px; 
+  }
+  .gift_inner_cover.complete .tick,
+  .gift_inner_cover.complete .degree,
+  .gift_inner_cover.complete .lock,
+  .gift_inner_cover.complete .unlock,
+  .gift_inner_cover.complete .incomplete_points,
+  .gift_inner_cover.complete .btn_link.incom{
+    display: none;
+  }
+  .gift_inner_cover.complete .complete_points,.gift_inner_cover.complete .btn_link.com{
+    display:block !important; 
+  }
+  @media(min-width:1024px){
+    .gift_inner_cover.complete .btn_link.com {
+      max-width:310px;
+    }
+  }
+  .gift_inner_cover.complete .btn_link.com b{
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .gift_inner_cover.complete .complete_points span{
+    font-size: 34px;
+  }
+  .points_inner.complete_points svg {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto;
+    display: block;
+  }
+  .points_inner.complete_points svg line.b {
+    stroke: #fff;
+  }
+  div#My_White_Circle .points_inner.complete_points svg line.b{
+    stroke:#190088
+  }
+
+  /*   tabs */
+  .gift_main ul.tabs {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    border-bottom: 1px #9d9894 solid;
+    max-width: 1100px;
+    margin: 0 auto;
+    margin-bottom: 98px;
+    text-align: center;
+    display: flex;
+  }
+  .gift_main ul.tabs li{
+    background: none;
+    color: #9d9894;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 22px;
+    font-family: Roboto-Light, Roboto;
+    font-weight: 300;
+    width:100%;
+  }
+
+  .gift_main ul.tabs li.current {
+    color: #32322d;
+    border-bottom: 1px #32322d solid;
+  }
+
+  .gift_main .tab-content{
+    display: none;
+    padding: 15px;
+  }
+
+  .gift_main .tab-content.current{
+    display: inherit;
+  }
+  .gift_inner_cover.tab-content{
+    display:none; 
+  }
+  .gift_inner_cover.tab-content.current{
+    display:flex; 
+  }
+  .pie_main{
+    position:relative; 
+    width:100%;
+    overflow:hidden;
+  }
+  li.tab-link.notdone{
+    pointer-events: none;
+  }
+  .ui-tooltip {
+    padding: 3px 8px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px #00000029;
+
+  }
+  .pie_main:after {
+    content: '';
+    width: 85%;
+    height: 85%;
+    background-image: url(https://cdn.shopify.com/s/files/1/0515/5785/9489/files/back_border.svg?v=1633324951);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 50%;
+    border-radius: 100%;
+    /* border: 16px #d9d9bf solid; */
+    transform: translateY(-50%);
+    margin: 0 auto;
+    background-size: 108%;
+    background-position: center;
+  }
+  .degree{
+    width: 83%;
+    height: 83%;
+    background: transparent;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 50%;
+    border-radius: 100%;
+    border: 18px transparent solid;
+    transform: translateY(-50%)rotate(
+      116deg);
+    margin: 0 auto;
+    z-index: 11;
+  }
+  .tick{
+    width: 83%;
+    height: 83%;
+    background: transparent;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 50%;
+    border-radius: 100%;
+    border: 18px transparent solid;
+    transform: translateY(-50%)rotate(237deg);
+    margin: 0 auto; 
+    z-index: 99999;
+  }
+  .lock.hhhh.step5 {
+    pointer-events: all;
+  }
+  .lock{
+    width: 83%;
+    height: 83%;
+    background: transparent;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 50%;
+    border-radius: 100%;
+    border: 18px transparent solid;
+    transform: translateY(-50%)rotate(-175deg);
+    margin: 0 auto;
+    z-index: 9999;
+    pointer-events:visible !important;
+  }
+  .gift_main ul.tabs li.tab-link:not(.active){
+    pointer-events:visible !important; 
+  }
+
+  .unlock{
+    width: 83%;
+    height: 83%;
+    background: transparent;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 50%;
+    border-radius: 100%;
+    border: 18px transparent solid;
+    transform: translateY(-50%)rotate(-313deg);
+    margin: 0 auto;
+    z-index: 1;
+  }
+  .unlock span b {
+    display:block;
+  }
+  .unlock span {
+    display: block;
+    color: #656635;
+    font-size: 10px;
+    transform: rotate( 
+      -46deg);
+    position: absolute;
+    top: -32px;
+    left: 31px;
+    background: #fff;
+    padding: 3px 14px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 20%);
+    z-index: 0;
+  }
+  .unlock label {
+    background: #fff;
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0px 0px 2px 1px rgb(0 0 0 / 20%);
+  }
+  .unlock label svg {
+    width: 40px;
+    height: 40px;
+    box-shadow: 0px 0px 2px 1px rgb(0 0 0 / 20%);
+    border-radius: 100%;
+  }
+  #animated{
+    position: relative;
+    z-index: 1;
+    transform: rotate(
+      191deg);
+    width:100%;
+  }
+  .tick svg {
+    width: 40px;
+    position: relative;
+    top: -20px;
+    transform: rotate(-237deg);
+    left: 2px;
+  }
+  .tick svg .b{
+    stroke:#fff; 
+  }
+  .degree img {
+    width: 40px;
+    position: absolute;
+    top: auto;
+    bottom: -30px;
+    left: 62px;
+    right: auto;
+  }
+  .lock img {
+    width: 40px;
+    position: absolute;
+    top: auto;
+    bottom: -30px;
+    left: 62px;
+    right: auto;
+    cursor:pointer;
+  }
+  .gift_in.collection_gift.width_full {
+    width: 100% !important;
+  }
+
+
+  .gift_in.collection_gift.width_full > label, .gift_in.collection_gift.width_full p {
+    text-align: center;
+    display: block;
+  }
+  .unlock svg {
+    width: 60px;
+    position: relative;
+    transform: rotate( 
+      -48deg);
+    z-index: 1;
+  }
+
+
+  .olive_theme .unlock svg .b{
+    stroke: {{section.settings.s_color}}; 
+  }
+  .brown_theme .unlock svg .b{
+    stroke: {{section.settings.s_color1}}; 
+  }
+  .white_theme .unlock svg .b{
+    stroke: {{section.settings.s_color3}}; 
+  }
+  .blue_theme .unlock svg .b{
+    stroke: {{section.settings.s_color3}}; 
+  }
+  .points_re span {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 42px;
+    color: #656635;
+    line-height: 40px;
+  }
+  .points_re .complete_points span{
+    font-size:22px;
+  }
+  .points_re label {
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    color: #656635;
+  }
+
+  .points_re label span {
+    font-size: 12px !important;
+  }
+  .points_re {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  .inner.text_part {
+    padding-right: 0;
+  }
+  .gift_main .cover {
+    display: flex;
+    align-items: center;
+  }
+  .gift_main .text_part h3{
+    font-size:42px;
+    line-height:46px;
+    color:#4D6540;
+    font-weight:300;
+    font-family: Roboto,sans-serif!important;
+    margin-bottom:24px;
+  }
+  .gift_main .inner{
+    width:50%; 
+    padding: 0 35px;
+  }
+
+  .gift_main .text_part span{
+    font-size: 18px;
+    line-height: 24px;
+    color: #B3B5B6;
+    display: block;
+    width: max-content;
+    margin-bottom: 10px;
+    font-weight: 300;
+    font-family: Roboto,sans-serif!important;
+  }
+  .gift_main .text_part .btn_link{
+    font-size: 16px;
+    line-height: 28px;
+    color: #32322d !important;
+    font-family: Roboto,sans-serif!important;
+    border-bottom: 1px #32322d solid;
+    display: block;
+    width: max-content;
+    margin-bottom: 29px;
+
+  }
+  .gift_main .text_part .btn_link:hover{
+    text-decoration:none; 
+  }
+  .gift_main .text_part .btn-new:hover{
+    text-decoration:none; 
+  }
+  .gift_main .btn-new{    
+    display: inline-flex;
+    font-family: Roboto,sans-serif;
+    border: 1px solid #050f96;
+    border-radius: 12px;
+    color: #050f96;
+    padding: 20px 15px;
+    font-size: 18px;
+    font-weight: 400;
+    text-decoration: none;
+    background-color: transparent;
+    width: 194px;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .gift_main .btn-new:hover {
+    background: #050f96 !important;
+    color: #fff !important;
+  }
+  @media(min-width:1024px){
+    .gift_main .btn-new{
+      width: 272px;
+    }
+  }
+  .gift_inner_cover{
+    display:flex;
+  }
+  .gift_inner_cover .gift_in{
+    width:65%; 
+  }
+  .collection_gift{
+    position:relative;
+  }
+  .expand_view{
+    width: 159px;
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0;
+    display:block !important;
+    cursor:pointer;
+  }
+  .expand_view img{
+    width:100%; 
+  }
+  .gift_inner_cover .gift_in.collection_gift{
+    width:45%; 
+    margin-left: 142px;
+  }
+  .gift_inner_cover .gift_in.collection_gift label{
+    font-size: 22px;
+    color: #656635;
+    margin-bottom: 3px;
+    line-height: 22px;
+  }
+  .gift_inner_cover .gift_in.collection_gift p{
+    font-size:18px;
+    color:#707071;
+    margin:0;
+  }
+  .collection_in {
+    display: flex;
+    margin: 0 -10px;
+    margin-top:10px;
+    flex-wrap:wrap;
+    cursor: grab;
+    cursor : -o-grab; 
+    cursor : -moz-grab; 
+    cursor : -webkit-grab;
+    overflow:scroll;
+  }
+
+  .collection_gift:not(.width_full) .collection_in{
+    max-height: 740px;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .coll_cover .box{
+    overflow:hidden;
+  }
+
+  .coll_cover.cover_one .box .img_cv{
+    margin-top:40%;
+  }
+
+  .collection_gift:not(.width_full) .collection_in::-webkit-scrollbar {
+    display: none;
+  }
+
+  .collection_gift.width_full .collection_in{
+    flex-wrap:nowrap;
+  }
+
+  .coll_cover{
+    width: 100%;
+    display: flex;
+    flex-flow:row wrap;
+  }
+
+  .coll_cover.cover_one{
+    width:60%;
+  }
+
+  .coll_cover.cover_two{
+    width:40%;
+  }
+
+  .newthing {
+    width: 100%;
+  }
+
+  .coll_cover .box {
+    box-shadow: 0 0 12px #00000029;
+    margin: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: auto;
+  }
+  .coll_cover .box .img_cv{
+    padding-top: 100%;
+  }
+
+  .collection_in .img_cv{
+    position:relative;
+  }
+  .collection_in .img_cv img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    object-fit: cover;
+  }
+  .coll_cover .box .text{
+    padding: 20px;
+  }
+  .coll_cover .box span{
+    display: block;
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: #656635;
+  }
+  .coll_cover .box label{
+    font-size: 18px !important;
+    color: #707071;
+    margin-bottom: 3px;
+    line-height: 16px;
+  }
+  .coll_cover .box .btn_coll{
+    display: block;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 0 12px #00000029;
+    width: max-content;
+    padding: 6px 13px;
+    border-radius: 8px;
+    margin-top: 8px;
+    color:#050F96;
+  }
+  .coll_cover .box .btn_coll:hover{
+    color:#fff !important;
+    background:#002f87;
+  }
+
+  /*   brown circle */
+  .brown_theme .unlock,.white_theme .unlock{
+    transform: translateY(-50%)rotate( 
+      -365deg);
+  }
+  .blue_theme .unlock {
+    transform: translateY(-50%)rotate( 
+      -426deg);
+  }
+  .brown_theme .unlock svg,.white_theme .unlock svg{
+    transform: rotate(
+      4deg);
+  }
+  .blue_theme .unlock svg {
+    transform: rotate( 
+      66deg);
+  }
+  .brown_theme .unlock span,.white_theme .unlock span {
+    display: block;
+    color: #656635;
+    font-size: 10px;
+    transform: rotate( 
+      5deg);
+    position: absolute;
+    top: 8px;
+    right: auto;
+    left: -72px;
+    background: #fff;
+    padding: 3px 14px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 20%);
+    z-index: 0;
+  }
+  .blue_theme .unlock span {
+    transform: rotate( 
+      66deg);
+    top: -44px;
+    left: -36px;
+  }
+  .brown_theme .degree{
+    transform: translateY(-50%)rotate( 
+      44deg);
+  }
+  .white_theme .degree {
+    transform: translateY(-50%)rotate( 
+      24deg);
+  }
+  .blue_theme .degree {
+    transform: translateY(-50%)rotate( 
+      24deg);
+  }
+  .brown_theme .lock.step2,.white_theme .lock.step2{
+    transform: translateY(-50%)rotate( 
+      -223deg);
+  }
+  .blue_theme .lock.step2 {
+    transform: translateY(-50%)rotate( 
+      -210deg);
+  }
+  .brown_theme .lock.step2 img,.white_theme .lock.step2 img {
+    transform: rotate(
+      222deg);
+  }
+  .blue_theme .lock.step2 img {
+    transform: rotate( 
+      211deg);
+  }
+  .brown_theme .lock.step3,.white_theme .lock.step3{
+    transform: translateY(-50%)rotate( 
+      -263deg);
+  }
+  .blue_theme .lock.step3 {
+    transform: translateY(-50%)rotate( 
+      -246deg);
+  }
+  .brown_theme .lock.step3 img,.white_theme .lock.step3 img{
+    transform: rotate(
+      263deg);
+  }
+  .blue_theme .lock.step3 img {
+    transform: rotate( 
+      245deg);
+  }
+  .white_theme .lock.step4{
+    transform: translateY(-50%)rotate( 
+      45deg);
+  }
+  .blue_theme .lock.step4 {
+    transform: translateY(-50%)rotate( 
+      80deg);
+  }
+  .blue_theme .lock.step5 {
+    transform: translateY(-50%)rotate( 
+      42deg);
+  }
+  .blue_theme .lock.step6 {
+    transform: translateY(-50%)rotate( 
+      6deg);
+  }
+  .blue_theme .lock.step7 {
+    transform: translateY(-50%)rotate( 
+      -29deg);
+  }
+  .blue_theme .lock.step4 img{
+    transform: rotate( 
+      281deg);
+  }
+  @media(max-width:1440px){
+    .gift_inner_cover .gift_in.collection_gift {
+      margin-left: 30px;
+      padding: 5px;
+
+      overflow-x: scroll;
+    }
+    .gift_main .text_part h3 {
+      font-size: 36px;
+    }
+    .gift_inner_cover.complete .complete_points span {
+      font-size: 24px;
+      line-height: 35px;
+      margin-bottom: 6px;
+    }
+    .points_re label,.points_re label span{
+      font-size:12px;
+    }
+    .points_re label span{
+      margin-bottom:3px;
+      line-height: 1;
+      padding:0 3px;
+    }
+    .points_re label{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  @media(min-width:1025px){
+    .top_label {
+      width: calc(100% - 170px);
+    } 
+    .top_label_complete label {
+      font-size: 20px !important;
+    }
+  }
+  @media(max-width:1024px){
+    .gift_inner_cover.tab-content.current {
+      display: flex;
+      flex-direction: column;
+      width:100%;
+    } 
+    .gift_inner_cover .gift_in {
+      width: 100%;
+    }
+    .gift_inner_cover .gift_in.collection_gift {
+      width: 100%;
+      margin-left: 0;
+      overflow:hidden;
+    }
+    .degree, .tick, .lock, .unlock {
+      width: 79%; 
+      height: 79%;
+    }
+    .page-circle-main .circle_main {
+      margin: 120px 0 84px 0;
+    }
+    .collection_gift:not(.width_full) .collection_in{
+      max-height:unset;
+      overflow:hidden;
+    }
+  }
+
+
+  @media(max-width:768px){
+    .welcome_banner h3 {
+      font-size: 40px;
+      line-height: 44px;
+    }
+    .welcome_banner p {
+      font-size: 24px;
+      line-height: 24px;
+    }
+    .gift_detail {
+      margin-top: 38.5px;
+    }
+    .gift_detail p {
+      font-size: 18px;
+      line-height: 26px;
+    }
+    .lock{
+      z-index:9 !important;
+    }
+    .gift_in h3 {
+      font-family: 'Graphik';
+      text-align: center;
+    }
+    .gift_inner_cover.tab-content {
+      display: block;
+    }
+    .page-circle-main .circle_main {
+      margin: 98px 0 84px 0 !important;
+    }
+    .gift_main .cover{
+      flex-direction:column; 
+    }
+    .gift_main ul.tabs {
+      display: block !important;
+      overflow-x: auto;
+      white-space: nowrap;
+      margin-bottom:0;
+    }
+    span.date {
+      width: 100%;
+      text-align: center;
+      display: block;
+    }
+    .gift_main .btn-new {
+      font-family: Roboto,sans-serif;
+      border: 1px solid #050f96;
+      border-radius: 12px;
+      color: #050f96;
+      padding: 16px 15px;
+      font-size: 18px;
+      font-weight: 400;
+      text-decoration: none;
+      background-color: transparent;
+      width: 100%;
+      height: fit-content;
+      display: block;
+      max-width: 50%;
+      line-height: 1;
+      margin: 0 auto;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+    .gift_main .text_part span{
+      display:inline; 
+    }
+    .gift_main .text_part .btn_link{
+      width: 100%;
+      text-align: center;
+      margin:0;
+    }
+    .gift_main ul.tabs li {
+      font-size: 18px;
+      width: 130px;
+      margin-right:10px;
+    }
+    .gift_inner_cover.tab-content,.gift_main .inner{
+      padding:0; 
+      width: 90%;
+      margin: 0 auto;
+    }
+    .inner.text_part {
+      margin-bottom: 45px;
+    }
+    .collection_in{
+      flex-direction:column; 
+    }
+    .coll_cover{
+      display:block;
+      width:100%;
+    }
+    .coll_cover:last-child{
+      width:100%; 
+    }
+    .coll_cover:last-child .img_cv {
+      margin-top: 0;
+      padding-top: 100%;
+    }
+    .main-nav__desktop{
+      display:none; 
+    }
+    .expand_view{
+      display:none !important; 
+    }
+    .coll_cover.cover_two {
+      width: 100%;
+    }
+    .newthing {
+      width: 50%;
+      display: inline-block;
+    }
+    .coll_cover .box .text {
+      padding: 20px 20px 20px 12px;
+    }
+    .top_label {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .top_label label {
+      color: #333 !important;
+      line-height: 33px !important;
+    }
+    .top_label p {
+      color: #8d8383 !important;
+    }
+    .slick-prev:before, .slick-next:before{
+     color"#333 !important; 
+    }
+    .slick-prev, .slick-next{
+     top:8% !important; 
+    }
+  }
+  .collection_gift .collection_in .coll_cover .box:hover .text label{
+    color:#050F96 !important;
+  }
+  .gift_product_data{
+    display:none;
+    position: absolute;
+    top: 169px;
+    background: #fff;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: calc(100vh - 169px);
+    z-index: 9999;
+    overflow-y:auto;
+  }
+  body.fixed_body{
+    position:fixed;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+  }
+
+  .lock:hover .hover_area {
+    display: block;
+  }
+
+  .hover_area {
+    display: none;
+    position: absolute;
+    top: 223px;
+    background: #fff;
+    border-radius: 25px;
+    border: 1px solid #fff;
+    box-shadow: 1px 1px 5px #ccc;
+    padding: 0 10px;
+    z-index: -1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  @media(max-width:767px){
+    .degree, .tick, .lock, .unlock {
+      width: 85%;
+      height: 85%;
+    } 
+  }
+  img.collection_image_on_hover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+  .pie_main .lock img:hover + .outer_content{
+  	display:block;
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "Gift Section",
+  "class": "gift_section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "back_img",
+      "label": "welcome banner"
+    },
+    {
+      "type": "textarea",
+      "id": "detail",
+      "label": "welcome gift detail"
+    },
+    {
+      "type": "image_picker",
+      "id": "back_img_trip",
+      "label": "trip banner"
+    },
+    {
+      "type": "textarea",
+      "id": "detail_trip",
+      "label": "Trip detail"
+    },
+    {
+      "type": "color",
+      "id":"t_color",
+      "label": "theme color"
+    },
+    {
+      "type": "color",
+      "id":"l_color",
+      "label": "theme color Light"
+    },
+    {
+      "type": "color",
+      "id":"s_color",
+      "label": "Stroke color"
+    },
+    {
+      "type": "text",
+      "id" : "title",
+      "label" : "Title"
+    },
+    {
+      "type": "text",
+      "id" : "points",
+      "label" : "Out of Points"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text",
+      "label" : "Button text"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text1",
+      "label" : "Button text back"
+    },
+
+    {
+      "type": "color",
+      "id":"t_color1",
+      "label": "theme color"
+    },
+    {
+      "type": "color",
+      "id":"l_color1",
+      "label": "theme color Light"
+    },
+    {
+      "type": "color",
+      "id":"s_color1",
+      "label": "Stroke color"
+    },
+    {
+      "type": "text",
+      "id" : "title1",
+      "label" : "Title"
+    },
+    {
+      "type": "text",
+      "id" : "points1",
+      "label" : "Out of Points"
+    },
+    {
+      "type": "text",
+      "id" : "btn_textone",
+      "label" : "Button text"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text11",
+      "label" : "Button text back"
+    },
+
+    {
+      "type": "color",
+      "id":"t_color2",
+      "label": "theme color"
+    },
+    {
+      "type": "color",
+      "id":"l_color2",
+      "label": "theme color Light"
+    },
+    {
+      "type": "color",
+      "id":"s_color2",
+      "label": "Stroke color"
+    },
+    {
+      "type": "text",
+      "id" : "title2",
+      "label" : "Title"
+    },
+    {
+      "type": "text",
+      "id" : "points2",
+      "label" : "Out of Points"
+    },
+    {
+      "type": "text",
+      "id" : "btn_texttwo",
+      "label" : "Button text"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text12",
+      "label" : "Button text back"
+    },
+
+    {
+      "type": "color",
+      "id":"t_color3",
+      "label": "theme color"
+    },
+    {
+      "type": "color",
+      "id":"l_color3",
+      "label": "theme color Light"
+    },
+    {
+      "type": "color",
+      "id":"s_color3",
+      "label": "Stroke color"
+    },
+    {
+      "type": "text",
+      "id" : "title3",
+      "label" : "Title"
+    },
+    {
+      "type": "text",
+      "id" : "points3",
+      "label" : "Out of Points"
+    },
+    {
+      "type": "text",
+      "id" : "btn_textthree",
+      "label" : "Button text"
+    },
+    {
+      "type": "text",
+      "id" : "btn_text13",
+      "label" : "Button text back"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "circle",
+      "settings": [
+
+
+      ]
+    }
+  ] 
+}
+{% endschema %}
+
+

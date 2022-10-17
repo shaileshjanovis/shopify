@@ -1,0 +1,38 @@
+{% render 'shogun-products', content: page %}
+<div>{% render 'shogun-products', content: page %}
+  {% section 'herberium' %}
+</div>
+<script>
+$('#place-view').on('click', function(e) {
+  $('.herberium-container').removeClass('show-farmers show-herbs').addClass('show-places');
+  $('figure').removeClass('active');
+  $('.loc-pins').removeClass('active');
+});
+$('#farmers-view').on('click', function(e) {
+  $('.herberium-container').removeClass('show-places show-herbs').addClass('show-farmers');
+  $('figure').removeClass('active');
+  $('.loc-pins').removeClass('active');
+});
+$('#herbs-view').on('click', function(e) {
+  $('.herberium-container').removeClass('show-farmers show-places').addClass('show-herbs');
+  $('figure').removeClass('active');
+  $('.loc-pins').removeClass('active');
+});
+$('.loc-pins').on('click', function(e) {
+  $(this).addClass('active').siblings().removeClass('active');
+   $('figure').addClass('active');
+});
+  $('.loaction-title div').on('click', function(e) {
+  $('.loc-pins').addClass('active').siblings().removeClass('active');
+    $('figure').addClass('active');
+});
+</script>
+<script>
+  $(document).ready(function(){
+    var outerContent = $('.herberium-container');
+    var innerContent = $('figure');
+    
+    outerContent.scrollLeft( (innerContent.width() - outerContent.width()) / 2.5);
+    
+});
+</script>

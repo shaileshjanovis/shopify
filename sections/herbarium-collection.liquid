@@ -1,0 +1,150 @@
+<section class="product_home_carousel">
+  <div class="home_product_carousel" data-flickity='{ "cellAlign": "left", "prevNextButtons": true, "pageDots": false }'>
+    {%- assign mycollection = collections[section.settings.collection] -%}
+    {% for product in mycollection.products %}
+  <div class="carousel-cell"><a
+                href="{{ product.url | within: collection }}"
+                class="product-item"
+                data-productid="{{ product.id }}"
+                data-id="{{ first_variant.id }}"
+                data-handle="{{ product_handle }}"
+              >
+     {% for tag in product.tags %}
+    {% if tag contains 'best--seller' %}
+                    <span class="product-tag">BEST SELLER</span>
+  {% endif %}
+
+  {% if tag contains 'New' %}
+  <span class="product-tag">NEW</span>
+  {% endif %}
+
+  {% endfor %}
+  <div class="thumbnail">
+                  <img
+                    src="{{  product.featured_image | img_url: 'master' | format: 'jpg' }}"
+                    alt="{{ block.settings.slide_heading }}"
+                  >
+             {%- unless customer -%}
+                      <button class="primary">Sign Up to Shop</button>
+                    {%- else -%}
+                      <button
+                        type="submit"
+                        id="order-submit"
+                        name="add"
+                        data-price="{{ current_variant.price | money }}"
+                        class="primary"
+                                         >
+                      
+                          Add To Cart 
+                       
+                      {%- endunless -%}
+                    </button> 
+                  
+                  
+                </div>
+                <div class="product-item--review empty"></div>
+                <h4>{{ product.title }}</h4>
+    			{%if customer%}
+                <p class="price">
+                    {{ product.price | money }}
+                  
+                </p>
+    			{%endif%}
+                <div class="mobile">
+                 
+                </div>
+              </a></div>{% endfor %}
+
+
+  
+</div>
+
+  
+
+</section>
+
+
+{% schema %}
+  {
+    "name": "Home Product Slider",
+    "settings": [
+	    {
+      "id": "collection",
+      "type": "collection",
+      "label": {
+        "cs": "Kolekce",
+        "da": "Kollektion",
+        "de": "Kategorie",
+        "en": "Collection",
+        "es": "Colección",
+        "fi": "Kokoelma",
+        "fr": "Collection",
+        "it": "Collezione",
+        "ja": "コレクション",
+        "ko": "컬렉션",
+        "nb": "Samling",
+        "nl": "Collectie",
+        "pl": "Kolekcja",
+        "pt-BR": "Coleção",
+        "pt-PT": "Coleção",
+        "sv": "Produktserie",
+        "th": "คอลเลกชัน",
+        "tr": "Koleksiyon",
+        "vi": "Bộ sưu tập",
+        "zh-CN": "收藏",
+        "zh-TW": "商品系列"
+      }
+    }
+],
+	"presets":[  
+        {  
+           "name":"Home slider",
+           "category":"collection"
+        }
+     ]
+  }
+{% endschema %}
+
+  <style>  
+#shopify-section-herbarium-collection .carousel-cell{
+ width:33%; 
+}
+    a.buy-whole-btn {
+    border: 1px solid #333;
+    padding: 15px 25px;
+    color: #000;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    height: 55px;
+    width: 200px;
+    margin-top: 40px;
+}
+a.buy-whole-btn:hover{
+ text-decoration:none; 
+}
+    main#herbarium-page #test-lab .text-lab-link .lab-contain input[type="radio"] {
+    -webkit-appearance: block;
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 25px;
+  visibility: visible;
+      cursor: pointer;
+      display: flex;
+    align-items: center;
+      margin: 0 auto;
+}
+
+main#herbarium-page #test-lab .text-lab-link .lab-contain input[type="radio"]:checked {
+    outline: unset;
+    border: 10px solid #d9d6d3;
+}
+ .section-margin {
+    margin: 55px 0;
+}
+
+</style>
+
+{% javascript %}
+{% endjavascript %}

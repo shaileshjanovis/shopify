@@ -1,0 +1,41 @@
+{% for block in section.blocks %}
+<div class="row no-gutters">
+    <div class="col-12">
+        <div class="privacy-policy-content">
+            <h6>{{block.settings.privacy_title}}</h5>
+            <p>{{block.settings.privacy_description}}</p>
+        </div>
+    </div>
+</div>
+{%endfor%}
+
+{% schema %}
+{
+  "name": "Privacy Blocks",
+  "class": "slideshow",
+  "blocks": [
+     {
+       "name": "Privacy Block",
+       "type": "text",
+       "settings": [
+		{
+           "type": "text",
+           "id": "privacy_title",
+           "label": "Privacy Block Title"
+         },
+		{
+           "type": "richtext",
+           "id": "privacy_description",
+           "label": "Privacy Block Description"
+         }
+       ]
+     }
+   ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

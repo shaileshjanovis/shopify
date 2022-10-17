@@ -1,0 +1,106 @@
+<p id="rc_link_container">
+    <a href="/tools/recurring/login">Manage Subscriptions</a>
+</p>
+<main role="main" class="main-wrap with-sidebar no-header">
+    <div class="page-sidebar">
+        {% render 'customers-sidebar', active: 'orders' %}
+    </div>
+    <div class="page-main-content">
+        <div class="section-wrap section-profile">
+            <h1 class="section-title">Profile</h1>
+
+            <div class="section section-profile-info">
+                <h2 class="section-sub-title">Personal Information</h2>
+                <ul class="info-list">
+                    <li>{{ customer.first_name }} {{ customer.last_name }}</li>
+                    <li>{{ customer.email }}</li>
+
+                    {{ customer.metafields.global.neww }}
+                </ul>
+            </div>
+        </div>
+        <div class="section-separator"></div>
+        {% assign cols = "Order number;Date;Shipping status;Total" | split: ";" %}
+        <div class="section-wrap section-orders">
+            <h1 class="section-title">My Orders</h1>
+            {% paginate customer.orders by 10 %}
+                {% if customer.orders.size != 0 %}
+                    <table class="account-table table-orders break-desktop">
+                        <thead>
+                        <tr>
+                            {% for col in cols %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in customer.orders %}
+                            <tr>
+                                <th class="show-small">{{ cols[0] }}</th>
+                                <td class="col-order-num">
+                                    {{ order.name | link_to: order.customer_url | remove: "#" | prepend: "SHP00" }}
+                                </td>
+                                <th class="show-small">{{ cols[1] }}</th>
+                                <td>{{ order.created_at | date: format: 'date' }}</td>
+                                <th class="show-small">{{ cols[2] }}</th>
+                                <td class="col-fulfillment">
+
+                                    {% case order.fulfillment_status_label %}
+                                        {% when 'Unfulfilled' %}
+
+                                            {% assign orderTags = order.tags | join: ', ' %}
+                                            {% if orderTags contains 'in_transit' %}
+                                                Processing
+                                            {% else %}
+                                                Pending
+                                            {% endif %}
+                                        {% else %}
+                                            Delivered
+                                    {% endcase %}
+
+                                    {% if order.fulfillment_status == 'fulfilled' %}
+                                        {% assign tracking_urls = "" %}
+                                        {% for line in order.line_items %}
+                                            {% if line.fulfillment.tracking_url %}
+                                                {% assign tracking_urls = tracking_urls | append: line.fulfillment.tracking_url | append: '#*%*#' %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% assign tracking_urls = tracking_urls | split: '#*%*#' | uniq %}
+                                        {% assign tracking_count = tracking_urls | size %}
+                                        <ul class="tracking-list">
+                                            {% for tracking_url in tracking_urls %}
+                                                <li>
+                                                    <a href="{{ tracking_url }}" rel="noopener noreferrer"
+                                                       target="_blank" class="general-link">
+                                                        Track
+                                                        Package{% if tracking_count > 1 %} #{{ forloop.index }}{% endif %}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </td>
+                                <th class="show-small">{{ cols[3] }}</th>
+                                <td>{{ order.total_price | money }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <h2 class="section-sub-title">You haven’t placed any orders with us.</h2>
+                    <p>What is your skin in the mood for? </p>
+                    <div>
+                        <a href="{{ shop.secure_url }}" class="primary-btn btn-shop-now">Shop Now</a>
+                    </div>
+                {% endif %}
+                {% for part in paginate.parts %}
+                    {% if part.is_link %}
+                        {% assign paginate.parts[forloop.index0].url = paginate.parts[forloop.index0].url | append: '#page-orders' %}
+                    {% endif %}
+                {% endfor %}
+                <div class="account-pagination-wrap">
+                    {{ paginate | default_pagination: next: '<i class="icon ki-caret-right"></i>', previous: '<i class="icon ki-caret-left"></i>' }}
+                </div>
+            {% endpaginate %}
+        </div>
+    </div>
+</main>

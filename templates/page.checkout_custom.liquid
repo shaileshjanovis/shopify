@@ -1,0 +1,32 @@
+<div class="checkout_main">
+  <div class="checkout-width">
+    {% section 'custom_checkout' %}
+  </div>
+</div>
+
+<script>
+  var fromDate = Date.today().addDays(5);
+  var toDate = Date.today().addDays(8);
+
+  document.getElementById('giftfromDate').innerHTML = fromDate.toString('dd/MM/yy');
+  document.getElementById('gifttoDate').innerHTML = toDate.toString('dd/MM/yy');
+
+  document.getElementById('gdelfromDate').innerHTML = fromDate.toString('dd/MM/yy');
+  document.getElementById('gdeltoDate').innerHTML = toDate.toString('dd/MM/yy');
+
+  document.getElementById('gshortfromDate').innerHTML = fromDate.toString('dd/MM');
+  document.getElementById('gshorttoDate').innerHTML = toDate.toString('dd/MM');  
+
+  document.getElementById('gdelshfromDate').innerHTML = fromDate.toString('dd/MM');
+  document.getElementById('gdelshtoDate').innerHTML = toDate.toString('dd/MM');  
+
+  document.getElementById('gsfromDate').innerHTML = fromDate.toString('dd/MM');
+  document.getElementById('gstoDate').innerHTML = toDate.toString('dd/MM');  
+
+  document.getElementById('gdelsfromDate').innerHTML = fromDate.toString('dd/MM');
+  document.getElementById('gdelstoDate').innerHTML = toDate.toString('dd/MM');
+
+  document.getElementById('gsfromDatefinal').innerHTML = fromDate.toString('dd/MM');
+  document.getElementById('gstoDatefinal').innerHTML = toDate.toString('dd/MM');  
+</script>
+

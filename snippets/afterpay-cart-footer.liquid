@@ -1,0 +1,49 @@
+<script>
+    (function () {
+        document.addEventListener('DOMContentLoaded', () => {
+            const fullPageCart = document.querySelector('main.cart-drawer-container');
+            const apConfig = {
+                priceSelector: 'main.cart-drawer-container div.tax',
+                locale: 'en_US',
+                currency: 'USD',
+                afterpayLogoColor: 'color',
+                showUpperLimit: false,
+                hideInterestFree: true,
+                amount: {{ cart.total_price | json }},
+                minMaxThreshold: {
+                    min: 100,
+                    max: 100000,
+                },
+            };
+            let hasSubscription = false;
+            {% for item in cart.items %}
+            {% for p in item.properties %}
+            {% if p.first == 'shipping_interval_frequency' %}
+            hasSubscription = true;
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            if (hasSubscription) {
+                fullPageCart.querySelector(".afterpay-paragraph") && fullPageCart.querySelector(".afterpay-paragraph").remove();
+            } else {
+                !fullPageCart.querySelector(".afterpay-paragraph") && new presentAfterpay(apConfig).init();
+            }
+            const price = fullPageCart.querySelector('div.subtotal > p');
+            const config = {childList: true, subtree: true};
+            const updateOnCartMutation = function (mutations) {
+                apConfig.amount = price.innerText.slice(1) * 100;
+                fullPageCart.querySelector('.afterpay-paragraph') && fullPageCart.querySelector('.afterpay-paragraph').remove();
+                if (!hasSubscription) new presentAfterpay(apConfig).init();
+            }
+            const observer = new MutationObserver(updateOnCartMutation);
+            observer.observe(price, config);
+        });
+    })();
+</script>
+<style type="text/css">
+    main.cart-drawer-container p.afterpay-paragraph {
+        margin-top: 1em;
+
+    }
+</style>
+

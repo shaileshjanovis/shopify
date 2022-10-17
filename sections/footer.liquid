@@ -1,0 +1,114 @@
+<section class="footer--branded-text">
+  <h3>{{ section.settings.branded_title }}</h3>
+
+  {{ section.settings.branded_p }}
+</section>
+
+<section class="footer--nav">
+  <nav>
+    {%- for link in linklists.footer.links -%}
+      <div>
+        <button class="accordion--btn" type="button">
+          {{- link.title -}}
+
+          {%- if link.title == "Connect" -%}
+            <div class="social-links">
+              <a href="{{ settings.social_facebook }}">
+                {% render 'icon-facebook' %}
+              </a>
+              <a href="{{ settings.social_instagram }}">
+                {% render 'icon-instagram' %}
+              </a>
+            </div>
+          {%- endif -%}
+
+          <span class="chevron">{% render 'icon-chevron' %}</span>
+        </button>
+        <div class="accordion--panel">
+          <ul>
+            {%- for child_link in link.links -%}
+              <li>
+                {% unless child_link.title == "Follow" %}
+                  <a
+                    href="{{ child_link.url }}"
+                    class="{% if child_link.title == 'Follow' %}no-emphasis{% endif %}"
+                  >
+                    {{- child_link.title -}}
+                  </a>
+                {% else %}
+                  <span
+                    class="{% if child_link.title == 'Follow' %}no-emphasis{% endif %}"
+                  >
+                    {{- child_link.title -}}
+                  </span>
+                {% endunless %}
+
+                {% if child_link.title == "Follow" %}
+                  <div class="social-links hide-mobile">
+                    <a href="{{ settings.social_facebook }}">{% render 'icon-facebook' %}</a>
+                    <a href="{{ settings.social_instagram }}">{% render 'icon-instagram' %}</a>
+                  </div>
+                {% endif %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    {%- endfor -%}
+  </nav>
+
+  <div class="footer--newsletter">
+    <h5>Sign up for our email list & Enjoy 15% off your first order.</h5>
+
+    {% form 'customer', id: 'newsletter-form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="floating-label">
+        <input
+          id="newsletter_email"
+          type="email"
+          name="contact[email]"
+          placeholder="Email"
+          data-rule="required|email"
+          aria-required="true"
+          {%- if form.errors -%}
+            aria-invalid="true"
+          {%- endif -%}
+        />
+        <label for="newsletter_email">Email</label>
+
+        <button type="submit">
+          <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 15L9 8L0.999998 1" stroke="#444444" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+      {% if form.posted_successfully? %}
+        <p class="form--success">Thanks for subscribing!</p>
+      {% endif %}
+    {% endform %}
+  </div>
+</section>
+
+<div class="copyright">
+  © KORRES USA LTD. All rights reserved
+</div>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "id": "branded_title",
+      "type": "text",
+      "label": "Branded Title",
+      "default": "Pure ingredients from an ancient landscape"
+    },
+    {
+      "id": "branded_p",
+      "type": "richtext",
+      "label": "Branded Text",
+      "default": "<p>Our unique method of gathering ingredients goes beyond farming. We harvest plants and flowers that have grown in the wilds of Greece for thousands of years. This rich heritage gives us confidence in the efficacy of all of our formulas.</p>"
+    }
+  ]
+}
+{% endschema %}
